@@ -1,0 +1,4 @@
+interface:
+  display_name: "Animal Nutritionist"
+  short_description: "Invoke this skill explicitly when needed."
+  default_prompt: "Use $animal-nutritionist for this task."
