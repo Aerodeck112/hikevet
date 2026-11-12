@@ -111,9 +111,9 @@ class ClientResource extends Resource
                 TextColumn::make('created_at')->label('Client din')->date('d.m.Y')->sortable()->toggleable(),
             ])
             ->filters([
-                Filter::make('active')->label('Cu abonament activ')->query(fn (Builder $q) => $q->whereHas('contracts', fn ($c) => $c->where('status', 'active')->where('expires_at', '>', now()))),
-                Filter::make('awaiting')->label('Așteaptă plata la clinică')->query(fn (Builder $q) => $q->whereHas('contracts', fn ($c) => $c->where('status', 'awaiting_clinic'))),
-                Filter::make('expiring')->label('Expiră în 7 zile')->query(fn (Builder $q) => $q->whereHas('contracts', fn ($c) => $c->where('status', 'active')->whereBetween('expires_at', [now(), now()->addDays(7)]))),
+                Filter::make('active')->label('Cu abonament activ')->query(fn (Builder $query) => $query->whereHas('contracts', fn ($c) => $c->where('status', 'active')->where('expires_at', '>', now()))),
+                Filter::make('awaiting')->label('Așteaptă plata la clinică')->query(fn (Builder $query) => $query->whereHas('contracts', fn ($c) => $c->where('status', 'awaiting_clinic'))),
+                Filter::make('expiring')->label('Expiră în 7 zile')->query(fn (Builder $query) => $query->whereHas('contracts', fn ($c) => $c->where('status', 'active')->whereBetween('expires_at', [now(), now()->addDays(7)]))),
             ])
             ->recordUrl(fn (User $record) => static::getUrl('view', ['record' => $record]))
             ->recordActions([Action::make('open')->label('Fișă')->icon('heroicon-o-folder-open')->url(fn (User $record) => static::getUrl('view', ['record' => $record]))]);

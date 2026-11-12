@@ -139,8 +139,8 @@ class ConsentResource extends Resource
         ])->filters([
             SelectFilter::make('status')->label('Stare')->options(collect(ConsentStatus::cases())->mapWithKeys(fn ($s) => [$s->value => $s->label()])),
             SelectFilter::make('origin')->label('Origine')->options(['manual' => 'Manual', 'sterilization' => 'Campanie', 'import' => 'Import']),
-            Filter::make('today')->label('Astăzi')->query(fn (Builder $q) => $q->whereDate('consent_date', today())),
-            Filter::make('month')->label('Luna aceasta')->query(fn (Builder $q) => $q->whereBetween('consent_date', [now()->startOfMonth(), now()->endOfMonth()])),
+            Filter::make('today')->label('Astăzi')->query(fn (Builder $query) => $query->whereDate('consent_date', today())),
+            Filter::make('month')->label('Luna aceasta')->query(fn (Builder $query) => $query->whereBetween('consent_date', [now()->startOfMonth(), now()->endOfMonth()])),
         ])->recordUrl(fn (Consent $record) => static::getUrl('view', ['record' => $record]))
             ->recordActions([
                 Action::make('open')->label('Deschide')->icon('heroicon-o-folder-open')->url(fn (Consent $record) => static::getUrl('view', ['record' => $record])),
