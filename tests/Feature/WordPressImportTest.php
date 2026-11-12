@@ -277,6 +277,43 @@ class WordPressImportTest extends TestCase
         $this->assertTrue(\Illuminate\Support\Facades\Hash::check('parola-test-123', $user->password));
     }
 
+    public function test_archive_admin_is_read_only_filtered_and_exports_are_logged(): void
+    {
+        (new WordPressCoreImporter($this->source()))->run(false);
+        (new SterilizationImporter($this->source()))->run(false, $this->uploads);
+        $case = SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-002')->sole();
+        $doctor = $this->staff(\App\Enums\Role::Doctor);
+        $admin = $this->staff(\App\Enums\Role::Admin);
+
+        $this->actingAs($doctor)->get('/admin/sterilization-archive')->assertOk()->assertSee('HV-ST-2026-002');
+        $this->actingAs($doctor)->get('/admin/sterilization-archive/'.$case->id)->assertOk()->assertSee('Ovariohisterectomie')->assertSee('Păstrat');
+        $this->actingAs($doctor)->get('/admin/sterilization-archive/'.SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-003')->value('id'))->assertOk()->assertSee('Lipsă în sursă');
+        $this->actingAs($doctor)->get('/admin/sterilization-reports?month=2026-08')->assertOk()->assertSee('Centralizator 2026-08')->assertSee('Pisica / Femela');
+        $this->actingAs($this->staff(\App\Enums\Role::Reception))->get('/admin/sterilization-archive')->assertForbidden();
+        $this->actingAs($this->staff(\App\Enums\Role::Editor))->get('/admin/sterilization-reports')->assertForbidden();
+        $this->assertDatabaseHas('audit_logs', ['action' => 'sterilization.viewed', 'subject_id' => $case->id]);
+
+        $exporter = app(\App\Services\Sterilization\ArchiveExporter::class);
+        $report = $exporter->monthlyReport('2026-08');
+        $this->assertSame(1, $report['total']);
+        $this->assertSame(['Pisica / Femela' => 1], $report['summary']);
+        $this->assertSame(['2026-08' => 1, 'fără dată' => 1], $exporter->finalizedByMonth());
+
+        ob_start();
+        $exporter->csv(SterilizationCase::query(), 'x.csv')->sendContent();
+        $csv = ob_get_clean();
+        $this->assertStringContainsString('HV-ST-2026-002;17;2026-08-04', $csv);
+        $this->assertSame(4, substr_count(trim($csv), "\n") + 1);
+
+        $zipPath = $exporter->caseZip($case)->getFile()->getPathname();
+        $zip = new \ZipArchive;
+        $zip->open($zipPath);
+        $this->assertSame('continut-sintetic-fotografie', $zip->getFromName('documente/01-fotografie_pacient.jpg'));
+        $this->assertSame($case->source_row, json_decode($zip->getFromName('dosar-original.json'), true));
+        $zip->close();
+        unset($admin);
+    }
+
     public function test_command_defaults_to_dry_run(): void
     {
         $this->artisan('hikevet:import-wordpress', ['--uploads' => $this->uploads])->expectsOutputToContain('PROBĂ (dry-run)')->assertSuccessful();
