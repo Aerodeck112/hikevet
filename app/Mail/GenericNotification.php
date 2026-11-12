@@ -14,7 +14,7 @@ class GenericNotification extends Mailable
     use Queueable, SerializesModels;
 
     /** @param list<array{path:string,name:string,mime:string}> $files */
-    public function __construct(public string $subjectLine, public string $html, public array $files = []) {}
+    public function __construct(public string $subjectLine, public string $bodyHtml, public array $files = []) {}
 
     public function envelope(): Envelope
     {
@@ -23,7 +23,7 @@ class GenericNotification extends Mailable
 
     public function content(): Content
     {
-        return new Content(view: 'mail.notification', with: ['subjectLine' => $this->subjectLine, 'html' => $this->html]);
+        return new Content(view: 'mail.notification', with: ['subjectLine' => $this->subjectLine, 'html' => $this->bodyHtml]);
     }
 
     public function attachments(): array

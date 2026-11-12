@@ -1,0 +1,74 @@
+{
+  "node_modules/@fontsource-variable/caveat/files/caveat-cyrillic-ext-wght-normal.woff2": {
+    "file": "assets/caveat-cyrillic-ext-wght-normal-DiMfzA-V.woff2",
+    "src": "node_modules/@fontsource-variable/caveat/files/caveat-cyrillic-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/caveat/files/caveat-cyrillic-wght-normal.woff2": {
+    "file": "assets/caveat-cyrillic-wght-normal-D5lnP6kL.woff2",
+    "src": "node_modules/@fontsource-variable/caveat/files/caveat-cyrillic-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/caveat/files/caveat-latin-ext-wght-normal.woff2": {
+    "file": "assets/caveat-latin-ext-wght-normal-Byk3UhVp.woff2",
+    "src": "node_modules/@fontsource-variable/caveat/files/caveat-latin-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2": {
+    "file": "assets/caveat-latin-wght-normal-C1hSzPvX.woff2",
+    "src": "node_modules/@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/jost/files/jost-cyrillic-wght-normal.woff2": {
+    "file": "assets/jost-cyrillic-wght-normal-CjwCQKo9.woff2",
+    "src": "node_modules/@fontsource-variable/jost/files/jost-cyrillic-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/jost/files/jost-latin-ext-wght-normal.woff2": {
+    "file": "assets/jost-latin-ext-wght-normal-BDUtSsKd.woff2",
+    "src": "node_modules/@fontsource-variable/jost/files/jost-latin-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2": {
+    "file": "assets/jost-latin-wght-normal-ObQm3Zd1.woff2",
+    "src": "node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2"
+  },
+  "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-400-normal.woff": {
+    "file": "assets/dela-gothic-one-latin-400-normal-qxqiosUh.woff",
+    "src": "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-400-normal.woff2": {
+    "file": "assets/dela-gothic-one-latin-400-normal-AgyGD05y.woff2",
+    "src": "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-ext-400-normal.woff": {
+    "file": "assets/dela-gothic-one-latin-ext-400-normal-D2KGx611.woff",
+    "src": "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-ext-400-normal.woff2": {
+    "file": "assets/dela-gothic-one-latin-ext-400-normal-BO84qhgB.woff2",
+    "src": "node_modules/@fontsource/dela-gothic-one/files/dela-gothic-one-latin-ext-400-normal.woff2"
+  },
+  "resources/css/site.css": {
+    "file": "assets/site-3wNtogeN.css",
+    "name": "site",
+    "names": [
+      "site.css"
+    ],
+    "src": "resources/css/site.css",
+    "isEntry": true,
+    "assets": [
+      "assets/dela-gothic-one-latin-400-normal-AgyGD05y.woff2",
+      "assets/dela-gothic-one-latin-400-normal-qxqiosUh.woff",
+      "assets/dela-gothic-one-latin-ext-400-normal-BO84qhgB.woff2",
+      "assets/dela-gothic-one-latin-ext-400-normal-D2KGx611.woff",
+      "assets/jost-cyrillic-wght-normal-CjwCQKo9.woff2",
+      "assets/jost-latin-ext-wght-normal-BDUtSsKd.woff2",
+      "assets/jost-latin-wght-normal-ObQm3Zd1.woff2",
+      "assets/caveat-cyrillic-ext-wght-normal-DiMfzA-V.woff2",
+      "assets/caveat-cyrillic-wght-normal-D5lnP6kL.woff2",
+      "assets/caveat-latin-ext-wght-normal-Byk3UhVp.woff2",
+      "assets/caveat-latin-wght-normal-C1hSzPvX.woff2"
+    ]
+  },
+  "resources/js/site.js": {
+    "file": "assets/site-nCP0kuqU.js",
+    "name": "site",
+    "src": "resources/js/site.js",
+    "isEntry": true
+  }
+}

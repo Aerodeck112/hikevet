@@ -12,7 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->web(append: [
+            \App\Http\Middleware\SecurityHeaders::class,
+            \App\Http\Middleware\PublicRedirects::class,
+        ]);
+        $middleware->redirectGuestsTo(fn () => site_url('/acces-cont/'));
+        $middleware->redirectUsersTo(fn () => site_url('/panou-cont/'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
