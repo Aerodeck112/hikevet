@@ -32,6 +32,21 @@ return [
 
     'connections' => [
 
+        // Sursa pentru importul din WordPress: o copie a bazei vechi, restaurata separat (doar citire).
+        'wp' => [
+            'driver' => env('WP_DB_CONNECTION', 'mysql'),
+            'host' => env('WP_DB_HOST', '127.0.0.1'),
+            'port' => env('WP_DB_PORT', '3306'),
+            'database' => env('WP_DB_DATABASE', ''),
+            'username' => env('WP_DB_USERNAME', ''),
+            'password' => env('WP_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'foreign_key_constraints' => false,
+        ],
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),

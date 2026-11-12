@@ -37,3 +37,7 @@ Thumbs.db
 *.sql.gz
 
 /public/css/filament
+
+# Listele de coduri raportate vin din pluginul privat; se citesc local la import
+/database/import-spec/reported-through-september-2026.json
+/database/import-spec/september-2026-145.json
