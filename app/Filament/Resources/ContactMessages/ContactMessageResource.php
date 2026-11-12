@@ -37,9 +37,9 @@ class ContactMessageResource extends Resource
         return Permission::MESSAGES_MANAGE;
     }
 
-    public static function canCreate(): bool
+    protected static function allows(string $action, ?\Illuminate\Database\Eloquent\Model $record = null): bool
     {
-        return false;
+        return $action !== 'create' && (bool) auth()->user()?->can(static::permission());
     }
 
     public static function getNavigationBadge(): ?string

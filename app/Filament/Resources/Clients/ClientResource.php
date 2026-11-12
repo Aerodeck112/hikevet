@@ -49,19 +49,16 @@ class ClientResource extends Resource
         return Permission::CLIENTS_VIEW;
     }
 
-    public static function canCreate(): bool
+    /** Vizualizarea cere clients.view; crearea si editarea cer clients.manage; clientii nu se sterg din admin. */
+    protected static function allows(string $action, ?Model $record = null): bool
     {
-        return (bool) auth()->user()?->can(Permission::CLIENTS_MANAGE);
-    }
+        $user = auth()->user();
 
-    public static function canEdit(Model $record): bool
-    {
-        return (bool) auth()->user()?->can(Permission::CLIENTS_MANAGE);
-    }
-
-    public static function canDelete(Model $record): bool
-    {
-        return false;
+        return match ($action) {
+            'viewAny', 'view' => (bool) $user?->can(Permission::CLIENTS_VIEW),
+            'create', 'update' => (bool) $user?->can(Permission::CLIENTS_MANAGE),
+            default => false,
+        };
     }
 
     public static function getEloquentQuery(): Builder
