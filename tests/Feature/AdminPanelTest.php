@@ -27,6 +27,8 @@ class AdminPanelTest extends TestCase
             '/admin/pages', '/admin/pages/create', '/admin/pages/1/edit', '/admin/posts', '/admin/posts/create', '/admin/posts/1/edit',
             '/admin/faqs', '/admin/faqs/1/edit', '/admin/redirects', '/admin/redirects/create', '/admin/media', '/admin/media/create', '/admin/media/1/edit',
             '/admin/contact-messages', '/admin/clients', '/admin/clients/create',
+            '/admin', '/admin/staff', '/admin/staff/create', '/admin/audit-log', '/admin/clinic-settings', '/admin/marketing-settings', '/admin/data-migration',
+            '/admin/price-lists', '/admin/price-lists/1', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile',
         ]);
     }
 
