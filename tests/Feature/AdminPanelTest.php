@@ -23,18 +23,21 @@ class AdminPanelTest extends TestCase
     public static function screens(): array
     {
         return array_map(fn ($u) => [$u], [
-            '/admin/services', '/admin/services/create', '/admin/services/1/edit', '/admin/team-members', '/admin/team-members/create', '/admin/team-members/1/edit',
-            '/admin/pages', '/admin/pages/create', '/admin/pages/1/edit', '/admin/posts', '/admin/posts/create', '/admin/posts/1/edit',
-            '/admin/faqs', '/admin/faqs/1/edit', '/admin/redirects', '/admin/redirects/create', '/admin/media', '/admin/media/create', '/admin/media/1/edit',
+            '/admin/services', '/admin/services/create', '/admin/services/{Service}/edit', '/admin/team-members', '/admin/team-members/create', '/admin/team-members/{TeamMember}/edit',
+            '/admin/pages', '/admin/pages/create', '/admin/pages/{Page}/edit', '/admin/posts', '/admin/posts/create', '/admin/posts/{Post}/edit',
+            '/admin/faqs', '/admin/faqs/{Faq}/edit', '/admin/redirects', '/admin/redirects/create', '/admin/media', '/admin/media/create', '/admin/media/{Media}/edit',
             '/admin/contact-messages', '/admin/clients', '/admin/clients/create',
             '/admin', '/admin/staff', '/admin/staff/create', '/admin/audit-log', '/admin/clinic-settings', '/admin/marketing-settings', '/admin/data-migration',
-            '/admin/price-lists', '/admin/price-lists/1', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile',
+            '/admin/price-lists', '/admin/price-lists/{PriceList}', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile',
         ]);
     }
 
     #[DataProvider('screens')]
     public function test_super_admin_can_open_every_screen(string $url): void
     {
+        // {Model} se inlocuieste cu ID-ul primei inregistrari: pe MySQL ID-urile nu repornesc de la 1 intre teste.
+        $url = preg_replace_callback('/\{(\w+)\}/', fn ($m) => ('App\\Models\\'.$m[1])::query()->orderBy('id')->value('id'), $url);
+
         $this->actingAs($this->staff(Role::SuperAdmin))->get($url)->assertOk();
     }
 

@@ -67,7 +67,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('display_name');
             $table->unsignedSmallInteger('quantity')->default(1);
-            $table->string('quantity_label', 20)->nullable();
+            $table->string('quantity_label', 80)->nullable();
             $table->unsignedInteger('price_normal');
             $table->unsignedInteger('price_subscription');
             $table->unsignedInteger('points_per_use')->default(0);
