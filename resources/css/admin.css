@@ -1,0 +1,46 @@
+@import '../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../app/Filament/**/*';
+@source '../../resources/views/filament/**/*';
+
+/* Panoul clinicii: aceeasi identitate ca site-ul public, cu densitate potrivita pentru lucru zilnic. */
+.fi-sidebar-nav-groups { row-gap: 1.25rem; }
+.fi-header-heading { letter-spacing: -0.015em; }
+.fi-btn { border-radius: 999px; }
+.fi-input-wrp, .fi-select-input { border-radius: 0.9rem; }
+.fi-section, .fi-ta-ctn, .fi-wi-stats-overview-stat { border-radius: 1.25rem; }
+
+.hv-client { display: grid; gap: 1.25rem; }
+.hv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.75rem; }
+.hv-stat { border-radius: 1.1rem; padding: 1rem 1.1rem; background: #ecf2e3; }
+.dark .hv-stat { background: rgba(255, 255, 255, 0.06); }
+.hv-stat dt { font-size: 0.82rem; color: #47524b; }
+.dark .hv-stat dt { color: #b6c2ba; }
+.hv-stat dd { font-size: 1.55rem; font-weight: 700; margin-top: 0.15rem; line-height: 1.15; }
+.hv-stat dd small { font-size: 0.85rem; font-weight: 500; }
+.hv-card { border: 1px solid rgb(228 228 231); border-radius: 1.25rem; padding: 1.1rem 1.25rem; background: #fff; }
+.dark .hv-card { background: rgb(24 24 27); border-color: rgb(63 63 70); }
+.hv-card h3 { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.75rem; }
+.hv-table { width: 100%; font-size: 0.9rem; border-collapse: collapse; }
+.hv-table th { text-align: left; font-weight: 600; padding: 0.45rem 0.6rem; border-bottom: 1px solid rgb(228 228 231); white-space: nowrap; }
+.hv-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid rgb(244 244 245); vertical-align: top; }
+.dark .hv-table th, .dark .hv-table td { border-color: rgb(63 63 70); }
+.hv-pill { display: inline-block; padding: 0.15rem 0.65rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; background: #ecf2e3; color: #1d2a23; }
+.hv-pill--ok { background: #c8efd9; color: #0a3d28; }
+.hv-pill--warn { background: #ffe3a6; color: #5a3d00; }
+.hv-pill--off { background: #e4e4e7; color: #3f3f46; }
+.hv-pill--bad { background: #fde4e1; color: #7a1a14; }
+.hv-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.25rem; align-items: start; }
+.hv-muted { color: #6b7280; font-size: 0.88rem; }
+.hv-scroll { overflow-x: auto; }
+.hv-cal { display: grid; grid-template-columns: 4rem repeat(7, minmax(110px, 1fr)); font-size: 0.82rem; border: 1px solid rgb(228 228 231); border-radius: 1rem; overflow: hidden; background: #fff; }
+.dark .hv-cal { background: rgb(24 24 27); border-color: rgb(63 63 70); }
+.hv-cal > div { border-bottom: 1px solid rgb(244 244 245); border-right: 1px solid rgb(244 244 245); padding: 0.3rem 0.4rem; min-height: 2.4rem; }
+.dark .hv-cal > div { border-color: rgb(39 39 42); }
+.hv-cal .hv-cal-head { font-weight: 700; background: #ecf2e3; position: sticky; top: 0; }
+.dark .hv-cal .hv-cal-head { background: rgb(39 39 42); }
+.hv-cal .hv-cal-time { color: #6b7280; font-variant-numeric: tabular-nums; }
+.hv-appt { display: block; border-radius: 0.6rem; padding: 0.25rem 0.45rem; margin-bottom: 0.2rem; background: #c8efd9; color: #0a3d28; font-weight: 600; line-height: 1.25; }
+.hv-appt--requested { background: #ffe3a6; color: #5a3d00; }
+.hv-appt--block { background: #e4e4e7; color: #3f3f46; }
+.hv-doc { background: #fff; color: #111; border-radius: 1rem; padding: 1.5rem; border: 1px solid rgb(228 228 231); }
