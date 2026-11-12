@@ -49,3 +49,9 @@ Route::get('/programare/intervale', [BookingController::class, 'slots'])->middle
 Route::post('/programare', [BookingController::class, 'store'])->middleware('throttle:booking');
 Route::get('/programare/confirmare/{token}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/programare/anulare/{token}', [BookingController::class, 'cancel'])->middleware('throttle:forms');
+
+// Documente servite personalului din admin (autorizare pe permisiune + jurnal de acces).
+Route::middleware('auth')->prefix('admin/documents')->group(function () {
+    Route::get('/contracts/{contract}/pdf', [\App\Http\Controllers\Admin\DocumentController::class, 'contractPdf'])->name('admin.contracts.pdf');
+    Route::get('/consents/{consent}/print', [\App\Http\Controllers\Admin\DocumentController::class, 'consentPrint'])->name('admin.consents.print');
+});
