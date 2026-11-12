@@ -1,0 +1,885 @@
+{
+ "services": [
+  {
+   "slug": "analize-de-laborator",
+   "name": "Analize de laborator",
+   "category": "diagnostic",
+   "excerpt": "Testele de sânge analizează funcția organelor corpului, sistemul imunitar și prezența sau activitatea unei boli. Unele teste pot fi folosite pentru a stimula sau suprima…",
+   "body": "<p>Testele de sânge analizează funcția organelor corpului, sistemul imunitar și prezența sau activitatea unei boli. Unele teste pot fi folosite pentru a stimula sau suprima un organ pentru a analiza mai precis funcția sa. Testele mai noi chiar au capacitatea de a analiza genetica animalului de companie pentru anumite boli sau infecții. Daca prietenul dumneavoastră are nevoie de anumite teste speciale, noi le putem trimite la cerere în Germania pentru investigații de specialitate.</p><p>Testele comune analizează funcția ficatului, rinichilor și pancreasului. De asemenea, pot fi testate enzimele, care indică leziuni musculare potențiale și inflamație. Celulele roșii și albe din sânge sunt, de asemenea, testate, care dezvăluie starea de hidratare, anemie, inflamație sau infecție și răspunsurile sistemului imunitar al animalului dvs. de companie.</p> <p>Vârsta și starea animalului dvs. de companie vor fi de obicei suficiente pentru a determina nevoia acestuia de a face un test de sânge. Se recomandă ca analizele de sânge să fie efectuate înainte de anestezie, mai ales dacă se suspectează o problemă. Deoarece animalele de companie îmbătrânesc mult mai repede decât oamenii (aproape șapte ani pentru fiecare dintre ai noștri), este foarte recomandat un screening anual pentru orice afecțiuni în curs de dezvoltare.</p>",
+   "icon": "flask",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 0
+  },
+  {
+   "slug": "radiografie",
+   "name": "Radiografie",
+   "category": "diagnostic",
+   "excerpt": "O radiografie, numită în mod obișnuit raze X, este o imagine bidimensională alb-negru a unei părți din interiorul unui corp. O imagine este generată prin trecerea…",
+   "body": "<p>O radiografie, numită în mod obișnuit raze X, este o imagine bidimensională alb-negru<br/>a unei părți din interiorul unui corp. O imagine este generată prin trecerea radiației printr-o anumită structură sau zonă, cum ar fi pieptul sau un membru, iar imaginea este apoi capturată.</p><p>Imaginile obtinute cu ajutorul aparatului nostru sunt in format digital, radiografia fiind<br/>cel mai comun și mai ușor disponibil test imagistic în practica veterinară. Este folosit pentru a evalua dimensiunea și forma organelor, cum ar fi inima și plămânii, precum și pentru a demonstra oasele rupte, unele obiecte străine, acumulări de lichid și multe alte anomalii care pot ajuta la diagnostic.</p><p>Este, de asemenea, cel mai accesibil test de imagistică și se face cel<br/>mai adesea înainte de oricare dintre celelalte opțiuni de imagistică( Ecografie; RMN; CT).</p>",
+   "icon": "scan",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 1
+  },
+  {
+   "slug": "ecografie",
+   "name": "Ecografie",
+   "category": "diagnostic",
+   "excerpt": "În funcție de imaginile produse, ultrasunetele pot lua diferite forme. În medicina veterinară, ultrasunetele în modul B (modul de luminozitate), numită mai frecvent…",
+   "body": "<p>În funcție de imaginile produse, ultrasunetele pot lua diferite forme. În medicina<br/>veterinară, ultrasunetele în modul B (modul de luminozitate), numită mai frecvent<br/>ultrasunete bidimensional, este cea mai comună formă. Aceasta oferă o imagine<br/>bidimensională a organului scanat. Acesta este tipul de ultrasunete care este folosit pentru a examina structurile abdominale, pentru a efectua diagnosticul de sarcină, pentru a evalua funcția cardiacă și pentru a examina ochii pentru anumite boli oculare.</p><p>Modul M (modul de mișcare) este un tip de mod B în care este afișată o urmărire a<br/>mișcării structurii scanate. O combinație de modul M și ultrasunete bidimensionale sunt<br/>utilizate pentru examinarea pereților, camerelor și valvelor cardiace pentru a evalua funcția cardiacă. Ecografia cardiacă este de obicei denumită ecocardiografie.</p><p>Ecografia Doppler este o formă specializată de ecografie cardiacă în care se poate măsura direcția și viteza fluxului sanguin în inimă și vasele de sânge. Tehnologia Doppler Color-flow face și mai ușoară observarea fluxului de sânge prin inimă și prin vasele de sânge importante.</p><p>Anestezia nu este de obicei necesară pentru majoritatea examinărilor cu ultrasunete,<br/>cu excepția cazului în care se prelevează biopsii. Tehnica este total nedureroasă, iar<br/>majoritatea câinilor vor sta întinși confortabil în timp ce se efectuează scanarea.</p><p>Ocazional, dacă câinele este foarte speriat sau neliniştit, poate fi necesar un sedativ. Dacă urmează să fie luate biopsii, va fi necesar un anestezic cu acțiune scurtă sau un sedativ intens pentru a vă relaxa animalul de companie în timpul procedurii și pentru a preveni potențialele complicații.</p>",
+   "icon": "wave",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 2
+  },
+  {
+   "slug": "medicina-interna",
+   "name": "Medicina Interna",
+   "category": "medicina",
+   "excerpt": "Medicii interni sunt detectivii care lucrează pentru stabilirea unui diagnostic. Odată ce înțelegem boala animalului dvs. de companie, putem discuta despre opțiuni și…",
+   "body": "<p>Medicii interni sunt detectivii care lucrează pentru stabilirea unui diagnostic. Odată ce<br/>înțelegem boala animalului dvs. de companie, putem discuta despre opțiuni și putem adapta un plan de tratament la nevoile individuale ale animalului dvs. de companie.</p><p>De obicei, după o consultație inițială, un pacient va fi internat pentru investigații<br/>suplimentare, cum ar fi analize de sânge, radiografii, ecografie sau alte examene<br/>complementare. După teste, cu excepția cazului în care este nevoie de un tratament<br/>suplimentar imediat, animalele pot merge acasă pentru a aștepta rezultatele.</p><p>Uneori, dacă se constată că un pacient are o boală non-medicală și, de exemplu, are nevoie de intervenție chirurgicală sau de tratament pentru cancer, acesta poate fi tratat in cadrul clinicii noastree, sau poate fi transferat la un spital de referinta.</p><p>Echipa noastră de medici este bucuroasă să discute cazuri la telefon cu colegii<br/>veterinari, iar cu propietarii poate discuta intr-o sedinta online prin intermediul serviciului<br/>nostru „<a href=\"/video-vet/\">VIDEO VET</a>”, înainte de o consultatie oficială.</p>",
+   "icon": "stethoscope",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 3
+  },
+  {
+   "slug": "anestezie-inhalatorie-si-analgezie",
+   "name": "Anestezie inhalatorie si analgezie",
+   "category": "chirurgie",
+   "excerpt": "Rolul serviciului de anestezie si analgezie veterinară este de a oferi îngrijiri perioperatorii si postoperatorii individualizate pentru fiecare animal. Aceasta implică…",
+   "body": "<p>Rolul serviciului de anestezie si analgezie veterinară este de a oferi îngrijiri perioperatorii si postoperatorii individualizate pentru fiecare animal. Aceasta implică o legătură extinsă cu alte servicii, evaluarea riscurilor, stabilizarea, selecția adecvată a medicamentelor și monitorizarea atentă în timpul anesteziei și recuperării.</p><p>De asemenea, suntem implicați în furnizarea continuă de terapie cu fluide și gestionarea durerii pe parcursul perioadei de spitalizare a unui animalut.</p><p>Această abordare face ca anestezia și intervenția chirurgicală să fie cât mai sigure și<br/>lipsite de anxietate și durere posibil</p><p>Folosim o mare varietate de medicamente și diferite tehnici analgezice, cum ar fi analgezia epidurală și blocurile anestezice locale și regionale, pentru a oferi o ameliorare<br/>optimă a durerii animalului dvs. de companie.</p><p>Folosim o gamă extinsă de echipamente de monitorizare anestezice, adaptate fiecărui<br/>pacient. Aceasta include: Electrocardiografie/ Pulsoximetria/Capnografie/ Monitorizarea<br/>gazelor inspirate/ Temperatura corporala/ Monitorizarea invazivă și neinvazivă a tensiunii<br/>arteriale</p>",
+   "icon": "mask",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 4
+  },
+  {
+   "slug": "terapie-intensiva",
+   "name": "Terapie intensiva",
+   "category": "medicina",
+   "excerpt": "În cazurile in care pacientii nostri nu sunt suficient de bine pentru a fi externati vor fi internati la terapie intensivă pentru observare continuă, tratament și…",
+   "body": "<p>În cazurile in care pacientii nostri nu sunt suficient de bine pentru a fi externati vor fi internati la terapie intensivă pentru observare continuă, tratament și îngrijire non-stop.</p><p>Multi pacienti vor rămâne, de asemenea, internati la ATI pentru recuperarea postoperatorie, dacă intervenția chirurgicală a fost complexă sau atunci când se tratează un animal de companie care este considerat cu risc ridicat de complicații în urma unei intervenții chirurgicale (de exemplu, cei cu boli grave, în vârstă sau foarte tinere).</p><p>Uneori, o afecțiune cronică sau terminală, dar gestionabilă cu tratament în ambulatoriu și îngrijire la domiciliu se poate agrava. Unele boli pot deveni mai debilitante în timp, cum ar fi cancerul, și, prin urmare, necesită spitalizare. Unitatea de terapie intensivă este o unitate specializată pentru animale care este echipată cu tehnologie și echipamente de susținere a vieții. Deoarece animalele de companie dintr-o unitate ATI sunt extrem de bolnave sau se recuperează după traume sau intervenții chirurgicale, este vital ca acestea să fie ținute departe de alte animale într-un mediu cat mai steril, liniștit, cu temperatură controlată.</p><p>Monitorizarea și terapia intensiva includ: Monitorizarea tensiunii arteriale și a fluxului<br/>sanguin/ Fluidoterapia IV/Medicatie de suport/Ventilatie asistata/Cateterizare/Suport<br/>nutrițional/ Controlul durerii s.a.</p>",
+   "icon": "pulse",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 5
+  },
+  {
+   "slug": "consultatii-la-domiciliu",
+   "name": "Consultatii la domiciliu",
+   "category": "acasa",
+   "excerpt": "Știm că uneori pur și simplu nu este posibil pentru dvs. sau animalul dvs. de companie să va deplasati la clinica noastra pentru a primi îngrijiri. În astfel de momente…",
+   "body": "<p>Știm că uneori pur și simplu nu este posibil pentru dvs. sau animalul dvs. de companie<br/>să va deplasati la clinica noastra pentru a primi îngrijiri. În astfel de momente, echipa noastra veterinara va oferă, la nevoie, vizite la domiciliu.</p><p>În general, vă recomandăm să vizitați un cabinet complet echipat și cu personal din apropierea dvs. dacă animalul dvs. de companie este bolnav. Cu toate acestea, înțelegem că există ocazii în care acest lucru ar putea să nu fie posibil.</p><p>Pentru a face viața mai puțin stresantă pentru toată lumea, oferim vizite la domiciliu<br/>pentru a ne asigura că animalul dvs. de companie primește îngrijire excepțională, indiferent de circumstanță.</p><p>Dacă după ce ați discutat opțiunile cu medicul veterinar, se decide că este necesară o vizită la domiciliu, vom putea programa cel mai bun moment pentru ca echipa noastra sa va poate vizita prietenul blanos acasa la dvs.</p>",
+   "icon": "home",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 6
+  },
+  {
+   "slug": "chirurgie-tesuturi-moi",
+   "name": "Chirurgie tesuturi moi",
+   "category": "chirurgie",
+   "excerpt": "Chirurgia țesuturilor moi este o ramura variată a medicinei veterinare și include majoritatea procedurilor chirurgicale care nu intră în domeniul de competență al…",
+   "body": "<p>Chirurgia țesuturilor moi este o ramura variată a medicinei veterinare și include<br/>majoritatea procedurilor chirurgicale care nu intră în domeniul de competență al chirurgiei ortopedice.</p><p>Zonele acoperite includ intervenții chirurgicale la urechi, nas și gât,<br/>cardiotoracice, hepatice, gastrointestinale, urogenitale, reconstructive ale pielii și oncologice.</p>",
+   "icon": "scalpel",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 7
+  },
+  {
+   "slug": "servicii-ortopedie",
+   "name": "Ortopedie",
+   "category": "chirurgie",
+   "excerpt": "Chirurgia ortopedică veterinară se ocupă cu prevenirea, diagnosticarea și tratamentul afecțiunilor legate de sistemul musculo-scheletic al unui animal de companie –…",
+   "body": "<p>Chirurgia ortopedică veterinară se ocupă cu prevenirea, diagnosticarea și tratamentul afecțiunilor legate de sistemul musculo-scheletic al unui animal de companie – inclusiv oase,<br/>articulații, ligamente, mușchi și tendoane. Acestea abordează boli și anomalii, cum ar fi displazia șoldului, boala articulației cotului, luxația patelară, bolile ortopedice, traumatismele, leziunile și alte afecțiuni congenitale sau dobândite.</p>",
+   "icon": "bone",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 8
+  },
+  {
+   "slug": "dermatologie",
+   "name": "Dermatologie",
+   "category": "medicina",
+   "excerpt": "Deoarece majoritatea afecțiunilor pielii sunt de natură cronică, reexaminările sunt frecvente. Acestea sunt de obicei efectuate în ambulatoriu, astfel încât animalul…",
+   "body": "<p>Deoarece majoritatea afecțiunilor pielii sunt de natură cronică, reexaminările sunt<br/>frecvente. Acestea sunt de obicei efectuate în ambulatoriu, astfel încât animalul dvs. de<br/>companie ar putea fi internat la spital pentru o zi, să fie supus procedurii și să părăsească<br/>spitalul mai târziu în acea zi. Astfel de investigații specifice pot include:<br/>Lavajul urechii, inclusiv video-otoscopie/Miringotomie, care investighează boala urechii<br/>medii, inclusiv prelevarea de probe/ Prelevarea de probe din piele pentru citologie pentru a căuta prezența bacteriilor sau a ciupercilor/Prelevarea de probe din piele pentru cultura organismelor/Teste ale dietei de eliminare a alimentelor pentru posibile alergii alimentare/ Obținerea de probe de biopsie cutanată pentru analiză de către un patolog/Teste de sânge pentru a evalua starea generală de sănătate</p><p>Printre afecțiunile pe care le diagnosticăm și le gestionăm se numără:<br/>Alergiile care afectează pielea, acestea includ reacții alergice la paraziți externi, alimente și reacții la polen și mucegaiuri din mediu. Identificarea cauzelor căderii părului/Paraziți<br/>externi/Infecții neobișnuite ale pielii: boli de piele micobacteriene, fungice și virale/Infecții ale urechii/Cancerele de piele/Boli autoimune ale pielii/Reacții cutanate la medicamente/Boli de piele moștenite s.a.</p><p>Consultația dumneavoastră inițială va dura aproximativ 30 de minute și<br/>veți rămâne cu prietenul dvs. blănos tot timpul. În timpul consultării, ne vom<br/>face timp să vă ascultăm preocupările și să luăm notițe despre ceea ce ați<br/>observat la blănosul Dvs.</p><p>Știm că mulți proprietari se luptă cu problema pielii animalelor de companie<br/>fie pentru că nu au solicitat opinia unui medic veterinar, fie pentru că medicul<br/>veterinar nu a reușit să găsească o soluție pe termen lung pentru prietenul lor<br/>blănos. Echipa noastră este pregătită sa recunoască anumite semne<br/>particulare bolilor pielii și sa ajute la îmbunătățirea calității vieții prietenului<br/>dvs.</p>",
+   "icon": "drop",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 9
+  },
+  {
+   "slug": "nutritie",
+   "name": "Nutritie",
+   "category": "medicina",
+   "excerpt": "Alimentația corectă este esențială atunci când vine vorba de tratarea și gestionarea diferitelor probleme de sănătate. Uneori, poate chiar împiedica animalele de…",
+   "body": "<p>Alimentația corectă este esențială atunci când vine vorba de tratarea și gestionarea diferitelor probleme de sănătate. Uneori, poate chiar împiedica animalele de companie să dezvolte boli comune. Acestea includ boli precum diabetul, bolile de inimă și hipertensiunea arterială. Astfel de condiții de sănătate pot scurta durata de viață a animalului dvs. de companie.</p><p>Alimentația sănătoasă va ajuta, de asemenea, la prevenirea ca prietenul dvs. blanos<br/>să devină supraponderal sau obez. Aceasta este o contribuție comună la dezvoltarea unei<br/>game largi de complicații de sănătate la animalele de companie. Înțelegerea nutriției<br/>animalelor de companie nu este atât de dificilă pe cât cred mulți proprietari de animale de companie. Cu ajutorul consilierii nutriționale pentru animale de companie, iubitul tău prieten blanos va obține dieta sănătoasă și echilibrată de care are nevoie pentru a trăi o viață sănătoasă, fericită și lungă alături de prietenii săi umani.</p><p>Diferite varietăți de alimente pe care le mănâncă animalele de companie conțin<br/>elemente diferite. Unele dintre aceste elemente sunt nutritive, ceea ce înseamnă că conțin<br/>toată bunătatea sănătoasă de care au nevoie animalele de companie. În calitate de<br/>proprietar de animale de companie, ar trebui să înțelegeți că unele alimente nu au nicio<br/>valoare nutritivă. Prin urmare, este important să apelați la consiliere privind nutriția<br/>animalelor de companie pentru a învăța cum să alegeți alimentele potrivite.</p>",
+   "icon": "bowl",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 10
+  },
+  {
+   "slug": "oftamologie",
+   "name": "Oftamologie",
+   "category": "medicina",
+   "excerpt": "Examinarea ochilor se efectuează cu biomicroscopie cu lampă cu fantă, oftalmoscopie indirectă și tonometrie. Alte diagnostice ale examenului includ testarea lacrimală…",
+   "body": "<p>Examinarea ochilor se efectuează cu biomicroscopie cu lampă cu<br/>fantă, oftalmoscopie indirectă și tonometrie. Alte diagnostice ale examenului<br/>includ testarea lacrimală Schirmer, colorarea cu fluoresceină.. Majoritatea<br/>bolilor oculare sunt tratate cu terapie medicală. Cu toate acestea, unele<br/>probleme oculare necesită proceduri suplimentare de diagnostic și/sau<br/>proceduri chirurgicale.</p><p>Vă vom detalia toate opțiunile de tratament, inclusiv costurile care ar putea fi<br/>implicate și vom răspunde la orice întrebări pe care le aveți.</p>",
+   "icon": "eye",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 11
+  },
+  {
+   "slug": "neurologie",
+   "name": "Neurologie",
+   "category": "medicina",
+   "excerpt": "Înainte de examinarea neurologică, medicul veterinar va obține informații despre istoricul problemei prietenului dvs., examinând constatările altor colegi medici…",
+   "body": "<p>Înainte de examinarea neurologică, medicul veterinar va obține informații despre istoricul problemei prietenului dvs., examinând constatările altor colegi medici veterinari(unde este cazul) și informațiile furnizate de dvs.</p><p>Bolile neurologice tind să aibă o specie, vârstă, rasă și ocazional predilecție sexuală. Aceste detalii, împreună cu informații despre debutul, cursul și durata primului simptom, nu numai că ajută la descrierea tipului de afecțiune și a posibilelor cauze ale problemei, dar ajută și la confirmarea faptului că problema este într-adevăr o tulburare neurologică.</p><p>Procesul de diagnosticare poate include o combinație de teste de sânge, imagistică de diagnostic (IRM sau CT, mielografie), prelevare de probe de lichid cefalorahidian, electrodiagnostic avansat (electromiografie, viteze de conducere nervoasă) și biopsie nervoasă sau musculară. După un diagnostic, specialistul va discuta cu dvs. despre opțiunile de terapie, care ar putea include terapia medicamentoasă și/sau managementul chirurgical.</p><p>Boala neurologică poate implica creierul, măduva spinării, sistemul nervos periferic sau mușchii. Recuperarea depinde de boală și de localizarea problemei.</p><p>Ca întotdeauna, noi vom fi alături de dumneavoastră și va vom ajuta în ceea ce privește gestionarea stării animalului dvs. de companie și vom găsi cea mai bună cale de acțiune pentru fiecare situație.</p>",
+   "icon": "brain",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 12
+  },
+  {
+   "slug": "detartraj",
+   "name": "Detartraj",
+   "category": "chirurgie",
+   "excerpt": "Sănătatea dentară este o parte foarte importantă a bunăstării generale a animalului dvs. de companie. Dinții prietenului dvs. de companie ar trebui să fie examinați cel…",
+   "body": "<p>Sănătatea dentară este o parte foarte importantă a bunăstării generale a animalului dvs. de companie. Dinții prietenului dvs. de companie ar trebui să fie examinați cel puțin o dată pe an de către un medic veterinar pentru semne timpurii de probleme sau boli dentare.</p><p>Majoritatea bolilor dentare apar sub linia gingiei, unde nu este vizibilă. Prin urmare, recomandăm o curățare temeinică cel puțin o dată pe an. O curățare dentară include detartraj (pentru a îndepărta placa dentară și tartrul) și lustruirea similară cu procesul folosit pe proprii dinți în timpul curățărilor dentare obișnuite.</p><p>Când mergeți la dentist, știți că medicul dentist va ajută. Stomatologul dumneavoastră vă poate oferi anestezie locală pentru a minimiza durerea și disconfortul. Animalul dvs. de companie nu înțelege beneficiile unei proceduri dentare și se va mișca sau va mușca pentru a încerca să se protejeze.</p><p>Anestezia inhalatorie și nu numai, ne permite să efectuăm procedura dentară cu mai puțin stres și durere pentru animalul dvs. de companie. De asemenea, permite o curățare mai bună și o evaluare a bolilor dentare sub linia gingiei. La nivel mondial se recomandă astfel efectuarea de proceduri stomatologice la animale mici sub anestezie generală.</p><p>De asemenea, în cazul unor complicații la nivelul radacinilor dentare, efectuam radiografii dacă acestea necesita evaluare suplimentară.</p>",
+   "icon": "tooth",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 13
+  },
+  {
+   "slug": "vaccinare",
+   "name": "Vaccinare",
+   "category": "preventie",
+   "excerpt": "Clinica noastră oferă vaccinări de rutină ca parte a serviciului standard și recomandăm ca pisicile, câinii și iepurii să fie protejați împotriva acestor boli prin…",
+   "body": "<p>Clinica noastră oferă vaccinări de rutină ca parte a serviciului standard și recomandăm ca pisicile, câinii și iepurii să fie protejați împotriva acestor boli prin vaccinarea anuală.</p><p>O programare de vaccinare este mult mai mult decât o simplă injecție rapidă. Veterinarii și asistenții noștri vor efectua un control complet al sănătății animalului dvs. de companie<br/>pentru a se asigura că nimic nu este în neregulă și, de asemenea, se vor asigura că vă ascultă grijile sau preocupările, pentru ca știm cât de mult contează pentru tine.</p>",
+   "icon": "syringe",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 14
+  },
+  {
+   "slug": "deparazitare-interna",
+   "name": "Deparazitare interna",
+   "category": "preventie",
+   "excerpt": "Câinii și pisicile umbla peste tot și oriunde. Le place să se joace și adesea jocul le implică gura. Jucându-se cu aproape orice în calea lor, este posibil ca la un…",
+   "body": "<p>Câinii și pisicile umbla peste tot și oriunde. Le place să se joace și adesea jocul le implică gura.</p><p>Jucându-se cu aproape orice în calea lor, este posibil ca la un moment dat să descopere un parazit intern. Simptomele pot include pierderea în greutate, dificultăți de respirație, linsul și/sau mestecatul zonei de sub coadă, tuse sau chiar vărsături și diaree.</p><p>La clinica noastră, putem testa, trata și prevenii posibilii viermi ai prietenului dumneavoastră necuvântător.</p>",
+   "icon": "shield",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 15
+  },
+  {
+   "slug": "deparazitare-externa",
+   "name": "Deparazitare externa",
+   "category": "preventie",
+   "excerpt": "Puricii și căpușele pot fi mult mai mult decât dăunători care cauzează mâncărime. Atât paraziții purici, cât și căpușele se hrănesc cu sângele câinilor și pisicilor.…",
+   "body": "<p>Puricii și căpușele pot fi mult mai mult decât dăunători care cauzează mâncărime. Atât paraziții purici, cât și căpușele se hrănesc cu sângele câinilor și pisicilor. Acest lucru poate provoca reacții alergice, răspândirea bolilor, iar animalele noastre de companie pot fi gazde intermediare pentru unii paraziți care afectează chiar și omul. Puricii pot trăi până la 12 luni și pot produce milioane de urmași.</p><p>Căpușele poartă boli precum boala Lyme și Anaplasma. Cea mai bună apărare împotriva puricilor și căpușelor este o deparzitare externa de buna calitate.</p><p>Medicamentele pentru purici, căpușe, râie care previn acești paraziți externi sunt sub mai multe forme. Avem soluții topice, pastile sau zgarda. Medicația preventivă este sigură pentru animalul dvs. și combate puricii și căpușele ucigândule și împiedicând răspândirea lor și bolilor transmise de către aceștia.</p>",
+   "icon": "shield",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 16
+  },
+  {
+   "slug": "microcipare",
+   "name": "Microcipare",
+   "category": "preventie",
+   "excerpt": "Un microcip este un mic dispozitiv electronic de dimensiunea unui bob de orez. Microcipul este introdus sub pielea câinelui/piscii tale, între omoplați, prntr-o injecție…",
+   "body": "<p>Un microcip este un mic dispozitiv electronic de dimensiunea unui bob de orez. Microcipul este introdus sub pielea câinelui/piscii tale, între omoplați, prntr-o injecție rapidă. Odată introdus, un câine/pisica nu poate simți microcipul, iar capsula specială din jurul lui înseamnă că nu se defectează și este proiectată să reziste toată viața animalului tău.</p><p>Microcipul este codificat cu un număr unic care poate fi citit de un scaner. Microcipurile nu stochează date personale, acestea sunt păstrate în raport cu numărul unic de identificare într-o bază de date securizată. Dacă câinele/pisica dvs. este găsit și dus la cel mai apropiat cabinet veterinar pentru a fi scanat de către un medic veterinar, baza de date cu microcipuri este accesată online, iar organizația care deține câinele dvs., de exemplu un cabinet veterinar, un centru de salvare sau poliția, poate folosi numărul pentru a vă găsi detaliile. Apoi puteți fi contactat și prietenul dvs. de companie se poate întoarce în siguranță la dumneavoastră.</p>",
+   "icon": "chip",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 17
+  },
+  {
+   "slug": "testarea-progesteronului",
+   "name": "Testarea progesteronului",
+   "category": "diagnostic",
+   "excerpt": "Un test de sânge cantitativ pentru progesteron este metoda cea mai precisă pentru determinare momentului ideal pentru reproducere. Testul este raportat ca rezultat…",
+   "body": "<p>Un test de sânge cantitativ pentru progesteron este metoda cea mai precisă pentru determinare momentului ideal pentru reproducere. Testul este raportat ca rezultat numeric, de obicei ng/dl.</p><p>În clinica noastră, Combinăm observarea comportamentului câinelui și a cățelei și împreună cu citologia vaginală, pentru ca ovulația sa poată fi identificată cu mare precizie la majoritatea cățelelor.</p><p>Un nivel exact de progesteron este, de asemenea, necesar atunci când cățeaua va călători pe o distanță lungă pentru reproducere, când urmează să fie folosit material seminal proaspăt, refrigerat sau congelat, sau când câini sau cățele au o istorie de a fi dificil de reprodus. În plus, un nivel exact de progesteron pentru sincronizarea ovulației este necesar atunci când se anticipează o cezariană sau când cățea este aproape de termen și trebuie evaluată supraviețuirea fetală.</p>",
+   "icon": "flask",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 18
+  },
+  {
+   "slug": "pasaport-calatorie",
+   "name": "Pașaport călătorie",
+   "category": "preventie",
+   "excerpt": "Un pașaport european pentru animale de companie este un document, care urmează un model standard al UE și este esențial pentru călătoriile între țările UE. Conține o…",
+   "body": "<p>Un pașaport european pentru animale de companie este un document, care urmează un model standard al UE și este esențial pentru călătoriile între țările UE. Conține o descriere și detalii despre animalul dvs. de companie, inclusiv microcipul sau codul de tatuaj, precum și fișa de vaccinare împotriva rabiei și datele de contact ale proprietarului și ale veterinarului care a eliberat pașaportul.</p><p>Puteți obține un pașaport european pentru prietenii dumneavoastra blanosi, pentru câinele, pisica sau dihorul dvs. de la clinica noastră.</p><p>Pașaportul pentru animale de companie este valabil pe viață atâta timp cât vaccinarea antirabică a animalelor dvs. de companie este la zi.</p>",
+   "icon": "passport",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 19
+  },
+  {
+   "slug": "citologie-vaginala",
+   "name": "Citologie Vaginala",
+   "category": "diagnostic",
+   "excerpt": "O citologie vaginală este o evaluare făcută în mod obișnuit. Celulele observate la momentul ideal pentru reproducere sunt un procent mare de celule epiteliale…",
+   "body": "<p>O citologie vaginală este o evaluare făcută în mod obișnuit. Celulele observate la momentul ideal pentru reproducere sunt un procent mare de celule epiteliale cornificate, cu puține globule roșii (RBC), globule albe (WBC) sau resturi.</p><p>Frotiul vaginal poate indica, de asemenea, prezența altor probleme, cum ar fi vaginita. Testul este simplu, sigur, ieftin, bine tolerat de cățea care se apropie de estru și foarte util în sincronizarea raselor.</p><p>Examinarea unui singur frotiu poate oferi informații utile, dar poate fi și înșelătoare. De exemplu, este adesea dificil să diferențiezi proesterul și disestrusul de un frotiu izolat.</p><p>În cadrul clinicii noastre recomandăm efectuarea și altor teste, precum testarea progesteronului, și evaluarea mai multor frotiuri luate de la aceeași cățea și urmarirea evolutiei acesteia pentru a putea determina cu exactitate momentul optim pentru reproducere.</p>",
+   "icon": "microscope",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 20
+  },
+  {
+   "slug": "inseminare-artificiala",
+   "name": "Inseminare artificială",
+   "category": "preventie",
+   "excerpt": "Împerecherea câinilor în mod natural poate fi o experiență anxioasă pentru o cățea. La clinica noastră, serviciile de inseminare pentru câini sunt concepute pentru a…",
+   "body": "<p>Împerecherea câinilor în mod natural poate fi o experiență anxioasă pentru o cățea.</p><p>La clinica noastră, serviciile de inseminare pentru câini sunt concepute pentru a face lucrurile cât mai relaxate și lipsite de stres pentru câini și proprietar. Dacă transportul cățelei dumneavoastră este o problemă, oferim serviciu de inseminare artificială și la domiciliu. Inseminarea artificială poate fi efectuată în confortul propriei locuințe sau sediului, unde cățelușa dumneavoastră este probabil să fie cel mai relaxată. Aceasta este adesea cea mai bună cale posibilă pentru o reproducere de succes.</p><p>Inseminarea artificială în ceea ce privește câinii nu este doar o opțiune de reproducție rapidă și de mare succes, dar este și cea mai bună modalitate de a proteja sănătatea sexuală a cățelei dumneavoastră, având posibilitatea efectuării reproducției cu șanse de 100% fără a contacta BTS.</p>",
+   "icon": "heart",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 21
+  },
+  {
+   "slug": "serviciu-de-ambulanta",
+   "name": "Serviciu de ambulanta",
+   "category": "acasa",
+   "excerpt": "Înțelegem acel sentiment de gol în stomac pe care îl simți atunci când animalul tău de companie este bolnav – în calitate de medici veterinari, am văzut aproape totul.…",
+   "body": "<p>Înțelegem acel sentiment de gol în stomac pe care îl simți atunci când animalul tău de companie este bolnav – în calitate de medici veterinari, am văzut aproape totul. Înțelegem, de asemenea, comportamentul unui animal de companie, așa că știm cum să-l mutăm în mod profesional fără a provoca răni suplimentare și cum să-l menținem în siguranță și confortabil în drum spre clinica veterinara.</p><p>Când ajungem la locația dumneavoastra, evaluam starea prietenului blanos – verificam respirația acestuia, orice paloare, răni deschise și alte elemente vitale. Rămânem calmi, astfel încât animalul dvs. de companie să poată rămâne calm, deoarece este încărcat cu atenție în cusca noastră sigură, cu sistemde siguranță, cu ajutorul lesei, sau cu cusca de transport sau targă.</p><p>Dacă este necesar, administrarea de oxigen si fluide poate fi asigurată în timpul transportului.</p><p>Dacă este o urgență, personalul va fi gata să vă asiste și să vă primească animalul de companie imediat ce ajungem. Promitem să menținem o comunicare clară cu dvs. pe tot parcursul călătoriei<br/>prin telefon și/sau mesaj text.</p><p>Vă putem transporta și animalul dvs. de companie în siguranță înapoi acasă! Iar mai apoi vom fi ocupați cu curățarea cu dezinfectanți de calitate medicală pentru următorul nostru pacient care necista tranport medical. În acest fel, nu există niciun risc de transmitere a vreunei boli infecțioase din sânge, scaun, tuse sau strănut sau alte secretii.</p>",
+   "icon": "ambulance",
+   "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+   "sort": 22
+  }
+ ],
+ "team": [
+  {
+   "slug": "radu-festeu",
+   "name": "Dr. Radu Feșteu",
+   "role_title": "Medic veterinar",
+   "bio": "<p>Absolvent al facultății de Medicină Veterinară din Cluj-Napoca, Dr. Radu Feșteu aduce entuziasm tineresc și cele mai recente progrese în știința veterinară a clinicii noastre. Dorința lui de acumulare de noi cunoștințe și schimbul de experiență din cadrul programului Erasmus, din Italia, iar devotamentul pentru a oferi îngrijire de top îl fac un plus valoros pentru echipa noastră.</p><p>El dorește să fie la curent cu cele mai recente cercetări și tehnici pentru a oferi tratamente moderne, bazate pe dovezi, pentru animalele dvs. de companie.</p>",
+   "photo": "2023/05/0h7a9503",
+   "sort": 0
+  },
+  {
+   "slug": "dregics-szidonia",
+   "name": "Dr. Dregics Szidonia",
+   "role_title": "Medic veterinar",
+   "bio": "",
+   "photo": "2025/11/whatsapp-image-2025-11-04-at-14-06-33",
+   "sort": 1
+  }
+ ],
+ "posts": [
+  {
+   "slug": "beneficiile-sterilizari-cainelui-dvs-pentru-sanatatea-acestuia-o-perspectiva-stiintifica",
+   "title": "Beneficiile sterilizari cainelui dvs pentru sanatatea acestuia. O perspectiva stiintifica.",
+   "excerpt": "Sterilizarea, sau ovariohisterectomia, este o procedură chirurgicală care implică îndepărtarea ovarelor și a uterului unei femele de câine. Deși este o practică obișnuită, este important ca…",
+   "body": "<p>Sterilizarea, sau ovariohisterectomia, este o procedură chirurgicală care implică îndepărtarea ovarelor și a uterului unei femele de câine. Deși este o practică obișnuită, este important ca dumneavostra ca și proprietari de animale de companie să înțelegeți avantajele semnificative pentru sănătate pe care le poate oferi sterilizarea bănoșilor dvs. În această postare, vom explora beneficiile susținute științific ale sterilizării câinelui dvs., împreună cu informații medicale esențiale.</p> <h2>Avantajele sterilizării:</h2> <h2>1.Prevenirea sarcinilor nedorite:</h2> <p>Unul dintre cele mai convingătoare motive pentru a steriliza o femelă este prevenirea sarcinilor nedorite. În fiecare an, nenumărați căței se nasc din stăpâni nepregătiți sau iresponsabili, ceea ce duce la suprapopularea animalelor de companie și la creșterea abandonului acestora dar și la presiunea asupra adăposturilor pentru animale. Sterilizarea câinelui vă ajută să rezolvați această problemă.</p> <h2>2. Eliminarea ciclurilor de căldură:</h2> <p>Sterilizarea elimină ciclul de estrus (căldură) la femele. Acest ciclu, caracterizat de fluctuații hormonale, poate duce la schimbări de comportament și disconfort fizic atât pentru câine, cât și pentru dvs ca și stăpân. Sterilizarea elimină această sursă de stres și neplăceri.</p> <h2>3. Risc redus de infecții uterine:</h2> <p>Sterilizarea reduce semnificativ riscul de infectii uterine, precum piometrul. Această infecție uterină care pune viața în pericol poate provoca dureri abdominale severe, febră și vărsături. Piometrul este o afecțiune gravă în care uterul se infectează și se umple cu puroi, necesitând o intervenție chirurgicală de urgență. Sterilizarea previne cu totul posibilitatea apariției problemelor uterine.</p> <h2>4. Risc scăzut de tumori ale glandei mamare:</h2> <p>Cercetarile au aratat ca sterilizarea inainte de primul ciclu de caldura reduce foarte mult riscul de tumori ale glandelor mamare, care sunt cel mai frecvent tip de cancer la femelele caine. Sterilizarea înainte de primul ciclu de căldură al câinelui dumneavoastră îi reduce riscul de a dezvolta cancer mamar cu până la 85%, procentul scăzând odată cu trecerea mai multor cicluri de călduri. Sterilizarea după primul ciclu de căldură oferă totuși o protecție semnificativă. Cu cât sterilizarea este efectuată mai devreme, cu atât efectul protector este mai pronunțat.</p> <h2>5. Risc scăzut de cancer ovarian și uterin:</h2> <p>Sterilizarea elimină riscul de cancer ovarian și uterin, fiind afecțiuni care pun viața catelușei dvs. în pericol. Aceste tipuri de cancer sunt mai puțin frecvente, dar pot fi foarte agresive.</p> <h2>6. Prevenirea sarcinilor(lactației) false:</h2> <p>Unele femele nesterilizate pot prezenta sarcini(lactații) false, o afecțiune în care prezintă simptome asemănătoare sarcinii fără a fi efectiv însărcinate. Sterilizarea elimină posibilitatea unor sarcini(lactații) false.</p> <h2>7.Prevenirea altor probleme de sănătate precum:</h2> <p>• Hemangiosarcom uterin: O tumoră vasculară cu localizare uterină care poate fi fatală.<br/>• Lipomatoză uterină: O afecțiune care provoacă creșterea de țesut adipos în uter.<br/>• Prolaps uterin: O afecțiune care determină ieșirea uterului în exterior prin vagin.<br/>• Infecții ale tractului urinar: Sterilizarea poate ajuta la reducerea riscului de infecții ale tractului<br/>urinar, care sunt mai frecvente la femelele de câini care nu sunt sterilizate.</p> <h2>8. Beneficii comportamentale ale sterilizării:</h2> <p>Sterilizarea poate ajuta, de asemenea, la îmbunătățirea comportamentului câinelui<br/>dumneavoastră în mai multe moduri.<br/>• Ajută la prevenirea ciclurilor de căldură și a comportamentelor asociate, cum ar fi urletul,<br/>neliniștea și atragerea câinilor masculi.<br/>• Reduce riscul de agresivitate și comportamente teritoriale</p> <h2>9. Dovezi științifice care susțin sterilizarea:</h2> <p>Numeroase studii au arătat beneficiile sterilizării pentru femelele de câini. De exemplu, un studiu publicat în Journal of the American Veterinary Medical Association a constatat că sterilizarea înainte de primul ciclu de căldură a redus riscul de cancer de sân cu 85%. Un alt studiu, publicat în Journal of Veterinary Internal Medicine, a constatat că sterilizarea înainte de primul ciclu de căldură a redus riscul de piometru cu 98%.</p> <h2>Momentul sterilizării:</h2> <p>Momentul sterilizării poate influența amploarea beneficiilor pentru sănătate. Consultați-vă cu medicul veterinar cu privire la vârsta optimă pentru câinele dvs., dar în general este recomandat să efectuați procedura înainte de primul ciclu de căldură, de obicei între 6 și 9 luni. Sterilizarea în acest stadiu oferă cea mai semnificativă protecție împotriva tumorilor glandelor mamare.</p> <h2>Concluzie:</h2> <p>Sterilizarea câinelui dumneavoastră este o decizie responsabilă care nu numai că previne sarcinile nedorite, dar oferă și o serie de beneficii importante pentru sănătatea acestuia. Aceste beneficii includ reducerea riscului de infecții uterine, tumori ale glandelor mamare și cancer ovarian/uterin. Când vă gândiți la sterilizare, consultați-vă cu medicul veterinar, care vă poate oferi recomandări specifice bazate pe rasa, vârsta și sănătatea individuală a câinelui dumneavoastră.</p> <p>Decizia de a vă steriliza câinele contribuie la bunăstarea ei generală și ajută la controlul populației de animale nedorite. Este un pas esențial în asigurarea unei vieți mai sănătoase și mai fericite pentru bănosul tău iubit.</p>",
+   "image": "2023/07/pexels-genadi-yakovlev-16973874",
+   "published_at": "2023-11-20 19:46:21"
+  },
+  {
+   "slug": "beneficiile-castrarii-caineluimascul-pentru-sanatatea-lui-o-perspectiva-stiintifica",
+   "title": "Beneficiile castrarii cainelui mascul pentru sanatatea lui.O perspectiva Stiintifica",
+   "excerpt": "Castrarea, este o procedură chirurgicală comună care implică îndepărtarea testiculelor unui câine mascul. Deși este o practică standard, este esențial ca dumneavoastră ca în calitate de…",
+   "body": "<p>Castrarea, este o procedură chirurgicală comună care implică îndepărtarea testiculelor unui câine mascul. Deși este o practică standard, este esențial ca dumneavoastră ca în calitate de proprietar de animale de companie să înțeleageți avantajele substanțiale pentru sănătate pe care castrarea le-o poate oferi prietenilor dvs. blănoși În această postare vom aprofunda beneficiile susținute științific ale sterilizări câinelui dvs. mascul, împreună cu informații medicale vitale.</p> <h2>Avantajele castrării:</h2> <h2>1.Controlul montelor nedorite:</h2> <p>Unul dintre motivele principale pentru a steriliza un câine mascul este prevenirea apariției nedorite de pui. Prin reducerea șanselor de reproducere neplanificată, puteți contribui la reducerea suprapopulării animalelor de companie, la abandonul acestora dar și la reducerea stresului asupra adăposturilor pentru animale.</p> <h2>2. Îmbunătățirea comportamentului:</h2> <p>Castrarea poate duce adesea la îmbunătățirea comportamentului la câinii masculi. Poate ajuta la reducerea tendințelor agresive, a comportamentului de “hoinar” și a problemelor legate de dominație. Acest lucru poate duce la lovirea lor de mașini, pierderea sau expunerea acestora la diverse boli.</p> <h2>3. Prevenirea tumorilor testiculare:</h2> <p>Castrarea elimină riscul apariției tumorilor testiculare, care sunt al doilea cel mai frecvent tip de cancer la câinii masculi. Aceste tumori pot fi agresive, dar reducerea acestora semnificativ este realizată prin castrare.</p> <h2>4. Risc redus de probleme de prostată:</h2> <p>Castrarea poate reduce riscul de hiperplazie benignă de prostată (prostată mărită), prostatita (inflamația prostatei) și chiar cancer de prostată. Aceste afecțiuni pot fi dureroase și pot pune viața în pericol. Castrarea reduce riscul apariției cancerului de prostată cu pană la 70 %.</p> <h2>5. Prevenirea tumorilor perianale:</h2> <p>Tumorile perianale, care sunt excrescențe situate în apropierea anusului câinelui, sunt rare la masculii sterilizați. Aceste tumori pot fi dificil de gestionat și pot necesita intervenții chirurgicale. Castrarea reduce riscul apariției acestora cu pana la 80%.</p> <h2>6. Reducerea marcării teritoriului:</h2> <p>Câinii masculi care nu sunt sterilizați au mai multe șanse să își marcheze teritoriul urinând pe diferite obiecte. Castrarea poate ajuta la reducerea sau eliminarea acestui comportament.</p> <h2>7. Dresajul devine mai ușor:</h2> <p>Câinii sterilizați sunt adesea mai concentrați și ascultători, ceea ce îi face mai ușor de dresat, nefiind atât de distrași de diverși stimuli.</p> <h2>8. Agresivitate:</h2> <p>Câinii masculi care nu sunt sterilizați sunt mai susceptibili de a fi agresivi față de alți câini și oameni. Acest lucru le poate face dificil de manevrat și poate duce la incidente de mușcături.</p> <h2>Dovezi științifice care susțin sterilizarea:</h2> <p>Numeroase studii au arătat beneficiile sterilizării pentru câinii masculi. De exemplu, un studiu publicat în Journal of Veterinary Internal Medicine a constatat că sterilizarea înainte de vârsta de șase luni reduce riscul de cancer testicular cu 100%. Un alt studiu, publicat în Journal of the American Veterinary Medicalv Association, a constatat că sterilizarea reduce riscul de cancer de prostată cu până la 70%.</p> <h2>Momentul de castrare:</h2> <p>Vârsta optimă pentru castrare variază în funcție de rasă și de câini și cel mai bine este să vă consultați medicul veterinar. În general, sterilizarea poate fi efectuată încă de la vârsta de 6 luni, deși unii medici veterinari recomandă să așteptați puțin mai mult pentru rasele mari sau gigantice pentru a permite dezvoltarea completă a scheletului. Medicul veterinar vă va oferi îndrumări în funcție de nevoile specifice ale câinelui dumneavoastră.</p> <h2>Concluzie:</h2> <p>Castrarea câinelui tău mascul este o decizie responsabilă care oferă o serie de beneficii pentru sănătate, inclusiv prevenirea tumorilor testiculare, a problemelor de prostată și a tumorilor perianale. În plus, poate ajuta la atenuarea anumitor probleme de comportament, făcând viața mai armonioasă atât pentru tine, cât și pentru câinele tău.</p> <p>Prin sterilizarea câinelui dvs. mascul, contribuiți la bunăstarea lui generală și jucați un rol în reducerea numărului de animale fără adăpost. Este un pas atent către asigurarea unei vieți mai sănătoase și mai fericite pentru bănosul tău iubit.Dacă intenționați să vă castrați cățelul, consultați-vă cu medicul veterinar pentru a determina cel mai bun moment și abordare pentru nevoile specifice ale câinelui dumneavoastră.</p>",
+   "image": "2023/07/attractive-girl-with-dog-2021-09-22-00-58-13-utc-min",
+   "published_at": "2023-11-20 19:23:49"
+  },
+  {
+   "slug": "un-ghid-cuprinzator-pentru-ingrijirea-pisicilor-pastrati-va-prietenul-felin-fericit-si-sanatos",
+   "title": "Un Ghid Cuprinzator Pentru Îngrijirea Pisicilor: Pastrati-Va Prietenul Felin Fericit Si Sanatos",
+   "excerpt": "Pisicile sunt însoțitori minunați și a avea grijă de ele implică să le oferim cea mai bună dragoste, atenție și îngrijire medicală posibilă. În calitate de proprietar de pisică, joci un rol…",
+   "body": "<p>Pisicile sunt însoțitori minunați și a avea grijă de ele implică să le oferim cea mai bună dragoste, atenție și îngrijire medicală posibilă. În calitate de proprietar de pisică, joci un rol crucial în a te asigura că prietenul tău felin trăiește o viață sănătoasă și fericită. În acest ghid cuprinzător, vom explora aspectele esențiale ale îngrijirii pisicilor pentru a vă ajuta să fiți cel mai bun părinte de pisică care puteți fi.</p> <h2>1. Dieta nutritivă: Fundamentul sănătății pisicilor</h2> <p>Alimentația corectă este piatra de temelie a bunăstării pisicii tale. Pisicile sunt carnivore obligatorii, ceea ce înseamnă că dieta lor ar trebui să constea în principal din proteine animale de înaltă calitate.</p><p>Hrană comercială pentru pisici: alegeți hrana pentru pisici completă și echilibrată din punct de vedere nutrițional, fie uscată, fie conservată, care să răspundă nevoilor specifice ale pisicii dumneavoastră. Consultați medicul veterinar pentru recomandări.</p><p>Apă proaspătă: oferiți întotdeauna pisicii dvs. apă proaspătă și curată pentru a o menține hidratată și pentru a-și menține sănătatea generală. Evitați alimentele dăunătoare: Nu hrăniți niciodată pisica cu ciocolată, alcool, ceapă, usturoi, struguri, stafide sau orice aliment toxic pentru pisici</p> <h2>2. Controale veterinare regulate: Țineți cont de sănătate</h2> <p>Vizitele regulate la medicul veterinar sunt vitale pentru sănătatea și longevitatea pisicii tale. Medicii veterinari pot oferi sfaturi cu privire la dietă, comportament și probleme medicale.</p><p>Vaccinări: Urmați programul de vaccinare recomandat, oferit de medicul veterinar pentru a vă proteja pisica de bolile comune. Controlul paraziților: administrați tratamente preventive pentru purici, căpușe, viermi și alți paraziți, așa cum este prescris de medicul veterinar.</p><p>Monitorizarea sănătății: controalele regulate ajută la monitorizarea stării de sănătate a pisicii tale și la detectarea eventualelor probleme din timp.</p> <h2>3. Îngrijirea și igiena: Păstrați-vă pisica proaspătă și curată</h2> <p>Îngrijirea regulată și menținerea unei bune igiene sunt esențiale pentru sănătatea și fericirea pisicii tale. Periajul: În funcție de rasă, periajul regulat ajută la reducerea vărsării și previne formarea mingilor de păr. Tăierea unghiilor: Păstrați unghiile pisicii tăiate la o lungime adecvată pentru a preveni disconfortul sau potențialele răni.</p><p>Îngrijire dentară: Periați dinții pisicii în mod regulat și consultați medicul veterinar pentru sfaturi de sănătate dentară.</p> <h2>4. Oferiți un mediu stimulant: îmbogățire mentală și fizică</h2> <p>Pisicile au nevoie de stimulare atât mentală, cât și fizică pentru a rămâne fericite și sănătoase. Jucării interactive: oferiți o varietate de jucării pentru a vă menține pisica angajată și distrată. Jucăriile care imită prada pot fi deosebit de atrăgătoare. Structuri de cățărare: Pisicile le place să se cațere și să se cocoțeze. Oferiți-le copaci sau rafturi pentru pisici pentru a le explora și să se odihnească.</p><p>Timp de joacă interactiv: sesiunile regulate de joacă cu jucării precum baghete cu pene sau indicatori laser vă mențin pisica activă și stimulată mental.</p> <h2>5. Creați un spațiu de locuit sigur: asigurarea securității și confortului</h2> <p>Un mediu sigur și confortabil este esențial pentru bunăstarea pisicii tale.</p><p>Cutie de carton: Păstrați cutia de carton curată și într-o locație liniștită și accesibilă. Locuri de odihnă confortabile: oferă-i paturi confortabile și zone sigure de odihnă pentru ca pisica să se relaxeze.</p><p>Ferestre și balcoane sigure: Asigurați-vă că toate ferestrele și balcoanele sunt sigure pentru a preveni orice accidente.</p> <h2>6. Dragoste și atenție necondiționată: construirea unei legături puternice</h2> <p>Pisica ta are nevoie de dragoste, atenție și afecțiune pentru a prospera și a fi fericită. Petrece timp de calitate: alocă-ți timp zilnic pentru a îmbrățișa, a te juca și a interacționa cu pisica ta. Pisicile apreciază compania.</p><p>Întărire pozitivă: Folosiți bunătăți și laude pentru a întări un comportament bun, întărind legătura cu pisica dvs. Urmând aceste principii fundamentale ale îngrijirii pisicilor, puteți oferi un mediu iubitor și îngrijitor pentru tovarășul dvs. felin. Amintiți-vă, o pisică fericită și sănătoasă este o bucurie de a avea și vă îmbogățește viața în nenumărate moduri.</p>",
+   "image": "2023/07/a-ginger-cat-and-a-woman-sleeping-2022-04-09-20-30-57-utc-min",
+   "published_at": "2023-10-05 07:58:04"
+  },
+  {
+   "slug": "primul-caine-aici-ai-cateva-sfaturi-pentru-un-caine-sanatos-si-fericit",
+   "title": "Primul caine? Ti-am pregatit cateva sfaturi pentru un caine fericit si sanatos!",
+   "excerpt": "Dacă tocmai ți-ai cumpărat un câine și nu știi exact ce trebuie să faci, ți-am pregătit mai jos niște pași pe care trebuie să-i urmezi: Asigură-te ca e deparazitat după 2 saptâmâni de viață…",
+   "body": "<h2>Dacă tocmai ți-ai cumpărat un câine și nu știi exact ce trebuie să faci, ți-am pregătit mai jos niște pași pe care trebuie să-i urmezi:</h2> <p>Asigură-te ca e deparazitat după 2 saptâmâni de viață sub îndrumarea medicului tău veterinar, pentru asta poți consulta medicul veterinar <a href=\"/deparazitare-interna/\">aici.</a></p><p> În primele 6 săptâmâni nu il lãsa în preajma altor câini sau în locuri în care au fost alti câini, astfel se reduce substantial riscul infectiei cu parvovirusul canin, care este foarte periculos, pentru a fi sigur că ești la zi cu vaccinarea poți afla mai multe <a href=\"/vaccinare/\">aici.</a></p><p> În primele sale luni de viață, trebuie sa il hrănești cu mâncare de calitate, recomandată fiind cea Puppy/Starter, poti regăsi mai multe informații <a href=\"/nutritie/\">aici.</a></p><p>Poti sa îi introduci în dietă și unele suplimente alimentare pentru sănătatea oaselor, articulatiilor si buna crestere, mai ales în primele luni de viață la recomandarea medicului tãu veterinar.</p><p>Nu exagera cu recompensele.</p><p>Nu ii oferi mâncarea din farfuria ta (lapte, oase, grăsime), trebuie sã înteleaga ca mâncarea lui e diferită de a ta.</p><p>Nu îi da oase, acestea îl vor constipa și îi pot strâpunge intestinele, și pot cauza un blocaj intestinal, lucruri ce necesită intervenții chirurgicale de urgență.</p><p>Nu îi oferi ciocolatã, este toxică pentru el, îi va opri sistemul metabolic, îi va ridica tensiunea arterială și îi suprastimuleazà sistemul nervos, riscul de deces fiind ridicat.</p><p>Nu îl lăsa să mănânce struguri sau stafide, va avea parte de disfuncții renale grave.</p><p>Nu îi da dulciuri, zahărul îl agită și poate dezvolta diabet și obezitate, iar Xyitolul este foarte toxic pentru el.</p><p>Evită să îi dai vitamine pentru oameni si în special nu îl lăsa sã încerce alcoolul, acesta e toxic pentru el.</p><p>Evita ceapa si usturoiul, îi vor provoca anemie, iar pâinea în cantități mici nu îi va face rău dar nu are nici o valoare nutrițională. Nu îi da lapte de băut, câinii au intoleranță la lactoza, în schimb iaurtul în cantități mici nu îi va face rău.</p><p>Dacă îți este milă de el și cu siguranță este un pofticios, poți să îi dai din farfuria ta ouă fierte, sunca, peste făra oase, morocovi, mazare, brânză, banana, cartofi, dar in cantități moderate.</p><p>Evită spălările dese în primele 3 luni de viață, cel mult o dată pe lună și folosește un șampon recomandat de medicul tău veterinar</p><p>Sã respecți vaccinările si deparazitările periodice care sunt esențiale mai ales in primele luni de viață, când acesta este cel mai vulnerabil.</p><p>Încearcă să îl înveți comenzile de bază(șezi, culcat, haide, înapoi, nu e voie etc.)</p><p>Sa îi alegi un veterinar priceput.</p><p>Acordă-i atenție, dragoste si respect,iar el te va jubi necondiționat.</p><p>Să fii pregătit pentru posibilele sale schimbări de comportament, dar și de sănătate.</p><p>Nu uita că va fi prietenul tău cel mai bun si trebuie sã ai grija de el.</p><p>Încearca să iei în considerare și partea de asigurare de sănătate pentru acesta, poți regăsi mai multe informații despre planurile de asigurare posibile chiar <a href=\"/asigurari/\">aici</a>.</p>",
+   "image": "2023/07/handsome-guy-in-a-summer-park-with-a-dog-2022-02-02-05-09-48-utc-min",
+   "published_at": "2023-07-18 16:20:46"
+  }
+ ],
+ "faqs": [
+  {
+   "question": "Ce tip de hrană ar trebui să îi dau cățelului sau pisicii mele?",
+   "answer": "<p>Există diferite tipuri de hrană pentru animale de companie, cum ar fi hrana uscată, hrana umedă și chiar alimente fără cereale. Medicii noștri veterinari vă pot ajuta să alegeți hrana personalizată pentru nevoile câinelui sau pisicii dumneavoastră.</p><p>Diferite alimente oferă diverse beneficii pentru sănătate, de la susținerea sănătății dentare până la gestionarea creșterii în greutate. Doctorul veterinar vă poate oferi, de asemenea, sugestii în funcție de vârsta, rasa, statusul reproductiv al acestuia, cât și stilul de viață a prietenului dvs. deoarece nevoile de nutriție se schimbă în timpul vieții animalului dvs. de companie.</p><p>Puteți afla mai multe despre serviciile noastre de <a href=\"https://hikevet.com/nutritie/\">nutriție aici.</a></p>"
+  },
+  {
+   "question": "De ce mănâncă câinele meu iarbă?",
+   "answer": "<p>Câinii mănâncă iarbă pentru a satisface nevoile alimentare sau pentru a-și asigura un tratament atunci când se simt rău. De obicei, nu trebuie să vă faceți griji cu privire la vreun rău care va veni asupra animalului dvs. de companie dacă mănâncă iarbă, dar, ca bun proprietar de animal de companie, doriți să vă întrebați „de ce” dacă îl vedeți făcând asta! Poate că dieta pe care o urmează în prezent nu îi oferă nutrienții de care are nevoie; așa că el caută acele nevoi care să fie satisfăcute cu iarba pe care o mănâncă.</p><p> De asemenea, un câine care se simte că ceva nu este în regulă cu stomacul său poate găsi un remediu natural rapid pentru acest lucru mâncând iarbă. Cu toate acestea, dacă animalul dvs. de companie începe să mănânce brusc iarbă în cantități mari, experții recomandă a fi dus la un veterinar pentru o evaluare, deoarece o astfel de activitate poate însemna probabil că are ceva foarte în neregulă cu el și încearcă să se ajute singur<strong>.</strong></p><p>Puteți afla mai multe despre serviciile noastre de <a href=\"https://hikevet.com/nutritie/\">nutriție aici.</a></p>"
+  },
+  {
+   "question": "Câinele meu mai în vârstă pare să aibă demență, este posibil așa ceva?",
+   "answer": "<p>Potrivit unor studii, 50% dintre câinii cu vârsta peste 11 ani prezintă semne de declin cognitiv (pe care unii l-ar putea încadra ca demență). Deci, răspunsul la întrebarea dvs. este DA: este posibil ca un câine mai în vârstă să sufere de declin cognitiv/demență.</p><p>Dacă câinele dumneavoastră are unele dintre simptomele enumerate mai jos, poate doriți sa îi atrageți atenția veterinarului în timpul consultului asupra acestuia aspect, iar astfel medicii noștri veterinari, vor putea testa sindromul de disfuncție cognitivă.</p><p><em>Pare letargic</em></p><p><em>Nu îl/o mai interesează </em><em>activitățile obiș</em><em>nuite</em></p><p><em> Rămâne blocat în anumite lucruri/obiecte din jur</em></p><p><em>Este dezorientat</em></p><p><em>Nu mai recunoaște animale, oameni cu care era obișnuit</em></p><p><em>Pare confuz</em></p><p><em> Extrem de iritat </em></p><p>Sindromul disfuncției cognitive a câinilor nu este vindecabil, dar simptomele pot fi tratate. Uneori, câinii noștri îmbătrânesc; iar când se întâmplă asta, se pare că ei nu se pot comporta ca atunci când erau tineri. Cu toate acestea, există câteva lucruri pe care le puteți face pentru a vă ajuta animalul de companie în această situație. Când acesta are un diagnostic, dumneavoastră, în calitate de proprietar, puteți alege fie să ii acordați medicația necesară pentru prietenul dvs. de companie pentru a ajuta la încetinirea declinului, fie să optați pentru opțiunile de terapie, pe care le puteți discuta cu unul dintre medicii noștri. Ambele opțiuni, mai ales dacă sunt folosite împreună, pot fi de mare ajutor prietenului tău.</p><p>Puteți află mai multe despre serviciile noastre de <a href=\"https://hikevet.com/analize-de-laborator/\">analize de laborator apăsând aici.</a></p>"
+  },
+  {
+   "question": "Ar trebui să-mi spăl câinele/pisica pe dinți?",
+   "answer": "<p>Răspunsul la această întrebare este DA, cu siguranță! Este foarte important să periați dinții prietenului dvs. de companie în mod regulat, folosind, desigur, periuțe și pastă de dinți pentru animale de companie! Poate doriți să știți de ce curățarea dinților este atât de importantă. Mai jos regăsiți câteva motive pentru a înțelege mai bine de ce animalul dumneavoastră are nevoie demn periaj dentar regulat.</p><p>Semnele bolilor dinților și gingiilor încep să apară la 80% dintre câini după împlinirea vârstei de 3 ani. De asemenea, pisicile se confruntă cu riscul de a dezvolta boli dentare, cea mai frecventă dintre acestea fiind boala parodontală.</p><p>Din cauza celor menționate mai sus, medicii veterinari recomandă curățări profesionale anuale(detartraj), mai ales pe măsură ce animalul tău de companie îmbătrânește, și periajul zilnic de către proprietarii de animale pentru a combate apariția problemelor stomatologice.</p><p>Efectele grave ale problemelor dentare pot fi prevenite prin îngrijire preventivă proactivă. Ajută-ți animalul de companie cu zâmbetul lui frumos; Procedând astfel, veți promova o sănătate generală bună!</p><p>Puteți află mai multe despre serviciile noastre de <a href=\"https://hikevet.com/detartraj/\">detartraj apăsând aici.</a></p>"
+  },
+  {
+   "question": "Ce se întâmplă la o consultație generală a animăluțului meu?",
+   "answer": "<p>La un examen veterinar de rutină, medicul veterinar va efectua o examinare fizică amănunțită a animalului dvs. de companie pentru a verifica starea generală de sănătate și bunăstare a acestuia. Veterinarul va cântări animalul dvs. de companie și va lua temperatura acestuia pentru a verifica orice semne de febră sau modificări de greutate. Veterinarul va efectua un examen fizic al animalului dvs. de companie, verificându-i ochii, urechile, nasul, gura, dinții, pielea, blana, articulațiile și starea generală a corpului. Veterinarul îi va asculta inima și plămânii animalului dvs. de companie pentru a verifica eventualele anomalii. Veterinarul îi va palpa abdomenul animalului de companie pentru a verifica orice semne de durere, noduli sau mase anormale.</p><p>Veterinarul îi poate administra vaccinuri necesare pentru a proteja animalul de companie de bolile comune. Veterinarul poate verifica dacă animăluțul dvs. prezintă paraziți externi, cum ar fi purici și căpușe, și vă poate recomanda medicamente pentru prevenirea sau tratarea acestora.</p><p>Veterinarul poate recomanda analize de sânge pentru a verifica eventualele probleme de sănătate subiacente. Veterinarul va examina dinții și gingiile animalului dvs. de companie pentru a verifica orice semne de boală dentară. Veterinarul vă poate întreba despre comportamentul animalului dvs. de companie și vă poate oferi sfaturi despre cum să rezolvați orice probleme de comportament. În timpul examenului, medicul veterinar poate discuta, de asemenea, orice îngrijorare pe care le aveți cu privire la sănătatea, dieta sau comportamentul animalului dvs. de companie și poate oferi recomandări pentru îngrijiri sau tratamente preventive.</p><p>Puteți consulta serviciile noastre de <a href=\"https://hikevet.com/consultatii-la-domiciliu/\">consultații la domiciuliu apăsând aici.</a></p>"
+  },
+  {
+   "question": "Când este indicat sa îmi sterilizez câinele sau pisica?",
+   "answer": "<p>De obicei, se recomandă ca femelele să fie sterilizate iar masculii sterilizați între șase luni și un an. Dar uneori se vor face excepții în funcție de vârstă, rasă, greutate și starea de sănătate (adică un cățel prea mic nu ar trebui să fie sub anestezie până când nu devine mai mare). Veterinarul dvs. vă va anunța când este momentul potrivit pentru sterilizarea lor.</p><p>Mai multe despre serviciile noastre de chirurgie puteți afla <a href=\"https://hikevet.com/chirurgie-tesuturi-moi/\">dând click aici.</a></p>"
+  },
+  {
+   "question": "Când are nevoie câinele de analize de sânge?",
+   "answer": "<p>Recomandarea medicilor veterinari este ca analizele de sânge să fie efectuate anual începând cu vârsta de aproximativ 7 ani, ceea ce este considerat a fi începutul anilor „senior”. Toți câinii și pisicile ar trebui să efectueze un set de analize de sânge înainte de anestezia generală, dacă este posibil.</p><p>Testele de sânge ajută la stabilirea mai multor valori precum dacă numărul de globule roșii și albe ale unui animal de companie este normal, dacă ficatul, rinichii, pancreasul și alte organe interne par să funcționeze bine/normal și dacă echilibrul electrolitic și starea de hidratare sunt normale.</p><p>Mai multe despre serviciile noastre de analize de laborator <a href=\"https://hikevet.com/analize-de-laborator/\">puteți afla dând click aici.</a></p>"
+  },
+  {
+   "question": "Ce se întâmplă dacă găsesc noduli pe sau sub pielea animalului meu de companie?",
+   "answer": "<p>Câinii și pisicile pot dezvolta excrescențe și mase la suprafață sau sub piele. Acest lucru este destul de comun la câini și există o mare varietate de creșteri și mase maligne (canceroase), precum și benigne (necanceroase).</p><p> Deoarece există atât de multe tipuri, iar cancerul este „marele imitator” și poate arăta ca orice, este întotdeauna bine ca fiecare nodul să fie evaluat de către medicul veterinar. Un aspirat cu ac fin (folosind un ac pentru a obține celule din masă) și citologia (examinarea celulelor la microscop folosind colorații speciale) pot ajuta la un diagnostic, dar uneori este necesară o biopsie chirurgicală sau îndepărtarea completă a masei pentru a o diagnostica.</p><p>Puteți consulta <a href=\"https://hikevet.com/dermatologie/\">serviciile noastre de dermatologie aici.</a></p>"
+  },
+  {
+   "question": "De câte ori ar trebui să îmi spăl cățelul/pisica?",
+   "answer": "<p>În general, pisicile nu au nevoie să fie scăldate pentru că se îngrijesc singure. Majoritatea câinilor nu ar trebui să fie spălați mai des decât la fiecare 2-3 săptămâni, sau dacă îl veți spăla mai des este posibil să eliminați unele dintre uleiurile protectoare ale pielii acestora. Acest lucru se poate schimba în mod evident dacă animalul dvs. de companie are o anumită afecțiune a pielii, de exemplu, deci la un control de rutină medicul veterinar poate sesiza dacă animalul dvs. de companie are circumstanțe speciale, alergii sau o infecție a pielii și necesită a fi spălat mai des.</p><p>Puteți consulta <a href=\"https://hikevet.com/dermatologie/\">serviciile noastre de dermatologie aici.</a></p>"
+  },
+  {
+   "question": "Care sunt cele mai comune boli pe care trebuie să le am în vedere când e vorba de câinele/pisica mea?",
+   "answer": "<p>Cele mai frecvente boli observate la câini și pisici sunt bolile dentare, infecțiile cutanate, infecțiile urechii și masele de piele canceroase/necanceroase. Examenele anuale și comunicarea deschisă cu medicul veterinar, analizele regulate, pot ajuta la prevenirea ca aceste boli și alte boli să devină severe și vă pot ajuta prietenul dvs. blănos, să trăiască o viață mai lungă și mai fericită.</p><p>Puteți afla mai multe despre serviciile noastre de <a href=\"https://hikevet.com/medicina-interna/\">medicină internă apăsând aici.</a></p>"
+  },
+  {
+   "question": "Cat de des ar trebui sa facă mișcare animalul meu de companie?",
+   "answer": "<p>Câinii și pisicile ar trebui să facă mișcare în fiecare zi, la fel ca oamenii. Este important să le mențineți articulațiile și mușchii în mișcare, să mențineți o greutate și o condiție corporală acceptabile și să mențineți animalele de companie stimulate și distrate, astfel încât să nu devină supraponderali, plictisiți și, eventual, distructive.</p>"
+  },
+  {
+   "question": "Care sunt cele mai bune deparazitante pentru animalul meu de companie?",
+   "answer": "<p>Există multe tipuri de paraziți care pot cauza probleme de sănătate animalului dvs. de companie, iar unii vă pot cauza probleme de sănătate chiar dvs. Unii paraziți trăiesc în vasele de sânge și în inima animalului dvs. de companie (viermii inimii), alții trăiesc în intestinele animalului dvs. de companie (viermi rotunzi, viermi bici, anchilostoma, tenia), unii trăiesc cel puțin o parte din viață pe corpul animalul dvs. de companie (purici, căpușe), unii mușcă animalele de companie pentru o masă de sânge (țânțari), iar altora le place să trăiască în urechile lor (acarieni). Acestea sunt doar câteva exemple.</p><p>Există multe medicamente pentru prevenirea paraziților. Cel mai bine este să întrebați medicul veterinar care este medicamentul potrivit pentru animalul dvs. de companie. Farmacia Google vă poate conduce pe calea greșită și este posibil să primiți tratamente care nu funcționează sau, chiar mai rău, pot provoca mai mult rău animalului dvs. de companie.</p><p>Unele tratamente vor fi necesare și pentru mediul de acasă, cum ar fi pentru purici, deoarece puricii stau pe animalul dvs. de companie pentru a lua o masă de sânge și apoi coboară, pentru a-și termina procesul de reproducere în altă parte, cum ar fi covoarele sau țarcurile în care stau animăluțele.</p><p>Vezi serviciile noastre de <a href=\"https://hikevet.com/deparazitare-interna/\">deparazitare apăsând aici.</a></p>"
+  }
+ ],
+ "pages": [
+  {
+   "slug": "home",
+   "title": "Clinică veterinară în Târgu Mureș",
+   "template": "home",
+   "lead": "Oferim servicii medicale de înaltă calitate și îngrijire personalizată.",
+   "seo_title": "HiKeVet – Clinică veterinară în Târgu Mureș",
+   "blocks": {
+    "hero_script": "Bine ai venit la HiKeVet",
+    "hero_title": "Clinică veterinară",
+    "hero_image": "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag",
+    "staff_line": "Un personal prietenos și profesionist, mereu gata să te ajute.",
+    "staff_image": "2023/05/0h7a9586-scaled-e1689027689830",
+    "video_vet_intro": "<p>Bun venit la Video-VET, serviciul online de asistență veterinară dedicat sănătății și bunăstării animalelor tale de companie!</p><p>Cu Video-VET, ai acces la îngrijire veterinară de încredere și profesională, direct de la tine acasă. Indiferent dacă ai întrebări despre sănătatea animalului tău, ai nevoie de sfaturi de îngrijire sau te confrunți cu o problemă medicală urgentă, suntem aici pentru a te ajuta.</p>",
+    "video_vet_points": [
+     "Accesibil indiferent de locație.",
+     "Recomandări de tratament personalizate",
+     "Rapid și ușor"
+    ],
+    "counters": [
+     {
+      "value": "20",
+      "suffix": "+",
+      "label": "Experienta"
+     },
+     {
+      "value": "1000",
+      "suffix": "+",
+      "label": "Clienti Multumiti"
+     }
+    ],
+    "partners_text": "<p>Colaborăm doar cu parteneri de top din industria medical veterinară pentru a putea oferi servicii de calitate. Vezi mai jos principalii noștri parteneri: </p>",
+    "instagram_url": "https://www.instagram.com/clinica_veterinara_hikevet/",
+    "subscription_image": "2023/07/untitled-design"
+   }
+  },
+  {
+   "slug": "servicii",
+   "title": "Servicii",
+   "template": "services",
+   "lead": "În cadrul clinicii veterinare Hikevet, veți găși o varietate de servicii de înaltă calitate pentru animalele dumneavoastră de companie. Echipa de medici veterinari și personalul specializat sunt gata să ofere îngrijiri și tratamente pentru pacienții lor."
+  },
+  {
+   "slug": "echipa",
+   "title": "Echipa",
+   "template": "team",
+   "body": "<p>La Clinica Veterinară HiKeVet suntem mândri de echipa noastră diversă și calificată, dedicată bunăstări animalelor dumneavoastră iubite. Cu o experiență combinată de peste două decenii, aducem o mulțime de cunoștințe, compasiune și entuziasm fiecărui pacient blănos pe care îl întâlnim.</p><p>Împreună, suntem mai mult decât o echipă veterinară; suntem o familie de iubitori de animale . Înțelegem că animalele dvs. de companie nu sunt doar animale; sunt membri dragi ai familiei tale. De aceea tratăm fiecare pacient cu aceeași dragoste și atenție pe care le-o acordam propriilor animale de companie.</p>",
+   "hero_image": "2023/05/0h7a9513"
+  },
+  {
+   "slug": "abonamente",
+   "title": "Abonamente pentru animăluțe",
+   "template": "subscriptions",
+   "body": "<p>Astăzi, există o tendință în creștere de a considera animalele de companie ca membri cu drepturi depline ai familiei. Îi includem în fotografiile de familie, îi luăm în vacanță, ne asigurăm că sunt iubiți și îngrijiți, hrăniți bine, antrenați bine și li se acordă un tratament special atunci când sunt bolnavi.</p>",
+   "lead": "Alege un abonament lunar potrivit pentru tine și pentru animăluțul tău.",
+   "blocks": {
+    "rules_html": "<h3>Reguli abonamente pentru mai multe animalute</h3><p>Primul animal are pretul standard al abonamentului, conform categoriei lui.</p><strong>Al doilea animal</strong><br/>Daca se incadreaza in categoria de kg a primului animal, primeste <strong>100% reducere la abonament</strong>.<br/>Daca nu se incadreaza, primeste <strong>30% reducere</strong> si beneficiaza de abonament separat.<strong>Al treilea animal</strong><br/>Daca se incadreaza in categoria de kg a unuia dintre animalele deja adaugate, primeste <strong>100% reducere la abonament</strong>.<br/>Daca nu se incadreaza, primeste <strong>40% reducere</strong>.<strong>Al patrulea animal</strong><br/>Regula de incadrare pe kg ramane aceeasi. Daca nu se incadreaza, primeste <strong>50% reducere</strong>.<p>Wallet-ul si punctele raman active separat in contul clientului. Configuratorul calculeaza automat reducerea in functie de animalele deja salvate in cont.</p>",
+    "closing": "<p>În cazul in care aveți nelămuriri și vreți să fiți siguri că planul ales va fi cel mai potrivit pentru prietenul dumneavoastră blănos, va stam la dispoziție pentru a discuta mai multe detalii și a alege un plan personalizat pentru animăluțul dumneavoastră. </p><p>Puteți să ne contactați chiar <a href=\"/hikevet-contact/\">aici.</a></p>",
+    "image": "2023/07/img-section-03-min"
+   }
+  },
+  {
+   "slug": "hikevet-contact",
+   "title": "Contact",
+   "template": "contact"
+  },
+  {
+   "slug": "intrebari-frecvente",
+   "title": "Întrebări frecvente",
+   "template": "faq",
+   "body": "<p>Atunci când adopți sau cumperi un animăluț apar o mulțime de întrebări. Noi am încercat mai jos să-ți răspundem la cele mai frecvente dintre acestea.</p>"
+  },
+  {
+   "slug": "blog",
+   "title": "Blog",
+   "template": "blog"
+  },
+  {
+   "slug": "video-vet",
+   "title": "Video Vet",
+   "template": "video-vet",
+   "lead": "Asistentul tău virtual",
+   "body": "<p>Bun venit la Video-VET, serviciul online de asistență veterinară dedicat sănătății și bunăstării animalelor tale de companie!</p><p>Cu Video-VET, ai acces la îngrijire veterinară de încredere și profesională, direct de la tine acasă. Indiferent dacă ai întrebări despre sănătatea animalului tău, ai nevoie de sfaturi de îngrijire sau te confrunți cu o problemă medicală urgentă, suntem aici pentru a te ajuta.</p><ul><li> </li></ul>",
+   "blocks": {
+    "advantages": [
+     "Conectare virtuală cu un medic veterinar pentru evaluarea simptomelor și discuții despre starea animalului tău.",
+     "Nu necesită prezența fizică a dumneavoastră sau a animalutului dumneavoastra.",
+     "Confort și evitarea stresului cauzat de eventuala deplasare.",
+     "Facilitează crearea unui plan de tratament sau furnizarea de răspunsuri adecvate în privința sănătății animalutului dumneavoastră.",
+     "Acces rapid și flexibil la specialiștii clinicii Hikevet.",
+     "Potrivit pentru probleme non-urgente."
+    ],
+    "how": "<p>Consultațiile video veterinare sunt fără stres pentru tine și membrul blanos al familiei tale. Suntem conștienți de importanța timpului fiecăruia si stresul blanosului provovat de o vizita la veterinar, astfel ne-am propus să venim în ajutorul dvs. cu o soluție digitală.</p><p>Vă veți conecta virtual cu unul dintre medicii noștri, care vă va vedea animalul de companie online și împreună veti discuta despre simptomele care va ingrijoreaza, despre starea lui, si despre tot ce este necasar pentru a putea crea un plan de tratament sau a va oferi un raspuns cu privire la starea prietenului dvs de companie. Nu există dezavantaje în a programa o consultație video de telemedicină pentru animalul dvs. de companie pentru probleme care nu sunt de urgență, dar dacă animalul dvs. de companie se confruntă cu o urgență, ar trebui să fie consultat la cea mai apropiată clinică veterinară de urgență. Echipa noastră medicală este disponibilă în timpul programului normal de lucru prntru consulatii online, si in afara programului pentru consulatii in situatii de urgenta.</p><p>Asadar vă rugăm să ne contactați dacă nu sunteți sigur de ce tip de întâlnire(online/live) aveti nevoie.</p><p><strong>*În cazul în care sesizați o urgență însă, recomandăm puternic să apelați la serviciul nostru de ambulanță la numărul: 0770 643 827</strong></p>",
+    "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+    "image": "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc"
+   }
+  },
+  {
+   "slug": "tur-3d",
+   "title": "Tur 3D",
+   "template": "tour",
+   "body": "<p>Bine ați venit la turul virtual 3D Hike Vet!</p> <p>Descoperiți clinica noastră veterinara și aparaturile de ultimă generație dedicate îngrijiri prietenilor dumneavoasră blănoși. <br/>De la zona primitoare de recepție la sălile de consultații și spațiile specializate, explorați fiecare aspect cu ajutorul realității virtuale, prin care vă oferim posibilitatea programării următorului consult sau a oricărei intervenții în funcție de necesitatea animalul dvs.<br/>Astfel prin acest tur virtual 3D vă invităm să luați parte la o experiență unică oferită de clinica veterinară HiKeVet și să simțiți atmosfera noastră de zi cu zi, prietenoasă și profesionistă.</p>",
+   "blocks": {
+    "embed_note": "Turul 3D (Captur3D) se configurează din admin: lipsește codul de inserare în exportul public."
+   }
+  },
+  {
+   "slug": "termeni-si-conditii-abonamente",
+   "title": "Termeni și condiții abonamente",
+   "template": "legal",
+   "body": "<p>TERMENI ȘI CONDIȚII GENERALE (T&amp;C) – ABONAMENTE, WALLET ȘI PROGRAM DE FIDELIZARE</p><p>1. Identificarea Prestatorului și domeniul de aplicare</p><p>1.1. Prestatorul este S.C. FEST4PETS S.R.L. („FEST4PETS”, „Clinica”, „Prestatorul”), cu datele de identificare menționate în Contractul de Abonament Medical Veterinar („Contractul”).</p><p>1.2. Prezentul document („T&amp;C”) reglementează:</p><p>(i) utilizarea platformei/contului de client;</p><p>(ii) achiziția și gestionarea abonamentelor;</p><p>(iii) plățile recurente;</p><p>(iv) funcționarea Portofelului Virtual („Wallet”);</p><p>(v) acordarea și utilizarea punctelor/creditelor promoționale;</p><p>(vi) transferul către beneficiari terți;</p><p>(vii) reguli anti-abuz;</p><p>(viii) comunicările dintre părți.</p><p>1.3. T&amp;C se aplică oricărei persoane fizice care creează cont, plasează o comandă, achită un abonament, depune bani în Wallet sau folosește puncte/beneficii promoționale. Prin acceptare, Beneficiarul confirmă că a citit, înțeles și acceptat integral aceste reguli.</p><p>2. Documente contractuale și ordine de prioritate</p><p>2.1. Relația juridică dintre părți este guvernată de:</p><p>(a) Contractul de Abonament (documentul principal semnat);</p><p>(b) prezentul T&amp;C;</p><p>(c) Anexa 1 – Plan de Servicii;</p><p>(d) eventuale acte adiționale/confirmări comerciale.</p><p>2.2. În caz de neconcordanță: Contractul prevalează față de orice alt document al abonamentului.</p><p>2.3. Prezentul T&amp;C nu transformă abonamentul într-o asigurare și nu conferă garanții de rezultat medical.</p><p>3. Definiții</p><p>3.1. Cont – contul digital al Beneficiarului în platforma FEST4PETS.</p><p>3.2. Abonament – plan de servicii medical-veterinare preventive/monitorizare, cu acces la tarife preferențiale, pe durata contractuală, conform Contractului și Anexei 1.</p><p>3.3. Preț Standard – prețul de listă practicat de Clinica pentru servicii individuale în afara abonamentului, afișat în clinică și/sau în platformă.</p><p>3.4. Plată recurentă – debitare automată periodică (de regulă lunară) a metodei de plată alese de Beneficiar.</p><p>3.5. Wallet – instrument electronic de evidență a soldurilor Beneficiarului, compus din Sold Nominal și Sold Promoțional.</p><p>3.6. Sold Nominal (Credit) – sumele de bani depuse de Beneficiar ca avans pentru servicii/produse viitoare.</p><p>3.7. Sold Promoțional (Puncte/Bonus) – unități valorice promoționale acordate de Prestator urmând a fi folosite pentru servicii veterinare, fără valoare de circulație monetară în afara platformei, neconvertibile în numerar.</p><p>4. Crearea contului și securitatea accesului</p><p>4.1. Pentru utilizarea integrală a serviciilor digitale, Beneficiarul își creează un Cont pe platformă. Beneficiarul garantează că datele furnizate sunt reale, complete și actualizate.</p><p>4.2. Beneficiarul este responsabil pentru păstrarea confidențialității credențialelor (parolă/coduri), pentru activitatea din Cont și pentru orice utilizare a contului de către terți cu acces la dispozitivul său.</p><p>4.3. În caz de suspiciune de acces neautorizat, Beneficiarul va notifica imediat Clinica. Prestatorul poate suspenda temporar Contul pentru protecție și prevenirea fraudelor.</p><p>5. Achiziția abonamentului și activarea</p><p>5.1. Abonamentul se achiziționează online sau în clinică. Activarea poate fi condiționată de identificarea animalului (microcip/carnet), confirmarea datelor și achitarea primei plăți.</p><p>5.2. Dacă Planul prevede o perioadă tehnică de activare (de ex. 14 zile), serviciile inclusenu pot fi utilizate în această perioadă. Scopul este verificarea datelor și configurarea corectă a planului.</p><p>5.3. Abonamentul este asociat unui animal identificat în mod unic. Serviciile incluse sunt netransferabile între animale, cu excepția situațiilor prevăzute expres ca facilități comerciale în Contract/T&amp;C.</p><p>6. Plăți, facturare și plăți recurente</p><p>6.1. Beneficiarul poate alege:</p><p>(a) plată lunară recurentă;</p><p>(b) plată semestrială în avans;</p><p>(c) plată anuală în avans. Prețul, discounturile și condițiile sunt comunicate înainte de achiziție și confirmate în Contract.</p><p>6.2. Pentru plata recurentă, Beneficiarul autorizează expres Prestatorul să debiteze metoda de plată aleasă la scadențele stabilite. Autorizația este o instrucțiune de plată repetitivă, valabilă până la anulare.</p><p>6.3. Eșecul plății (fonduri insuficiente, card expirat, refuz bancar) poate determina:</p><p>(i) notificare automată;</p><p>(ii) reîncercări de debitare;</p><p>(iii) suspendarea temporară a beneficiilor;</p><p>(iv) încetarea abonamentului conform Contractului, cu aplicarea mecanismului de regularizare.</p><p>Ipotezele expuse fiind applicate succesiv.</p><p>6.4. Beneficiarul are obligația de a menține metoda de plată validă și actualizată. În lipsa acesteia, Prestatorul nu garantează continuitatea beneficiilor și poate limita accesul la servicii incluse până la remedierea situației.</p><p>6.5. Discounturile (inclusiv discount anual sau multi-pet) sunt condiționate de menținerea contractului/plăților la zi; la încetare anticipată se aplică pierderea discountului și recalcularea la Preț Standard, conform Contractului.</p><p>6.6. Prestatorul poate refuza semnarea unui nou abonament până la achitarea tuturordebitelor aferente contractului anterior care a încetat sau a fost suspendat înainte de termen.</p><p>7. Suspendare, anulare și încetare – reguli operaționale</p><p>7.1. Suspendarea temporară poate interveni în caz de:</p><p>(a) neplată;</p><p>(b) suspiciune rezonabilă de fraudă/abuz;</p><p>(c) neconcordanțe majore de identificare;</p><p>(d) încălcarea regulilor de conduită în clinică.</p><p>7.2. În perioada suspendării, Beneficiarul nu poate utiliza serviciile incluse și/sau punctele, până la clarificare, și până la achitarea sumelor restante la zi, conform abonamentului.</p><p>7.3. Încetarea abonamentului poate avea loc:</p><p>(a) la expirarea duratei;</p><p>(b) prin denunțarea Beneficiarului;</p><p>(c) prin neplată prelungită;</p><p>(d) prin decesul animalului (conform Contractului).</p><p>7.4. La încetare, se aplică mecanismul de regularizare prevăzut în Contract. T&amp;C detaliază doar implementarea tehnică (suspendare acces, calcul solduri, anulare puncte).</p><p>8. Wallet – structură, alimentare, utilizare</p><p>8.1. Wallet-ul are două solduri distincte:</p><p>8.1.1. Sold Nominal (Credit) – bani depuși voluntar de Beneficiar. Sunt evidențiați separat și pot fi utilizați pentru achitarea serviciilor și produselor oferite de Clinica, inclusiv a serviciilor neincluse în abonament.</p><p>8.1.2. Sold Promoțional (Puncte/Bonus) – credit promoțional acordat de Prestator. Nu reprezintă bani, nu este convertibil în numerar și nu poate fi retras. Are rol de facilitare comercială și fidelizare.</p><p>8.2. Alimentarea Soldului Nominal se poate face prin plăți online sau în clinică. Prestatorul poate stabili praguri minime/multiple (ex. depunere minimă) sau limitări anti-fraudă (ex. număr maxim de depuneri într-un interval).</p><p>8.3. Utilizarea Soldului Nominal: poate acoperi integral sau parțial facturi pentru servicii și produse. Dacă Soldul Nominal este insuficient, diferența se achită prin alte metode de plată.</p><p>8.4. Utilizarea Soldului Promoțional: poate fi folosit exclusiv pentru manoperă medical-veterinară (servicii), nu pentru produse/medicamente/consumabile. Prestatorul poate limita procentul maxim achitabil cu puncte (ex. max 50% din manoperă) pentru a asigura sustenabilitatea economică a programului.</p><p>8.5. Ordinea de consum (regulă recomandată):</p><p>(i) puncte promoționale, apoi</p><p>(ii) Sold Nominal, apoi</p><p>(iii) plată externă, cu excepția cazurilor în care Beneficiarul solicită altfel în mod expres la recepție.</p><p>9. Programul de fidelizare – acordarea punctelor bonus</p><p>9.1. Prestatorul poate acorda puncte bonus în funcție de campanii:</p><p>(a) depuneri în Wallet;</p><p>(b) plata anuală;</p><p>(c) recomandări;</p><p>(d) evenimente/parteneriate.</p><p>9.2. Regula de bază pentru depuneri (exemplu): pentru o depunere de X lei în Sold Nominal, Prestatorul poate acorda un bonus de X lei în puncte promoționale, utilizabile exclusiv pentru manoperă. Procentele și condițiile pot varia și vor fi afișate în platformă la momentul campaniei.</p><p>9.3. Punctele bonus nu constituie obligație de plată a Prestatorului și pot fi acordate/ajustate/încetate ca politică comercială, fără a afecta sumele din Soldul Nominal depuse de Beneficiar.</p><p>10. Expirare, pierdere și anulare puncte</p><p>10.1. Punctele promoționale au valabilitate limitată (de regulă 12 luni, dacă nu se specifică altfel în campanie).</p><p>10.2. Punctele expiră automat la împlinirea termenului. Expirarea nu dă drept la despăgubiri sau compensare.</p><p>10.3. Punctele se pot pierde integral sau parțial în caz de:</p><p>(a) încetare a contului/contractului;</p><p>(b) fraudă/abuz;</p><p>(c) încercare de conversie în bani;</p><p>(d) încălcări grave ale T&amp;C.</p><p>10.4. Prestatorul poate corecta erori tehnice de alocare (puncte acordate din eroare) prin ajustarea soldului, cu notificarea Beneficiarului.</p><p>11. Retrageri și rambursări – reguli clare</p><p>11.1. Soldul Nominal (bani depuși) poate fi restituit la cererea Beneficiarului doar în măsura în care nu a fost utilizat pentru achiziții/servicii. Restituirea se face prin transfer bancar, în termen de 14 zile lucrătoare, cu reținerea eventualelor comisioane bancare.</p><p>11.2. Soldul Promoțional (puncte) nu se restituie, nu se retrage și nu se transformă în numerar sub nicio formă.</p><p>11.3. În cazul închiderii contului la inițiativa Beneficiarului, acesta poate solicita restituirea Soldului Nominal neutilizat; punctele se anulează automat.</p><p>11.4. Prestatorul poate refuza restituirea dacă există suspiciune rezonabilă de fraudă până la finalizarea verificărilor (ex. depuneri urmate de cereri imediate de retragere, tranzacțiireversate, servicii neachitate etc.).</p><p>12. Transferul către terți (plată pentru alte animale/persoane)</p><p>12.1. Beneficiarul (Titularul Wallet-ului) poate autoriza utilizarea Soldului Nominal și/sau a punctelor pentru plata serviciilor prestate în beneficiul animalelor aparținând unor terți („Beneficiar Terț”).</p><p>12.2. Autorizarea se poate realiza prin:</p><p>(a) prezența fizică a Titularului la plată; sau</p><p>(b) acord electronic din platformă ori prin e-mail confirmat. Autorizarea trebuie să includă cel puțin: suma maximă aprobată și identitatea Beneficiarului Terț (nume și/sau identificator animal – microcip).</p><p>12.3. O plată realizată în baza unei autorizări valide este definitivă și irevocabilă; Titularul nu poate solicita restituirea ulterioară pe motivul schimbării intenției.</p><p>12.4. Prestatorul poate refuza plăți către terți dacă există suspiciune de fraudă sau dacă datele de identificare sunt insuficiente.</p><p>13. Reguli anti-abuz și prevenirea fraudei</p><p>13.1. Este interzisă orice tentativă de obținere de beneficii necuvenite (ex. utilizarea serviciilor/punctelor prin declarații false, manipularea sistemului de plăți, chargeback nejustificat).</p><p>13.2. În caz de suspiciune rezonabilă, Prestatorul poate:</p><p>(a) suspenda contul;</p><p>(b) solicita documente justificative;</p><p>(c) bloca temporar utilizarea punctelor;</p><p>(d) anula puncte acordate;</p><p>(e) înceta relația contractuală conform Contractului.</p><p>13.3. Beneficiarul înțelege că serviciile medicale prestate sunt acte profesionale documentate (fișe, facturi) și pot fi folosite pentru regularizări financiare conform Contractului.</p><p>14. Programări, acces la servicii și conduită în clinică</p><p>14.1. Serviciile se acordă, de regulă, pe bază de programare. Clinica poate stabili intervale dedicate abonaților.</p><p>14.2. Ne-prezentarea la programare poate conduce la reprogramare și, în cazuri repetate, la limitarea facilităților.</p><p>14.3. Beneficiarul are obligația de a avea o conduită respectuoasă. Clinica poate refuza accesul în caz de comportament agresiv, fără a afecta obligațiile medicale de urgență conform normelor profesionale.</p><p>15. Date cu caracter personal și confidențialitate</p><p>15.1. Prestatorul prelucrează date personale (identificare, contact, plăți) și date privind animalul (fișă medicală) în scopul executării contractului, administrării contului și respectării obligațiilor legale.</p><p>15.2. Prelucrarea se realizează în conformitate cu legislația aplicabilă privind protecția datelor (GDPR). Detalii suplimentare se pot include într-o Politică de confidențialitate publicată pe platformă.</p><p>15.3. Beneficiarul consimte la comunicări operaționale (confirmări, notificări de plată, informări despre abonament). Comunicările de marketing se vor transmite doar cu consimțământ separat, dacă este cazul.</p><p>16. Modificarea T&amp;C și continuitatea contractelor</p><p>16.1. Prestatorul poate modifica T&amp;C pentru a reflecta schimbări operaționale, legislative sau comerciale.</p><p>16.2. Modificările se publică în platformă și se aplică de la data indicată. Pentru contractele existente, modificările care afectează drepturi esențiale se vor aplica doar după informarea Beneficiarului și, când este cazul, obținerea acordului necesar.</p><p>16.3. Dacă Beneficiarul nu acceptă modificările, poate înceta utilizarea platformei și poate denunța abonamentul conform Contractului.</p><p>17. Legea aplicabilă și soluționarea disputelor</p><p>17.1. T&amp;C sunt guvernate de legea română.</p><p>17.2. Orice dispută se va încerca a fi soluționată amiabil; în lipsă, se aplică competența stabilită în Contractul de Abonament.</p><p>18. Dispoziții finale</p><p>18.1. Dacă o clauză este declarată nulă, restul T&amp;C rămân aplicabile (separabilitate).</p><p>18.2. Neexercitarea unui drept de către Prestator nu echivalează cu renunțarea la acel drept.</p><p>18.3. Beneficiarul confirmă că a înțeles:</p><p>(i) distincția dintre Sold Nominal și puncte;</p><p>(ii) că punctele nu sunt bani;</p><p>(iii) că utilizarea beneficiilor promoționale este condiționată de respectarea regulilor de mai sus.</p>",
+   "document_version": "2026-11-12-import"
+  },
+  {
+   "slug": "contract-abonament",
+   "title": "Contract abonament",
+   "template": "legal",
+   "body": "<p>CONTRACT ABONAMENT MEDICAL VETERINAR</p><p>Nr. ____ / Data ____</p><p>I. PĂRȚILE CONTRACTANTE</p><p>1. Prestatorul</p><p>S.C. FEST4PETS S.R.L., cu sediul în mun. Târgu Mureș, jud. Mureș, înregistrată la ORC sub nr. J26/1060/2022,CUI RO46349603, reprezentată legal prin Dr. Festeu Radu-Andreias, administrator și medic veterinar, denumită în continuare „Prestatorul” sau„Clinica”.</p><p>2. Beneficiarul</p><p>Dl./Dna. ________________________, CNP __________________, domiciliat(ă) în ______________________,</p><p>identificat(ă) cu CI seria ___ nr. ___, telefon __________, e-mail __________,denumit(ă) în continuare „Beneficiarul”, avnând în posesie animalul identificat prin</p><p>Nume animal ______________________ Specie ______________________ Rasă ______________________</p><p>Sex ______________________ Greutate ______________________ Microcip/Nr. Carnet de sănatate ______________________,.</p><p>II. OBIECTUL ȘI NATURA JURIDICĂ A CONTRACTULUI</p><p>Prezentul contract este un contract de prestări servicii medical-veterinare, în sensul art. 1851 și urm. Cod civil.</p><p>Prezentul document are ca obiect achiziționarea Beneficiarului a unui AbonamentulMedical Veterinar- FEST4PETS, care oferă acces la servicii medical-veterinarepreventive și de monitorizare, la tarife preferențiale, în baza unui plan personalizatpentru animalul identificat mai sus.</p><p>Beneficiarul declară că a fost informat și înțelege că abonamentul:</p><p>– este un contract de prestări servicii, nu o asigurare;</p><p>– nu garantează vindecarea sau supraviețuirea animalului;</p><p>– nu reprezintă un depozit de bani rambursabil;</p><p>– se bazează pe obligația de diligență a medicului veterinar</p><p>III. IDENTIFICAREA ANIMALULUI</p><p>Serviciile se prestează exclusiv pentru animalul identificat în Anexa 1. Abonamentul este netransferabil.</p><p>IV. DURATA</p><p>Contractul se încheie pe 12 luni. Reînnoirea se face doar cu acordul expres al Beneficiarului.</p><p>V. PREȚ, PLĂȚI ȘI DISCOUNTURI</p><p>Plata se poate face lunar, semestrial sau anual.</p><p>Plata anuală sau bianuală beneficiază de discount, condiționat de menținerea contractuluipe întreaga durată.</p><p>Sumele achitate sunt nerambursabile.</p><p>VI. DENUNȚARE, REZILIERE ȘI REGULARIZARE</p><p>Beneficiarul poate denunța unilateral contractul, cu notificare scrisă comunicatăprestatorului în prealabil cu cel puțin 30 de zile înainte de data la carre se doreșteîncetarea contractului.</p><p>În caz de încetare anticipată:</p><p>– serviciile utilizate se recalculează la preț standard;</p><p>– discounturile se pierd automat;</p><p>– diferențele devin exigibile.</p><p>Plata eventualelor diferențe se realizeaza prin transfer bancar in termen de 14 zile de la data încetării contractului.</p><p>VII. DECESUL SAU PIERDEREA ANIMALULUI</p><p>Dacă animalul se pierde, este donat sau, din păcate, decedează, abonamentul se oprește.</p><p>Sumele nu se restituie automat, abonamentul se suspendă. Clientul poate opta pentru că suma aferenta contractului suspendat sa fie oferită ca facilitate comercială sub forma de credit de servicii pentru un alt animal, sau să i se restiruie, caz în care efectele contractului încetează, din cauzele menționate mai sus.</p><p>Rambursările eventualelor diferențe se realizeaza prin transfer bancar in termen de 14 zilede la data încetării contractului</p><p>Clinica va converti soldul pozitiv în credit de servicii, valabil 12 luni în contul de pe platformă a beneficiarului care mai apoi poate fi reutilizat de către același proprietar sautransferabil către o persoană terță, cu condiția ca această persoană să dețină un abonamentde servicii veterinare în cadrul clinicii, activ.</p><p>VIII. WALLET ȘI PUNCTE</p><p>Utilizarea Wallet-ului este reglementată prin Termeni și Condiții.</p><p>Punctele promoționale confer doar drept de prestare a unor servicii în condițiile stipulate prin ghid și contract, nu sunt bani, nu sunt convertibile și nu constituie creanță.</p><p>IX. RĂSPUNDERE</p><p>Clinica are obligație de diligență, nu de rezultat.</p><p>Nu răspunde pentru agravarea afecțiunilor preexistente sau nerespectarea indicațiilormedicale.</p><p>X. FORȚA MAJORĂ</p><p>Conform art. 1351 Cod civil.</p><p>XI. LITIGII</p><p>Litigiile se soluționează de instanțele competente din Târgu Mureș.</p><p>XII. DISPOZIȚII FINALE</p><p>Beneficiarul declară că a citit, a înțeles și acceptă integral prezentul contract.</p>",
+   "document_version": "2026-11-12-import"
+  },
+  {
+   "slug": "anexa-abonamente",
+   "title": "Anexă abonamente",
+   "template": "legal",
+   "body": "<p>ANEXA NR. 1 – PLAN DE SERVICII MEDICAL-VETERINARE PERSONALIZAT</p><p>Prezenta anexă face parte integrantă din Contractul de Abonament Medical Veterinar încheiat între S.C. FEST4PETS S.R.L. și Beneficiar și detaliază serviciile medical-veterinare incluse în abonament, condițiile de utilizare și limitele tehnice aplicabile.</p><p>1. Natura juridică și scopul planului de servicii</p><p>1.1. Planul de servicii medical-veterinare reprezintă o structurare a actelor medicale preventive și de monitorizare a stării de sănătate a animalului, oferite în cadrul abonamentului.</p><p>1.2. Prezenta anexă nu constituie contract de asigurare, nu implică preluarea unui risc și nu garantează vindecarea, evoluția favorabilă sau supraviețuirea animalului.</p><p>1.3. Serviciile sunt prestate în baza unei obligații de diligență, conform legislației specifice profesiei de medic veterinar și normelor Colegiului Medicilor Veterinari din România.</p><p>2. Principiul personalizării pachetelor de servicii</p><p>2.1. Pachetele de servicii NU sunt standardizate sub forma unor categorii fixe (de tip Basic, Plus, Premium etc.).</p><p>2.2. Fiecare plan de servicii este personalizat individual, la momentul contractării, în funcție de:</p><p>a) specia animalului (câine, pisică, alte specii eligibile);</p><p>b) rasa și particularitățile genetice cunoscute;</p><p>c) sexul și statusul hormonal (intact / sterilizat);</p><p>d) greutatea corporală;</p><p>e) vârsta biologică;</p><p>f) stilul de viață (interior / exterior);</p><p>g) afecțiuni cronice cunoscute sau factori de risc identificați.</p><p>2.3. Personalizarea urmărește adaptarea frecvenței și tipului serviciilor la nevoile reale ale animalului, fără a modifica natura juridică a abonamentului.</p><p>3. Stabilirea și confirmarea planului personalizat</p><p>3.1. Planul personalizat este stabilit de către medicul veterinar, pe baza informațiilor furnizate de Beneficiar și a evaluării medicale inițiale.</p><p>3.2. Conținutul planului (lista serviciilor și limitele anuale) este comunicat Beneficiarului înainte de activarea abonamentului.</p><p>3.3. Beneficiarul confirmă planul personalizat prin semnarea Contractului și a prezentei anexe.</p><p>3.4. Ajustările ulterioare pot fi recomandate din considerente medicale, fără a genera drepturi de rambursare sau modificări unilaterale ale prețului, cu excepția situațiilor agreate de părți.</p><p>4. Categorii de servicii incluse</p><p>În funcție de planul personalizat, abonamentul poate include, fără a se limita la, următoarele categorii de servicii:</p><p>4.1. Consultații și evaluări clinice</p><p>– consultații generale periodice;</p><p>– controale de monitorizare;</p><p>– evaluări clinice preventive.</p><p>4.2. Profilaxie și prevenție</p><p>– vaccinări conform schemei recomandate;</p><p>– deparazitări interne și externe;</p><p>– evaluări de nutriție și management al greutății.</p><p>4.3. Investigații paraclinice</p><p>– analize hematologice (hemoleucogramă);</p><p>– analize biochimice;</p><p>– teste coproparazitologice;</p><p>– sumar de urină și urocultură.</p><p>4.4. Investigații imagistice</p><p>– ecografie abdominală;</p><p>– radiografii, în limita expunerilor recomandate medical.</p><p>4.5. Proceduri de rutină</p><p>– detartraj;</p><p>– tăiere unghii;</p><p>– vidare glande perianale;</p><p>4.6. Servicii complementare</p><p>– consultații video (telemedicină veterinară);</p><p>– deplasări la domiciliu, dacă sunt incluse în planul personalizat.</p><p>5. Limite de utilizare și frecvență</p><p>5.1. Fiecare serviciu inclus are o limită maximă anuală, stabilită în funcție de planul personalizat.</p><p>5.2. Limitele sunt stabilite pentru a asigura un echilibru între prevenție eficientă și utilizare responsabilă a resurselor medicale.</p><p>5.3. Depășirea limitelor incluse poate fi realizată la solicitarea Beneficiarului, cu achitarea serviciilor suplimentare la Preț Standard, aplicându-se eventualele reduceri contractuale.</p><p>6. Condiții de utilizare a serviciilor</p><p>6.1. Serviciile se acordă, de regulă, pe bază de programare prealabilă.</p><p>6.2. Prestarea serviciilor este condiționată de respectarea indicațiilor medicale și a programărilor.</p><p>6.3. Neutilizarea unui serviciu inclus într-o anumită perioadă nu generează drept de compensare financiară sau reportare, decât dacă este prevăzut expres în Contract.</p><p>7. Excluderi și servicii neincluse</p><p>7.1. Abonamentul nu include, dacă nu se prevede expres în planul personalizat:</p><p>– intervenții chirurgicale majore;</p><p>– spitalizare prelungită;</p><p>– tratamente oncologice;</p><p>– medicamente, vaccinuri și consumabile;</p><p>– intervenții de urgență în afara programului clinicii.</p><p>7.2. Aceste servicii pot fi furnizate separat, la Preț Standard.</p><p>8. Netransferabilitate</p><p>8.1. Serviciile incluse sunt netransferabile și pot fi utilizate exclusiv pentru animalul identificat în Contract, doar la cererea scrisă a beneficiarului pot fi transferabile.</p><p>8.2. Orice tentativă de utilizare pentru un alt animal, fără acordul beneficiarului (înpersoană sau email confirmat) conduce la pierderea beneficiilor aferente, fără drept de rambursare.</p><p>9. Corelarea cu celelalte documente contractuale</p><p>9.1. Prezenta anexă se completează cu prevederile Contractului de Abonament Medical Veterinar și ale Termenilor și Condițiilor Generale.</p><p>9.2. În caz de neconcordanță între înscrisurile menționate la punctul 9.1(anterior), prevalează prevederile Contractului.</p>",
+   "document_version": "2026-11-12-import"
+  },
+  {
+   "slug": "ghid-proprietar",
+   "title": "Ghidul proprietarului",
+   "template": "legal",
+   "body": "<p>GHIDUL PROPRIETARULUI DE ANIMALE</p><p>Abonamentul de Sănătate FEST4PETS – clar, predictibil, personalizat</p><p>De ce acest ghid?</p><p>Am creat acest ghid pentru a explica, într-un limbaj clar și transparent, ce este și cum funcționează Abonamentul de Sănătate FEST4PETS. Documentul poate fi citit ca atare sau trimis integral sub forma unui e-mail informativ către proprietarii de animale interesați de o soluție modernă de îngrijire veterinară.</p><p>1. Ce este Abonamentul de Sănătate FEST4PETS?</p><p>Abonamentul de Sănătate FEST4PETS este o modalitate inteligentă prin care îți planifici din timp cheltuielile veterinare și te asiguri că animalul tău beneficiază de prevenție, monitorizare și acces rapid la servicii medical-veterinare.</p><p>În loc să plătești sume mari, neprevăzute, atunci când apare o problemă, plătești eșalonat și ai costuri previzibile pe tot parcursul anului.</p><p>2. Ce NU este acest abonament</p><p>Este important să știi de la început ce NU este abonamentul:</p><p>– nu este o asigurare;</p><p>– nu garantează vindecarea sau supraviețuirea animalului;</p><p>– nu este un depozit de bani care poate fi retras oricând;</p><p>– nu înlocuiește responsabilitatea proprietarului față de sănătatea animalului.</p><p>Este un contract de servicii veterinare, construit corect și transparent.</p><p>3. De ce este diferit față de alte „pachete”</p><p>La FEST4PETS nu există pachete standard de tip Basic, Plus sau Premium.</p><p>Fiecare abonament este personalizat pentru animalul tău, în funcție de:</p><p>– specie;</p><p>– rasă;</p><p>– sex și status hormonal;</p><p>– greutate;</p><p>– vârstă;</p><p>– stil de viață (interior/exterior);</p><p>– eventuale afecțiuni sau riscuri identificate.</p><p>Astfel, plătești doar pentru ceea ce are sens medical pentru animalul tău.</p><p>4. Ce servicii pot fi incluse</p><p>În funcție de planul personalizat, abonamentul poate include:</p><p>– consultații veterinare;</p><p>– vaccinări și deparazitări;</p><p>– analize de sânge și urină;</p><p>– ecografii și radiografii;</p><p>– proceduri de rutină (detartraj, tăiere unghii etc.);</p><p>– consultații video;</p><p>– reduceri pentru servicii sau produse neincluse.</p><p>Lista exactă este stabilită împreună cu medicul veterinar.</p><p>5. Cum funcționează plata</p><p>Poți alege plata lunară, semestrială sau anuală.</p><p>Plata anuală sau semestrială poate include un avantaj financiar, cu condiția menținerii abonamentului pe durata stabilită.</p><p>Abonamentul este gândit pentru continuitate și prevenție, nu pentru utilizare punctuală.</p><p>6. Ce se întâmplă dacă renunți</p><p>Poți renunța oricând.</p><p>În acest caz, serviciile deja utilizate se recalculează la preț standard, iar eventualele diferențe se regularizează conform contractului.</p><p>Abonamentul nu funcționează ca un credit bancar sau ca o asigurare.</p><p>7. Ce se întâmplă în situații neprevăzute</p><p>Dacă animalul se pierde, este donat sau, din păcate, decedează, abonamentul se oprește.</p><p>Sumele nu se restituie automat, abonamentul se suspendă. Clientul poate opta pentru ca suma aferenta contractului suspendat sa fie oferită ca facilitate comercială sub forma de credit de servicii pentru un alt animal, sau să i se restiruie, caz în care efectele contractului încetează, din cauzele menționate mai sus.</p><p>8. Wallet-ul – un mod modern de a pune bani deoparte</p><p>În platforma FEST4PETS poți avea un Wallet (portofel virtual).</p><p>Poți depune bani oricând, în orice sumă, pentru a-i avea disponibili când ai nevoie.</p><p>Clinica va oferi puncte bonus extra de aceeași valoare ca și suma depusă, pentru acestedepuneri, punctele primate care pot fi folosite pentru manopere medicale, iar sumeledepuse pot fi folosite atat pentru achiziția de produse cât și pentru servicii medicale.</p><p>Punctele nu sunt bani și nu pot fi retrase, dar reprezintă un avantaj real pentru proprietari.</p><p>9. Pentru cine este acest abonament</p><p>Abonamentul este ideal pentru:</p><p>– proprietari care vor costuri previzibile;</p><p>– animale tinere, aflate în creștere;</p><p>– animale adulte care necesită monitorizare;</p><p>– familii cu mai multe animale;</p><p>– persoane care vor prevenție, nu doar tratament de urgență.</p><p>10. De ce să alegi FEST4PETS</p><p>Pentru că la FEST4PETS:</p><p>– planul este personalizat medical, nu standardizat comercial;</p><p>– știi din start ce plătești și pentru ce;</p><p>– ai acces rapid la servicii;</p><p>– construim o relație pe termen lung, bazată pe prevenție.</p><p>Dacă îți dorești o abordare modernă a sănătății animalului tău, Abonamentul de Sănătate FEST4PETS este soluția potrivită.</p><p>11. Cum poți începe</p><p>Ne poți contacta direct în clinică, telefonic sau online.</p><p>Un medic veterinar te va ajuta să construim împreună un plan adaptat animalului tău.</p>",
+   "document_version": "2026-11-12-import"
+  },
+  {
+   "slug": "politica-de-confidentialitate",
+   "title": "Politica de confidențialitate",
+   "template": "legal",
+   "status": "draft",
+   "noindex": true,
+   "body": "<p>Pagina de pe site-ul actual nu are conținut. Textul politicii trebuie furnizat și aprobat de clinică înainte de publicare.</p>"
+  }
+ ],
+ "partners": [
+  {
+   "image": "2023/08/virbac-logo-228x112-1",
+   "alt": "virbac-logo-228x112"
+  },
+  {
+   "image": "2023/08/altius-logo-1",
+   "alt": "Altius logo"
+  },
+  {
+   "image": "2023/08/stangest-logo-1",
+   "alt": "Stangest logo (1)"
+  },
+  {
+   "image": "2023/08/hs-medical-logo",
+   "alt": "HS Medical logo"
+  },
+  {
+   "image": "2023/08/covetrus-logo",
+   "alt": "Covetrus logo"
+  },
+  {
+   "image": "2023/08/vet-diagnostic-logo",
+   "alt": "Vet Diagnostic logo"
+  },
+  {
+   "image": "2023/08/vetrx-logo",
+   "alt": "VETRX logo"
+  },
+  {
+   "image": "2023/08/vetro-logo",
+   "alt": "vetro logo"
+  },
+  {
+   "image": "2023/08/boehringer-logo",
+   "alt": "boehringer logo"
+  },
+  {
+   "image": "2023/08/hills-logo",
+   "alt": "Hills logo"
+  },
+  {
+   "image": "2023/08/zeiss-logo-1",
+   "alt": "zeiss logo (1)"
+  },
+  {
+   "image": "2023/08/maravet-logo-1",
+   "alt": "maravet logo (1)"
+  },
+  {
+   "image": "2023/08/braun-logo-2",
+   "alt": "braun logo (2)"
+  },
+  {
+   "image": "2023/08/purina-logo-1",
+   "alt": "purina logo (1)"
+  },
+  {
+   "image": "2023/08/esaote-logo-2",
+   "alt": "esaote logo (2)"
+  },
+  {
+   "image": "2023/08/gosbi-logo-1",
+   "alt": "Gosbi logo (1)"
+  },
+  {
+   "image": "2023/08/cityvet-logo-3",
+   "alt": "cityvet logo (3)"
+  },
+  {
+   "image": "2023/08/servicii-publice-logo",
+   "alt": "servicii publice logo"
+  },
+  {
+   "image": "2023/08/synevo-vet",
+   "alt": "synevo vet"
+  }
+ ],
+ "instagram": [
+  "2023/07/whatsapp-image-2023-07-11-at-06-46-16",
+  "2023/07/whatsapp-image-2023-07-11-at-06-46-10",
+  "2023/07/whatsapp-image-2023-07-11-at-06-46-14",
+  "2023/07/whatsapp-image-2023-07-11-at-06-46-08",
+  "2023/07/whatsapp-image-2023-07-11-at-06-53-06",
+  "2023/07/whatsapp-image-2023-07-11-at-06-46-20"
+ ],
+ "redirects": [
+  {
+   "from": "/asigurari/",
+   "to": "/abonamente/",
+   "note": "Link intern rupt pe paginile de servicii ale site-ului vechi"
+  },
+  {
+   "from": "/my-account/",
+   "to": "/acces-cont/",
+   "note": "WooCommerce"
+  },
+  {
+   "from": "/shop/",
+   "to": "/",
+   "note": "WooCommerce, magazin gol"
+  },
+  {
+   "from": "/cart/",
+   "to": "/",
+   "note": "WooCommerce"
+  },
+  {
+   "from": "/checkout/",
+   "to": "/",
+   "note": "WooCommerce"
+  },
+  {
+   "from": "/category/uncategorized/",
+   "to": "/blog/",
+   "note": "Arhiva categorie WordPress"
+  },
+  {
+   "from": "/thank-you-page/",
+   "to": "/acces-cont/",
+   "note": "Confirmarea se afiseaza in configurator"
+  },
+  {
+   "from": "/inregistrare-cont/",
+   "to": "/acces-cont/",
+   "note": "Inregistrarea este pe pagina de acces"
+  },
+  {
+   "from": "/feed/",
+   "to": "/blog/",
+   "note": "RSS WordPress"
+  }
+ ],
+ "flagged_texts": [
+  {
+   "page": "/abonamente/",
+   "text": "Astăzi, există o tendință în creștere de a considera animalele de companie ca membri cu drepturi depline ai familiei. Îi includem în fotografiile de familie, îi luăm în vacanță, ne asigurăm că sunt iubiți și îngrijiți, hrăniți bine, antrenați bine și li se acordă un tratament special atunci când sun"
+  },
+  {
+   "page": "/abonamente/",
+   "text": "La fel ca asigurarea obișnuită de sănătate, scopul abonamentelor pentru animale de companie este de a acoperi cheltuielile veterinare pentru animalul dvs. de companie în caz de accidente sau probleme de sănătate."
+  },
+  {
+   "page": "/analize-de-laborator/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/analize-de-laborator/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/anestezie-inhalatorie-si-analgezie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/anestezie-inhalatorie-si-analgezie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/beneficiile-castrarii-caineluimascul-pentru-sanatatea-lui-o-perspectiva-stiintifica/",
+   "text": "Castrarea câinelui tău mascul este o decizie responsabilă care oferă o serie de beneficii pentru sănătate, inclusiv prevenirea tumorilor testiculare, a problemelor de prostată și a tumorilor perianale. În plus, poate ajuta la atenuarea anumitor probleme de comportament, făcând viața mai armonioasă a"
+  },
+  {
+   "page": "/beneficiile-sterilizari-cainelui-dvs-pentru-sanatatea-acestuia-o-perspectiva-stiintifica/",
+   "text": "Sterilizarea câinelui dumneavoastră este o decizie responsabilă care nu numai că previne sarcinile nedorite, dar oferă și o serie de beneficii importante pentru sănătatea acestuia. Aceste beneficii includ reducerea riscului de infecții uterine, tumori ale glandelor mamare și cancer ovarian/uterin. C"
+  },
+  {
+   "page": "/chirurgie-tesuturi-moi/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/chirurgie-tesuturi-moi/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/citologie-vaginala/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/citologie-vaginala/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/consultatii-la-domiciliu/",
+   "text": "Știm că uneori pur și simplu nu este posibil pentru dvs. sau animalul dvs. de companie să va deplasati la clinica noastra pentru a primi îngrijiri. În astfel de momente, echipa noastra veterinara va oferă, la nevoie, vizite la domiciliu. În general, vă recomandăm să vizitați un cabinet complet echip"
+  },
+  {
+   "page": "/consultatii-la-domiciliu/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/consultatii-la-domiciliu/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/deparazitare-externa/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/deparazitare-externa/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/deparazitare-interna/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/deparazitare-interna/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/dermatologie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/dermatologie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/detartraj/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/detartraj/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/ecografie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/ecografie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/hikevet-contact/",
+   "text": "Abonamente pentru animalute! Oferim posibilitatea unui plan sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/",
+   "text": "Abonamente pentru animalute! Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/inseminare-artificiala/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/inseminare-artificiala/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/medicina-interna/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/medicina-interna/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/microcipare/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/microcipare/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/neurologie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/neurologie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/nutritie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/nutritie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/oftamologie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/oftamologie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/pasaport-calatorie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/pasaport-calatorie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/primul-caine-aici-ai-cateva-sfaturi-pentru-un-caine-sanatos-si-fericit/",
+   "text": "Asigură-te ca e deparazitat după 2 saptâmâni de viață sub îndrumarea medicului tău veterinar, pentru asta poți consulta medicul veterinar aici. În primele 6 săptâmâni nu il lãsa în preajma altor câini sau în locuri în care au fost alti câini, astfel se reduce substantial riscul infectiei cu parvovir"
+  },
+  {
+   "page": "/radiografie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/radiografie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/servicii-ortopedie/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/servicii-ortopedie/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/serviciu-de-ambulanta/",
+   "text": "Înțelegem acel sentiment de gol în stomac pe care îl simți atunci când animalul tău de companie este bolnav – în calitate de medici veterinari, am văzut aproape totul. Înțelegem, de asemenea, comportamentul unui animal de companie, așa că știm cum să-l mutăm în mod profesional fără a provoca răni su"
+  },
+  {
+   "page": "/serviciu-de-ambulanta/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/serviciu-de-ambulanta/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/terapie-intensiva/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/terapie-intensiva/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/testarea-progesteronului/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/testarea-progesteronului/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/un-ghid-cuprinzator-pentru-ingrijirea-pisicilor-pastrati-va-prietenul-felin-fericit-si-sanatos/",
+   "text": "Pisicile sunt însoțitori minunați și a avea grijă de ele implică să le oferim cea mai bună dragoste, atenție și îngrijire medicală posibilă. În calitate de proprietar de pisică, joci un rol crucial în a te asigura că prietenul tău felin trăiește o viață sănătoasă și fericită. În acest ghid cuprinzăt"
+  },
+  {
+   "page": "/un-ghid-cuprinzator-pentru-ingrijirea-pisicilor-pastrati-va-prietenul-felin-fericit-si-sanatos/",
+   "text": "5. Creați un spațiu de locuit sigur: asigurarea securității și confortului"
+  },
+  {
+   "page": "/un-ghid-cuprinzator-pentru-ingrijirea-pisicilor-pastrati-va-prietenul-felin-fericit-si-sanatos/",
+   "text": "Un mediu sigur și confortabil este esențial pentru bunăstarea pisicii tale. Cutie de carton: Păstrați cutia de carton curată și într-o locație liniștită și accesibilă. Locuri de odihnă confortabile: oferă-i paturi confortabile și zone sigure de odihnă pentru ca pisica să se relaxeze. Ferestre și bal"
+  },
+  {
+   "page": "/vaccinare/",
+   "text": "Clinica noastră oferă vaccinări de rutină ca parte a serviciului standard și recomandăm ca pisicile, câinii și iepurii să fie protejați împotriva acestor boli prin vaccinarea anuală. O programare de vaccinare este mult mai mult decât o simplă injecție rapidă. Veterinarii și asistenții noștri vor efe"
+  },
+  {
+   "page": "/vaccinare/",
+   "text": "Vezi mai jos Noul Serviciu de Asigurari Medicale pentru animalute."
+  },
+  {
+   "page": "/vaccinare/",
+   "text": "Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/video-vet/",
+   "text": "Asigurare medicala pentru animalute! Oferim posibilitatea unui plan de asigurare medicală sub formă de abonament lunar care să asigure, după caz, investigațiile și intervențiile din cabinet."
+  },
+  {
+   "page": "/video-vet/",
+   "text": "Vreau asigurarea"
+  }
+ ],
+ "service_categories": [
+  {
+   "slug": "diagnostic",
+   "name": "Diagnostic și imagistică",
+   "sort": 0
+  },
+  {
+   "slug": "medicina",
+   "name": "Medicină și specialități",
+   "sort": 1
+  },
+  {
+   "slug": "chirurgie",
+   "name": "Chirurgie și anestezie",
+   "sort": 2
+  },
+  {
+   "slug": "preventie",
+   "name": "Prevenție și documente",
+   "sort": 3
+  },
+  {
+   "slug": "acasa",
+   "name": "La domiciliu și urgențe",
+   "sort": 4
+  }
+ ]
+}

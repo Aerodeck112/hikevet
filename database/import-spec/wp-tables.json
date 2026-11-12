@@ -1,0 +1,1616 @@
+{
+ "hv_wallet_tx": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "type",
+    "type": "VARCHAR(30)",
+    "nullable": false
+   },
+   {
+    "name": "balance_type",
+    "type": "VARCHAR(30)",
+    "nullable": false
+   },
+   {
+    "name": "amount_delta",
+    "type": "DECIMAL(12,2)",
+    "nullable": false
+   },
+   {
+    "name": "points_delta",
+    "type": "INT",
+    "nullable": false
+   },
+   {
+    "name": "note",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "related_type",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "related_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "actor_user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)",
+   "KEY type (type)",
+   "KEY balance_type (balance_type)"
+  ]
+ },
+ "hv_treatments": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "pet_name",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "treatment_name",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "price_standard",
+    "type": "DECIMAL(12,2)",
+    "nullable": false
+   },
+   {
+    "name": "wallet_used",
+    "type": "DECIMAL(12,2)",
+    "nullable": false
+   },
+   {
+    "name": "points_used",
+    "type": "INT",
+    "nullable": false
+   },
+   {
+    "name": "point_mode",
+    "type": "VARCHAR(30)",
+    "nullable": false
+   },
+   {
+    "name": "auto_points_per_unit",
+    "type": "INT",
+    "nullable": false
+   },
+   {
+    "name": "payment_category",
+    "type": "VARCHAR(30)",
+    "nullable": false
+   },
+   {
+    "name": "principal_used",
+    "type": "DECIMAL(12,2)",
+    "nullable": false
+   },
+   {
+    "name": "bonus_used",
+    "type": "DECIMAL(12,2)",
+    "nullable": false
+   },
+   {
+    "name": "bonus_balance_type",
+    "type": "VARCHAR(30)",
+    "nullable": true
+   },
+   {
+    "name": "bonus_blocked",
+    "type": "TINYINT(1)",
+    "nullable": false
+   },
+   {
+    "name": "notes",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "actor_user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "deleted_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "deleted_by",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "delete_reason",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "restored_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "restored_by",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)",
+   "KEY treatment_name (treatment_name)"
+  ]
+ },
+ "hv_notifications": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "subject",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "message",
+    "type": "LONGTEXT",
+    "nullable": false
+   },
+   {
+    "name": "channel",
+    "type": "VARCHAR(30)",
+    "nullable": false
+   },
+   {
+    "name": "related_type",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "related_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)"
+  ]
+ },
+ "hv_email_log": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "to_email",
+    "type": "TEXT",
+    "nullable": false
+   },
+   {
+    "name": "subject",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "context",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "error_message",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "related_type",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "related_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)",
+   "KEY context (context)",
+   "KEY status (status)",
+   "KEY created_at (created_at)"
+  ]
+ },
+ "hv_audit_log": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "entity_type",
+    "type": "VARCHAR(50)",
+    "nullable": false
+   },
+   {
+    "name": "entity_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "action",
+    "type": "VARCHAR(50)",
+    "nullable": false
+   },
+   {
+    "name": "summary",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "before_value",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "after_value",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "actor_user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)",
+   "KEY entity_type (entity_type)",
+   "KEY action (action)",
+   "KEY created_at (created_at)"
+  ]
+ },
+ "hv_doctor_notes": {
+  "plugin": "hikevet-client-wallet-core",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "pet_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "note_text",
+    "type": "LONGTEXT",
+    "nullable": false
+   },
+   {
+    "name": "priority",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "note_status",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "actor_user_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   },
+   {
+    "name": "updated_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "deleted_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "deleted_by",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY user_id (user_id)",
+   "KEY pet_id (pet_id)",
+   "KEY note_status (note_status)",
+   "KEY deleted_at (deleted_at)"
+  ]
+ },
+ "hv_st_cases": {
+  "plugin": "hikevet-sterilization-campaign",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "cod_caz",
+    "type": "VARCHAR(50)",
+    "nullable": false
+   },
+   {
+    "name": "data_programare",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "ora_programare",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "initial_appointment_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "initial_appointment_synced_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "visit_group_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "shared_consent_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "data_prezentare",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "nume_proprietar",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "telefon",
+    "type": "VARCHAR(60)",
+    "nullable": true
+   },
+   {
+    "name": "email",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "adresa_ci",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "serie_numar_ci",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "localitate",
+    "type": "VARCHAR(120)",
+    "nullable": true
+   },
+   {
+    "name": "specie",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "sex",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "nume_pacient",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "rasa",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "culoare_semnalmente",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "varsta_estimata",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "greutate_estimativa",
+    "type": "DECIMAL(8,2)",
+    "nullable": true
+   },
+   {
+    "name": "animal_cu_stapan",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "microcip",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "carnet_sanatate",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "vaccinat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "data_vaccinare",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "observatii_initiale",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "status_caz",
+    "type": "VARCHAR(80)",
+    "nullable": false
+   },
+   {
+    "name": "procedura_programata",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "greutate_reala",
+    "type": "DECIMAL(8,2)",
+    "nullable": true
+   },
+   {
+    "name": "temperatura",
+    "type": "DECIMAL(5,2)",
+    "nullable": true
+   },
+   {
+    "name": "pacient_apt",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "motiv_amanare",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "consimtamant_semnat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "gdpr_semnat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "analize_acceptate",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "analize_efectuate",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "inhalatorie_acceptata",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "risc_anestezic",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "observatii_preoperatorii",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "comportament_neobisnuit",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "comportament_detalii",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "deparazitat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "deparazitare_detalii",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "diaree_voma",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "diaree_voma_detalii",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "tip_hrana_select",
+    "type": "VARCHAR(60)",
+    "nullable": true
+   },
+   {
+    "name": "tip_hrana_detalii",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "frecventa_respiratorie",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "frecventa_cardiaca",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "culoare_mucoase",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "istoric_medical",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "mentiuni_consult_preoperatorii",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "completat_preoperator_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_preoperator",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "status_preoperator",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "data_interventie",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "data_raportare_primarie",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "ora_start",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "ora_final",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "procedura_efectuata",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "tip_anestezie",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "protocol_anestezic",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "substanta1",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "doza1",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "substanta2",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "doza2",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "substanta3",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "doza3",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "alte_substante",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "complicatii",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "mentiuni_medicale",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "mentiuni_intra_postoperatorii",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "medic_operator",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "tehnician_asistent",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "status_postoperator",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "poza_pacient",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_vechi",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_auto_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_raport",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_raport_sursa",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_raport_confirmat_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_foto_confirmat",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_foto_verificat_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "numar_pacient_foto_verificat_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "photo_upload_token",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "photo_uploaded_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "photo_upload_source",
+    "type": "VARCHAR(50)",
+    "nullable": true
+   },
+   {
+    "name": "completat_interventie_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_interventie",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "status_interventie",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "consimtamant_acceptare_proceduri",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "document_gdpr",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "ci_verificat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "carnet_sau_fisa",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "documente_scanate",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "observatii_documente",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "completat_documente_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_documente",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "status_documente",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "data_externare",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "ora_externare",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "recomandari_postoperatorii",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "pachet_postoperator",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "control_recomandat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "data_control",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "followup_efectuat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "data_followup",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "evolutie_comunicat",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "observatii_externare",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "recomandari_postoperatorii_text",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "completat_externare_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_externare",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "status_externare",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "postop_email_due_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "postop_email_sent_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "postop_email_status",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "postop_email_error",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "postop_email_manual_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "final_summary_email_sent_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "final_summary_email_status",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "final_summary_email_error",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "consent_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "consent_synced_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "date_proprietar_complete",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "date_pacient_complete",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "consimtamant_complet",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "gdpr_complet",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "anestezie_completata",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "substante_completate",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "medic_operator_completat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "poza_incarcata",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "complicatii_mentiuni_completate",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "validat_pentru_primarie",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "validat_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "data_validare",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "observatii_validare",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "nr_fisa",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "data_fisa",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "cod_identificare",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "sterilizat",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "contact_persoana",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "contact_telefon",
+    "type": "VARCHAR(60)",
+    "nullable": true
+   },
+   {
+    "name": "contact_email",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "clinica_curenta",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "circuit_doctor",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "circuit_doctor_tel",
+    "type": "VARCHAR(60)",
+    "nullable": true
+   },
+   {
+    "name": "preluare_triaj",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "triaj_doctor",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "triaj_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "triaj_ora",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "trimitere_programare",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "trimitere_doctor",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "trimitere_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "trimitere_ora",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "provenienta_anul",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "alte_animale_acasa",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "habitat",
+    "type": "VARCHAR(40)",
+    "nullable": true
+   },
+   {
+    "name": "calatorii",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "calatorii_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "capuse",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "capuse_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "dieta_tip",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "dieta_cantitate",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "dieta_administrare",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "vaccinari_la_zi",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "vaccinari_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "deparazitari_la_zi",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "deparazitari_data",
+    "type": "DATE",
+    "nullable": true
+   },
+   {
+    "name": "boli_anterioare",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "operatii_anterioare",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "medicatie_curenta",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "suplimente",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "note_fisa",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "atentionari",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "responsabil_caz",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "dr_intern",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "student",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "motiv_prezentarii",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "debut_primele_semne",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "frecventa_durata",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "tratament_consult",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "evolutie_raspuns_med",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "note_examinare",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "status_fisa",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "completat_fisa_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_fisa",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "creat_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_creat",
+    "type": "DATETIME",
+    "nullable": false
+   },
+   {
+    "name": "actualizat_de",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "timestamp_actualizat",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "UNIQUE KEY cod_caz (cod_caz)",
+   "KEY status_caz (status_caz)",
+   "KEY data_interventie (data_interventie)",
+   "KEY validat_pentru_primarie (validat_pentru_primarie)",
+   "KEY postop_email_due_at (postop_email_due_at)",
+   "KEY postop_email_sent_at (postop_email_sent_at)",
+   "KEY consent_id (consent_id)",
+   "KEY initial_appointment_id (initial_appointment_id)",
+   "KEY visit_group_id (visit_group_id)",
+   "KEY shared_consent_id (shared_consent_id)"
+  ]
+ },
+ "hv_st_appointments": {
+  "plugin": "hikevet-sterilization-campaign",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "appointment_code",
+    "type": "VARCHAR(50)",
+    "nullable": false
+   },
+   {
+    "name": "case_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "appointment_date",
+    "type": "DATE",
+    "nullable": false
+   },
+   {
+    "name": "start_time",
+    "type": "VARCHAR(10)",
+    "nullable": false
+   },
+   {
+    "name": "end_time",
+    "type": "VARCHAR(10)",
+    "nullable": true
+   },
+   {
+    "name": "appointment_type",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "title",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(50)",
+    "nullable": false
+   },
+   {
+    "name": "owner_name",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "client_email",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "client_phone",
+    "type": "VARCHAR(60)",
+    "nullable": true
+   },
+   {
+    "name": "patient_name",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "source",
+    "type": "VARCHAR(100)",
+    "nullable": true
+   },
+   {
+    "name": "notes",
+    "type": "LONGTEXT",
+    "nullable": true
+   },
+   {
+    "name": "reminder_enabled",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "reminder_days",
+    "type": "INT",
+    "nullable": false
+   },
+   {
+    "name": "reminder_sent_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "reminder_manual_sent_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "email_last_status",
+    "type": "VARCHAR(20)",
+    "nullable": true
+   },
+   {
+    "name": "email_last_at",
+    "type": "DATETIME",
+    "nullable": true
+   },
+   {
+    "name": "email_last_error",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "created_by",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   },
+   {
+    "name": "updated_by",
+    "type": "VARCHAR(191)",
+    "nullable": true
+   },
+   {
+    "name": "updated_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "UNIQUE KEY appointment_code (appointment_code)",
+   "KEY case_id (case_id)",
+   "KEY appointment_date (appointment_date)",
+   "KEY status (status)",
+   "KEY reminder_sent_at (reminder_sent_at)"
+  ]
+ },
+ "hv_st_email_log": {
+  "plugin": "hikevet-sterilization-campaign",
+  "columns": [
+   {
+    "name": "id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": false
+   },
+   {
+    "name": "appointment_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "case_id",
+    "type": "BIGINT UNSIGNED",
+    "nullable": true
+   },
+   {
+    "name": "to_email",
+    "type": "TEXT",
+    "nullable": false
+   },
+   {
+    "name": "cc_email",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "subject",
+    "type": "VARCHAR(191)",
+    "nullable": false
+   },
+   {
+    "name": "email_type",
+    "type": "VARCHAR(80)",
+    "nullable": true
+   },
+   {
+    "name": "status",
+    "type": "VARCHAR(20)",
+    "nullable": false
+   },
+   {
+    "name": "error_message",
+    "type": "TEXT",
+    "nullable": true
+   },
+   {
+    "name": "created_at",
+    "type": "DATETIME",
+    "nullable": false
+   }
+  ],
+  "keys": [
+   "PRIMARY KEY (id)",
+   "KEY appointment_id (appointment_id)",
+   "KEY case_id (case_id)",
+   "KEY status (status)",
+   "KEY created_at (created_at)"
+  ]
+ }
+}

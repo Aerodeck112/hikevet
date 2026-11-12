@@ -1,0 +1,1340 @@
+{
+    "2023/01/cropped-logo-negru": {
+        "source": "2023/01/cropped-LOGO-NEGRU.png",
+        "width": 512,
+        "height": 512,
+        "variants": {
+            "large": {
+                "path": "media/2023/01/cropped-logo-negru.webp",
+                "width": 512,
+                "height": 512,
+                "bytes": 29512
+            }
+        },
+        "sha256_source": "0da6dea462644a3b3f4318a879fdd2e0b2c8b52a8e8623b5f3726e05236c3028"
+    },
+    "2023/01/logo-alb": {
+        "source": "2023/01/LOGO-ALB.png",
+        "width": 1600,
+        "height": 1128,
+        "variants": {
+            "large": {
+                "path": "media/2023/01/logo-alb.webp",
+                "width": 1600,
+                "height": 1128,
+                "bytes": 76810
+            },
+            "small": {
+                "path": "media/2023/01/logo-alb-640.webp",
+                "width": 640,
+                "height": 451,
+                "bytes": 21462
+            }
+        },
+        "sha256_source": "f7e9c0f51d626a14090fdf03ef8c46678e79bf70da718c9c042f973e3393f049"
+    },
+    "2023/05/0h7a9503": {
+        "source": "2023/05/0H7A9503.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/05/0h7a9503.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 164708
+            },
+            "small": {
+                "path": "media/2023/05/0h7a9503-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 45334
+            }
+        },
+        "sha256_source": "9c371847703ad163264aaefc919120e7e1485cf4454f10e88f7b516b9e5b20af"
+    },
+    "2023/05/0h7a9513": {
+        "source": "2023/05/0H7A9513-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/05/0h7a9513.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 129888
+            },
+            "small": {
+                "path": "media/2023/05/0h7a9513-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 39846
+            }
+        },
+        "sha256_source": "6ad65bff00de2c86077814219e4aa5d49c8b49f2a0898b756be91b227d498222"
+    },
+    "2023/05/0h7a9586-scaled-e1689027689830": {
+        "source": "2023/05/0H7A9586-scaled-e1689027689830.jpg",
+        "width": 1600,
+        "height": 1067,
+        "variants": {
+            "large": {
+                "path": "media/2023/05/0h7a9586-scaled-e1689027689830.webp",
+                "width": 1600,
+                "height": 1067,
+                "bytes": 70586
+            },
+            "small": {
+                "path": "media/2023/05/0h7a9586-scaled-e1689027689830-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 19798
+            }
+        },
+        "sha256_source": "32b75595029d3de7370f583a8c4280f5411ce418ceef7861ce738928e562eb8f"
+    },
+    "2023/05/negru": {
+        "source": "2023/05/negru.png",
+        "width": 1578,
+        "height": 976,
+        "variants": {
+            "large": {
+                "path": "media/2023/05/negru.webp",
+                "width": 1578,
+                "height": 976,
+                "bytes": 51764
+            },
+            "small": {
+                "path": "media/2023/05/negru-640.webp",
+                "width": 640,
+                "height": 396,
+                "bytes": 21490
+            }
+        },
+        "sha256_source": "6258d4adad1f2bb27eeef8dd2386e89b87d782323f1049104d77787e8a9dcb37"
+    },
+    "2023/07/a-ginger-cat-and-a-woman-sleeping-2022-04-09-20-30-57-utc-min": {
+        "source": "2023/07/a-ginger-cat-and-a-woman-sleeping-2022-04-09-20-30-57-utc-min.jpg",
+        "width": 1500,
+        "height": 970,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/a-ginger-cat-and-a-woman-sleeping-2022-04-09-20-30-57-utc-min.webp",
+                "width": 1500,
+                "height": 970,
+                "bytes": 99094
+            },
+            "small": {
+                "path": "media/2023/07/a-ginger-cat-and-a-woman-sleeping-2022-04-09-20-30-57-utc-min-640.webp",
+                "width": 640,
+                "height": 414,
+                "bytes": 20518
+            }
+        },
+        "sha256_source": "fb73fc8c64b61921cb1b02adc2dde234fe6e68d2d9b19f8668f0c517a38ed43c"
+    },
+    "2023/07/animal-shelter-pet-adoption": {
+        "source": "2023/07/animal-shelter-pet-adoption.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/animal-shelter-pet-adoption.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 1954
+            }
+        },
+        "sha256_source": "4a706b8df5dc03b393b76679f6a0d5260985cad675f27ab9af7ce26f50ff7692"
+    },
+    "2023/07/antiseptic-clinic-vet-healthcare": {
+        "source": "2023/07/antiseptic-clinic-vet-healthcare.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/antiseptic-clinic-vet-healthcare.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 1076
+            }
+        },
+        "sha256_source": "c4542cd595a83c7f4cfa6f2467c35467af52f4a8f7883f2b29be66c6ed3cde40"
+    },
+    "2023/07/attractive-girl-with-dog-2021-09-22-00-58-13-utc-min": {
+        "source": "2023/07/attractive-girl-with-dog-2021-09-22-00-58-13-utc-min.jpg",
+        "width": 1000,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/attractive-girl-with-dog-2021-09-22-00-58-13-utc-min.webp",
+                "width": 1000,
+                "height": 1000,
+                "bytes": 88044
+            },
+            "small": {
+                "path": "media/2023/07/attractive-girl-with-dog-2021-09-22-00-58-13-utc-min-640.webp",
+                "width": 640,
+                "height": 640,
+                "bytes": 39482
+            }
+        },
+        "sha256_source": "a8e25e99ee3a73d960bf908d9a4604446da39b044e075d0fff9565f0da21fd2b"
+    },
+    "2023/07/black-schnauzer-cowboy-dog-2022-08-11-19-54-34-utc-min": {
+        "source": "2023/07/black-schnauzer-cowboy-dog-2022-08-11-19-54-34-utc-min.jpg",
+        "width": 1000,
+        "height": 1500,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/black-schnauzer-cowboy-dog-2022-08-11-19-54-34-utc-min.webp",
+                "width": 1000,
+                "height": 1500,
+                "bytes": 126850
+            },
+            "small": {
+                "path": "media/2023/07/black-schnauzer-cowboy-dog-2022-08-11-19-54-34-utc-min-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 48486
+            }
+        },
+        "sha256_source": "252ef8f1bc85ce9723869acd07b292813872181deae9f3698074ac4e04a14c3f"
+    },
+    "2023/07/cat-kitten-pet-fur": {
+        "source": "2023/07/cat-kitten-pet-fur.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/cat-kitten-pet-fur.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2906
+            }
+        },
+        "sha256_source": "f553385de3d5046aa96e7a2c1a83fc705353c5cadc7080305033a90024bfec1f"
+    },
+    "2023/07/cute-dog-head-eye-detail-portrait-2022-04-30-19-33-41-utc-min": {
+        "source": "2023/07/cute-dog-head-eye-detail-portrait-2022-04-30-19-33-41-utc-min.jpg",
+        "width": 1000,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/cute-dog-head-eye-detail-portrait-2022-04-30-19-33-41-utc-min.webp",
+                "width": 1000,
+                "height": 1000,
+                "bytes": 80694
+            },
+            "small": {
+                "path": "media/2023/07/cute-dog-head-eye-detail-portrait-2022-04-30-19-33-41-utc-min-640.webp",
+                "width": 640,
+                "height": 640,
+                "bytes": 33372
+            }
+        },
+        "sha256_source": "e2b7a0ef1f52b20bf67ceaddb8c59ea1477981a9bd6473cbc365c4f97c1d7042"
+    },
+    "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag": {
+        "source": "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag-.jpg",
+        "width": 1600,
+        "height": 1066,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag.webp",
+                "width": 1600,
+                "height": 1066,
+                "bytes": 153594
+            },
+            "small": {
+                "path": "media/2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag-640.webp",
+                "width": 640,
+                "height": 426,
+                "bytes": 33486
+            }
+        },
+        "sha256_source": "d261b90cd14452fdbdcfcfcdbd8e33196b2b09ac3eb1e403813f1622c528db67"
+    },
+    "2023/07/dog-2022-03-06-14-18-59-utc-min": {
+        "source": "2023/07/dog-2022-03-06-14-18-59-utc-min.jpg",
+        "width": 1000,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/dog-2022-03-06-14-18-59-utc-min.webp",
+                "width": 1000,
+                "height": 1000,
+                "bytes": 208874
+            },
+            "small": {
+                "path": "media/2023/07/dog-2022-03-06-14-18-59-utc-min-640.webp",
+                "width": 640,
+                "height": 640,
+                "bytes": 84202
+            }
+        },
+        "sha256_source": "386a694c97d5d01a2f6667774e4119b4b16f3a78099c26519515b2ebe240046c"
+    },
+    "2023/07/dog-pet-canine-puppy": {
+        "source": "2023/07/dog-pet-canine-puppy.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/dog-pet-canine-puppy.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2796
+            }
+        },
+        "sha256_source": "84b53f34192ea6082b046e237d89934024e61f0f4cae63e88f1def466a4a7920"
+    },
+    "2023/07/elizabethan-collar-cone-pet": {
+        "source": "2023/07/elizabethan-collar-cone-pet.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/elizabethan-collar-cone-pet.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2060
+            }
+        },
+        "sha256_source": "63aa44dd43414498878bae74451df5d74002d0617e4076999012f52a4da1e16f"
+    },
+    "2023/07/handsome-guy-in-a-summer-park-with-a-dog-2022-02-02-05-09-48-utc-min": {
+        "source": "2023/07/handsome-guy-in-a-summer-park-with-a-dog-2022-02-02-05-09-48-utc-min.jpg",
+        "width": 1500,
+        "height": 1001,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/handsome-guy-in-a-summer-park-with-a-dog-2022-02-02-05-09-48-utc-min.webp",
+                "width": 1500,
+                "height": 1001,
+                "bytes": 231858
+            },
+            "small": {
+                "path": "media/2023/07/handsome-guy-in-a-summer-park-with-a-dog-2022-02-02-05-09-48-utc-min-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 54262
+            }
+        },
+        "sha256_source": "f7d05978a0286d335e05bdaca64625da8372a3c0509b0c0fe5c78de3b11209cf"
+    },
+    "2023/07/img-bg-01-min": {
+        "source": "2023/07/img-bg-01-min.jpg",
+        "width": 1500,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/img-bg-01-min.webp",
+                "width": 1500,
+                "height": 1000,
+                "bytes": 29340
+            },
+            "small": {
+                "path": "media/2023/07/img-bg-01-min-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 11624
+            }
+        },
+        "sha256_source": "2917ffe1ffa7ddb5ac888522739ac4f3938aeb211cf4ab5bc12abef3c773c8b2"
+    },
+    "2023/07/img-section-03-min": {
+        "source": "2023/07/img-section-03-min.png",
+        "width": 1000,
+        "height": 446,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/img-section-03-min.webp",
+                "width": 1000,
+                "height": 446,
+                "bytes": 42806
+            },
+            "small": {
+                "path": "media/2023/07/img-section-03-min-640.webp",
+                "width": 640,
+                "height": 285,
+                "bytes": 19186
+            }
+        },
+        "sha256_source": "c6145c13da5a525041549790770093ff21612d0a11a4cb16e40e56e45767282b"
+    },
+    "2023/07/img-section-04-min": {
+        "source": "2023/07/img-section-04-min.png",
+        "width": 500,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/img-section-04-min.webp",
+                "width": 500,
+                "height": 1000,
+                "bytes": 111472
+            }
+        },
+        "sha256_source": "3c430cd4df624f332f677c24f141f4d12f58d0e67f181c385bbca4828c872f77"
+    },
+    "2023/07/paw-vet-pet-animal": {
+        "source": "2023/07/paw-vet-pet-animal.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/paw-vet-pet-animal.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 3338
+            }
+        },
+        "sha256_source": "3f2ef6465b584d5b0c7bfd1f7ff4fa76062c2bcf215a3c533ae7fd7f56c2e67a"
+    },
+    "2023/07/pet-adoption-animal-shelter": {
+        "source": "2023/07/pet-adoption-animal-shelter.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pet-adoption-animal-shelter.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2616
+            }
+        },
+        "sha256_source": "4292f6dca82bf54ed4525d45be46781be7c11e10bbeb397d2463643b48d0ee3b"
+    },
+    "2023/07/pet-bed-sleep-vet": {
+        "source": "2023/07/pet-bed-sleep-vet.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pet-bed-sleep-vet.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2666
+            }
+        },
+        "sha256_source": "26386d092f3b77748477f1d60dd9fd06140eed4a4025518149545cc8d53f4c22"
+    },
+    "2023/07/pet-carrier-cargo-vet": {
+        "source": "2023/07/pet-carrier-cargo-vet.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pet-carrier-cargo-vet.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 1520
+            }
+        },
+        "sha256_source": "7786c586d30fd27d5fdc2dbc6f2bb5a68b602871f6c7ba3e4a3c9ac0a4671b0e"
+    },
+    "2023/07/pet-food-snack-meal": {
+        "source": "2023/07/pet-food-snack-meal.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pet-food-snack-meal.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 1364
+            }
+        },
+        "sha256_source": "0fd35ff4f964d94298e4720264e7e94766d4b2b4602a5419d29ee3376e82decb"
+    },
+    "2023/07/pexels-cottonbro-studio-6568944": {
+        "source": "2023/07/pexels-cottonbro-studio-6568944-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-cottonbro-studio-6568944.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 148798
+            },
+            "small": {
+                "path": "media/2023/07/pexels-cottonbro-studio-6568944-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 29686
+            }
+        },
+        "sha256_source": "5c762e154393d6b6a602fcbb9c06ee6d65f81d69955a45c6456f638b599b21b7"
+    },
+    "2023/07/pexels-elina-volkova-16995178": {
+        "source": "2023/07/pexels-elina-volkova-16995178-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-elina-volkova-16995178.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 335388
+            },
+            "small": {
+                "path": "media/2023/07/pexels-elina-volkova-16995178-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 38644
+            }
+        },
+        "sha256_source": "28cf950b6b406d356fdd8b21b7832ad76cbc2d1499dcfede89e06212d532e30c"
+    },
+    "2023/07/pexels-genadi-yakovlev-16973874": {
+        "source": "2023/07/pexels-genadi-yakovlev-16973874-scaled.jpg",
+        "width": 1600,
+        "height": 1068,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-genadi-yakovlev-16973874.webp",
+                "width": 1600,
+                "height": 1068,
+                "bytes": 187430
+            },
+            "small": {
+                "path": "media/2023/07/pexels-genadi-yakovlev-16973874-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 42440
+            }
+        },
+        "sha256_source": "25ce876b1f2d0a6b5b21abac1c4290d99965f83e9eeba99f7816f42f5c40527d"
+    },
+    "2023/07/pexels-luiz-woellner-fotografia-17039013": {
+        "source": "2023/07/pexels-luiz-woellner-fotografia-17039013-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-luiz-woellner-fotografia-17039013.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 184928
+            },
+            "small": {
+                "path": "media/2023/07/pexels-luiz-woellner-fotografia-17039013-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 35628
+            }
+        },
+        "sha256_source": "06257467bd5aeafe42395f387c396e497d020d22bee465d410259eac36471e4e"
+    },
+    "2023/07/pexels-mikhail-nilov-7469226": {
+        "source": "2023/07/pexels-mikhail-nilov-7469226-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7469226.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 144230
+            },
+            "small": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7469226-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 35248
+            }
+        },
+        "sha256_source": "5b4367bc35c362a8b84a3612e4d4226a9f5fe5d44300cb78e7e72c4ff53c05a4"
+    },
+    "2023/07/pexels-mikhail-nilov-7469233": {
+        "source": "2023/07/pexels-mikhail-nilov-7469233-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7469233.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 148792
+            },
+            "small": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7469233-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 36494
+            }
+        },
+        "sha256_source": "9fb2605e61fb87611a079e4c4b0c042b21eaf3b97b12eebff952f50d91d63923"
+    },
+    "2023/07/pexels-mikhail-nilov-7470632": {
+        "source": "2023/07/pexels-mikhail-nilov-7470632-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7470632.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 99994
+            },
+            "small": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7470632-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 24390
+            }
+        },
+        "sha256_source": "0f1877b9367bac6b3edee21fc63c184bf7595cecd194e4392fef5bc4c8395370"
+    },
+    "2023/07/pexels-mikhail-nilov-7474852": {
+        "source": "2023/07/pexels-mikhail-nilov-7474852-scaled.jpg",
+        "width": 1600,
+        "height": 1067,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7474852.webp",
+                "width": 1600,
+                "height": 1067,
+                "bytes": 64152
+            },
+            "small": {
+                "path": "media/2023/07/pexels-mikhail-nilov-7474852-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 17742
+            }
+        },
+        "sha256_source": "7f5f1aae275b284549e8b0cd9567cb45de4fb74898d530acf22eb3b36d161926"
+    },
+    "2023/07/pexels-pranidchakan-boonrom-1350591": {
+        "source": "2023/07/pexels-pranidchakan-boonrom-1350591-scaled.jpg",
+        "width": 1600,
+        "height": 1067,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-pranidchakan-boonrom-1350591.webp",
+                "width": 1600,
+                "height": 1067,
+                "bytes": 69806
+            },
+            "small": {
+                "path": "media/2023/07/pexels-pranidchakan-boonrom-1350591-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 18028
+            }
+        },
+        "sha256_source": "afa01e006ac31b795bba6a684f45c179cb05cb09da7e49fecaa35151eef8de30"
+    },
+    "2023/07/pexels-pranidchakan-boonrom-1350593": {
+        "source": "2023/07/pexels-pranidchakan-boonrom-1350593-scaled.jpg",
+        "width": 1600,
+        "height": 1067,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-pranidchakan-boonrom-1350593.webp",
+                "width": 1600,
+                "height": 1067,
+                "bytes": 77396
+            },
+            "small": {
+                "path": "media/2023/07/pexels-pranidchakan-boonrom-1350593-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 20844
+            }
+        },
+        "sha256_source": "a46b6b36d7df66147b24d19b8b1d83d68e4ee330e25de505196ac165012029c3"
+    },
+    "2023/07/pexels-sam-lion-5733423": {
+        "source": "2023/07/pexels-sam-lion-5733423.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-sam-lion-5733423.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 99022
+            },
+            "small": {
+                "path": "media/2023/07/pexels-sam-lion-5733423-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 18386
+            }
+        },
+        "sha256_source": "7c3dff77158daa418330f3a99932c29e04158904d911eac1579d80e354d434e2"
+    },
+    "2023/07/pexels-samson-katt-5255204": {
+        "source": "2023/07/pexels-samson-katt-5255204-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-samson-katt-5255204.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 120624
+            },
+            "small": {
+                "path": "media/2023/07/pexels-samson-katt-5255204-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 20954
+            }
+        },
+        "sha256_source": "6a93186f8d26c17dce6e996831e3be87a4ddfb3352b8a9f08cd769ad4967c738"
+    },
+    "2023/07/pexels-sergio-souza-3263470": {
+        "source": "2023/07/pexels-sergio-souza-3263470-scaled.jpg",
+        "width": 1440,
+        "height": 2560,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-sergio-souza-3263470.webp",
+                "width": 1440,
+                "height": 2560,
+                "bytes": 392688
+            },
+            "small": {
+                "path": "media/2023/07/pexels-sergio-souza-3263470-640.webp",
+                "width": 640,
+                "height": 1138,
+                "bytes": 98194
+            }
+        },
+        "sha256_source": "8d007397a1d1908930e20347f4477a62cdafb1070c886ddfc80acfd17ff97090"
+    },
+    "2023/07/pexels-tima-miroshnichenko-6235243": {
+        "source": "2023/07/pexels-tima-miroshnichenko-6235243-scaled.jpg",
+        "width": 1600,
+        "height": 1067,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-tima-miroshnichenko-6235243.webp",
+                "width": 1600,
+                "height": 1067,
+                "bytes": 63822
+            },
+            "small": {
+                "path": "media/2023/07/pexels-tima-miroshnichenko-6235243-640.webp",
+                "width": 640,
+                "height": 427,
+                "bytes": 14954
+            }
+        },
+        "sha256_source": "8fba5a922a964fa11f76782d3dd48ab77f4aaf7dbf0daa264c7263e0b802e4dd"
+    },
+    "2023/07/pexels-tima-miroshnichenko-6235657": {
+        "source": "2023/07/pexels-tima-miroshnichenko-6235657-scaled.jpg",
+        "width": 1600,
+        "height": 2400,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/pexels-tima-miroshnichenko-6235657.webp",
+                "width": 1600,
+                "height": 2400,
+                "bytes": 103020
+            },
+            "small": {
+                "path": "media/2023/07/pexels-tima-miroshnichenko-6235657-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 24946
+            }
+        },
+        "sha256_source": "a961e5f2c1090e81837ba1b8d14b54c684c111da4026fcf67b5d5b0404efb7f7"
+    },
+    "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc": {
+        "source": "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc-scaled.jpg",
+        "width": 1600,
+        "height": 1200,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc.webp",
+                "width": 1600,
+                "height": 1200,
+                "bytes": 161332
+            },
+            "small": {
+                "path": "media/2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc-640.webp",
+                "width": 640,
+                "height": 480,
+                "bytes": 34912
+            }
+        },
+        "sha256_source": "e758c28c9b324de1f220cbe85e800737cb4a82569005be89730217716120f13a"
+    },
+    "2023/07/portrait-of-an-adult-gray-scottish-straight-cat-on-2022-05-18-19-18-48-utc-min": {
+        "source": "2023/07/portrait-of-an-adult-gray-scottish-straight-cat-on-2022-05-18-19-18-48-utc-min.jpg",
+        "width": 1000,
+        "height": 975,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/portrait-of-an-adult-gray-scottish-straight-cat-on-2022-05-18-19-18-48-utc-min.webp",
+                "width": 1000,
+                "height": 975,
+                "bytes": 159788
+            },
+            "small": {
+                "path": "media/2023/07/portrait-of-an-adult-gray-scottish-straight-cat-on-2022-05-18-19-18-48-utc-min-640.webp",
+                "width": 640,
+                "height": 624,
+                "bytes": 54034
+            }
+        },
+        "sha256_source": "18edf2825304deb5026e285998d6e15d13c93efc3e66664692313651d34bbe53"
+    },
+    "2023/07/portrait-of-beautiful-dog-outdoors-running-full-of-2022-02-02-03-56-39-utc-min": {
+        "source": "2023/07/portrait-of-beautiful-dog-outdoors-running-full-of-2022-02-02-03-56-39-utc-min.jpg",
+        "width": 667,
+        "height": 1000,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/portrait-of-beautiful-dog-outdoors-running-full-of-2022-02-02-03-56-39-utc-min.webp",
+                "width": 667,
+                "height": 1000,
+                "bytes": 48752
+            },
+            "small": {
+                "path": "media/2023/07/portrait-of-beautiful-dog-outdoors-running-full-of-2022-02-02-03-56-39-utc-min-640.webp",
+                "width": 640,
+                "height": 960,
+                "bytes": 37982
+            }
+        },
+        "sha256_source": "3d06c6b74edd44c147927bc2cdbcbaaa24e1ac05d3b791dd6ae3e64ef3fd29e0"
+    },
+    "2023/07/stethoscope-vet-paw-veterinary": {
+        "source": "2023/07/stethoscope-vet-paw-veterinary.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/stethoscope-vet-paw-veterinary.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 2346
+            }
+        },
+        "sha256_source": "c70e00831d919996acb1d440c724034d181f2356f8e3e2fee8d8c374c4ebc719"
+    },
+    "2023/07/untitled-design": {
+        "source": "2023/07/Untitled-design.png",
+        "width": 1600,
+        "height": 2233,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/untitled-design.webp",
+                "width": 1600,
+                "height": 2233,
+                "bytes": 245314
+            },
+            "small": {
+                "path": "media/2023/07/untitled-design-640.webp",
+                "width": 640,
+                "height": 893,
+                "bytes": 54516
+            }
+        },
+        "sha256_source": "050ac5465d9b7dce1d8e1b8dec7ed4d4b40daa4d0cd41b2eb4c981223bf5d2de"
+    },
+    "2023/07/vaccine-syringe-health-care": {
+        "source": "2023/07/vaccine-syringe-health-care.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/vaccine-syringe-health-care.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 1798
+            }
+        },
+        "sha256_source": "cfb28c65e98ad584aa43a0bf98597c73c763de8333116e73c93ad98b54632a89"
+    },
+    "2023/07/veterinary-paw-animal-care": {
+        "source": "2023/07/veterinary-paw-animal-care.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/veterinary-paw-animal-care.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 3052
+            }
+        },
+        "sha256_source": "88d583df2e897f9586022fc7c1a8d293a77382acff7df8d9557de3114646acb0"
+    },
+    "2023/07/veterinary-pet-clinic-paw": {
+        "source": "2023/07/veterinary-pet-clinic-paw.png",
+        "width": 240,
+        "height": 240,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/veterinary-pet-clinic-paw.webp",
+                "width": 240,
+                "height": 240,
+                "bytes": 3262
+            }
+        },
+        "sha256_source": "6edec50983bef09322c5ef785bbc773b858c69718a0d776aa640c44cacd7d0bc"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-46-08": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.46.08.jpeg",
+        "width": 1536,
+        "height": 2048,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-08.webp",
+                "width": 1536,
+                "height": 2048,
+                "bytes": 193878
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-08-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 57638
+            }
+        },
+        "sha256_source": "c3b35dac93eec259c9abed7e2fb314c760463aa77c5e614c9f21c5bcaf4f54fa"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-46-10": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.46.10.jpeg",
+        "width": 1536,
+        "height": 2048,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-10.webp",
+                "width": 1536,
+                "height": 2048,
+                "bytes": 605406
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-10-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 131258
+            }
+        },
+        "sha256_source": "735ae637d13ad953625780129a405e1c8554b3be54a572033d67fd9bbc6961fd"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-46-14": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.46.14.jpeg",
+        "width": 1536,
+        "height": 2048,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-14.webp",
+                "width": 1536,
+                "height": 2048,
+                "bytes": 135796
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-14-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 47534
+            }
+        },
+        "sha256_source": "1e0ee2ebc06dcda181e3bd0da2db5da93a37f8b128fa8eac62b9e3e3f425a8f5"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-46-16": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.46.16.jpeg",
+        "width": 1536,
+        "height": 2048,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-16.webp",
+                "width": 1536,
+                "height": 2048,
+                "bytes": 202968
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-16-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 58534
+            }
+        },
+        "sha256_source": "42c4dd20bd5ddb83938654d70a1836db733fd4bd5e9747698eb2f3673da15942"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-46-20": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.46.20.jpeg",
+        "width": 1536,
+        "height": 2048,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-20.webp",
+                "width": 1536,
+                "height": 2048,
+                "bytes": 89422
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-46-20-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 29836
+            }
+        },
+        "sha256_source": "e2d9fc0ea69094fbe50132494a2d7e6677bc3bc0d4615afd307ef6511e34ddff"
+    },
+    "2023/07/whatsapp-image-2023-07-11-at-06-53-06": {
+        "source": "2023/07/WhatsApp-Image-2023-07-11-at-06.53.06.jpeg",
+        "width": 1200,
+        "height": 1600,
+        "variants": {
+            "large": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-53-06.webp",
+                "width": 1200,
+                "height": 1600,
+                "bytes": 148702
+            },
+            "small": {
+                "path": "media/2023/07/whatsapp-image-2023-07-11-at-06-53-06-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 54812
+            }
+        },
+        "sha256_source": "ffef060932d1674698bc6994473e64011f59e6c1c3b5ae4b03ce6d9181b6ed29"
+    },
+    "2023/08/altius-logo-1": {
+        "source": "2023/08/Altius-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/altius-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 2872
+            }
+        },
+        "sha256_source": "6a56c96d34c85b9059e04410055eaaceff6a22f85e89d7b07ece6bf7e332c588"
+    },
+    "2023/08/boehringer-logo": {
+        "source": "2023/08/boehringer-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/boehringer-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 6548
+            }
+        },
+        "sha256_source": "0d99290402333b21bd6bb9cd0b57b502e9944e5f65d420313bc52f3989077602"
+    },
+    "2023/08/braun-logo-2": {
+        "source": "2023/08/braun-logo-2.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/braun-logo-2.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 6560
+            }
+        },
+        "sha256_source": "f7d02bbe11535ba794632f0461933e923a171a01f01f8706f1c8a9d4bf61fd41"
+    },
+    "2023/08/cityvet-logo-3": {
+        "source": "2023/08/cityvet-logo-3.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/cityvet-logo-3.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 6996
+            }
+        },
+        "sha256_source": "e023aaeadd70377b8f0c6e173e20c31f28a18db0b7e816a2f343547dee79b732"
+    },
+    "2023/08/covetrus-logo": {
+        "source": "2023/08/Covetrus-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/covetrus-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 4684
+            }
+        },
+        "sha256_source": "9c1754f648ac8c463b16a28541e2095dbd85b132504da45deda80dfcadad712b"
+    },
+    "2023/08/esaote-logo-2": {
+        "source": "2023/08/esaote-logo-2.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/esaote-logo-2.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 5936
+            }
+        },
+        "sha256_source": "accfa00d4d444d4534c6bb62bac724209a6d54186c163e5c768c72990f6a0c63"
+    },
+    "2023/08/gosbi-logo-1": {
+        "source": "2023/08/Gosbi-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/gosbi-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 4902
+            }
+        },
+        "sha256_source": "8d23f471d87ee472d25eb3160166288a74d92783781fa874326dc49f690ad6ac"
+    },
+    "2023/08/hills-logo": {
+        "source": "2023/08/Hills-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/hills-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 5754
+            }
+        },
+        "sha256_source": "29bf35c28eab73401c774dfcf17b8cd57c7d03740dced5662051f32919726696"
+    },
+    "2023/08/hs-medical-logo": {
+        "source": "2023/08/HS-Medical-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/hs-medical-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 3356
+            }
+        },
+        "sha256_source": "0c4a6fb19d71aafa8c6219d6aa7d0f49672ad09c050788204be831f108b6856a"
+    },
+    "2023/08/maravet-logo-1": {
+        "source": "2023/08/maravet-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/maravet-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 4880
+            }
+        },
+        "sha256_source": "ee6a341aab7e6f5a0ecb731a927cc06fb2e33b14af116d0ecdec39218abd78bb"
+    },
+    "2023/08/purina-logo-1": {
+        "source": "2023/08/purina-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/purina-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 2764
+            }
+        },
+        "sha256_source": "d36e481a6a6d77add53c061e4998b9056fc5e14dd85658bfc723e2e4810f50e0"
+    },
+    "2023/08/servicii-publice-logo": {
+        "source": "2023/08/servicii-publice-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/servicii-publice-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 5984
+            }
+        },
+        "sha256_source": "a1c57428bb42ed1852532431d6f77e432b8585b56107aae3a338dabd401fc670"
+    },
+    "2023/08/stangest-logo-1": {
+        "source": "2023/08/Stangest-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/stangest-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 3906
+            }
+        },
+        "sha256_source": "3862ae0f0580e3bb3901463ac8964c32da02667a232f44896aa5ee26a1b2ff74"
+    },
+    "2023/08/synevo-vet": {
+        "source": "2023/08/synevo-vet.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/synevo-vet.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 8552
+            }
+        },
+        "sha256_source": "df5f29c044af149daceda5a76296bd32d296c7274f021d5cb94aad337b7de2f7"
+    },
+    "2023/08/vet-diagnostic-logo": {
+        "source": "2023/08/Vet-Diagnostic-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/vet-diagnostic-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 5162
+            }
+        },
+        "sha256_source": "45bb7499feae242e8b5da16145fbe21be0123efcaa2fac5e79fff1439439674e"
+    },
+    "2023/08/vetro-logo": {
+        "source": "2023/08/vetro-logo-scaled.webp",
+        "width": 2560,
+        "height": 688,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/vetro-logo.webp",
+                "width": 1600,
+                "height": 430,
+                "bytes": 23972
+            },
+            "small": {
+                "path": "media/2023/08/vetro-logo-640.webp",
+                "width": 640,
+                "height": 172,
+                "bytes": 7522
+            }
+        },
+        "sha256_source": "3bb82387a941096a76e6dee93793588558d64c26cd037ae5b7be0f333503204f"
+    },
+    "2023/08/vetrx-logo": {
+        "source": "2023/08/VETRX-logo.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/vetrx-logo.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 4848
+            }
+        },
+        "sha256_source": "4ab7428ba37217361aa6847d40bc866d3308472dafb3f3c8c4520ef34c4c7f17"
+    },
+    "2023/08/virbac-logo-228x112-1": {
+        "source": "2023/08/virbac-logo-228x112-1.png",
+        "width": 228,
+        "height": 112,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/virbac-logo-228x112-1.webp",
+                "width": 228,
+                "height": 112,
+                "bytes": 3466
+            }
+        },
+        "sha256_source": "37c45b72779ccb59b41795a7f633442cfbcca09c596db75eb765028ea6492fb1"
+    },
+    "2023/08/zeiss-logo-1": {
+        "source": "2023/08/zeiss-logo-1.png",
+        "width": 220,
+        "height": 100,
+        "variants": {
+            "large": {
+                "path": "media/2023/08/zeiss-logo-1.webp",
+                "width": 220,
+                "height": 100,
+                "bytes": 2482
+            }
+        },
+        "sha256_source": "df7fc2a0f5d6d3ff1dd20d6e2b9f1fc55751c4f90aa57f293eb0a91c26c70113"
+    },
+    "2025/11/whatsapp-image-2025-11-04-at-14-06-33": {
+        "source": "2025/11/WhatsApp-Image-2025-11-04-at-14.06.33.jpeg",
+        "width": 768,
+        "height": 1024,
+        "variants": {
+            "large": {
+                "path": "media/2025/11/whatsapp-image-2025-11-04-at-14-06-33.webp",
+                "width": 768,
+                "height": 1024,
+                "bytes": 57496
+            },
+            "small": {
+                "path": "media/2025/11/whatsapp-image-2025-11-04-at-14-06-33-640.webp",
+                "width": 640,
+                "height": 853,
+                "bytes": 39386
+            }
+        },
+        "sha256_source": "2026cac7b494efa69cdc2cfc566c2dc0d55ac1edb1053b162b6962dd22c06d8d"
+    },
+    "2026/03/anpc-sal1-1-5": {
+        "source": "2026/03/anpc-sal1-1-5.png",
+        "width": 500,
+        "height": 124,
+        "variants": {
+            "large": {
+                "path": "media/2026/03/anpc-sal1-1-5.webp",
+                "width": 500,
+                "height": 124,
+                "bytes": 11484
+            }
+        },
+        "sha256_source": "c6667cb035107488dec491350ab9c7bc52a759aa1c16580c60a185a487ba4972"
+    },
+    "2026/03/anpc-sol-5": {
+        "source": "2026/03/anpc-sol-5.png",
+        "width": 500,
+        "height": 124,
+        "variants": {
+            "large": {
+                "path": "media/2026/03/anpc-sol-5.webp",
+                "width": 500,
+                "height": 124,
+                "bytes": 9134
+            }
+        },
+        "sha256_source": "d86d8f85d072c9cacfb95b856f4be96edc2bd91c6af31dd6bb3540d2a68aa8c9"
+    },
+    "2026/03/how-to-get-more-google-reviews-r821rjbhwsjtvskoq1ykp89u48srwdblwktue2k99a-1": {
+        "source": "2026/03/How-To-Get-More-Google-Reviews-r821rjbhwsjtvskoq1ykp89u48srwdblwktue2k99a-1.webp",
+        "width": 200,
+        "height": 99,
+        "variants": {
+            "large": {
+                "path": "media/2026/03/how-to-get-more-google-reviews-r821rjbhwsjtvskoq1ykp89u48srwdblwktue2k99a-1.webp",
+                "width": 200,
+                "height": 99,
+                "bytes": 5652
+            }
+        },
+        "sha256_source": "f196d469fd3cf8627cefd03f2d7843d998d439b756504142df383d0108ba84fc"
+    }
+}

@@ -1,0 +1,1226 @@
+{
+    "dog": {
+        "1.25-2.5 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 200,
+                "unit_price": 100,
+                "subscription_points": 100,
+                "wallet_points": 200
+            }
+        ],
+        "2.5-5 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 200,
+                "unit_price": 100,
+                "subscription_points": 100,
+                "wallet_points": 200
+            }
+        ],
+        "5-10 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 300,
+                "unit_price": 300,
+                "subscription_points": 300,
+                "wallet_points": 600
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 200,
+                "unit_price": 100,
+                "subscription_points": 100,
+                "wallet_points": 200
+            }
+        ],
+        "10-20 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 250,
+                "unit_price": 62.5,
+                "subscription_points": 62,
+                "wallet_points": 125
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 350,
+                "unit_price": 87.5,
+                "subscription_points": 88,
+                "wallet_points": 175
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 250,
+                "unit_price": 125,
+                "subscription_points": 125,
+                "wallet_points": 250
+            }
+        ],
+        "20-40 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 470,
+                "unit_price": 58.75,
+                "subscription_points": 59,
+                "wallet_points": 118
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 200,
+                "unit_price": 100,
+                "subscription_points": 100,
+                "wallet_points": 200
+            }
+        ],
+        "40-60 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 350,
+                "unit_price": 87.5,
+                "subscription_points": 88,
+                "wallet_points": 175
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 420,
+                "unit_price": 52.5,
+                "subscription_points": 52,
+                "wallet_points": 105
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 130,
+                "unit_price": 32.5,
+                "subscription_points": 32,
+                "wallet_points": 65
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 130,
+                "unit_price": 43.33,
+                "subscription_points": 43,
+                "wallet_points": 87
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 250,
+                "unit_price": 125,
+                "subscription_points": 125,
+                "wallet_points": 250
+            }
+        ]
+    },
+    "cat": {
+        "0.5-2 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 60,
+                "unit_price": 15,
+                "subscription_points": 15,
+                "wallet_points": 30
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 100,
+                "unit_price": 33.33,
+                "subscription_points": 33,
+                "wallet_points": 67
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 148,
+                "unit_price": 74,
+                "subscription_points": 74,
+                "wallet_points": 148
+            }
+        ],
+        "2-4 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 60,
+                "unit_price": 15,
+                "subscription_points": 15,
+                "wallet_points": 30
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 100,
+                "unit_price": 33.33,
+                "subscription_points": 33,
+                "wallet_points": 67
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 148,
+                "unit_price": 74,
+                "subscription_points": 74,
+                "wallet_points": 148
+            }
+        ],
+        "4-8 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 60,
+                "unit_price": 15,
+                "subscription_points": 15,
+                "wallet_points": 30
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 100,
+                "unit_price": 33.33,
+                "subscription_points": 33,
+                "wallet_points": 67
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 148,
+                "unit_price": 74,
+                "subscription_points": 74,
+                "wallet_points": 148
+            }
+        ],
+        "Peste 8 kg": [
+            {
+                "name": "Consultatie generala",
+                "qty": 4,
+                "abon_total": 200,
+                "unit_price": 50,
+                "subscription_points": 50,
+                "wallet_points": 100
+            },
+            {
+                "name": "Ecografie abdominala",
+                "qty": 4,
+                "abon_total": 300,
+                "unit_price": 75,
+                "subscription_points": 75,
+                "wallet_points": 150
+            },
+            {
+                "name": "Expunere radiografica",
+                "qty": 8,
+                "abon_total": 370,
+                "unit_price": 46.25,
+                "subscription_points": 46,
+                "wallet_points": 92
+            },
+            {
+                "name": "Hemoleucograma",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Biochimie 24 parametri",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Vaccin",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Detartraj",
+                "qty": 1,
+                "abon_total": 250,
+                "unit_price": 250,
+                "subscription_points": 250,
+                "wallet_points": 500
+            },
+            {
+                "name": "Consultatie stomatologica",
+                "qty": 1,
+                "abon_total": 80,
+                "unit_price": 80,
+                "subscription_points": 80,
+                "wallet_points": 160
+            },
+            {
+                "name": "Examen coproparazitologic",
+                "qty": 2,
+                "abon_total": 40,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Sumar urina",
+                "qty": 1,
+                "abon_total": 35,
+                "unit_price": 35,
+                "subscription_points": 35,
+                "wallet_points": 70
+            },
+            {
+                "name": "Vidare glande perianale",
+                "qty": 4,
+                "abon_total": 60,
+                "unit_price": 15,
+                "subscription_points": 15,
+                "wallet_points": 30
+            },
+            {
+                "name": "Toaletare unghii",
+                "qty": 4,
+                "abon_total": 100,
+                "unit_price": 25,
+                "subscription_points": 25,
+                "wallet_points": 50
+            },
+            {
+                "name": "Toaletare urechi",
+                "qty": 4,
+                "abon_total": 80,
+                "unit_price": 20,
+                "subscription_points": 20,
+                "wallet_points": 40
+            },
+            {
+                "name": "Video vet",
+                "qty": 3,
+                "abon_total": 100,
+                "unit_price": 33.33,
+                "subscription_points": 33,
+                "wallet_points": 67
+            },
+            {
+                "name": "Deplasare la domiciliu",
+                "qty": 2,
+                "abon_total": 148,
+                "unit_price": 74,
+                "subscription_points": 74,
+                "wallet_points": 148
+            }
+        ]
+    }
+}
