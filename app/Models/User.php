@@ -19,6 +19,9 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
 
     protected $fillable = ['name', 'email', 'password', 'phone', 'address', 'city', 'internal_notes', 'is_active', 'must_set_password'];
 
+    /** Valori implicite si pentru modelele abia create, inainte de a fi recitite din baza de date. */
+    protected $attributes = ['is_active' => true, 'must_set_password' => false];
+
     protected $hidden = ['password', 'remember_token', 'app_authentication_secret', 'app_authentication_recovery_codes', 'wp_password_hash'];
 
     protected function casts(): array

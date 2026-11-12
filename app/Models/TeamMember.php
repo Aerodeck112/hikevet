@@ -15,6 +15,11 @@ class TeamMember extends Model
         return ["is_published" => "boolean"];
     }
 
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Service::class);
