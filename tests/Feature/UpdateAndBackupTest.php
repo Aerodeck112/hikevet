@@ -1,0 +1,249 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Enums\Role;
+use App\Models\Contract;
+use App\Models\User;
+use App\Services\Backup\BackupService;
+use App\Services\Updates\ReleasePackage;
+use App\Services\Updates\UpdateService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use RuntimeException;
+use Tests\TestCase;
+use ZipArchive;
+
+/** Actualizari ZIP semnate si backup criptat. Actualizarile se aplica intr-un director de proba, nu peste aplicatie. */
+class UpdateAndBackupTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private string $work;
+
+    private string $secret;
+
+    private string $public;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seedBusiness();
+        $pair = sodium_crypto_sign_keypair();
+        $this->secret = base64_encode(sodium_crypto_sign_secretkey($pair));
+        $this->public = base64_encode(sodium_crypto_sign_publickey($pair));
+        $this->work = sys_get_temp_dir().'/hv-update-'.uniqid();
+        mkdir($this->work.'/src/app', 0777, true);
+        mkdir($this->work.'/src/config', 0777, true);
+        mkdir($this->work.'/live/app', 0777, true);
+        file_put_contents($this->work.'/src/app/Feature.php', "<?php // versiunea noua\n");
+        file_put_contents($this->work.'/src/app/Brand.php', "<?php // fisier nou\n");
+        file_put_contents($this->work.'/src/config/demo.php', "<?php return ['v' => 2];\n");
+        file_put_contents($this->work.'/live/app/Feature.php', "<?php // versiunea veche\n");
+        config(['hikevet.update_public_key' => $this->public, 'hikevet.update_base_path' => $this->work.'/live', 'hikevet.version' => '1.0.0']);
+    }
+
+    protected function tearDown(): void
+    {
+        exec('rm -rf '.escapeshellarg($this->work));
+        foreach (glob(storage_path('app/backups/*inainte-de-*')) ?: [] as $f) {
+            @unlink($f);
+        }
+        exec('rm -rf '.escapeshellarg(storage_path('app/backups')).'/update-*-9.*');
+        @unlink(storage_path('app/update.lock'));
+        parent::tearDown();
+    }
+
+    private function build(string $version = '9.1.0', ?string $secret = null): string
+    {
+        $zip = $this->work.'/update-'.$version.'-'.uniqid().'.zip';
+        app(ReleasePackage::class)->build($this->work.'/src', $zip, $version, $secret ?? $this->secret, 'modificări de test');
+
+        return $zip;
+    }
+
+    /** Rescrie arhiva: modifica un fisier, adauga intrari sau inlocuieste manifestul, pastrand semnatura originala. */
+    private function tamper(string $zipPath, callable $change): string
+    {
+        $zip = new ZipArchive;
+        $zip->open($zipPath);
+        $change($zip);
+        $zip->close();
+
+        return $zipPath;
+    }
+
+    public function test_valid_signed_package_passes_preflight_and_is_applied_with_file_backup(): void
+    {
+        $service = app(UpdateService::class);
+        $zip = $this->build();
+
+        $preflight = $service->preflight($zip);
+        $this->assertTrue($preflight['ok']);
+        $this->assertSame('9.1.0', $preflight['manifest']['version']);
+
+        $run = $service->apply($zip, null);
+
+        $this->assertSame('succeeded', $run->status);
+        $this->assertStringContainsString('versiunea noua', file_get_contents($this->work.'/live/app/Feature.php'));
+        $this->assertFileExists($this->work.'/live/app/Brand.php');
+        $this->assertFileExists($this->work.'/live/config/demo.php');
+        // Fisierul inlocuit este pastrat in copia de siguranta, alaturi de un backup verificat al bazei de date.
+        $this->assertStringContainsString('versiunea veche', file_get_contents($run->backup_path.'/files/app/Feature.php'));
+        $manifest = json_decode(file_get_contents($run->backup_path.'/manifest.json'), true);
+        $this->assertSame(['app/Feature.php'], $manifest['replaced']);
+        $this->assertFileExists(storage_path('app/backups/'.$manifest['database_backup']));
+        $this->assertFileDoesNotExist(storage_path('app/update.lock'));
+    }
+
+    public function test_package_signed_with_another_key_or_unsigned_is_rejected(): void
+    {
+        $other = base64_encode(sodium_crypto_sign_secretkey(sodium_crypto_sign_keypair()));
+        foreach ([
+            'alta cheie' => $this->build('9.1.0', $other),
+            'fara semnatura' => $this->tamper($this->build(), fn (ZipArchive $z) => $z->deleteName('release.sig')),
+            'zip oarecare cu php' => (function () {
+                $path = $this->work.'/evil.zip';
+                $z = new ZipArchive;
+                $z->open($path, ZipArchive::CREATE);
+                $z->addFromString('files/app/Shell.php', '<?php system($_GET["c"]);');
+                $z->close();
+
+                return $path;
+            })(),
+        ] as $case => $zip) {
+            try {
+                app(UpdateService::class)->preflight($zip);
+                $this->fail("Pachetul ($case) ar fi trebuit respins.");
+            } catch (RuntimeException $e) {
+                $this->assertMatchesRegularExpression('/[Ss]emnătur|manifest/u', $e->getMessage(), $case);
+            }
+        }
+        $this->assertStringContainsString('versiunea veche', file_get_contents($this->work.'/live/app/Feature.php'));
+    }
+
+    public function test_modified_file_extra_file_and_edited_manifest_are_rejected(): void
+    {
+        $cases = [
+            'fisier modificat' => $this->tamper($this->build(), fn (ZipArchive $z) => $z->addFromString('files/app/Feature.php', '<?php // alterat')),
+            'fisier in plus' => $this->tamper($this->build(), fn (ZipArchive $z) => $z->addFromString('files/app/Extra.php', '<?php')),
+            'intrare in afara files' => $this->tamper($this->build(), fn (ZipArchive $z) => $z->addFromString('index.php', '<?php')),
+            'manifest rescris' => $this->tamper($this->build(), function (ZipArchive $z) {
+                $m = json_decode($z->getFromName('release.json'), true);
+                $m['version'] = '99.0.0';
+                $z->addFromString('release.json', json_encode($m));
+            }),
+        ];
+
+        foreach ($cases as $case => $zip) {
+            try {
+                app(UpdateService::class)->preflight($zip);
+                $this->fail("Pachetul ($case) ar fi trebuit respins.");
+            } catch (RuntimeException) {
+                $this->addToAssertionCount(1);
+            }
+        }
+    }
+
+    public function test_zip_slip_env_and_storage_paths_are_refused_even_when_signed(): void
+    {
+        $package = app(ReleasePackage::class);
+        foreach (['../outside.php', 'app/../../etc/passwd', '/etc/passwd', 'app\\..\\x.php', '.env', 'storage/app/private/x.php', 'public/uploads/shell.php', 'public/shell.php', 'C:/x.php', "app/x\0.php"] as $path) {
+            try {
+                $package->assertSafePath($path);
+                $this->fail("Calea $path ar fi trebuit refuzata.");
+            } catch (RuntimeException) {
+                $this->addToAssertionCount(1);
+            }
+        }
+        $package->assertSafePath('app/Models/User.php');
+        $package->assertSafePath('public/build/assets/site.css');
+
+        // Un manifest semnat corect, dar cu o cale periculoasa, este tot refuzat.
+        $manifest = json_encode(['version' => '9.9.9', 'files' => ['../evil.php' => hash('sha256', 'x')]]);
+        $zipPath = $this->work.'/slip.zip';
+        $z = new ZipArchive;
+        $z->open($zipPath, ZipArchive::CREATE);
+        $z->addFromString('release.json', $manifest);
+        $z->addFromString('release.sig', base64_encode(sodium_crypto_sign_detached($manifest, base64_decode($this->secret))));
+        $z->addFromString('files/../evil.php', 'x');
+        $z->close();
+
+        $this->expectException(RuntimeException::class);
+        app(UpdateService::class)->preflight($zipPath);
+    }
+
+    public function test_downgrade_is_blocked_and_missing_public_key_blocks_everything(): void
+    {
+        config(['hikevet.version' => '9.5.0']);
+        $preflight = app(UpdateService::class)->preflight($this->build('9.1.0'));
+        $this->assertFalse($preflight['ok']);
+        $this->assertFalse(collect($preflight['checks'])->firstWhere('label', 'Versiune mai nouă')['ok']);
+
+        try {
+            app(UpdateService::class)->apply($this->build('9.1.0'), null);
+            $this->fail('O versiune mai veche nu trebuie instalata.');
+        } catch (RuntimeException) {
+        }
+
+        config(['hikevet.update_public_key' => '']);
+        $this->expectException(RuntimeException::class);
+        app(UpdateService::class)->preflight($this->build('9.9.0'));
+    }
+
+    public function test_failure_during_copy_restores_previous_files(): void
+    {
+        // Un director pus in locul unui fisier face copierea sa esueze dupa ce primul fisier a fost deja inlocuit.
+        mkdir($this->work.'/live/config/demo.php', 0777, true);
+        $run = app(UpdateService::class)->apply($this->build(), null);
+
+        $this->assertSame('rolled_back', $run->status);
+        $this->assertStringContainsString('EROARE', $run->log);
+        $this->assertStringContainsString('versiunea veche', file_get_contents($this->work.'/live/app/Feature.php'));
+        $this->assertFileDoesNotExist($this->work.'/live/app/Brand.php');
+        $this->assertFileDoesNotExist(storage_path('app/update.lock'));
+    }
+
+    public function test_backup_is_encrypted_and_restore_brings_data_back(): void
+    {
+        $this->postJson('/abonamente/contract', $this->contractData())->assertOk();
+        $backups = app(BackupService::class);
+        $result = $backups->create('test-restaurare');
+
+        try {
+            $raw = file_get_contents($result['path']);
+            $this->assertStringStartsWith("HVBK1\n", $raw);
+            $this->assertStringNotContainsString('popescu.test@example.com', $raw);
+            $this->assertStringNotContainsString('Rex', $raw);
+            $this->assertSame($result['rows'], $backups->verify($result['path'])['rows']);
+
+            // Date pierdute si date adaugate dupa backup.
+            $number = Contract::query()->value('number');
+            Contract::query()->delete();
+            User::factory()->create(['email' => 'aparut.dupa.backup@example.com']);
+
+            $stats = $backups->restore($result['path']);
+            $this->assertGreaterThan(0, $stats['rows']);
+            $this->assertSame($number, Contract::query()->sole()->number);
+            $this->assertSame('1900101000000', Contract::query()->sole()->payload['owner_cnp']);
+            $this->assertNull(User::query()->where('email', 'aparut.dupa.backup@example.com')->first());
+
+            // Un backup alterat sau criptat cu alta cheie este refuzat inainte de a atinge baza de date.
+            file_put_contents($result['path'], substr_replace($raw, 'XXXX', 200, 4));
+            try {
+                $backups->restore($result['path']);
+                $this->fail('Backupul alterat ar fi trebuit refuzat.');
+            } catch (RuntimeException) {
+                $this->assertSame(1, Contract::count());
+            }
+        } finally {
+            @unlink($result['path']);
+        }
+    }
+
+    public function test_only_super_admin_sees_the_updates_screen(): void
+    {
+        $this->actingAs($this->staff(Role::SuperAdmin))->get('/admin/platform-updates')->assertOk()->assertSee('Sănătatea sistemului');
+        $this->actingAs($this->staff(Role::Admin))->get('/admin/platform-updates')->assertForbidden();
+        $this->actingAs($this->staff(Role::Doctor))->get('/admin/platform-updates')->assertForbidden();
+    }
+}

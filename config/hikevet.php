@@ -14,4 +14,7 @@ return [
     'assume_installed' => env('APP_ENV', 'production') !== 'production',
     'install_lock' => null,
     'install_env_path' => null,
+
+    // Folosit doar de testele automate, pentru a aplica o actualizare intr-un director de proba.
+    'update_base_path' => null,
 ];
