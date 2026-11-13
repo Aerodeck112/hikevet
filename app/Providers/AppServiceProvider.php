@@ -26,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
         Model::preventAccessingMissingAttributes(! $this->app->isProduction());
 
-        if ($this->app->isProduction()) {
+        // Cand adresa site-ului este HTTPS, toate linkurile generate sunt HTTPS, chiar daca serverul
+        // primeste cererea prin HTTP de la un proxy (situatie obisnuita pe hosting shared).
+        if (str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceScheme('https');
         }
 

@@ -84,6 +84,8 @@ class InstallController extends Controller
             Artisan::call('migrate', ['--force' => true]);
             $output = Artisan::output();
             Artisan::call('db:seed', ['--force' => true]);
+            // Fisierele JS / CSS ale panoului de administrare (sunt si in pachet; aici se asigura ca sunt la zi).
+            Artisan::call('filament:assets');
             Artisan::call('optimize:clear');
         } catch (Throwable $e) {
             report($e);

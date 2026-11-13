@@ -16,9 +16,7 @@
 /node_modules
 # /public/build este versionat: asseturile se livreaza precompilate pentru cPanel
 /public/fonts-manifest.dev.json
-/public/fonts/filament
 /public/hot
-/public/js/filament
 /public/storage
 /storage/*.key
 /storage/pail
@@ -36,8 +34,10 @@ Thumbs.db
 *.sql
 *.sql.gz
 
-/public/css/filament
 
 # Listele de coduri raportate vin din pluginul privat; se citesc local la import
 /database/import-spec/reported-through-september-2026.json
 /database/import-spec/september-2026-145.json
+
+# Asseturile panoului de administrare (public/js|css|fonts/filament) sunt versionate:
+# pe cPanel nu exista o comanda care sa le publice la instalare din arhiva.

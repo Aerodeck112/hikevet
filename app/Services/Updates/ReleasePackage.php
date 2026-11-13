@@ -17,7 +17,7 @@ use ZipArchive;
 class ReleasePackage
 {
     public const ALLOWED_ROOTS = ['app/', 'bootstrap/app.php', 'bootstrap/providers.php', 'config/', 'database/migrations/', 'database/seeders/', 'database/import-spec/',
-        'public/build/', 'public/media/', 'public/fonts/', 'public/index.php', 'public/.htaccess', 'public/favicon.svg', 'resources/', 'routes/', 'vendor/', 'artisan', 'composer.json', 'composer.lock'];
+        'public/build/', 'public/media/', 'public/fonts/', 'public/js/', 'public/css/', 'public/index.php', 'public/.htaccess', 'public/favicon.svg', 'resources/', 'routes/', 'vendor/', 'artisan', 'composer.json', 'composer.lock'];
 
     public const MAX_FILES = 40000;
 
