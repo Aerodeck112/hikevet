@@ -9,8 +9,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         then: function () {
-            // Instalatorul ruleaza fara sesiune, cookie-uri sau CSRF: inainte de instalare nu exista cheie si baza de date.
-            \Illuminate\Support\Facades\Route::prefix('install')->middleware('throttle:30,1')->group(function () {
+            // Instalatorul ruleaza fara sesiune, cookie-uri, CSRF sau limitare prin cache: inainte de instalare
+            // nu exista nici cheie, nici tabelele de sesiune si cache. Accesul este protejat de codul de pe disc.
+            \Illuminate\Support\Facades\Route::prefix('install')->group(function () {
                 $c = \App\Http\Controllers\Install\InstallController::class;
                 \Illuminate\Support\Facades\Route::get('/', [$c, 'start']);
                 \Illuminate\Support\Facades\Route::post('/verificari', [$c, 'requirements']);

@@ -15,7 +15,7 @@ use Throwable;
  */
 class Installer
 {
-    public const REQUIRED_EXTENSIONS = ['pdo_mysql', 'mbstring', 'openssl', 'gd', 'zip', 'intl', 'fileinfo', 'dom', 'curl', 'sodium', 'bcmath', 'ctype', 'json', 'tokenizer', 'xml'];
+    public const REQUIRED_EXTENSIONS = ['pdo_mysql', 'mbstring', 'openssl', 'gd', 'zip', 'intl', 'fileinfo', 'dom', 'curl', 'sodium', 'ctype', 'json', 'tokenizer', 'xml', 'session', 'filter', 'hash'];
 
     public const MIN_PHP = '8.3.0';
 
@@ -76,7 +76,8 @@ class Installer
         }
         $env = $this->envPath();
         $add('Fișierul .env poate fi scris', is_file($env) ? is_writable($env) : is_writable(dirname($env)), 'Instalatorul scrie aici datele bazei de date și cheia aplicației.');
-        $add('Conexiune HTTPS', $isHttps, $isHttps ? 'ok' : 'Activează certificatul SSL (AutoSSL / Let’s Encrypt) înainte de instalare: parolele se trimit prin acest formular.', app()->isProduction());
+        $add('Conexiune HTTPS', $isHttps, $isHttps ? 'ok' : 'Activează certificatul SSL (AutoSSL / Let’s Encrypt) înainte de instalare: parolele se trimit prin acest formular.',
+            app()->isProduction() && ! in_array(request()->getHost(), ['127.0.0.1', 'localhost'], true));
         $add('Aplicația este în afara directorului public', ! $this->looksExposed(), 'Document root trebuie să fie directorul public/. Fișierele .env, vendor/ și storage/ nu au voie să fie accesibile din browser.', false);
         $add('Spațiu liber pe disc', ($free = @disk_free_space(base_path())) === false || $free > 200 * 1024 * 1024, $free === false ? 'nu poate fi citit' : round($free / 1048576).' MB liberi (minimum recomandat 200 MB).', false);
 
