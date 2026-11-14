@@ -2,6 +2,7 @@
 
 namespace App\Services\Backup;
 
+use App\Support\Tables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use RuntimeException;
@@ -74,7 +75,7 @@ class BackupService
     public function restore(string $path): array
     {
         $stats = ['tables' => 0, 'rows' => 0];
-        $existing = array_flip(Schema::getTableListing(schemaQualified: false));
+        $existing = array_flip(Tables::of());
 
         Schema::disableForeignKeyConstraints();
         try {
@@ -136,7 +137,7 @@ class BackupService
     /** Tabelele ordonate astfel incat fiecare tabel sa apara dupa cele la care trimite prin chei straine. @return list<string> */
     public function tablesInDependencyOrder(): array
     {
-        $tables = array_values(array_filter(Schema::getTableListing(schemaQualified: false), fn ($t) => ! in_array($t, self::SKIP_TABLES, true)));
+        $tables = array_values(array_filter(Tables::of(), fn ($t) => ! in_array($t, self::SKIP_TABLES, true)));
         $deps = [];
         foreach ($tables as $table) {
             $deps[$table] = array_values(array_unique(array_filter(array_map(fn ($fk) => $fk['foreign_table'], Schema::getForeignKeys($table)),

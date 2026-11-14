@@ -2,6 +2,7 @@
 
 namespace App\Services\Import;
 
+use App\Support\Tables;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +26,8 @@ class WordPressSource
     /** @return list<string> */
     public function tables(): array
     {
-        return array_map(fn ($t) => is_array($t) ? $t['name'] : $t, Schema::connection($this->connection)->getTableListing(schemaQualified: false));
+        // Doar baza indicata ca sursa: utilizatorul MySQL poate vedea si alte baze (inclusiv pe cea a aplicatiei).
+        return Tables::of($this->connection);
     }
 
     public function prefix(): string

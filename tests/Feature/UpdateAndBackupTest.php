@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Services\Backup\BackupService;
 use App\Services\Updates\ReleasePackage;
 use App\Services\Updates\UpdateService;
+use App\Support\Tables;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use RuntimeException;
 use Tests\TestCase;
 use ZipArchive;
@@ -83,7 +85,7 @@ class UpdateAndBackupTest extends TestCase
 
         $run = $service->apply($zip, null);
 
-        $this->assertSame('succeeded', $run->status);
+        $this->assertSame('succeeded', $run->status, (string) $run->log);
         $this->assertStringContainsString('versiunea noua', file_get_contents($this->work.'/live/app/Feature.php'));
         $this->assertFileExists($this->work.'/live/app/Brand.php');
         $this->assertFileExists($this->work.'/live/config/demo.php');
@@ -304,6 +306,34 @@ class UpdateAndBackupTest extends TestCase
             }
         } finally {
             @unlink($result['path']);
+        }
+    }
+
+    /** Pe hosting shared acelasi utilizator MySQL poate vedea si alte baze (de exemplu pe cea WordPress). */
+    public function test_table_listing_and_backup_ignore_other_databases_visible_to_the_same_user(): void
+    {
+        if (! in_array(DB::getDriverName(), ['mysql', 'mariadb'], true)) {
+            $this->markTestSkipped('Relevant doar pe MySQL / MariaDB.');
+        }
+        $other = DB::getDatabaseName().'_vecin';
+        // Conexiune separata: CREATE DATABASE ar inchide tranzactia in care ruleaza testul.
+        $config = DB::getConfig();
+        try {
+            $admin = new \PDO(sprintf('mysql:host=%s;port=%d', $config['host'], $config['port'] ?? 3306), $config['username'], $config['password'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+            $admin->exec("CREATE DATABASE IF NOT EXISTS `{$other}`");
+            $admin->exec("CREATE TABLE IF NOT EXISTS `{$other}`.`wp_tabel_strain` (id INT PRIMARY KEY)");
+        } catch (\Throwable $e) {
+            $this->markTestSkipped('Utilizatorul de test nu poate crea o a doua bază: '.$e->getMessage());
+        }
+
+        try {
+            $this->assertNotContains('wp_tabel_strain', Tables::of());
+            $this->assertNotContains('wp_tabel_strain', app(BackupService::class)->tablesInDependencyOrder());
+            $backup = app(BackupService::class)->create('vecin');
+            $this->assertGreaterThan(0, app(BackupService::class)->verify($backup['path'])['tables']);
+            @unlink($backup['path']);
+        } finally {
+            $admin->exec("DROP DATABASE IF EXISTS `{$other}`");
         }
     }
 

@@ -19,7 +19,7 @@
     @if ($clinic['verification'])<meta name="google-site-verification" content="{{ $clinic['verification'] }}">@endif
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     @foreach ($seo->jsonLd as $schema)
-    <script type="application/ld+json">{!! json_encode(array_filter($schema, fn ($v) => $v !== null), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    <script type="application/ld+json">{!! json_encode(array_filter($schema, fn ($v) => $v !== null), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
     @endforeach
     @vite(['resources/css/site.css', 'resources/js/site.js'])
     @include('partials.tracking-head')

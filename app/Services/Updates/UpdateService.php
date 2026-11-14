@@ -4,6 +4,7 @@ namespace App\Services\Updates;
 
 use App\Models\UpdateRun;
 use App\Services\Backup\BackupService;
+use App\Support\Tables;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -154,7 +155,7 @@ class UpdateService
             }
             if ($isLive) {
                 if (! empty($manifest['has_migrations'])) {
-                    $tablesBefore = Schema::getTableListing(schemaQualified: false);
+                    $tablesBefore = Tables::of();
                     $migrated = true;
                     Artisan::call('migrate', ['--force' => true]);
                     $note('Migrări rulate: '.trim(preg_replace('/\s+/', ' ', Artisan::output())));
@@ -179,7 +180,7 @@ class UpdateService
                 // apoi datele, inclusiv evidenta migrarilor, revin din backup. O migrare care a apucat sa modifice
                 // un tabel existent nu poate fi anulata automat; de aceea migrarile din pachete trebuie sa fie aditive.
                 try {
-                    $new = array_diff(Schema::getTableListing(schemaQualified: false), $tablesBefore);
+                    $new = array_diff(Tables::of(), $tablesBefore);
                     Schema::disableForeignKeyConstraints();
                     foreach ($new as $table) {
                         Schema::drop($table);
