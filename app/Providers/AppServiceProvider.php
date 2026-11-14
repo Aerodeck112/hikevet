@@ -58,8 +58,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Datele clinicii sunt disponibile in toate sabloanele publice; se citesc o singura data pe cerere.
         View::composer(['site.*', 'account.*', 'tablet.*', 'booking.*', 'layouts.*', 'partials.*', 'errors::*'], function ($view) {
-            static $clinic = null;
-            $clinic ??= [
+            // Calculat o singura data pe cerere (nu static: un proces poate servi mai multe cereri).
+            $clinic = request()->attributes->get('hv.clinic') ?? [
                 'name' => Settings::get('clinic.name'), 'phone' => Settings::get('clinic.phone'), 'email' => Settings::get('clinic.email'),
                 'address' => Settings::get('clinic.address'), 'city' => Settings::get('clinic.city'), 'tagline' => Settings::get('clinic.tagline'),
                 'instagram' => Settings::get('clinic.instagram'), 'facebook' => Settings::get('clinic.facebook'), 'tiktok' => Settings::get('clinic.tiktok'),
@@ -67,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
                 'gtm_id' => Settings::get('marketing.gtm_id'), 'ga4_id' => Settings::get('marketing.ga4_id'),
                 'verification' => Settings::get('marketing.search_console_verification'),
             ];
+            request()->attributes->set('hv.clinic', $clinic);
             $view->with('clinic', $clinic);
         });
     }
