@@ -30,7 +30,7 @@
 
 <header class="site-header">
     <div class="wrap">
-        <nav class="nav" aria-label="Meniu principal" x-data="{ open: false }" :class="{ 'is-open': open }">
+        <nav class="nav" aria-label="Meniu principal" x-data="{ open: false }" @keydown.escape.window="open = false" :class="{ 'is-open': open }">
             <a class="nav-logo" href="{{ site_url('/') }}" aria-label="{{ $clinic['name'] }} – pagina principală">
                 <img src="{{ asset('media/2023/05/negru-640.webp') }}" alt="Clinica HiKeVet" width="640" height="396">
             </a>
