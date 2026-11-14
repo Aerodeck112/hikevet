@@ -203,6 +203,73 @@ class UpdateAndBackupTest extends TestCase
         $this->assertFileDoesNotExist(storage_path('app/update.lock'));
     }
 
+    public function test_incremental_package_ships_only_changes_removes_stale_files_and_is_tied_to_its_base_version(): void
+    {
+        $package = app(ReleasePackage::class);
+        // Versiunea instalata: Feature (veche) + un fisier care dispare in versiunea noua.
+        file_put_contents($this->work.'/live/app/Stale.php', "<?php // disparut in versiunea noua\n");
+        mkdir($this->work.'/live/config', 0777, true);
+        copy($this->work.'/src/config/demo.php', $this->work.'/live/config/demo.php');
+        $base = ['version' => '1.0.0', 'files' => $package->scan($this->work.'/live')];
+
+        $zip = $this->work.'/delta.zip';
+        $built = $package->build($this->work.'/src', $zip, '9.1.0', $this->secret, 'incremental', null, $base);
+
+        // config/demo.php este identic, deci nu calatoreste; Stale.php este marcat pentru stergere.
+        $this->assertSame(2, $built['files']);
+        $this->assertSame(1, $built['removed']);
+        $manifest = app(UpdateService::class)->preflight($zip)['manifest'];
+        $this->assertSame(['app/Brand.php', 'app/Feature.php'], array_keys($manifest['files']));
+        $this->assertSame(['app/Stale.php'], $manifest['remove']);
+        $this->assertSame('1.0.0', $manifest['base_version']);
+
+        $run = app(UpdateService::class)->apply($zip, null);
+        $this->assertSame('succeeded', $run->status);
+        $this->assertFileDoesNotExist($this->work.'/live/app/Stale.php');
+        $this->assertFileExists($run->backup_path.'/files/app/Stale.php');
+        $this->assertStringContainsString('versiunea noua', file_get_contents($this->work.'/live/app/Feature.php'));
+
+        // Acelasi pachet pe o alta versiune instalata este refuzat: fisierele lipsa din el nu ar exista pe server.
+        config(['hikevet.version' => '0.9.0']);
+        $preflight = app(UpdateService::class)->preflight($zip);
+        $this->assertFalse($preflight['ok']);
+        $this->assertContains('Pachet potrivit versiunii instalate', array_column(array_filter($preflight['checks'], fn ($c) => ! $c['ok']), 'label'));
+    }
+
+    public function test_failed_incremental_update_keeps_files_marked_for_removal_and_removal_cannot_target_protected_paths(): void
+    {
+        $package = app(ReleasePackage::class);
+        file_put_contents($this->work.'/live/app/Stale.php', "<?php // trebuie sa revina\n");
+        $base = ['version' => '1.0.0', 'files' => $package->scan($this->work.'/live')];
+        // Stergerile se fac abia dupa ce toate fisierele au fost copiate si verificate. Un director pus in locul unui
+        // fisier opreste copierea, deci la esec fisierul marcat pentru stergere trebuie sa fie inca la locul lui.
+        mkdir($this->work.'/live/config/demo.php', 0777, true);
+        $zip = $this->work.'/delta-fail.zip';
+        $package->build($this->work.'/src', $zip, '9.1.0', $this->secret, '', null, $base);
+
+        $run = app(UpdateService::class)->apply($zip, null);
+        $this->assertSame('rolled_back', $run->status);
+        $this->assertFileExists($this->work.'/live/app/Stale.php');
+        $this->assertStringContainsString('versiunea veche', file_get_contents($this->work.'/live/app/Feature.php'));
+
+        // Un manifest semnat corect care cere stergerea .env sau a datelor este respins la verificare.
+        foreach (['.env', 'storage/app/private/contracts/x.pdf', '../outside.php', 'public/uploads/poza.jpg'] as $target) {
+            $evil = $this->work.'/evil-'.md5($target).'.zip';
+            $manifest = json_encode(['version' => '9.2.0', 'min_php' => '8.3.0', 'has_migrations' => false, 'base_version' => '1.0.0', 'remove' => [$target], 'files' => []]);
+            $archive = new ZipArchive;
+            $archive->open($evil, ZipArchive::CREATE);
+            $archive->addFromString('release.json', $manifest);
+            $archive->addFromString('release.sig', base64_encode(sodium_crypto_sign_detached($manifest, base64_decode($this->secret))));
+            $archive->close();
+            try {
+                app(UpdateService::class)->preflight($evil);
+                $this->fail('Stergerea ar fi trebuit refuzata: '.$target);
+            } catch (RuntimeException $e) {
+                $this->assertMatchesRegularExpression('/nepermis|nu are voie|afara/u', $e->getMessage());
+            }
+        }
+    }
+
     public function test_backup_is_encrypted_and_restore_brings_data_back(): void
     {
         $this->postJson('/abonamente/contract', $this->contractData())->assertOk();

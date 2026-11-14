@@ -10,8 +10,10 @@ use App\Support\Audit;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -47,20 +49,13 @@ class PlatformUpdates extends Page
             Action::make('upload')->label('Încarcă pachet de actualizare')->icon('heroicon-o-arrow-up-tray')
                 ->modalDescription('Sunt acceptate doar pachetele semnate cu cheia configurată pe server. Încărcarea doar verifică pachetul; instalarea se confirmă separat.')
                 ->schema([FileUpload::make('package')->label('Fișier ZIP')->disk('private')->directory('updates')->acceptedFileTypes(['application/zip', 'application/x-zip-compressed'])->maxSize(204800)->required()])
-                ->action(function (array $data) {
-                    $path = Storage::disk('private')->path($data['package']);
-                    try {
-                        $preflight = app(UpdateService::class)->preflight($path);
-                        $this->pending = ['file' => $data['package'], 'version' => $preflight['manifest']['version'], 'changelog' => $preflight['manifest']['changelog'] ?? '',
-                            'has_migrations' => (bool) ($preflight['manifest']['has_migrations'] ?? false), 'files' => count($preflight['manifest']['files']),
-                            'bytes' => $preflight['bytes'], 'sha256' => $preflight['sha256'], 'checks' => $preflight['checks'], 'ok' => $preflight['ok']];
-                    } catch (Throwable $e) {
-                        Storage::disk('private')->delete($data['package']);
-                        $this->pending = null;
-                        Audit::log('update.rejected', null, 'Pachet de actualizare respins: '.mb_substr($e->getMessage(), 0, 200));
-                        Notification::make()->title('Pachetul a fost respins')->body($e->getMessage())->danger()->persistent()->send();
-                    }
-                }),
+                ->action(fn (array $data) => $this->check($data['package'], deleteOnReject: true)),
+            // Pe gazduirile unde PHP limiteaza incarcarea prin browser, pachetul se urca prin File Manager / FTP.
+            Action::make('fromServer')->label('Pachet urcat prin File Manager')->icon('heroicon-o-folder-open')->color('gray')
+                ->modalDescription('Pachetele ZIP puse în storage/app/private/updates. Se aplică aceleași verificări de semnătură.')
+                ->schema([Select::make('package')->label('Fișier')->options(fn () => $this->serverPackages())->required()])
+                ->visible(fn () => $this->serverPackages() !== [])
+                ->action(fn (array $data) => $this->check('updates/'.basename($data['package']), deleteOnReject: false)),
             Action::make('backup')->label('Backup acum')->icon('heroicon-o-circle-stack')->color('gray')
                 ->action(function () {
                     $result = app(BackupService::class)->create('manual');
@@ -68,6 +63,32 @@ class PlatformUpdates extends Page
                     Notification::make()->title('Backup creat: '.basename($result['path']))->success()->send();
                 }),
         ];
+    }
+
+    /** @return array<string,string> */
+    private function serverPackages(): array
+    {
+        $files = array_filter(Storage::disk('private')->files('updates'), fn ($f) => str_ends_with(strtolower($f), '.zip'));
+
+        return array_combine(array_map('basename', $files), array_map('basename', $files));
+    }
+
+    private function check(string $file, bool $deleteOnReject): void
+    {
+        try {
+            $preflight = app(UpdateService::class)->preflight(Storage::disk('private')->path($file));
+            $this->pending = ['file' => $file, 'version' => $preflight['manifest']['version'], 'changelog' => $preflight['manifest']['changelog'] ?? '',
+                'has_migrations' => (bool) ($preflight['manifest']['has_migrations'] ?? false), 'files' => count($preflight['manifest']['files']),
+                'removed' => count($preflight['manifest']['remove'] ?? []), 'incremental' => filled($preflight['manifest']['base_version'] ?? null),
+                'bytes' => $preflight['bytes'], 'sha256' => $preflight['sha256'], 'checks' => $preflight['checks'], 'ok' => $preflight['ok']];
+        } catch (Throwable $e) {
+            if ($deleteOnReject) {
+                Storage::disk('private')->delete($file);
+            }
+            $this->pending = null;
+            Audit::log('update.rejected', null, 'Pachet de actualizare respins: '.mb_substr($e->getMessage(), 0, 200));
+            Notification::make()->title('Pachetul a fost respins')->body($e->getMessage())->danger()->persistent()->send();
+        }
     }
 
     public function install(): void
@@ -107,7 +128,7 @@ class PlatformUpdates extends Page
         $backups = app(BackupService::class)->list();
 
         $check('Bază de date', fn () => [true, DB::getDriverName().' '.DB::scalar('select version()')]);
-        $check('Sarcini programate (cron)', fn () => [$cron && now()->diffInMinutes($cron, true) < 10, $cron ? 'ultima rulare '.\Illuminate\Support\Carbon::parse($cron)->diffForHumans() : 'nu a rulat niciodată: adaugă sarcina cron din INSTALL_CPANEL.md']);
+        $check('Sarcini programate (cron)', fn () => [$cron && now()->diffInMinutes($cron, true) < 10, $cron ? 'ultima rulare '.Carbon::parse($cron)->diffForHumans() : 'nu a rulat niciodată: adaugă sarcina cron din INSTALL_CPANEL.md']);
         $check('Email', fn () => [config('mail.default') !== 'log', config('mail.default') === 'log' ? 'emailurile se scriu doar în jurnal (SMTP neconfigurat)' : 'SMTP: '.config('mail.mailers.smtp.host')]);
         $check('Spațiu pe disc', fn () => [($free = disk_free_space(base_path())) > 300 * 1048576, round($free / 1048576).' MB liberi']);
         $check('Ultimul backup', fn () => [$backups && $backups[0]['created'] > time() - 36 * 3600, $backups ? date('d.m.Y H:i', $backups[0]['created']).' ('.round($backups[0]['bytes'] / 1024).' KB)' : 'nu există niciun backup']);

@@ -103,7 +103,7 @@ cu ajustări pe categorie la câine și totaluri fixe pe categorie. Deparazităr
 `not_insurance`. **Perioade:** 1, 6, 12 luni (SIM:989). **Valabilitate ofertă:** 5 zile
 (`contract_valid_days`, SIM:59) — este doar text în contract; nu există anulare automată în cod.
 
-**Contract:** 52 de linii de șablon (`contract_template_lines`, SIM:542), PDF construit manual
+**Contract:** 50 de linii de șablon (`contract_template_lines`, SIM:542), PDF construit manual
 (`pdf_build`, SIM:626), text fără diacritice (`ascii`, SIM:13). Prestator: S.C. FEST4PETS S.R.L.
 
 ## 3. Wallet Core (WAL)

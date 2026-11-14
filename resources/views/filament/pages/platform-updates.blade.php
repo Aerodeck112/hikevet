@@ -9,7 +9,7 @@
         @if ($pending)
             <section class="hv-card" style="border-color:#21b073">
                 <h3>Pachet verificat: versiunea {{ $pending['version'] }}</h3>
-                <p>{{ $pending['files'] }} fișiere · {{ number_format($pending['bytes'] / 1048576, 1, ',', '.') }} MB · {{ $pending['has_migrations'] ? 'conține migrări ale bazei de date' : 'fără migrări' }}</p>
+                <p>{{ ($pending['incremental'] ?? false) ? 'Pachet incremental' : 'Pachet complet' }} · {{ $pending['files'] }} fișiere{{ ($pending['removed'] ?? 0) ? ', '.$pending['removed'].' de șters' : '' }} · {{ number_format($pending['bytes'] / 1048576, 1, ',', '.') }} MB · {{ $pending['has_migrations'] ? 'conține migrări ale bazei de date' : 'fără migrări' }}</p>
                 <p class="hv-muted" style="word-break:break-all">SHA-256: {{ $pending['sha256'] }}</p>
                 @if ($pending['changelog'])<p style="margin-top:.5rem"><strong>Modificări:</strong> {{ $pending['changelog'] }}</p>@endif
                 <table class="hv-table" style="margin-top:.75rem">

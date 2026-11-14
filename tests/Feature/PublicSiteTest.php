@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Role;
 use App\Http\Middleware\PublicRedirects;
 use App\Models\ContactMessage;
 use App\Models\Page;
@@ -111,7 +112,7 @@ class PublicSiteTest extends TestCase
     public function test_draft_pages_are_hidden_from_visitors_but_previewable_by_editors(): void
     {
         $this->get('/politica-de-confidentialitate')->assertNotFound();
-        $this->actingAs($this->staff(\App\Enums\Role::Editor))->get('/politica-de-confidentialitate')->assertOk()->assertSee('Previzualizare')->assertSee('noindex', false);
+        $this->actingAs($this->staff(Role::Editor))->get('/politica-de-confidentialitate')->assertOk()->assertSee('Previzualizare')->assertSee('noindex', false);
     }
 
     public function test_contact_form_validates_stores_notifies_and_ignores_bots(): void
@@ -149,5 +150,19 @@ class PublicSiteTest extends TestCase
         $this->get('/')->assertHeader('X-Content-Type-Options', 'nosniff')->assertHeader('X-Frame-Options', 'SAMEORIGIN')->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
         $this->assertStringContainsString('no-store', $this->get('/acces-cont')->headers->get('Cache-Control'));
         $this->assertStringContainsString('no-store', $this->actingAs($this->client())->get('/panou-cont')->assertOk()->headers->get('Cache-Control'));
+    }
+
+    /** Regula implicita Laravel din .htaccess elimina slash-ul final; aplicatia il adauga. Impreuna ar da o bucla pe Apache. */
+    public function test_htaccess_keeps_trailing_slashes_and_protects_hidden_files_and_uploads(): void
+    {
+        $htaccess = file_get_contents(public_path('.htaccess'));
+        $rules = implode("\n", array_filter(explode("\n", $htaccess), fn ($line) => ! str_starts_with(ltrim($line), '#')));
+
+        $this->assertStringNotContainsString('%1 [L,R=301]', $rules);
+        $this->assertDoesNotMatchRegularExpression('#REQUEST_URI\} \(\.\+\)/\$#', $rules);
+        $this->assertStringContainsString('RewriteRule ^ index.php [L]', $rules);
+        $this->assertStringContainsString('well-known', $rules);
+        $this->assertStringContainsString('^uploads/', $rules);
+        $this->assertStringContainsString('Options -Indexes', $rules);
     }
 }

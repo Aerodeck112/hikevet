@@ -7,6 +7,7 @@ use App\Services\Backup\BackupService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use RuntimeException;
 use Throwable;
 use ZipArchive;
@@ -49,6 +50,8 @@ class UpdateService
             ['label' => 'Versiune mai nouă', 'ok' => version_compare($m['version'], $current, '>'), 'detail' => $current.' → '.$m['version']],
             ['label' => 'Versiune PHP', 'ok' => version_compare(PHP_VERSION, $m['min_php'] ?? '8.3.0', '>='), 'detail' => 'server '.PHP_VERSION.', necesar '.($m['min_php'] ?? '8.3.0')],
             ['label' => 'Versiune de pornire', 'ok' => empty($m['requires_from']) || version_compare($current, $m['requires_from'], '>='), 'detail' => empty($m['requires_from']) ? 'orice versiune' : 'necesar cel puțin '.$m['requires_from']],
+            ['label' => 'Pachet potrivit versiunii instalate', 'ok' => empty($m['base_version']) || $m['base_version'] === $current,
+                'detail' => empty($m['base_version']) ? 'pachet complet' : 'pachet incremental pentru '.$m['base_version']],
             ['label' => 'Spațiu pe disc', 'ok' => $free === false || $free > $bytes * 4 + 50 * 1048576, 'detail' => $free === false ? 'nu poate fi citit' : round($free / 1048576).' MB liberi'],
             ['label' => 'Drepturi de scriere', 'ok' => $unwritable === [], 'detail' => $unwritable ? 'fără drept de scriere: '.implode(', ', $unwritable) : 'ok'],
             ['label' => 'Nicio altă actualizare în curs', 'ok' => ! is_file($this->lockFile()), 'detail' => is_file($this->lockFile()) ? 'există un blocaj din '.date('d.m.Y H:i', filemtime($this->lockFile())) : 'ok'],
@@ -83,7 +86,9 @@ class UpdateService
         $backupDir = $this->backups->directory().'/update-'.date('Ymd-His').'-'.$manifest['version'];
         $replaced = [];
         $created = [];
+        $removed = [];
         $migrated = false;
+        $tablesBefore = [];
         $dbBackup = null;
         $isLive = $base === base_path();
 
@@ -129,15 +134,27 @@ class UpdateService
                 rename($tmp, $target);
             }
             $zip->close();
+            // Fisierele care nu mai exista in versiunea noua se sterg, dupa ce au fost copiate in backup.
+            foreach ((array) ($manifest['remove'] ?? []) as $relative) {
+                $this->package->assertSafePath($relative);
+                $target = $base.'/'.$relative;
+                if (is_file($target)) {
+                    @mkdir(dirname($backupDir.'/files/'.$relative), 0750, true);
+                    copy($target, $backupDir.'/files/'.$relative);
+                    $removed[] = $relative;
+                    unlink($target);
+                }
+            }
             file_put_contents($backupDir.'/manifest.json', json_encode(['from' => config('hikevet.version'), 'to' => $manifest['version'], 'replaced' => $replaced, 'created' => $created,
-                'database_backup' => basename($dbBackup['path'])], JSON_PRETTY_PRINT));
-            $note(count($replaced).' fișiere înlocuite, '.count($created).' fișiere noi');
+                'removed' => $removed, 'database_backup' => basename($dbBackup['path'])], JSON_PRETTY_PRINT));
+            $note(count($replaced).' fișiere înlocuite, '.count($created).' fișiere noi, '.count($removed).' fișiere șterse');
 
             if (function_exists('opcache_reset')) {
                 @opcache_reset();
             }
             if ($isLive) {
                 if (! empty($manifest['has_migrations'])) {
+                    $tablesBefore = Schema::getTableListing(schemaQualified: false);
                     $migrated = true;
                     Artisan::call('migrate', ['--force' => true]);
                     $note('Migrări rulate: '.trim(preg_replace('/\s+/', ' ', Artisan::output())));
@@ -155,14 +172,26 @@ class UpdateService
         } catch (Throwable $e) {
             report($e);
             $note('EROARE: '.mb_substr($e->getMessage(), 0, 400));
-            $this->rollbackFiles($base, $backupDir, $replaced, $created);
-            $note('Fișierele anterioare au fost puse la loc ('.count($replaced).' restaurate, '.count($created).' șterse)');
+            $this->rollbackFiles($base, $backupDir, array_merge($replaced, $removed), $created);
+            $note('Fișierele anterioare au fost puse la loc ('.(count($replaced) + count($removed)).' restaurate, '.count($created).' șterse)');
             if ($migrated && $dbBackup) {
+                // Structura: tabelele aparute in timpul migrarii esuate se sterg (fisierele lor de migrare au fost deja scoase),
+                // apoi datele, inclusiv evidenta migrarilor, revin din backup. O migrare care a apucat sa modifice
+                // un tabel existent nu poate fi anulata automat; de aceea migrarile din pachete trebuie sa fie aditive.
                 try {
+                    $new = array_diff(Schema::getTableListing(schemaQualified: false), $tablesBefore);
+                    Schema::disableForeignKeyConstraints();
+                    foreach ($new as $table) {
+                        Schema::drop($table);
+                    }
+                    Schema::enableForeignKeyConstraints();
+                    if ($new) {
+                        $note('Tabele create de migrarea eșuată, șterse: '.implode(', ', $new));
+                    }
                     $this->backups->restore($dbBackup['path']);
                     $note('Baza de date a fost readusă din backup');
                 } catch (Throwable $restoreError) {
-                    $note('ATENȚIE: restaurarea automată a bazei de date a eșuat. Restaurează manual: php artisan hikevet:backup --restore='.basename($dbBackup['path']));
+                    $note('ATENȚIE: restaurarea automată a bazei de date a eșuat ('.mb_substr($restoreError->getMessage(), 0, 160).'). Restaurează manual: php artisan hikevet:backup --restore='.basename($dbBackup['path']));
                 }
             }
             if ($isLive) {
@@ -191,9 +220,10 @@ class UpdateService
         }
         foreach ($created as $relative) {
             @unlink($base.'/'.$relative);
+            @unlink($base.'/'.$relative.'.hvtmp');
         }
-        foreach (glob($base.'/**/*.hvtmp') ?: [] as $tmp) {
-            @unlink($tmp);
+        foreach ($replaced as $relative) {
+            @unlink($base.'/'.$relative.'.hvtmp');
         }
     }
 

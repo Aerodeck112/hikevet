@@ -55,6 +55,13 @@ class ReleasePackage
             if (! is_array($manifest) || ! isset($manifest['version'], $manifest['files']) || ! is_array($manifest['files'])) {
                 throw new RuntimeException('Manifestul pachetului este invalid.');
             }
+            // Pachet incremental: fisierele de sters trec prin aceleasi verificari de cale ca cele copiate.
+            foreach ((array) ($manifest['remove'] ?? []) as $relative) {
+                if (! is_string($relative) || isset($manifest['files'][$relative])) {
+                    throw new RuntimeException('Manifestul pachetului este invalid.');
+                }
+                $this->assertSafePath($relative);
+            }
 
             $entries = [];
             $total = 0;
@@ -116,8 +123,43 @@ class ReleasePackage
         throw new RuntimeException('Fișier în afara directoarelor permise: '.$path);
     }
 
-    /** Construieste si semneaza un pachet din arborele curent. Folosit de cine publica versiunile. */
-    public function build(string $basePath, string $target, string $version, string $secretKeyBase64, string $changelog = '', ?string $requiresFrom = null): array
+    /**
+     * Fisierele care alcatuiesc o versiune, cu amprenta lor. Aceeasi lista este folosita pentru pachetul de
+     * instalare, pentru pachetele de actualizare si ca baza pentru pachetele incrementale.
+     *
+     * @return array<string,string> cale relativa => sha256
+     */
+    public function scan(string $basePath): array
+    {
+        $all = [];
+        foreach (self::ALLOWED_ROOTS as $root) {
+            $absolute = $basePath.'/'.rtrim($root, '/');
+            $paths = is_file($absolute) ? [$absolute] : (is_dir($absolute)
+                ? array_map(fn ($f) => $f->getPathname(), array_filter(iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($absolute, \FilesystemIterator::SKIP_DOTS))), fn ($f) => $f->isFile()))
+                : []);
+            foreach ($paths as $path) {
+                $relative = ltrim(str_replace('\\', '/', substr($path, strlen($basePath))), '/');
+                // Istoricul Git, testele si documentatia dependentelor nu fac parte din pachet.
+                if (preg_match('#(^|/)\.git(/|$)#', $relative)
+                    || (str_starts_with($relative, 'vendor/') && preg_match('#/(tests?|Tests?|docs?|\.github)/|\.(md|MD)$#', $relative))
+                    || str_ends_with($relative, '.hvtmp') || preg_match('#^bootstrap/cache/#', $relative)) {
+                    continue;
+                }
+                $all[$relative] = hash_file('sha256', $path);
+            }
+        }
+        ksort($all);
+
+        return $all;
+    }
+
+    /**
+     * Construieste si semneaza un pachet din arborele curent. Folosit de cine publica versiunile.
+     *
+     * @param  array{version:string,files:array<string,string>}|null  $base  manifestul versiunii instalate; cu el pachetul contine
+     *                                                                       doar fisierele schimbate si lista celor disparute
+     */
+    public function build(string $basePath, string $target, string $version, string $secretKeyBase64, string $changelog = '', ?string $requiresFrom = null, ?array $base = null): array
     {
         $secret = base64_decode($secretKeyBase64, true);
         if (! $secret || strlen($secret) !== SODIUM_CRYPTO_SIGN_SECRETKEYBYTES) {
@@ -127,36 +169,26 @@ class ReleasePackage
         $zip = new ZipArchive;
         $zip->open($target, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $files = [];
-
-        foreach (self::ALLOWED_ROOTS as $root) {
-            $absolute = $basePath.'/'.rtrim($root, '/');
-            $paths = is_file($absolute) ? [$absolute] : (is_dir($absolute)
-                ? array_map(fn ($f) => $f->getPathname(), array_filter(iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($absolute, \FilesystemIterator::SKIP_DOTS))), fn ($f) => $f->isFile()))
-                : []);
-            foreach ($paths as $path) {
-                $relative = ltrim(str_replace('\\', '/', substr($path, strlen($basePath))), '/');
-                // Istoricul Git al dependentelor si testele lor nu fac parte din pachet.
-                if (preg_match('#(^|/)\.git(/|$)|/(tests?|Tests?|docs?|\.github)/|\.(md|MD)$#', $relative) && str_starts_with($relative, 'vendor/')) {
-                    continue;
-                }
-                if (preg_match('#(^|/)\.git(/|$)#', $relative)) {
-                    continue;
-                }
-                $files[$relative] = hash_file('sha256', $path);
-                $zip->addFile($path, 'files/'.$relative);
+        $all = $this->scan($basePath);
+        foreach ($all as $relative => $sha) {
+            if ($base === null || ($base['files'][$relative] ?? null) !== $sha) {
+                $files[$relative] = $sha;
+                $zip->addFile($basePath.'/'.$relative, 'files/'.$relative);
             }
         }
         ksort($files);
+        $remove = $base === null ? [] : array_values(array_diff(array_keys($base['files']), array_keys($all)));
 
         $manifest = json_encode([
             'version' => $version, 'built_at' => gmdate('c'), 'min_php' => '8.3.0', 'requires_from' => $requiresFrom,
             'has_migrations' => (bool) array_filter(array_keys($files), fn ($f) => str_starts_with($f, 'database/migrations/')),
-            'changelog' => $changelog, 'files' => $files,
+            'changelog' => $changelog, 'base_version' => $base['version'] ?? null, 'remove' => $remove, 'files' => $files,
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $zip->addFromString('release.json', $manifest);
         $zip->addFromString('release.sig', base64_encode(sodium_crypto_sign_detached($manifest, $secret)));
         $zip->close();
 
-        return ['path' => $target, 'files' => count($files), 'bytes' => filesize($target), 'sha256' => hash_file('sha256', $target)];
+        return ['path' => $target, 'files' => count($files), 'removed' => count($remove), 'bytes' => filesize($target), 'sha256' => hash_file('sha256', $target),
+            'tree' => ['version' => $version, 'files' => $all]];
     }
 }

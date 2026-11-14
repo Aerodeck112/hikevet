@@ -3,10 +3,13 @@
 namespace App\Providers;
 
 use App\Enums\Role;
+use App\Support\Booking;
 use App\Support\Settings;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
@@ -35,13 +38,16 @@ class AppServiceProvider extends ServiceProvider
         // Super Admin are toate permisiunile, inclusiv cele adaugate ulterior.
         Gate::before(fn ($user, $ability) => $user->hasRole(Role::SuperAdmin->value) ? true : null);
 
+        // Pachetele de actualizare pot depasi limita implicita de 12 MB a incarcarilor Livewire; limita reala o da PHP (upload_max_filesize).
+        config(['livewire.temporary_file_upload.rules' => ['required', 'file', 'max:204800']]);
+
         Password::defaults(fn () => Password::min(10)->letters()->numbers()->uncompromised(0));
 
         // Emailul de setare / resetare a parolei, in romana.
-        \Illuminate\Auth\Notifications\ResetPassword::toMailUsing(function ($user, string $token) {
+        ResetPassword::toMailUsing(function ($user, string $token) {
             $url = route('password.reset', ['token' => $token, 'email' => $user->email]);
 
-            return (new \Illuminate\Notifications\Messages\MailMessage)
+            return (new MailMessage)
                 ->subject('Setează parola contului HiKeVet')
                 ->greeting('Bună, '.$user->name.'!')
                 ->line('Ai cerut setarea unei parole noi pentru contul tău HiKeVet.')
@@ -63,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
                 'name' => Settings::get('clinic.name'), 'phone' => Settings::get('clinic.phone'), 'email' => Settings::get('clinic.email'),
                 'address' => Settings::get('clinic.address'), 'city' => Settings::get('clinic.city'), 'tagline' => Settings::get('clinic.tagline'),
                 'instagram' => Settings::get('clinic.instagram'), 'facebook' => Settings::get('clinic.facebook'), 'tiktok' => Settings::get('clinic.tiktok'),
-                'review_url' => Settings::get('clinic.review_url'), 'booking_url' => \App\Support\Booking::url(),
+                'review_url' => Settings::get('clinic.review_url'), 'booking_url' => Booking::url(),
                 'gtm_id' => Settings::get('marketing.gtm_id'), 'ga4_id' => Settings::get('marketing.ga4_id'),
                 'verification' => Settings::get('marketing.search_console_verification'),
             ];

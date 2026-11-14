@@ -12,6 +12,7 @@ class ReleaseBuild extends Command
         {--release-version= : Versiunea pachetului (implicit cea din config/hikevet.php)}
         {--key-file= : Fișierul cu cheia privată de semnare (base64)}
         {--changelog= : Text scurt cu modificările}
+        {--since= : Manifestul versiunii instalate (.manifest.json); pachetul va conține doar ce s-a schimbat}
         {--out= : Fișierul ZIP rezultat}';
 
     protected $description = 'Unelte pentru publicarea versiunilor: generare chei de semnare, pachet de actualizare semnat, pachet de instalare cPanel.';
@@ -56,9 +57,26 @@ class ReleaseBuild extends Command
         }
         $out = $this->option('out') ?: storage_path('app/releases/hikevet-update-'.$version.'.zip');
         @mkdir(dirname($out), 0750, true);
-        $result = $package->build(base_path(), $out, $version, trim(file_get_contents($keyFile)), (string) $this->option('changelog'));
-        $this->info(sprintf('Pachet de actualizare %s: %d fișiere, %.1f MB', basename($out), $result['files'], $result['bytes'] / 1048576));
+        $base = null;
+        if ($since = $this->option('since')) {
+            $base = is_file($since) ? json_decode(file_get_contents($since), true) : null;
+            if (! is_array($base) || ! is_string($base['version'] ?? null) || ! is_array($base['files'] ?? null)) {
+                $this->error('Manifestul de bază nu poate fi citit: '.$since);
+
+                return self::FAILURE;
+            }
+            if (! version_compare($version, $base['version'], '>')) {
+                $this->error('Versiunea nouă ('.$version.') trebuie să fie mai mare decât cea de bază ('.$base['version'].'). Actualizează config/hikevet.php.');
+
+                return self::FAILURE;
+            }
+        }
+        $result = $package->build(base_path(), $out, $version, trim(file_get_contents($keyFile)), (string) $this->option('changelog'), null, $base);
+        file_put_contents($this->manifestPath($out), json_encode($result['tree'], JSON_UNESCAPED_SLASHES));
+        $this->info(sprintf('Pachet de actualizare %s%s: %d fișiere, %d de șters, %.1f MB', basename($out), $base ? ' (incremental față de '.$base['version'].')' : ' (complet)',
+            $result['files'], $result['removed'], $result['bytes'] / 1048576));
         $this->line('SHA-256: '.$result['sha256']);
+        $this->line('Manifestul versiunii (bază pentru următorul pachet incremental): '.$this->manifestPath($out));
 
         return self::SUCCESS;
     }
@@ -70,23 +88,12 @@ class ReleaseBuild extends Command
         @mkdir(dirname($out), 0750, true);
         $zip = new \ZipArchive;
         $zip->open($out, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $count = 0;
         $base = base_path();
-
-        foreach (ReleasePackage::ALLOWED_ROOTS as $root) {
-            $absolute = $base.'/'.rtrim($root, '/');
-            $paths = is_file($absolute) ? [$absolute] : (is_dir($absolute)
-                ? array_map(fn ($f) => $f->getPathname(), array_filter(iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($absolute, \FilesystemIterator::SKIP_DOTS))), fn ($f) => $f->isFile()))
-                : []);
-            foreach ($paths as $path) {
-                $relative = ltrim(substr($path, strlen($base)), '/');
-                if (preg_match('#(^|/)\.git(/|$)#', $relative) || (str_starts_with($relative, 'vendor/') && preg_match('#/(tests?|Tests?|docs?|\.github)/#', $relative))) {
-                    continue;
-                }
-                $zip->addFile($path, 'hikevet/'.$relative);
-                $count++;
-            }
+        $tree = $package->scan($base);
+        foreach ($tree as $relative => $sha) {
+            $zip->addFile($base.'/'.$relative, 'hikevet/'.$relative);
         }
+        $count = count($tree);
         foreach (['storage/app/private', 'storage/app/backups', 'storage/framework/cache/data', 'storage/framework/sessions', 'storage/framework/views', 'storage/logs', 'bootstrap/cache', 'public/uploads'] as $dir) {
             $zip->addFromString('hikevet/'.$dir.'/.gitkeep', '');
         }
@@ -99,9 +106,16 @@ class ReleaseBuild extends Command
             }
         }
         $zip->close();
+        file_put_contents($this->manifestPath($out), json_encode(['version' => $version, 'files' => $tree], JSON_UNESCAPED_SLASHES));
         $this->info(sprintf('Pachet de instalare %s: %d fișiere, %.1f MB', basename($out), $count, filesize($out) / 1048576));
         $this->line('SHA-256: '.hash_file('sha256', $out));
+        $this->line('Manifestul versiunii (bază pentru pachetele incrementale): '.$this->manifestPath($out));
 
         return self::SUCCESS;
+    }
+
+    private function manifestPath(string $zip): string
+    {
+        return preg_replace('/\.zip$/', '', $zip).'.manifest.json';
     }
 }
