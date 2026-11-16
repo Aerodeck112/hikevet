@@ -11,7 +11,7 @@ Prefixul `wp_` este orientativ; importul detectează prefixul real. Detaliile c�
 | `wp_users.user_pass` | `users.wp_password_hash` | – | idem | Verificat la primul login, apoi înlocuit |
 | `wp_usermeta.hv_pets` (listă serializată) | `pets` | `(user_id, wp_pet_id)` | `::pets` | Testat sintetic |
 | `wp_posts` tip `hv_abon_sub` + meta `hv_*` | `contracts` | `contracts.wp_post_id` | `::contracts` | Testat sintetic |
-| fișierul din meta `hv_pdf` | (referință în payload) | – | – | **Copierea PDF-urilor vechi nu este implementată** |
+| fișierul din meta `hv_pdf` + `semnatura_*.jpg` | disc privat, `contracts.pdf_path`, `signature_path` | amprentă SHA-256 | `::contracts` | Testat sintetic |
 | `wp_hv_wallet_tx` | `wallet_transactions` | `wp_tx_id` | `::wallet` | Testat sintetic |
 | `wp_hv_treatments` | `treatments` | `wp_treatment_id` | `::treatments` | Testat sintetic |
 | `wp_posts` tip `hv_consent` + meta | `consents` | `consents.wp_post_id` | `::consents` | Testat sintetic |
@@ -20,7 +20,8 @@ Prefixul `wp_` este orientativ; importul detectează prefixul real. Detaliile c�
 | `wp_hv_st_email_log` | `sterilization_email_logs` | `source_id` | idem | Testat sintetic |
 | fotografii și acte din dosare | `sterilization_documents` + disc privat | amprentă SHA-256 | idem | Testat sintetic |
 | opțiunea `hv_st_reported_through_september_2026` | `sterilization_reference_lists` | `(list_key, cod_caz)` | idem | Testat sintetic |
-| `wp_hv_notifications`, `wp_hv_email_log`, `wp_hv_audit_log`, `wp_hv_doctor_notes` | `client_notifications`, `email_logs`, `audit_logs`, `doctor_notes` | coloane `wp_*_id` există | – | **Neimplementat** |
+| `wp_hv_notifications`, `wp_hv_email_log`, `wp_hv_audit_log`, `wp_hv_doctor_notes` | `client_notifications`, `email_logs`, `audit_logs`, `doctor_notes` | `wp_*_id` | `::notifications`, `::emailLog`, `::auditLog`, `::doctorNotes` | Testat sintetic |
+| **toate tabelele**, rând cu rând | `legacy_tables`, `legacy_rows` (criptat) + fișierul SQL criptat | nume tabelă + ordinal | `LegacyArchive::snapshot` | Testat sintetic |
 | `wp_usermeta.hv_contracts` | derivat din `contracts` | – | – | Nu se importă separat |
 | `wp_usermeta.hv_subscription_*` | derivat din `contracts.status/expires_at` | – | – | Recalculat |
 | pagini, articole, media WordPress | `pages`, `posts`, `services`, `media` | slug | `SiteContentSeeder` (din site-ul public) | Făcut |

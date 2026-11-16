@@ -58,7 +58,7 @@ Starea fiecărei funcții față de sistemul WordPress, la 14.11.2026.
 | Ajustare manuală cu numele angajatului | ✅ | soldul nu devine negativ |
 | Ștergere și restaurare cu motiv | ✅ | prin tranzacții inverse |
 | Registru care nu poate fi modificat | ✅ | |
-| Note ale medicilor | 🟡 | |
+| Note ale medicilor | ✅ | inclusiv cele importate, cu autorul |
 | Graficele din Wallet Core 3.1.0 | ⬜ | |
 | Categorie la recalculare cu regula `(min, max]` | 🔶 A7 | se folosește peste tot regula din contract `[min, max)` (N1) |
 
@@ -132,7 +132,8 @@ Cele două moduri nu funcționează simultan: comutarea se face dintr-o singură
 | Instalator cPanel | ✅ | și instalare reală pe Apache + MariaDB |
 | Actualizări ZIP semnate, cu revenire | ✅ | și actualizări reale pe instalarea de test |
 | Backup criptat și restaurare | ✅ | doar baza de date |
-| Import WordPress | 🟡 | testat pe date sintetice; date reale: neverificat |
+| Import WordPress | 🟡 | testat pe date sintetice, inclusiv din backup `.wpress`; date reale: neverificat |
+| Arhiva brută a bazei WordPress | ✅ | toate tabelele, criptat, consultabilă și exportabilă din admin |
 | Șabloane de email editabile | ⬜ | textele sunt în cod |
 | Conectare Google prin API | ⬜ | doar ID-uri de măsurare |
 | Export / ștergere date la cererea persoanei | ⬜ | |

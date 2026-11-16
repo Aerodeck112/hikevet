@@ -66,8 +66,10 @@ Postări de tip `hv_abon_sub` cu meta `hv_*` → `contracts`.
 
 Contract fără `hv_payload` valid → neimportat, raportat. Raportul numără și contractele fără `hv_pdf`.
 
-**Neimplementat:** copierea fișierelor PDF vechi din `uploads/hikevet-contracte/` pe discul privat.
-Calea originală este păstrată în payload (`source_pdf`).
+**PDF-urile vechi:** cu `--uploads=<cale>`, PDF-ul din `hv_pdf` și semnătura lui
+(`semnatura_<marcaj>.jpg`, din același director) sunt copiate bit cu bit pe discul privat, cu amprentă
+verificată după copiere, și rămân descărcabile de client și de personal. Calea originală se păstrează
+în `legacy_pdf_reference`. Un PDF negăsit este raportat, fără a opri importul.
 
 **De verificat pe date reale:** în WordPress expirarea este una per client (N5, N6 din audit). La
 import fiecare contract plătit primește propria expirare, calculată din data plății. Pentru
@@ -138,12 +140,30 @@ pentru comparație cu rapoartele trimise Primăriei și cu cele două liste de r
 
 **Anulare:** `--rollback=<ID lot>` șterge exact rândurile aduse de acel lot.
 
-## 8. Ce nu se importă încă
+## 8. Istoricul Wallet Core
 
-| Sursă | Motiv |
+| Sursă | Destinație | Regulă |
+|---|---|---|
+| `hv_notifications` | `client_notifications` | doar cele cu client importat; marcate citite (sunt istoric) |
+| `hv_email_log` | `email_logs` | toate, inclusiv cele eșuate și cele fără client |
+| `hv_audit_log` | `audit_logs` | acțiunea cu prefixul `wp.`; valorile dinainte și de după păstrate (JSON sau serializate) |
+| `hv_doctor_notes` | `doctor_notes` | legate de animal prin `wp_pet_id`; cele șterse rămân marcate șterse |
+
+Personalul WordPress nu primește cont nou. Peste tot unde apare un autor (registru, audit, notițe),
+se păstrează numele lui afișat: „Nume (WordPress #ID)”.
+
+## 9. Arhiva brută
+
+Pe lângă importul în ecranele noi, **fiecare tabelă și fiecare rând** din baza WordPress se copiază
+în arhiva brută (`legacy_tables`, `legacy_rows`): criptat, cu amprentă pe rând, valorile binare
+păstrate. Fișierul SQL original se păstrează criptat (`--dump`). Consultare, căutare și export din
+*Sistem → Arhivă WordPress* (doar administratori, cu jurnal). Astfel rămân accesibile și datele care
+nu au un ecran al lor: setările pluginurilor, opțiunile, paginile și orice tabelă necunoscută.
+
+## 10. Ce nu se importă în ecranele noi
+
+| Sursă | Unde rămâne |
 |---|---|
-| `hv_notifications`, `hv_email_log`, `hv_audit_log`, `hv_doctor_notes` | importator nescris; tabelele și coloanele de legătură există |
-| PDF-urile contractelor | vezi §4 |
-| Opțiunea `hv_abon_settings` | valorile implicite din cod sunt deja încărcate; de comparat manual |
+| Opțiunea `hv_abon_settings` | arhiva brută; de comparat cu valorile din platformă |
 | Pagini, articole, media WordPress | conținutul a fost preluat din site-ul public |
 | Comenzi WooCommerce | plata online a fost eliminată din simulator |

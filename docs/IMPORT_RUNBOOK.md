@@ -23,6 +23,19 @@ nu cere `--force`. La comutare se pune înapoi `production`.
 
 ## 2. Copia bazei WordPress
 
+Dacă sursa este un backup All-in-One WP Migration (`.wpress`), se desface fără WordPress:
+
+```bash
+php artisan hikevet:wpress backup.wpress --list
+```
+
+```bash
+php artisan hikevet:wpress backup.wpress storage/imports/wpress --only=database --only=uploads --only=plugins
+```
+
+Rezultă `database.restored.sql` (cu prefixul original al tabelelor), `uploads/` și `plugins/`.
+Comanda verifică CRC-ul fiecărui fișier și oprește extragerea dacă arhiva este incompletă.
+
 Exportul se încarcă într-o **bază separată**, nu în baza platformei. În `.env`:
 
 ```
@@ -59,12 +72,13 @@ php artisan hikevet:backup --label=inainte-de-import --verify
 ```
 
 ```bash
-php artisan hikevet:import-wordpress --execute --uploads=/home/UTILIZATOR/copie-uploads
+php artisan hikevet:import-wordpress --execute --uploads=/home/UTILIZATOR/copie-uploads --dump=/cale/database.restored.sql
 ```
 
-Ordinea este fixă: conturi, animale, contracte, registru, tratamente, consimțăminte, apoi arhiva
-de sterilizări (care se leagă de consimțăminte). Se poate rula pe părți cu `--only=core` sau
-`--only=sterilization`.
+Ordinea este fixă: conturi, animale, contracte (cu PDF-urile vechi), registru, tratamente,
+consimțăminte, notificări, jurnale, notițe, apoi arhiva de sterilizări (care se leagă de
+consimțăminte) și la final arhiva brută a întregii baze. Se poate rula pe părți cu
+`--only=core`, `--only=sterilization` sau `--only=legacy`.
 
 ## 5. Verificare după import
 
@@ -126,6 +140,5 @@ ia repede sau deloc.
 
 - Fluxul activ al campaniei de sterilizare (programări, dosare noi) **nu există** în platforma
   nouă. Dacă este încă în uz, comutarea completă se amână sau WordPress rămâne pornit pentru el.
-- Importatoarele pentru notificări, jurnalul de emailuri, jurnalul de audit vechi și notițele
-  medicilor nu sunt scrise.
-- PDF-urile contractelor vechi nu sunt copiate automat.
+- Rapoartele pentru Primărie în formatul PDF/XLSX al pluginului nu sunt reproduse; datele lor sunt
+  în arhivă și se pot exporta ca CSV.
