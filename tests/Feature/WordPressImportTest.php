@@ -4,17 +4,21 @@ namespace Tests\Feature;
 
 use App\Enums\BalanceType;
 use App\Enums\ConsentStatus;
+use App\Enums\Role;
 use App\Models\Consent;
+use App\Models\Contract;
 use App\Models\ImportBatch;
 use App\Models\SterilizationCase;
 use App\Models\User;
 use App\Services\Import\SterilizationImporter;
 use App\Services\Import\WordPressCoreImporter;
 use App\Services\Import\WordPressSource;
+use App\Services\Sterilization\ArchiveExporter;
 use App\Services\Wallet\WalletLedger;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use LogicException;
@@ -45,6 +49,8 @@ class WordPressImportTest extends TestCase
     {
         if (isset($this->uploads) && is_dir($this->uploads)) {
             array_map('unlink', glob($this->uploads.'/2026/08/*') ?: []);
+            array_map('unlink', glob($this->uploads.'/hikevet-contracte/*') ?: []);
+            @rmdir($this->uploads.'/hikevet-contracte');
             @rmdir($this->uploads.'/2026/08');
             @rmdir($this->uploads.'/2026');
             @rmdir($this->uploads);
@@ -123,6 +129,23 @@ class WordPressImportTest extends TestCase
         $wp->table(self::P.'hv_st_appointments')->insert(['id' => 1, 'appointment_code' => 'HV-AP-1', 'case_id' => 2, 'appointment_date' => '2026-08-04', 'start_time' => '09:00', 'status' => 'Programat', 'owner_name' => 'Proprietar Sintetic']);
         $wp->table(self::P.'hv_st_email_log')->insert(['id' => 1, 'case_id' => 2, 'to_email' => 'x@example.com', 'email_type' => 'postop_instant', 'status' => 'sent', 'created_at' => '2026-08-04 13:00:00']);
         $wp->table(self::P.'options')->insert(['option_name' => 'hv_st_reported_through_september_2026', 'option_value' => serialize(['HV-ST-2026-002' => '2026-08'])]);
+
+        // Angajat (nu se importa ca utilizator), istoric de notificari, emailuri, audit si notite.
+        $wp->table(self::P.'users')->insert(['ID' => 7, 'user_email' => 'medic.sintetic@example.com', 'user_pass' => 'x', 'display_name' => 'Dr. Medic Sintetic', 'user_registered' => '2025-01-01 08:00:00']);
+        $wp->table(self::P.'hv_notifications')->insert(['id' => 11, 'user_id' => 41, 'subject' => 'Abonament validat', 'message' => '<p>Mesaj sintetic</p>', 'channel' => 'email', 'related_type' => 'contract', 'related_id' => 900, 'created_at' => '2026-03-03 11:01:00']);
+        $wp->table(self::P.'hv_notifications')->insert(['id' => 12, 'user_id' => 999, 'subject' => 'Fara client', 'message' => 'x', 'created_at' => '2026-03-03 11:01:00']);
+        $wp->table(self::P.'hv_email_log')->insert(['id' => 21, 'user_id' => 41, 'to_email' => 'client.import@example.com', 'subject' => 'Abonament validat', 'context' => 'subscription_validated', 'status' => 'sent', 'created_at' => '2026-03-03 11:01:00']);
+        $wp->table(self::P.'hv_email_log')->insert(['id' => 22, 'user_id' => 0, 'to_email' => 'clinica@example.com', 'subject' => 'Contract nou', 'context' => 'contract', 'status' => 'failed', 'error_message' => 'SMTP indisponibil', 'created_at' => '2026-03-02 10:06:00']);
+        $wp->table(self::P.'hv_audit_log')->insert(['id' => 31, 'user_id' => 41, 'entity_type' => 'wallet', 'entity_id' => 3, 'action' => 'manual_balance_adjust', 'summary' => 'Corectie sintetica',
+            'before_value' => json_encode(['puncte' => 10]), 'after_value' => serialize(['puncte' => 20]), 'actor_user_id' => 7, 'created_at' => '2026-03-05 09:00:00']);
+        $wp->table(self::P.'hv_doctor_notes')->insert(['id' => 41, 'user_id' => 41, 'pet_id' => 1, 'note_text' => 'Alergie sintetica la puiul de test', 'priority' => 'high', 'note_status' => 'open', 'actor_user_id' => 7, 'created_at' => '2026-03-06 10:00:00', 'updated_at' => '2026-03-06 10:00:00']);
+        $wp->table(self::P.'hv_doctor_notes')->insert(['id' => 42, 'user_id' => 41, 'pet_id' => 0, 'note_text' => 'Notita stearsa', 'priority' => 'normal', 'note_status' => 'resolved', 'actor_user_id' => 7, 'created_at' => '2026-03-06 10:00:00', 'deleted_at' => '2026-03-07 10:00:00', 'deleted_by' => 7]);
+
+        // PDF-ul vechi al contractului si semnatura lui, in structura din uploads.
+        mkdir($this->uploads.'/hikevet-contracte', 0777, true);
+        file_put_contents($this->uploads.'/hikevet-contracte/contract_20260302_100500_abc123.pdf', '%PDF-1.4 contract sintetic');
+        file_put_contents($this->uploads.'/hikevet-contracte/semnatura_20260302_100500_abc123.jpg', 'jpeg-sintetic');
+        $wp->table(self::P.'postmeta')->where('post_id', 900)->where('meta_key', 'hv_pdf')->update(['meta_value' => '/home/cont/public_html/wp-content/uploads/hikevet-contracte/contract_20260302_100500_abc123.pdf']);
     }
 
     private function source(): WordPressSource
@@ -188,7 +211,7 @@ class WordPressImportTest extends TestCase
         $this->assertContains('medic_operator', $partial->missing_in_source);
         $this->assertTrue($partial->documents()->sole()->is_missing);
         $this->assertSame(1, $batch->counts['documents_missing']);
-        $this->assertSame(["HV-ST-2026-003"], array_column($batch->missing, "cod_caz"));
+        $this->assertSame(['HV-ST-2026-003'], array_column($batch->missing, 'cod_caz'));
     }
 
     public function test_import_is_idempotent_and_can_be_rolled_back(): void
@@ -274,7 +297,7 @@ class WordPressImportTest extends TestCase
 
         $user->refresh();
         $this->assertNull($user->wp_password_hash);
-        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('parola-test-123', $user->password));
+        $this->assertTrue(Hash::check('parola-test-123', $user->password));
     }
 
     public function test_archive_admin_is_read_only_filtered_and_exports_are_logged(): void
@@ -282,18 +305,18 @@ class WordPressImportTest extends TestCase
         (new WordPressCoreImporter($this->source()))->run(false);
         (new SterilizationImporter($this->source()))->run(false, $this->uploads);
         $case = SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-002')->sole();
-        $doctor = $this->staff(\App\Enums\Role::Doctor);
-        $admin = $this->staff(\App\Enums\Role::Admin);
+        $doctor = $this->staff(Role::Doctor);
+        $admin = $this->staff(Role::Admin);
 
         $this->actingAs($doctor)->get('/admin/sterilization-archive')->assertOk()->assertSee('HV-ST-2026-002');
         $this->actingAs($doctor)->get('/admin/sterilization-archive/'.$case->id)->assertOk()->assertSee('Ovariohisterectomie')->assertSee('Păstrat');
         $this->actingAs($doctor)->get('/admin/sterilization-archive/'.SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-003')->value('id'))->assertOk()->assertSee('Lipsă în sursă');
         $this->actingAs($doctor)->get('/admin/sterilization-reports?month=2026-08')->assertOk()->assertSee('Centralizator 2026-08')->assertSee('Pisica / Femela');
-        $this->actingAs($this->staff(\App\Enums\Role::Reception))->get('/admin/sterilization-archive')->assertForbidden();
-        $this->actingAs($this->staff(\App\Enums\Role::Editor))->get('/admin/sterilization-reports')->assertForbidden();
+        $this->actingAs($this->staff(Role::Reception))->get('/admin/sterilization-archive')->assertForbidden();
+        $this->actingAs($this->staff(Role::Editor))->get('/admin/sterilization-reports')->assertForbidden();
         $this->assertDatabaseHas('audit_logs', ['action' => 'sterilization.viewed', 'subject_id' => $case->id]);
 
-        $exporter = app(\App\Services\Sterilization\ArchiveExporter::class);
+        $exporter = app(ArchiveExporter::class);
         $report = $exporter->monthlyReport('2026-08');
         $this->assertSame(1, $report['total']);
         $this->assertSame(['Pisica / Femela' => 1], $report['summary']);
@@ -322,5 +345,67 @@ class WordPressImportTest extends TestCase
 
         $this->artisan('hikevet:import-wordpress', ['--execute' => true, '--uploads' => $this->uploads])->assertSuccessful();
         $this->assertSame(3, SterilizationCase::count());
+    }
+
+    public function test_history_tables_old_contract_pdfs_and_staff_names_are_kept(): void
+    {
+        $dry = (new WordPressCoreImporter($this->source()))->run(true, null, $this->uploads);
+        $this->assertSame(2, $dry->counts['notifications_in_source']);
+        $this->assertSame(1, $dry->counts['notifications_orphan']);
+        $this->assertSame(1, $dry->counts['email_log_failed_in_source']);
+        $this->assertSame(1, $dry->counts['contract_pdfs_found']);
+        $this->assertSame(0, DB::table('client_notifications')->count() + DB::table('doctor_notes')->count());
+
+        (new WordPressCoreImporter($this->source()))->run(false, null, $this->uploads);
+        $batch = (new WordPressCoreImporter($this->source()))->run(false, null, $this->uploads); // repetabil
+        $this->assertSame('finished', $batch->status);
+        $client = User::query()->where('wp_user_id', 41)->sole();
+
+        // Notificari: doar cele cu client, marcate citite (sunt istoric).
+        $this->assertSame(1, DB::table('client_notifications')->count());
+        $this->assertNotNull(DB::table('client_notifications')->value('read_at'));
+
+        // Jurnal emailuri: inclusiv cel esuat si fara client.
+        $this->assertSame(2, DB::table('email_logs')->whereNotNull('wp_email_log_id')->count());
+        $this->assertSame('SMTP indisponibil', DB::table('email_logs')->where('wp_email_log_id', 22)->value('error_message'));
+
+        // Audit: autorul cu nume, valorile JSON si serializate pastrate.
+        $audit = DB::table('audit_logs')->where('wp_audit_id', 31)->first();
+        $this->assertSame('Dr. Medic Sintetic (WordPress #7)', $audit->actor_name);
+        $this->assertSame($client->id, (int) $audit->client_id);
+        $this->assertSame(['puncte' => 10], json_decode($audit->before, true));
+        $this->assertSame(['puncte' => 20], json_decode($audit->after, true));
+
+        // Notite: legate de animal, cu autorul si stergerea pastrate.
+        $note = DB::table('doctor_notes')->where('wp_note_id', 41)->first();
+        $this->assertSame('Azor', DB::table('pets')->where('id', $note->pet_id)->value('name'));
+        $this->assertSame('Dr. Medic Sintetic (WordPress #7)', $note->actor_name);
+        $this->assertNotNull(DB::table('doctor_notes')->where('wp_note_id', 42)->value('deleted_at'));
+        $this->assertSame(2, DB::table('doctor_notes')->count());
+
+        // Registrul Wallet are acum numele angajatului, nu doar ID-ul.
+        $this->assertSame('Dr. Medic Sintetic (WordPress #7)', DB::table('wallet_transactions')->where('wp_tx_id', 1)->value('actor_name'));
+
+        // PDF-ul vechi si semnatura: copiate pe discul privat, cu amprenta, descarcabile de client.
+        $contract = Contract::query()->where('wp_post_id', 900)->sole();
+        $this->assertStringStartsWith('contracts/legacy/', $contract->pdf_path);
+        $this->assertSame(hash('sha256', '%PDF-1.4 contract sintetic'), $contract->pdf_sha256);
+        $this->assertSame('jpeg-sintetic', Storage::disk('private')->get($contract->signature_path));
+        $this->assertStringContainsString('contract_20260302_100500_abc123.pdf', $contract->legacy_pdf_reference);
+        $this->actingAs($client)->get(route('account.contract.pdf', $contract))->assertOk();
+
+        // Angajatul nu devine cont in platforma noua.
+        $this->assertNull(User::query()->where('wp_user_id', 7)->first());
+    }
+
+    public function test_missing_contract_pdf_is_reported_without_blocking_the_import(): void
+    {
+        unlink($this->uploads.'/hikevet-contracte/contract_20260302_100500_abc123.pdf');
+        $batch = (new WordPressCoreImporter($this->source()))->run(false, null, $this->uploads);
+
+        $this->assertSame('finished', $batch->status);
+        $this->assertSame(0, $batch->counts['contract_pdfs_found']);
+        $this->assertStringContainsString('PDF-ul contractului nu a fost găsit', json_encode($batch->errors, JSON_UNESCAPED_UNICODE));
+        $this->assertNull(Contract::query()->where('wp_post_id', 900)->value('pdf_path'));
     }
 }

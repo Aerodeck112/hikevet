@@ -58,7 +58,7 @@ class DataMigration extends Page
                 ->visible(fn () => $this->source() !== null)
                 ->action(function () {
                     $source = $this->source();
-                    (new WordPressCoreImporter($source))->run(true, auth()->id());
+                    (new WordPressCoreImporter($source))->run(true, auth()->id(), config('hikevet.wp_uploads_path'));
                     (new SterilizationImporter($source))->run(true, config('hikevet.wp_uploads_path'), auth()->id());
                     Audit::log('import.dry_run', null, 'Probă de import rulată din admin');
                     Notification::make()->title('Proba s-a încheiat. Nu s-a scris nimic.')->success()->send();

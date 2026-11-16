@@ -127,7 +127,7 @@
                     <div style="padding:.6rem 0;border-bottom:1px solid rgb(244 244 245)">
                         <span class="hv-pill {{ $note->status === 'open' ? ($note->priority === 'normal' ? 'hv-pill--warn' : 'hv-pill--bad') : 'hv-pill--off' }}">{{ $note->status === 'open' ? 'Nerezolvată' : 'Rezolvată' }}{{ $note->priority !== 'normal' ? ' · prioritate '.['high' => 'ridicată', 'urgent' => 'urgentă'][$note->priority] : '' }}</span>
                         <p style="margin:.35rem 0">{{ $note->note_text }}</p>
-                        <span class="hv-muted">{{ $note->created_at->format('d.m.Y H:i') }} · {{ $note->actor?->name }}{{ $note->pet ? ' · '.$note->pet->name : '' }}</span>
+                        <span class="hv-muted">{{ $note->created_at->format('d.m.Y H:i') }} · {{ $note->actor?->name ?? $note->actor_name }}{{ $note->pet ? ' · '.$note->pet->name : '' }}</span>
                         {{ ($this->toggleNoteAction)(['id' => $note->id]) }}
                     </div>
                 @empty

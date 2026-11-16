@@ -8,6 +8,7 @@ use App\Models\ImportBatch;
 use App\Models\User;
 use App\Services\Consents\ConsentService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -19,10 +20,17 @@ class WordPressCoreImporter
 {
     public const KIND = 'wordpress_core';
 
+    /** @var array<int,string>|null wp user id => nume afisat, pentru toti utilizatorii WordPress (inclusiv personalul) */
+    private ?array $wpNames = null;
+
+    private ?string $uploadsDir = null;
+
     public function __construct(private readonly WordPressSource $source) {}
 
-    public function run(bool $dryRun = true, ?int $userId = null): ImportBatch
+    /** @param string|null $uploadsDir copia wp-content/uploads, pentru PDF-urile si semnaturile contractelor vechi */
+    public function run(bool $dryRun = true, ?int $userId = null, ?string $uploadsDir = null): ImportBatch
     {
+        $this->uploadsDir = $uploadsDir;
         $batch = ImportBatch::create(['kind' => self::KIND, 'source_label' => $this->source->prefix().'*', 'dry_run' => $dryRun,
             'status' => 'running', 'started_by' => $userId, 'started_at' => now()]);
         $counts = [];
@@ -35,6 +43,10 @@ class WordPressCoreImporter
             $this->wallet($dryRun, $counts, $errors, $userMap);
             $this->treatments($dryRun, $counts, $userMap);
             $this->consents($dryRun, $counts, $userMap);
+            $this->notifications($dryRun, $counts, $userMap);
+            $this->emailLog($dryRun, $counts, $userMap);
+            $this->auditLog($dryRun, $counts, $userMap);
+            $this->doctorNotes($dryRun, $counts, $userMap);
         };
 
         try {
@@ -75,9 +87,9 @@ class WordPressCoreImporter
             $existing = User::query()->where('wp_user_id', $row->ID)->orWhere('email', $email)->first();
             $counts[$existing ? 'users_existing' : 'users_new']++;
             if ($dryRun) {
-                if ($existing) {
-                    $map[(int) $row->ID] = $existing->id;
-                }
+                // In proba, clientii care ar fi creati primesc un ID provizoriu negativ, ca tranzactiile si notitele lor
+                // sa nu fie numarate gresit drept „fara client”. In proba nu se scrie nimic, deci ID-ul nu ajunge nicaieri.
+                $map[(int) $row->ID] = $existing?->id ?? -1;
 
                 continue;
             }
@@ -153,6 +165,13 @@ class WordPressCoreImporter
             $paid = ($meta['hv_payment_status'] ?? '') === 'paid';
             $counts['contracts_paid'] += $paid ? 1 : 0;
             $counts['contracts_without_pdf'] += empty($meta['hv_pdf']) ? 1 : 0;
+            $pdfFile = empty($meta['hv_pdf']) ? null : $this->resolveUpload((string) $meta['hv_pdf']);
+            if (! empty($meta['hv_pdf'])) {
+                $counts['contract_pdfs_found'] = ($counts['contract_pdfs_found'] ?? 0) + ($pdfFile ? 1 : 0);
+                if (! $pdfFile && $this->uploadsDir) {
+                    $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'PDF-ul contractului nu a fost găsit în copia uploads: '.basename((string) $meta['hv_pdf'])];
+                }
+            }
             $ownerId = $userMap[(int) ($meta['hv_client_user_id'] ?? 0)] ?? User::query()->where('email', mb_strtolower((string) ($payload['owner_email'] ?? '')))->value('id');
             if ($dryRun || ! $ownerId) {
                 if (! $ownerId && ! $dryRun) {
@@ -167,6 +186,7 @@ class WordPressCoreImporter
             $expires = $paidAt ? date('Y-m-d H:i:s', strtotime('+'.$months.' months', strtotime($paidAt))) : null;
             $status = ! $paid ? 'awaiting_clinic' : ($expires && strtotime($expires) > time() ? 'active' : 'expired');
             $petId = DB::table('pets')->where('user_id', $ownerId)->where('name', $payload['pet_name'] ?? '')->value('id');
+            $files = $pdfFile ? $this->copyContractFiles($pdfFile) : [];
 
             DB::table('contracts')->updateOrInsert(['wp_post_id' => (int) $post->ID], [
                 'number' => 'WP-'.$post->ID, 'user_id' => $ownerId, 'pet_id' => $petId, 'submission_token' => (string) ($meta['hv_submission_token'] ?? 'wp-'.$post->ID),
@@ -181,6 +201,8 @@ class WordPressCoreImporter
                 'payload' => encrypt(json_encode(array_diff_key($payload, ['signature' => 1]) + ['source_pdf' => $meta['hv_pdf'] ?? null], JSON_UNESCAPED_UNICODE), false),
                 'legal_consents' => json_encode(['accepted' => $payload['legal'] ?? [], 'source' => 'import WordPress']),
                 'signed_at' => $post->post_date, 'paid_at' => $paidAt, 'starts_at' => $paidAt, 'expires_at' => $expires,
+                'pdf_path' => $files['pdf'] ?? null, 'pdf_sha256' => $files['pdf_sha256'] ?? null, 'signature_path' => $files['signature'] ?? null,
+                'legacy_pdf_reference' => ($meta['hv_pdf'] ?? '') ?: null,
                 'created_at' => $post->post_date, 'updated_at' => $post->post_modified ?? $post->post_date,
             ]);
             $counts['contracts_imported']++;
@@ -211,7 +233,7 @@ class WordPressCoreImporter
             DB::table('wallet_transactions')->updateOrInsert(['wp_tx_id' => (int) $row->id], [
                 'user_id' => $ownerId, 'type' => (string) $row->type, 'balance_type' => (string) $row->balance_type, 'amount_delta' => (float) $row->amount_delta,
                 'points_delta' => (int) $row->points_delta, 'note' => strip_tags((string) $row->note) ?: null, 'related_type' => $row->related_type ?: null,
-                'related_id' => ((int) $row->related_id) ?: null, 'actor_name' => $row->actor_user_id ? 'WordPress #'.$row->actor_user_id : null,
+                'related_id' => ((int) $row->related_id) ?: null, 'actor_name' => $this->wpName((int) $row->actor_user_id),
                 'created_at' => WordPressSource::date($row->created_at) ?? now(),
             ]);
             $counts['wallet_tx_imported']++;
@@ -290,5 +312,183 @@ class WordPressCoreImporter
             ]);
             $counts['consents_imported']++;
         }
+    }
+
+    /** Notificarile din contul clientului (hv_notifications). */
+    private function notifications(bool $dryRun, array &$counts, array $userMap): void
+    {
+        $counts += ['notifications_in_source' => 0, 'notifications_imported' => 0, 'notifications_orphan' => 0];
+        if (! $this->source->has('hv_notifications')) {
+            return;
+        }
+        foreach ($this->source->table('hv_notifications')->orderBy('id')->cursor() as $row) {
+            $counts['notifications_in_source']++;
+            $ownerId = $userMap[(int) $row->user_id] ?? null;
+            if (! $ownerId) {
+                $counts['notifications_orphan']++;
+
+                continue;
+            }
+            if ($dryRun) {
+                continue;
+            }
+            DB::table('client_notifications')->updateOrInsert(['wp_notification_id' => (int) $row->id], [
+                'user_id' => $ownerId, 'subject' => mb_substr((string) $row->subject, 0, 255), 'message' => (string) $row->message,
+                'channel' => ($row->channel ?? '') ?: 'email', 'related_type' => ($row->related_type ?? '') ?: null,
+                'related_id' => ((int) ($row->related_id ?? 0)) ?: null,
+                // Istoric: notificarile vechi nu apar ca necitite in contul nou.
+                'read_at' => WordPressSource::date($row->created_at) ?? now(), 'created_at' => WordPressSource::date($row->created_at) ?? now(),
+            ]);
+            $counts['notifications_imported']++;
+        }
+    }
+
+    /** Jurnalul emailurilor trimise de Wallet Core (hv_email_log). Pastreaza si emailurile fara client. */
+    private function emailLog(bool $dryRun, array &$counts, array $userMap): void
+    {
+        $counts += ['email_log_in_source' => 0, 'email_log_imported' => 0, 'email_log_failed_in_source' => 0];
+        if (! $this->source->has('hv_email_log')) {
+            return;
+        }
+        foreach ($this->source->table('hv_email_log')->orderBy('id')->cursor() as $row) {
+            $counts['email_log_in_source']++;
+            $counts['email_log_failed_in_source'] += in_array($row->status, ['failed', 'error'], true) ? 1 : 0;
+            if ($dryRun) {
+                continue;
+            }
+            DB::table('email_logs')->updateOrInsert(['wp_email_log_id' => (int) $row->id], [
+                'user_id' => $userMap[(int) $row->user_id] ?? null, 'to_email' => (string) $row->to_email, 'subject' => mb_substr((string) $row->subject, 0, 255),
+                'context' => ($row->context ?? '') ?: null, 'status' => ($row->status ?? '') ?: 'sent', 'error_message' => ($row->error_message ?? '') ?: null,
+                'related_type' => ($row->related_type ?? '') ?: null, 'related_id' => ((int) ($row->related_id ?? 0)) ?: null,
+                'created_at' => WordPressSource::date($row->created_at) ?? now(),
+            ]);
+            $counts['email_log_imported']++;
+        }
+    }
+
+    /** Jurnalul de audit al Wallet Core (hv_audit_log), cu valorile dinainte si de dupa exact ca in sursa. */
+    private function auditLog(bool $dryRun, array &$counts, array $userMap): void
+    {
+        $counts += ['audit_in_source' => 0, 'audit_imported' => 0];
+        if (! $this->source->has('hv_audit_log')) {
+            return;
+        }
+        $asJson = function ($value) {
+            if ($value === null || $value === '') {
+                return null;
+            }
+            $decoded = json_decode((string) $value, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return json_encode($decoded, JSON_UNESCAPED_UNICODE);
+            }
+            $meta = WordPressSource::meta((string) $value);
+
+            return json_encode(is_array($meta) ? $meta : ['valoare' => (string) $value], JSON_UNESCAPED_UNICODE);
+        };
+        foreach ($this->source->table('hv_audit_log')->orderBy('id')->cursor() as $row) {
+            $counts['audit_in_source']++;
+            if ($dryRun) {
+                continue;
+            }
+            // Insert direct in tabel: modelul AuditLog nu permite modificari, iar importul e repetabil.
+            DB::table('audit_logs')->updateOrInsert(['wp_audit_id' => (int) $row->id], [
+                'actor_name' => $this->wpName((int) ($row->actor_user_id ?? 0)) ?? 'sistem WordPress', 'action' => 'wp.'.mb_substr((string) $row->action, 0, 57),
+                'subject_type' => ($row->entity_type ?? '') ? 'wp:'.$row->entity_type : null, 'subject_id' => ((int) ($row->entity_id ?? 0)) ?: null,
+                'client_id' => $userMap[(int) ($row->user_id ?? 0)] ?? null, 'summary' => ($row->summary ?? '') ?: null,
+                'before' => $asJson($row->before_value ?? null), 'after' => $asJson($row->after_value ?? null),
+                'created_at' => WordPressSource::date($row->created_at) ?? now(),
+            ]);
+            $counts['audit_imported']++;
+        }
+    }
+
+    /** Notitele medicilor (hv_doctor_notes), inclusiv cele sterse, cu autorul pastrat ca nume. */
+    private function doctorNotes(bool $dryRun, array &$counts, array $userMap): void
+    {
+        $counts += ['doctor_notes_in_source' => 0, 'doctor_notes_imported' => 0, 'doctor_notes_orphan' => 0];
+        if (! $this->source->has('hv_doctor_notes')) {
+            return;
+        }
+        foreach ($this->source->table('hv_doctor_notes')->orderBy('id')->cursor() as $row) {
+            $counts['doctor_notes_in_source']++;
+            $ownerId = $userMap[(int) $row->user_id] ?? null;
+            if (! $ownerId) {
+                $counts['doctor_notes_orphan']++;
+
+                continue;
+            }
+            if ($dryRun) {
+                continue;
+            }
+            $petId = ((int) ($row->pet_id ?? 0)) ? DB::table('pets')->where('user_id', $ownerId)->where('wp_pet_id', (int) $row->pet_id)->value('id') : null;
+            DB::table('doctor_notes')->updateOrInsert(['wp_note_id' => (int) $row->id], [
+                'user_id' => $ownerId, 'pet_id' => $petId, 'note_text' => (string) $row->note_text,
+                'priority' => ($row->priority ?? '') ?: 'normal', 'status' => ($row->note_status ?? '') ?: 'open',
+                'actor_name' => $this->wpName((int) ($row->actor_user_id ?? 0)),
+                'deleted_at' => WordPressSource::date($row->deleted_at ?? ''), 'deleted_by_name' => $this->wpName((int) ($row->deleted_by ?? 0)),
+                'created_at' => WordPressSource::date($row->created_at) ?? now(), 'updated_at' => WordPressSource::date($row->updated_at ?? '') ?? WordPressSource::date($row->created_at) ?? now(),
+            ]);
+            $counts['doctor_notes_imported']++;
+        }
+    }
+
+    /** Numele afisat al unui utilizator WordPress (client sau personal), pentru istoric. */
+    private function wpName(int $wpUserId): ?string
+    {
+        if ($wpUserId <= 0) {
+            return null;
+        }
+        if ($this->wpNames === null) {
+            $this->wpNames = $this->source->has('users') ? $this->source->table('users')->pluck('display_name', 'ID')->map(fn ($n) => trim((string) $n))->all() : [];
+        }
+        $name = $this->wpNames[$wpUserId] ?? '';
+
+        return $name !== '' ? $name.' (WordPress #'.$wpUserId.')' : 'WordPress #'.$wpUserId;
+    }
+
+    /** Gaseste un fisier din wp-content/uploads dupa calea sau URL-ul salvat de WordPress, fara a iesi din director. */
+    private function resolveUpload(string $reference): ?string
+    {
+        if (! $this->uploadsDir || ! is_dir($this->uploadsDir)) {
+            return null;
+        }
+        $path = parse_url($reference, PHP_URL_PATH) ?: $reference;
+        $relative = str_contains($path, '/uploads/') ? substr($path, strrpos($path, '/uploads/') + 9) : basename($path);
+        $root = realpath($this->uploadsDir);
+        $candidate = realpath($root.'/'.ltrim($relative, '/'));
+
+        return ($candidate && $root && str_starts_with($candidate, $root.DIRECTORY_SEPARATOR) && is_file($candidate)) ? $candidate : null;
+    }
+
+    /**
+     * Copiaza PDF-ul contractului vechi si semnatura lui (semnatura_<marcaj>.jpg, in acelasi director) pe discul privat.
+     * Copiile sunt bit cu bit; amprenta se verifica dupa copiere.
+     *
+     * @return array{pdf?:string,pdf_sha256?:string,signature?:string}
+     */
+    private function copyContractFiles(string $pdfFile): array
+    {
+        $result = [];
+        $copy = function (string $file, string $kind): array {
+            $hash = hash_file('sha256', $file);
+            $stored = 'contracts/legacy/'.$kind.'-'.$hash.'.'.strtolower(pathinfo($file, PATHINFO_EXTENSION) ?: 'bin');
+            if (! Storage::disk('private')->exists($stored)) {
+                Storage::disk('private')->put($stored, file_get_contents($file));
+            }
+            if (hash('sha256', Storage::disk('private')->get($stored)) !== $hash) {
+                throw new \RuntimeException('Amprenta fișierului copiat diferă de original: '.basename($file));
+            }
+
+            return [$stored, $hash];
+        };
+        [$result['pdf'], $result['pdf_sha256']] = $copy($pdfFile, 'contract');
+        if (preg_match('/^contract_(.+)\.pdf$/i', basename($pdfFile), $m)) {
+            $signature = dirname($pdfFile).'/semnatura_'.$m[1].'.jpg';
+            if (is_file($signature)) {
+                [$result['signature']] = $copy($signature, 'semnatura');
+            }
+        }
+
+        return $result;
     }
 }

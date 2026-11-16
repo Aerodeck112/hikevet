@@ -53,7 +53,7 @@ class ImportWordPress extends Command
 
         if (! $only || $only === 'core') {
             // Consimtamintele se importa inaintea dosarelor, ca legaturile dosar - consimtamant sa poata fi rezolvate.
-            $failed = $this->report('Conturi, animale, contracte, Wallet, consimțăminte', (new WordPressCoreImporter($source))->run(! $execute)) || $failed;
+            $failed = $this->report('Conturi, animale, contracte, Wallet, consimțăminte', (new WordPressCoreImporter($source))->run(! $execute, null, $this->option('uploads') ?: config('hikevet.wp_uploads_path'))) || $failed;
         }
         if (! $only || $only === 'sterilization') {
             foreach ($sterilization->preflight()['tables'] as $table => $info) {
