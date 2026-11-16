@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\Role;
+use App\Models\User;
+use App\Services\Subscriptions\SubscriptionActivation;
 use Database\Seeders\SiteContentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -28,7 +30,7 @@ class AdminPanelTest extends TestCase
             '/admin/faqs', '/admin/faqs/{Faq}/edit', '/admin/redirects', '/admin/redirects/create', '/admin/media', '/admin/media/create', '/admin/media/{Media}/edit',
             '/admin/contact-messages', '/admin/clients', '/admin/clients/create',
             '/admin', '/admin/staff', '/admin/staff/create', '/admin/audit-log', '/admin/clinic-settings', '/admin/marketing-settings', '/admin/data-migration',
-            '/admin/price-lists', '/admin/price-lists/{PriceList}', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile',
+            '/admin/price-lists', '/admin/price-lists/{PriceList}', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile', '/admin/arhiva-wordpress',
         ]);
     }
 
@@ -44,9 +46,9 @@ class AdminPanelTest extends TestCase
     public function test_client_record_page_renders_with_contract_and_balances(): void
     {
         $this->postJson('/abonamente/contract', $this->contractData())->assertOk();
-        $client = \App\Models\User::query()->where('email', 'popescu.test@example.com')->sole();
+        $client = User::query()->where('email', 'popescu.test@example.com')->sole();
         $doctor = $this->staff(Role::Doctor);
-        app(\App\Services\Subscriptions\SubscriptionActivation::class)->validatePayment($client->contracts()->sole(), 1, $doctor);
+        app(SubscriptionActivation::class)->validatePayment($client->contracts()->sole(), 1, $doctor);
 
         $this->actingAs($doctor)->get('/admin/clients/'.$client->id)->assertOk()
             ->assertSee('HV-AB-')->assertSee('Rex')->assertSee('Puncte abonament')->assertSee('248');

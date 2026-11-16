@@ -6,17 +6,21 @@ use App\Models\ImportBatch;
 use App\Services\Import\SterilizationImporter;
 use App\Services\Import\WordPressCoreImporter;
 use App\Services\Import\WordPressSource;
+use App\Services\Legacy\LegacyArchive;
+use App\Support\Audit;
 use Illuminate\Console\Command;
 
 class ImportWordPress extends Command
 {
     protected $signature = 'hikevet:import-wordpress
         {--execute : Scrie datele. Fără această opțiune rulează doar proba (dry-run)}
-        {--only= : core sau sterilization (implicit ambele, în această ordine)}
+        {--only= : core, sterilization sau legacy (implicit toate, în această ordine)}
         {--uploads= : Calea către copia wp-content/uploads, pentru documente și fotografii}
         {--connection=wp : Conexiunea către copia bazei WordPress}
         {--rollback= : Anulează importul real cu ID-ul dat (doar arhiva de sterilizări)}
-        {--force : Permite scrierea în mediul de producție}';
+        {--force : Permite scrierea în mediul de producție}
+        {--dump= : Fișierul SQL original, păstrat criptat în arhiva WordPress (doar cu --execute)}
+        {--skip-legacy=* : Tabele lăsate în afara arhivei brute (de ex. cache-uri mari)}';
 
     protected $description = 'Importă datele din copia bazei WordPress. Implicit rulează de probă și nu scrie nimic.';
 
@@ -62,6 +66,26 @@ class ImportWordPress extends Command
                     .($info['extra_columns'] ? ' | coloane în plus: '.implode(', ', $info['extra_columns']) : '')));
             }
             $failed = $this->report('Arhivă sterilizări', $sterilization->run(! $execute, $this->option('uploads'))) || $failed;
+        }
+        if (! $only || $only === 'legacy') {
+            $this->newLine();
+            $this->components->twoColumnDetail('<options=bold>Arhiva brută WordPress</>', $execute ? 'copiere' : 'probă');
+            $skip = array_map(fn ($t) => str_starts_with($t, $source->prefix()) ? $t : $source->prefix().$t, $this->option('skip-legacy'));
+            if (! $execute) {
+                $rows = 0;
+                foreach (array_diff($source->tables(), $skip) as $table) {
+                    $rows += $source->db()->table($table)->count();
+                }
+                $this->components->twoColumnDetail('tabele / rânduri de copiat', count(array_diff($source->tables(), $skip)).' / '.$rows);
+            } else {
+                $stats = app(LegacyArchive::class)->snapshot($source, null, fn ($t, $n) => $this->line(sprintf('  %-40s %d', $t, $n)), $skip);
+                $this->components->twoColumnDetail('tabele / rânduri copiate', $stats['tables'].' / '.$stats['rows']);
+                if ($dump = $this->option('dump')) {
+                    $file = app(LegacyArchive::class)->storeFile($dump, 'wordpress-sql', 'Baza WordPress originală ('.basename($dump).')');
+                    $this->components->twoColumnDetail('fișier SQL original', 'păstrat criptat, SHA-256 '.$file->sha256);
+                }
+                Audit::log('legacy.snapshot', null, 'Arhiva WordPress copiată: '.$stats['tables'].' tabele, '.$stats['rows'].' rânduri');
+            }
         }
 
         return $failed ? self::FAILURE : self::SUCCESS;

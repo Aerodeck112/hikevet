@@ -6,30 +6,58 @@ namespace App\Enums;
 final class Permission
 {
     public const CMS_MANAGE = 'cms.manage';
+
     public const MEDIA_MANAGE = 'media.manage';
+
     public const SEO_MANAGE = 'seo.manage';
+
     public const MESSAGES_MANAGE = 'messages.manage';
+
     public const CLIENTS_VIEW = 'clients.view';
+
     public const CLIENTS_MANAGE = 'clients.manage';
+
     public const CLIENTS_VIEW_IDENTITY = 'clients.view_identity';
+
     public const CONTRACTS_VIEW = 'contracts.view';
+
     public const CONTRACTS_VALIDATE_PAYMENT = 'contracts.validate_payment';
+
     public const PRICING_MANAGE = 'pricing.manage';
+
     public const WALLET_VIEW = 'wallet.view';
+
     public const WALLET_OPERATE = 'wallet.operate';
+
     public const WALLET_ADJUST = 'wallet.adjust';
+
     public const TREATMENTS_MANAGE = 'treatments.manage';
+
     public const MEDICAL_NOTES = 'medical.notes';
+
     public const CONSENTS_MANAGE = 'consents.manage';
+
     public const CONSENTS_SIGN_AS_DOCTOR = 'consents.sign_as_doctor';
+
     public const STERILIZATION_VIEW = 'sterilization.view';
+
     public const STERILIZATION_EXPORT = 'sterilization.export';
+
     public const APPOINTMENTS_MANAGE = 'appointments.manage';
+
     public const USERS_MANAGE = 'users.manage';
+
     public const SETTINGS_MANAGE = 'settings.manage';
+
     public const AUDIT_VIEW = 'audit.view';
+
     public const IMPORT_RUN = 'import.run';
+
     public const PLATFORM_UPDATE = 'platform.update';
+
+    public const LEGACY_VIEW = 'legacy.view';
+
+    public const LEGACY_EXPORT = 'legacy.export';
 
     /** @return list<string> */
     public static function all(): array
@@ -65,6 +93,8 @@ final class Permission
             self::AUDIT_VIEW => 'Jurnal de audit',
             self::IMPORT_RUN => 'Import date WordPress',
             self::PLATFORM_UPDATE => 'Actualizări platformă',
+            self::LEGACY_VIEW => 'Consultă arhiva bazei WordPress vechi',
+            self::LEGACY_EXPORT => 'Exportă din arhiva WordPress și descarcă fișierul SQL original',
         ][$permission] ?? $permission;
     }
 }

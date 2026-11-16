@@ -18,6 +18,11 @@ class WordPressSource
 
     public function __construct(private readonly string $connection = 'wp') {}
 
+    public function connectionName(): string
+    {
+        return $this->connection;
+    }
+
     public function db(): ConnectionInterface
     {
         return DB::connection($this->connection);
