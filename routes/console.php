@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\Campaign\CityExports;
+use App\Services\Payments\StripeCheckout;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schedule;
 
@@ -19,3 +20,5 @@ Schedule::call(function () {
         }
     }
 })->hourly()->name('hikevet-tmp-cleanup');
+// Platile online ramase „in curs” (clientul a inchis pagina, notificarea Stripe nu a ajuns) se verifica la Stripe.
+Schedule::call(fn () => app(StripeCheckout::class)->reconcilePending())->everyFifteenMinutes()->name('hikevet-stripe-reconcile')->withoutOverlapping();

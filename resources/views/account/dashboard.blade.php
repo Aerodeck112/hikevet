@@ -64,6 +64,18 @@
                                 Valabil până la <strong>{{ $contract->expires_at->format('d.m.Y') }}</strong>.
                             @endif
                         </p>
+                        @if ($cardPayments && \App\Services\Payments\StripeCheckout::canPayOnline($contract))
+                            <form method="post" action="{{ route('account.pay.subscription', $contract) }}" class="pay-inline" style="margin:.9rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem;align-items:end">
+                                @csrf
+                                <div class="field" style="margin:0"><label for="pay-{{ $contract->id }}">{{ $contract->status->value === 'awaiting_clinic' ? 'Plătește online' : 'Reînnoiește online' }}</label>
+                                    <select id="pay-{{ $contract->id }}" name="months">
+                                        @foreach ([1 => '1 lună', 6 => '6 luni', 12 => '12 luni'] as $m => $label)
+                                            <option value="{{ $m }}" @selected($m === ($contract->period_months ?: 1))>{{ $label }} · {{ number_format($contract->priceForPeriod($m), 0, ',', '.') }} lei</option>
+                                        @endforeach
+                                    </select></div>
+                                <button class="btn btn-primary btn-sm" type="submit">Plătește cu cardul</button>
+                            </form>
+                        @endif
                         @if ($contract->pdf_path)
                             <p style="margin:.75rem 0 0"><a class="btn btn-ghost btn-sm" href="{{ route('account.contract.pdf', $contract) }}"><x-hv-icon name="download" width="18" height="18" /> Descarcă contractul (PDF)</a></p>
                         @endif
@@ -92,12 +104,24 @@
                 <div class="card" style="margin-top:2.5rem">
                     <h2 class="h-sm">Alimentează Wallet-ul</h2>
                     @if ($hasActive)
-                        <p style="margin:.6rem 0 1rem">La 100 lei depuși primești 100 lei sold principal, 100 lei bonus pentru servicii și 50 lei bonus pentru produse. Plata se face la clinică.</p>
+                        <p style="margin:.6rem 0 1rem">La 100 lei depuși primești 100 lei sold principal, 100 lei bonus pentru servicii și 50 lei bonus pentru produse.{{ $cardPayments ? ' Poți plăti online cu cardul sau la clinică.' : ' Plata se face la clinică.' }}</p>
+                        @if ($cardPayments)
+                            <form method="post" action="{{ route('account.pay.wallet') }}" style="margin-bottom:1.25rem">
+                                @csrf
+                                <div class="field"><label for="c-amount">Suma (lei), plată online cu cardul</label><input id="c-amount" type="number" name="amount" min="{{ \App\Services\Payments\StripeCheckout::WALLET_MIN }}" max="{{ \App\Services\Payments\StripeCheckout::WALLET_MAX }}" step="1" inputmode="numeric" required></div>
+                                <button class="btn btn-primary" type="submit">Plătește cu cardul</button>
+                                <p class="hint" style="margin:.5rem 0 0">Plata se face pe pagina securizată Stripe; datele cardului nu ajung la noi.</p>
+                            </form>
+                            <p class="hint" style="margin:0 0 .5rem">Sau trimite o solicitare și plătește la clinică:</p>
+                        @endif
                         <form method="post" action="{{ site_url('/panou-cont/wallet/solicitare') }}">
                             @csrf
                             <div class="field"><label for="w-amount">Suma dorită (lei)</label><input id="w-amount" type="number" name="amount" min="1" step="1" inputmode="numeric" required>@error('amount')<span class="error">{{ $message }}</span>@enderror</div>
                             <button class="btn btn-dark" type="submit">Trimite solicitarea</button>
                         </form>
+                        @foreach ($onlinePayments as $op)
+                            <p class="hint" style="margin:.75rem 0 0">{{ $op->created_at->format('d.m.Y') }}: {{ $op->purposeLabel() }}, {{ \App\Services\Wallet\WalletLedger::money((float) $op->amount) }} lei, card, {{ ['paid' => 'plătită', 'paid_needs_review' => 'plătită, în verificare la clinică', 'pending' => 'în curs'][$op->status] ?? $op->status }}</p>
+                        @endforeach
                         @foreach ($topups as $topup)
                             <p class="hint" style="margin:.75rem 0 0">{{ $topup->created_at->format('d.m.Y') }}: {{ \App\Services\Wallet\WalletLedger::money((float) $topup->amount) }} lei, {{ ['pending' => 'în așteptare', 'confirmed' => 'confirmată', 'rejected' => 'respinsă'][$topup->status] ?? $topup->status }}</p>
                         @endforeach

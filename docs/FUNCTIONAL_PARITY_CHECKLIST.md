@@ -52,6 +52,7 @@ Starea fiecărei funcții față de sistemul WordPress, la 17.11.2026 (secțiune
 | Funcție | Stare | Observații |
 |---|---|---|
 | Alimentare: X principal + X bonus servicii + X/2 bonus produse | ✅ | doar cu abonament activ |
+| Alimentare și plata abonamentului online cu cardul (Stripe) | ✅ nou | testat cu Stripe simulat; factura se emite manual și se trece în *Plăți online* (`docs/PLATI_ONLINE.md`) |
 | Plată: bonus cel mult 1/2 la servicii, 1/3 la produse | ✅ | |
 | Excluderea automată și manuală a bonusului | ✅ | aceeași listă de cuvinte |
 | Serviciu din abonament, pe puncte | ✅ | refuz la puncte insuficiente și la deparazitări |

@@ -11,6 +11,7 @@ use App\Services\Notifications\Notifier;
 use App\Support\Audit;
 use DomainException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Registrul Wallet: portare a regulilor din hikevet-client-wallet-core 3.1.0.
@@ -70,8 +71,11 @@ class WalletLedger
         ]);
     }
 
-    /** Alimentare la clinica: X lei principal + X bonus servicii + X/2 bonus produse (handle_wallet_credit). */
-    public function deposit(User $user, float $amount, User $actor, string $note = ''): WalletTransaction
+    /**
+     * Alimentare: X lei principal + X bonus servicii + X/2 bonus produse (handle_wallet_credit). La clinica $actor este
+     * angajatul; la plata online cu cardul $actor lipseste, iar $idempotencyKey (sesiunea Stripe) impiedica dubla creditare.
+     */
+    public function deposit(User $user, float $amount, ?User $actor, string $note = '', ?string $idempotencyKey = null, ?string $actorName = null): WalletTransaction
     {
         $amount = round($amount, 2);
         if ($amount <= 0) {
@@ -81,12 +85,14 @@ class WalletLedger
             throw new DomainException('Wallet-ul poate fi alimentat doar cu abonament activ.');
         }
 
-        return DB::transaction(function () use ($user, $amount, $actor, $note) {
+        return DB::transaction(function () use ($user, $amount, $actor, $note, $idempotencyKey, $actorName) {
             $productBonus = round($amount * 0.5, 2);
             $main = $this->record($user, 'wallet_deposit_principal', BalanceType::WalletPrincipal, $amount, 0,
-                'Depunere client'.($note ? ' | '.$note : ''), 'wallet_credit', 0, $actor);
-            $this->record($user, 'wallet_bonus_services', BalanceType::WalletServiceBonus, $amount, 0, 'Bonus 100% servicii', 'wallet_credit', $main->id, $actor);
-            $this->record($user, 'wallet_bonus_products', BalanceType::WalletProductBonus, $productBonus, 0, 'Bonus 50% produse', 'wallet_credit', $main->id, $actor);
+                'Depunere client'.($note ? ' | '.$note : ''), 'wallet_credit', 0, $actor, null, $idempotencyKey, null, $actorName);
+            $this->record($user, 'wallet_bonus_services', BalanceType::WalletServiceBonus, $amount, 0, 'Bonus 100% servicii', 'wallet_credit', $main->id, $actor,
+                null, $idempotencyKey ? $idempotencyKey.':services' : null, null, $actorName);
+            $this->record($user, 'wallet_bonus_products', BalanceType::WalletProductBonus, $productBonus, 0, 'Bonus 50% produse', 'wallet_credit', $main->id, $actor,
+                null, $idempotencyKey ? $idempotencyKey.':products' : null, null, $actorName);
 
             Audit::log('wallet.deposit', $main, "Alimentare Wallet {$amount} lei", null, ['amount' => $amount], $user->id);
             $this->notifier->client($user, 'Wallet promoțional alimentat', sprintf(
@@ -99,7 +105,7 @@ class WalletLedger
 
     public function bonusExclusionReason(string $name): string
     {
-        $n = mb_strtolower(\Illuminate\Support\Str::ascii(trim($name)));
+        $n = mb_strtolower(Str::ascii(trim($name)));
         foreach (self::BONUS_EXCLUSION_KEYWORDS as $keyword) {
             if (str_contains($n, $keyword)) {
                 return 'Categorie cu medicamente, consumabile sau cost extern';
@@ -122,7 +128,7 @@ class WalletLedger
         $principal = round($amount - $bonus, 2);
 
         return ['principal_used' => $principal, 'bonus_used' => round($bonus, 2), 'bonus_type' => $bonusType,
-            'sufficient' => $b['principal'] + 0.0001 >= $principal];
+            'sufficient' => $principal <= $b['principal'] + 0.0001];
     }
 
     /** Plata unui serviciu sau produs din Wallet (handle_wallet_purchase). */
@@ -179,7 +185,7 @@ class WalletLedger
         if ($name === '' || $points <= 0) {
             throw new DomainException('Date tratament incomplete.');
         }
-        if (str_contains(mb_strtolower(\Illuminate\Support\Str::ascii($name)), 'deparazit')) {
+        if (str_contains(mb_strtolower(Str::ascii($name)), 'deparazit')) {
             throw new DomainException('Deparazitările sunt contra cost și nu sunt incluse în abonament.');
         }
 

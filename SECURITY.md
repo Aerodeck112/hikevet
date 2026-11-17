@@ -46,6 +46,9 @@ contracte PDF publice, CNP în clar, cod de tabletă fără expirare, reducere o
 - **Un consimțământ semnat** nu mai poate fi editat; o corecție înseamnă un document nou care îl
   înlocuiește, cu originalul păstrat.
 - **Prețurile** se calculează pe server; valorile trimise de browser sunt ignorate.
+- **Plățile cu cardul** se fac pe pagina Stripe; datele cardului nu ajung pe server. O plată se aplică doar după
+  ce este citită direct de la Stripe ca încasată, cu suma și moneda verificate, o singură dată. Notificările
+  Stripe se acceptă doar cu semnătură HMAC validă și recentă. Cheile Stripe se păstrează criptat.
 
 ## 4. Aplicație web
 

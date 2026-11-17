@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Account\AuthController;
 use App\Http\Controllers\Account\DashboardController;
+use App\Http\Controllers\Account\PaymentController;
 use App\Http\Controllers\Admin\CampaignAppointmentController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CampaignReportController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Booking\BookingController;
+use App\Http\Controllers\Payments\StripeWebhookController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Subscriptions\ConfiguratorController;
@@ -38,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/panou-cont/wallet/solicitare', [DashboardController::class, 'requestTopup'])->middleware('throttle:forms');
     Route::post('/panou-cont/profil', [DashboardController::class, 'updateProfile'])->middleware('throttle:forms');
     Route::post('/panou-cont/retrimite-activare', [DashboardController::class, 'resendActivation'])->middleware('throttle:forms');
+    Route::post('/panou-cont/plata/wallet', [PaymentController::class, 'wallet'])->middleware('throttle:forms')->name('account.pay.wallet');
+    Route::post('/panou-cont/plata/abonament/{contract}', [PaymentController::class, 'subscription'])->middleware('throttle:forms')->name('account.pay.subscription');
+    Route::get('/panou-cont/plata/{payment}/confirmare', [PaymentController::class, 'confirm'])->name('account.pay.confirm');
+    Route::get('/panou-cont/plata/{payment}/renuntare', [PaymentController::class, 'cancel'])->name('account.pay.cancel');
 });
 
 // Consimtamant pe tableta: pagina fixa + cod de 6 cifre.
@@ -59,6 +65,9 @@ Route::middleware('auth')->prefix('admin/documents')->group(function () {
     Route::get('/contracts/{contract}/pdf', [DocumentController::class, 'contractPdf'])->name('admin.contracts.pdf');
     Route::get('/consents/{consent}/print', [DocumentController::class, 'consentPrint'])->name('admin.consents.print');
 });
+
+// Notificarile Stripe pentru plata online (fara CSRF; semnatura se verifica in controller).
+Route::post('/stripe/webhook', StripeWebhookController::class)->middleware('throttle:120,1')->name('stripe.webhook');
 
 // Campania de sterilizare: actiuni din ecranele de administrare (permisiunile se verifica in controller).
 Route::middleware('auth')->prefix('admin/campanie')->name('admin.campaign.')->controller(CampaignController::class)->group(function () {

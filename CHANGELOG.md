@@ -7,6 +7,15 @@
 - Raport Primărie: Excel oficial, desfășurător și centralizator PDF, ZIP general și pe dosar, audit de
   integritate, validare în masă, control numere după fotografie, registru și reconciliere.
 
+### Plăți online cu cardul (Stripe)
+- Clienții plătesc din cont alimentarea Wallet-ului (cu același bonus ca la clinică) și abonamentul (plată sau
+  reînnoire), pe pagina securizată Stripe. Confirmare la întoarcere, prin webhook semnat și prin verificare la 15 minute.
+- *Abonamente → Plăți online*: plățile încasate și facturile de emis manual; plățile cu nepotriviri rămân „de verificat”.
+- Cheile Stripe se pun din Setări clinică, criptat. Ghid: `docs/PLATI_ONLINE.md`.
+
+### Campania de sterilizare
+- Oprită implicit, păstrată doar ca istoric: niciun email, nicio programare nouă.
+
 ### Import
 - `hikevet:wpress` declară `utf8mb4` în fișierul SQL extras; importul refuză o copie WordPress cu
   diacritice codate de două ori și raportează consimțămintele care nu pot fi citite, păstrându-le exact.

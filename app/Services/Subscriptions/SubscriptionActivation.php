@@ -38,13 +38,18 @@ class SubscriptionActivation
         return (int) round($contract->price_monthly * $months);
     }
 
-    public function validatePayment(Contract $contract, int $months, User $actor): Contract
+    /**
+     * @param  string  $method  clinic | card (plata online prin Stripe; $actor lipseste, $reference este sesiunea Stripe)
+     */
+    public function validatePayment(Contract $contract, int $months, ?User $actor, string $method = 'clinic', ?string $reference = null): Contract
     {
         if (! in_array($months, PricingEngine::PERIODS, true)) {
             throw new DomainException('Perioada trebuie să fie 1, 6 sau 12 luni.');
         }
 
-        return DB::transaction(function () use ($contract, $months, $actor) {
+        $card = $method === 'card';
+
+        return DB::transaction(function () use ($contract, $months, $actor, $card, $reference) {
             $contract = Contract::query()->lockForUpdate()->findOrFail($contract->id);
 
             if (! $contract->status->canTransitionTo(ContractStatus::Active)) {
@@ -64,25 +69,25 @@ class SubscriptionActivation
             $start = ($renewal && $contract->expires_at && $contract->expires_at->isFuture()) ? $contract->expires_at->copy() : now();
             $expires = $start->copy()->addMonths($months);
 
-            $this->ledger->record($contract->client, 'subscription_validated', BalanceType::Subscription, $amount, $points,
-                'Validare abonament la clinică | contract '.$contract->number.' | sumă plătită: '.number_format($amount, 2, '.', '').' lei | puncte contract: '.$points,
+            $this->ledger->record($contract->client, $card ? 'subscription_paid_card' : 'subscription_validated', BalanceType::Subscription, $amount, $points,
+                ($card ? 'Plată online cu cardul' : 'Validare abonament la clinică').' | contract '.$contract->number.' | sumă plătită: '.number_format($amount, 2, '.', '').' lei | puncte contract: '.$points,
                 'subscription_validate', $contract->id, $actor, $contract->pet,
-                'contract:'.$contract->id.':validate:'.$expires->format('Ymd'));
+                $card ? 'stripe:'.$reference : 'contract:'.$contract->id.':validate:'.$expires->format('Ymd'), null, $card ? 'Plată online (Stripe)' : null);
 
             $contract->forceFill([
-                'status' => ContractStatus::Active, 'period_months' => $months, 'payment_amount' => $amount, 'payment_method' => 'clinic',
-                'paid_at' => now(), 'validated_by' => $actor->id, 'starts_at' => $contract->starts_at ?? now(), 'expires_at' => $expires,
+                'status' => ContractStatus::Active, 'period_months' => $months, 'payment_amount' => $amount, 'payment_method' => $card ? 'card' : 'clinic',
+                'paid_at' => now(), 'validated_by' => $actor?->id, 'starts_at' => $contract->starts_at ?? now(), 'expires_at' => $expires,
                 'expiry_notice_sent_at' => null,
             ])->save();
 
             ContractStatusHistory::create(['contract_id' => $contract->id, 'from_status' => $from->value, 'to_status' => ContractStatus::Active->value,
-                'actor_id' => $actor->id, 'note' => ($renewal ? 'Reînnoire' : 'Plată confirmată la clinică').' | '.$this->periodLabel($months)]);
+                'actor_id' => $actor?->id, 'note' => ($renewal ? 'Reînnoire' : ($card ? 'Plată online cu cardul' : 'Plată confirmată la clinică')).' | '.$this->periodLabel($months)]);
             Audit::log('contract.payment_validated', $contract, "Plată confirmată pentru {$contract->number}: {$amount} lei, {$points} puncte", null,
                 ['months' => $months, 'amount' => $amount, 'points' => $points, 'expires_at' => $expires->toDateString()], $contract->user_id);
 
-            DB::afterCommit(function () use ($contract, $amount, $points, $months, $expires) {
+            DB::afterCommit(function () use ($contract, $amount, $points, $months, $expires, $card) {
                 $this->notifier->client($contract->client, 'Abonament validat',
-                    'Abonamentul tău a fost validat în clinică.<br>'
+                    ($card ? 'Plata online a abonamentului a fost confirmată.<br>' : 'Abonamentul tău a fost validat în clinică.<br>')
                     .'Suma plătită: <strong>'.number_format($amount, 2, ',', '.').' lei</strong>.<br>'
                     .'Perioada validată: <strong>'.$this->periodLabel($months).'</strong>.<br>'
                     .'Data expirării: <strong>'.$expires->format('d.m.Y').'</strong>.<br>'

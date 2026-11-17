@@ -14,6 +14,12 @@ return [
     |
     */
 
+    // Plata online cu cardul. Cheile se pot pune aici (din .env) sau din admin, la Setări clinică → Plăți online.
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

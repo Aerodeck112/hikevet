@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\OnlinePayment;
 use App\Models\WalletTopupRequest;
 use App\Services\Clients\ClientAccounts;
 use App\Services\Notifications\Notifier;
+use App\Services\Payments\StripeCheckout;
 use App\Services\Seo\Seo;
 use App\Services\Wallet\WalletLedger;
 use App\Support\Audit;
@@ -32,6 +34,8 @@ class DashboardController extends Controller
             'treatments' => $user->treatments()->whereNull('deleted_at')->latest('id')->limit(15)->get(),
             'notifications' => $user->clientNotifications()->limit(10)->get(),
             'topups' => WalletTopupRequest::query()->where('user_id', $user->id)->latest('id')->limit(5)->get(),
+            'cardPayments' => StripeCheckout::enabled(),
+            'onlinePayments' => OnlinePayment::query()->where('user_id', $user->id)->whereIn('status', ['paid', 'paid_needs_review', 'pending'])->latest('id')->limit(5)->get(),
         ]);
     }
 
