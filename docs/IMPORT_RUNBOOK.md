@@ -48,6 +48,12 @@ WP_UPLOADS_PATH=/home/UTILIZATOR/copie-uploads
 
 Utilizatorul are nevoie doar de drept de citire (`SELECT`).
 
+**Setul de caractere contează.** `database.restored.sql` începe cu `SET NAMES utf8mb4`, așa că se încarcă
+corect din phpMyAdmin sau din linia de comandă. Dacă se folosește alt fișier, încărcarea se face cu
+`mysql --default-character-set=utf8mb4 ...` (în phpMyAdmin: setul de caractere al fișierului `utf-8`).
+Altfel diacriticele sunt codate de două ori („câine” devine „cÃ¢ine”) și datele serializate din WordPress
+(consimțămintele, de exemplu) nu se mai pot citi. Importul verifică acest lucru și refuză să pornească.
+
 ### Ce a arătat proba pe backupul real (17.11.2026)
 
 - Backupul All-in-One se desface și se verifică integral (CRC pe fiecare fișier).
@@ -59,6 +65,11 @@ Utilizatorul are nevoie doar de drept de citire (`SELECT`).
   raportate, iar PDF-urile lor se păstrează în Arhiva WordPress.
 - Pachetele generate pentru Primărie (`uploads/hikevet-city-package-*.zip`) se păstrează cu
   `--keep-file`. Directoarele cu același nume sunt fișiere intermediare ale generării și nu mai sunt necesare.
+- La prima probă baza a fost încărcată cu setul de caractere greșit: 331 de consimțăminte păreau fără
+  conținut. Cauza nu era backupul (fișierul SQL este corect), ci încărcarea; de aceea există acum
+  verificarea de mai sus. Refăcută corect, proba a citit toate cele 456 de consimțăminte.
+- Consimțămintele aduc și lista pacienților vizitei (345), legătura cu vizita și lanțul variantelor
+  corectate (31, cu motivul corecției).
 - **Testele automate nu se rulează niciodată în același terminal cu setările unei baze reale.**
   Platforma refuză oricum, din 17.11.2026, orice bază al cărei nume nu indică o bază de test.
 
@@ -99,11 +110,13 @@ consimțăminte) și la final arhiva brută a întregii baze. Se poate rula pe p
 | Verificare | Unde |
 |---|---|
 | 10 clienți aleși de clinică: animale, contracte, sold de puncte și Wallet față de WordPress | *Clinică → Clienți* |
-| 10 dosare de sterilizare: toate câmpurile, fotografia, actele | *Clinică → Arhivă sterilizări* |
-| Dosarele cu „Lipsă în sursă” sunt cele așteptate | filtrul din arhivă |
+| 10 dosare de sterilizare: toate câmpurile, fotografia, actele, istoricul | *Campanie sterilizare → Dosare* |
+| Dosarele cu „Lipsă în sursă” sunt cele așteptate | filtrul din listă și *Raport din datele originale* |
 | Un consimțământ semnat: text, semnături, dată | *Clinică → Consimțăminte* |
 | Un client se autentifică cu parola din WordPress | `/acces-cont/` |
-| Raportul lunar pentru o lună deja raportată dă aceleași numere | *Clinică → Rapoarte sterilizări* |
+| Pentru o lună deja raportată: același număr de intervenții, aceleași numere de pacient | *Campanie sterilizare → Raport Primărie* |
+| Desfășurătorul Excel și centralizatorul unei luni, comparate cu cele trimise Primăriei | idem |
+| Programările viitoare ale campaniei apar în calendar, cu orele corecte | *Campanie sterilizare → Programări* |
 | A doua rulare a importului nu creează nimic nou | terminal |
 
 Dacă arhiva nu este corectă: `php artisan hikevet:import-wordpress --rollback=<ID lot>`, corecție, din nou.
@@ -125,9 +138,10 @@ politica de confidențialitate, modul de programare (Digitail sau propriu).
 
 ## 8. Comutarea
 
-Într-un interval fără activitate (seara):
+Într-un interval fără activitate (seara, după ultima intervenție a zilei și fără programări în desfășurare):
 
-1. WordPress în mod mentenanță: din acest moment nu mai apar date noi în sursă.
+1. WordPress în mod mentenanță: din acest moment nu mai apar date noi în sursă (nici programări,
+   nici dosare, nici semnături pe tabletă).
 2. Export SQL **nou** și copie nouă a `uploads`; pașii 2–5 repetați pe datele finale (importul
    actualizează ce există și adaugă ce este nou).
 3. Document root al domeniului principal mutat către `hikevet/public` (`INSTALL_CPANEL.md` §4);
@@ -135,6 +149,27 @@ politica de confidențialitate, modul de programare (Digitail sau propriu).
 4. Verificări: prima pagină, un serviciu, `/abonamente/`, autentificare client, `/admin`,
    `/robots.txt`, un redirect vechi, formularul de contact.
 5. Search Console: sitemap nou.
+
+### Campania de sterilizare în ziua comutării
+
+Campania activă (programări până în decembrie 2026) trece odată cu restul datelor; nu există o perioadă
+în care două sisteme primesc programări.
+
+1. Înainte de mentenanță: în WordPress se verifică ce consimțăminte sunt încă nesemnate. Cele care se
+   semnează în aceeași zi se semnează **înainte** de oprire; codurile de tabletă vechi nu mai funcționează după.
+2. După import, în *Campanie sterilizare → Programări*: programările viitoare apar cu orele lor;
+   reminderele automate pornesc din cron pentru ziua următoare (o singură dată pe programare).
+3. Emailurile deja trimise din WordPress nu se retrimit: importul păstrează data trimiterii și starea.
+   Ultimul rezumat de externare și follow-up-urile datorate apar în *Campanie sterilizare → Emailuri*.
+4. În *Raport Primărie*, luna curentă: numărul de intervenții și numerele de pacient sunt comparate cu
+   ce arăta WordPress înainte de oprire. Numerele de raport sunt deja fixate și nu se schimbă.
+5. Personalul primește conturile cu rolurile potrivite: recepția (dosare, programări, confirmarea
+   pozelor), medicii (în plus validare și exporturi pentru Primărie).
+6. Prima zi de lucru: un dosar nou de la programare până la externare, cu consimțământ semnat pe tabletă,
+   fotografie de pe telefon și emailul de externare primit.
+
+Dacă emailurile nu pot fi configurate (SMTP) până la comutare, campania funcționează, dar confirmările,
+reminderele și rezumatele rămân netrimise și apar în *Emailuri* pentru trimitere ulterioară.
 
 ## 9. Revenire
 
@@ -152,9 +187,8 @@ ia repede sau deloc.
 
 ## Limite
 
-- Fluxul activ al campaniei de sterilizare (programări, dosare noi) **nu există** în platforma
-  nouă. Dacă este încă în uz, comutarea completă se amână sau WordPress rămâne pornit pentru el.
-  Importul arhivei este repetabil: dosarele modificate între timp în WordPress sunt recunoscute după
-  amprentă și actualizate la un import final, după încheierea campaniei.
-- Rapoartele pentru Primărie în formatul PDF/XLSX al pluginului nu sunt reproduse; datele lor sunt
-  în arhivă și se pot exporta ca CSV.
+- ZIP-ul pentru Primărie pe toată perioada (469 de dosare în proba reală) are aproximativ 630 MB și se
+  generează în aproximativ 2,5 minute. Pe găzduiri cu limită mică de timp sau memorie se descarcă pe luni
+  (septembrie, 137 de dosare: aproximativ 110 MB, un minut).
+- Fișierele pe care backupul nu le conținea (4 acte de identitate și 2 fotografii, în proba reală) rămân
+  marcate „Lipsă în sursă”; în ZIP apar ca fișiere `_EROARE` cu acest motiv.

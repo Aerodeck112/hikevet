@@ -1,5 +1,17 @@
 # Jurnal de modificări
 
+## Nepublicat – 17.11.2026
+
+### Campania de sterilizare (portată din modulul 2.7.6)
+- Dosare, file de lucru, programări, emailuri și rapoartele pentru Primărie rulează în platforma nouă.
+- Raport Primărie: Excel oficial, desfășurător și centralizator PDF, ZIP general și pe dosar, audit de
+  integritate, validare în masă, control numere după fotografie, registru și reconciliere.
+
+### Import
+- `hikevet:wpress` declară `utf8mb4` în fișierul SQL extras; importul refuză o copie WordPress cu
+  diacritice codate de două ori și raportează consimțămintele care nu pot fi citite, păstrându-le exact.
+- Consimțămintele aduc lista pacienților vizitei, legătura cu vizita și lanțul variantelor corectate.
+
 ## 0.1.0 – 14.11.2026 (versiune de probă, neinstalată în producție)
 
 Prima versiune completă a platformei.

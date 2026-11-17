@@ -1,13 +1,16 @@
 # Raport de testare
 
-Data: 14.11.2026 · versiunea 0.1.0 · PHP 8.3.6 · Laravel 13.42
+Data: 17.11.2026 (actualizat după portarea campaniei de sterilizare) · versiunea 0.1.0 · PHP 8.3.6 · Laravel 13.42
 
 ## 1. Rezumat
 
 | Ce | Rezultat |
 |---|---|
-| Teste automate pe SQLite | 139 de teste, 138 trecute, 1 sărit (relevant doar pe MySQL), 17 744 de verificări |
-| Teste automate pe MariaDB 10.11 | 139 din 139 trecute |
+| Teste automate pe SQLite | 199 de teste, 198 trecute, 1 sărit (relevant doar pe MySQL), peste 18 000 de verificări |
+| Teste automate pe MariaDB 10.11 | 199 din 199 trecute |
+| Import complet al backupului real (copie de probă, nu producția) | 49 de conturi, 37 de animale, 61 de contracte, 91 de tranzacții, 456 de consimțăminte, 713 dosare de sterilizare, arhiva brută integrală |
+| Raport Primărie pe datele reale de probă | iulie 104, august 123, septembrie 137 (+ selecția fixă de 145 confirmată 145/145), octombrie 100 de intervenții; Excel, PDF, centralizator și ZIP generate fără erori |
+| ZIP Primărie pe toată perioada (469 de dosare) | 627 MB, ~150 s, maximum 319 MB memorie; 4 acte de identitate absente din backup marcate „Lipsă în sursă” |
 | Instalare curată din ZIP, în browser, pe Apache 2.4 + MariaDB | reușită |
 | Actualizare reală din panou (0.1.0 → 0.1.1) | reușită |
 | Actualizare din linia de comandă (0.1.1 → 0.1.2) | reușită |
@@ -15,7 +18,7 @@ Data: 14.11.2026 · versiunea 0.1.0 · PHP 8.3.6 · Laravel 13.42
 | Pachet cu migrare stricată (0.1.2 → 0.1.3) | anulat automat; site funcțional pe 0.1.2 |
 | Lighthouse pe 7 pagini | accesibilitate, bune practici și SEO 100; performanță 87–100 |
 
-**Ce nu a fost testat:** date reale (lipsește exportul SQL), un cont cPanel real, trimiterea
+**Ce nu a fost testat:** comutarea propriu-zisă și lucrul zilnic al personalului pe date reale, un cont cPanel real, trimiterea
 reală de emailuri, sarcina cron pe server, browsere în afară de Chromium, cititoare de ecran,
 încărcare mare, securitate prin test de penetrare.
 
@@ -34,7 +37,10 @@ php artisan test
 | `ConsentTest` | 10 | flux pe tabletă, confirmări obligatorii, semnătură de refuz, cod greșit sau expirat, semnătura medicului, detectarea modificărilor, permisiuni |
 | `BookingTest` | 6 | intervale libere, dublă rezervare imposibilă, anulare, comutarea Digitail / intern |
 | `AdminPanelTest` | 4 (38 de cazuri) | fiecare ecran se încarcă pentru Super Admin; restricții pe rol; vizitatorii și clienții nu intră |
-| `WordPressImportTest` | 8 | prefix, probă fără scriere, rânduri identice cu sursa, lipsuri semnalate, repetabil, anulare, parola WordPress |
+| `WordPressImportTest` | 15 | prefix, probă fără scriere, rânduri identice cu sursa, lipsuri semnalate, repetabil, anulare, parola WordPress, istoricul, plățile din registru, legăturile campaniei, lista vizitei și variantele corectate ale consimțămintelor, refuzul unei copii cu diacritice codate de două ori |
+| `CampaignFlowTest` / `CampaignScreensTest` | 13 / 8 | fluxul campaniei: programare multipacient, recepție, consult, intervenție, externare, numerotare, consimțământ corectat, emailuri, reminder, disponibilitate, ștergere cu motiv, ecrane și permisiuni |
+| `CampaignReportsTest` | 13 | luna de raportare fixată, octombrie cu excluderi, lista de 145, Excel oficial (25 de coloane, fără statusuri interne), centralizator, audit (dubluri, poze reutilizate, documente lipsă, pacient adăugat după semnare), ZIP general și pe dosar, confirmarea pozelor, registrul, alinierea, validarea în masă, permisiunile de export |
+| `WpressExtractCommandTest` | 1 | fișierul SQL extras declară `utf8mb4` și are prefixul real |
 | `InstallerTest` | 5 | cod de acces, bază greșită, `.env`, blocare după instalare |
 | `UpdateAndBackupTest` | 11 | semnătură, fișier modificat, Zip Slip, `.env` protejat, retrogradare, pachet incremental, revenire la eșec, backup criptat și restaurare, alte baze ignorate |
 | `PublicSiteTest` | 10 | fiecare adresă WordPress răspunde, redirecturi, SEO, ciorne ascunse, contact, acord cookie-uri, antete, `.htaccess` |
@@ -94,10 +100,10 @@ php artisan test -c phpunit.mysql.xml
 
 | | |
 |---|---|
-| **Implementat și testat** | site public, configurator, contracte, cont client, Wallet și puncte, consimțământ, arhivă (pe date sintetice), programări, roluri, instalator, actualizări, backup |
+| **Implementat și testat** | site public, configurator, contracte, cont client, Wallet și puncte, consimțământ, campania de sterilizare cu rapoartele pentru Primărie (și pe datele reale de probă), programări, roluri, instalator, actualizări, backup |
 | **Implementat, verificat doar manual** | editarea de conținut din admin, calendarul, rapoartele lunare pe ecran, biblioteca media |
 | **Doar interfață sau configurare, fără integrare** | Google (se completează ID-uri; nicio conectare prin API), turul 3D (lipsește adresa) |
-| **Așteaptă date** | importul real, reconcilierea cu rapoartele Primăriei, PDF-urile vechi ale contractelor |
-| **Așteaptă cod** | importatoarele pentru notificări, jurnale și notițe; rapoarte PDF/XLSX pentru Primărie; șabloane de email editabile; SMS / WhatsApp; lista de prețuri editabilă; funcțiile consimțământului 1.5.x |
+| **Așteaptă clinica** | numerele trimise efectiv Primăriei în iulie–septembrie (pentru reconciliere), confirmarea abaterilor C1–C8, SMTP |
+| **Așteaptă cod** | șabloane de email editabile; SMS / WhatsApp; lista de prețuri editabilă; diferențele consimțământului 1.5.2 |
 
 Detaliul pe funcții: `docs/FUNCTIONAL_PARITY_CHECKLIST.md`.

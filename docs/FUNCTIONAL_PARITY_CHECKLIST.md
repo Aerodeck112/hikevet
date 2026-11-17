@@ -1,6 +1,6 @@
 # Lista de paritate funcțională
 
-Starea fiecărei funcții față de sistemul WordPress, la 14.11.2026.
+Starea fiecărei funcții față de sistemul WordPress, la 17.11.2026 (secțiunea 5 actualizată după portarea campaniei active, modulul 2.7.6).
 
 | Semn | Înseamnă |
 |---|---|
@@ -78,18 +78,43 @@ Starea fiecărei funcții față de sistemul WordPress, la 14.11.2026.
 | Amprentă de integritate | ✅ | nou |
 | Funcțiile din 1.5.x | ⬜ | necesită sursa |
 
-## 5. Sterilizări
+## 5. Campania de sterilizare (modulul 2.7.6)
+
+Campania activă rulează acum în platforma nouă, pe datele importate din WordPress. Rândul original din
+WordPress rămâne neschimbat lângă fiecare dosar (`source_row` + amprentă SHA-256); starea curentă se
+lucrează separat și orice modificare intră în istoricul dosarului.
 
 | Funcție | Stare | Observații |
 |---|---|---|
-| Arhivă: listă, căutare, filtre, fișă completă | ✅ | pe date sintetice |
-| Marcaj „Lipsă în sursă” | ✅ | |
-| Fotografii și acte, cu amprentă | ✅ | pe fișiere sintetice |
-| Raport lunar: centralizator și desfășurător | 🟡 | pe ecran și CSV |
-| Export dosar (ZIP), listă (CSV), cu jurnal | ✅ | |
-| Rapoarte PDF / XLSX în formatul Primăriei | ⬜ | logica de export din plugin nu a fost portată |
-| Fluxul activ al campaniei | ⛔ | arhiva este istorică |
-| Reparare, renumerotare, validare în masă, ștergere | ⛔ | ar modifica dovezi |
+| Dosare: listă, căutare, filtre (status, completitudine, vizite multipacient) | ✅ | |
+| Dosar pe file: recepție, consult preoperator, intervenție, externare, validare, corectare, rezumat, istoric | ✅ | aceleași câmpuri și reguli de salvare pe secțiuni |
+| Coduri `HV-ST-AAAA-NNN`, numerotare pacient unică pe an, protecția numerelor manuale și a celor cu fotografie | ✅ | regulile v2.5.7 / v2.6.4 |
+| Fotografie de pe telefon prin cod QR | ✅ | link cu token aleatoriu |
+| Vizite cu mai multe animale: CI și consimțământ comune | ✅ | |
+| Consimțământ creat automat, cod pentru tabletă, variantă corectată la schimbarea identității | ✅ | |
+| Checklist Primărie (21 de puncte), validare | ✅ | |
+| Calendar săptămânal, programare telefonică multipacient, disponibilitate, anulare | ✅ | |
+| Emailuri: confirmare, reminder cu o zi înainte, rezumat la externare, follow-up la 48 h, rezumat actualizat | ✅ | texte identice; trimise doar cu SMTP configurat |
+| Raport Primărie: lună de raportare fixată, octombrie 2026 cu excluderea celor 347 de coduri, selecția fixă de 145 | ✅ | |
+| Desfășurător Excel (25 de coloane oficiale) și PDF, centralizator PDF (Câine/Cățea/Motan/Pisică) | ✅ | verificat și pe datele reale de probă |
+| ZIP Primărie cu toate intervențiile finalizate (fișă pacient, foto, consimțământ semnat, CI, LIPSA/EROARE, manifest) și ZIP pe dosar | ✅ | proba reală: septembrie 137 dosare în ~1 min; toată perioada 469 dosare, 627 MB, ~2,5 min |
+| Audit integritate, reparare automată, consimțământ corectat pentru resemnare, validare în masă | ✅ | |
+| Control numere după fotografie (individual și în masă), registru 1 → N, aliniere, reconciliere iulie–septembrie (PDF, CSV) | ✅ | |
+| Arhiva WordPress a campaniei (rândurile originale, emailurile vechi) | ✅ | doar citire |
+| Lista „documente lipsă” Excel | ⛔ | funcția exista în plugin, dar nu era folosită nicăieri |
+
+### Abateri ale campaniei față de plugin
+
+| # | Abatere | De ce |
+|---|---|---|
+| C1 | Ștergerea unui dosar îl marchează șters, cu motiv; datele, fișierele și istoricul rămân | în plugin ștergerea era definitivă |
+| C2 | Identitatea pacientului se compară cu documentul semnat, nu cu lista vizitei actualizată după semnare; auditul arată „Pacient adăugat în vizită după semnare” | în plugin un animal adăugat ulterior trecea drept acoperit de un consimțământ pe care proprietarul nu l-a semnat pentru el (pe datele reale de probă: 17 dosare) |
+| C3 | Follow-up-ul automat se reîncearcă de cel mult 3 ori | în plugin reîncercările nu se opreau |
+| C4 | Antetul desfășurătorului Excel spune „Toate intervențiile finalizate din perioada selectată” | pluginul scria „cu documente obligatorii”, deși includea toate intervențiile |
+| C5 | Fotografia reutilizată se recunoaște după conținutul fișierului, nu după adresă | o copie a aceleiași poze sub alt nume nu mai scapă controlului |
+| C6 | Dublurile și lipsa numărului în audit se verifică pe numărul din raport | pluginul amesteca numărul operațional cu cel din raport |
+| C7 | Numele folderelor din ZIP fără diacritice | se deschid corect și pe Windows |
+| C8 | Exporturile cu date personale cer dreptul de export (medici, administratori); recepția vede raportul, confirmă pozele și repară, dar nu descarcă și nu validează | în plugin orice utilizator cu acces la modul putea descărca tot |
 
 ## 6. Programări
 

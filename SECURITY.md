@@ -36,8 +36,13 @@ contracte PDF publice, CNP în clar, cod de tabletă fără expirare, reducere o
   nouă, cu autor și motiv. Soldul este mereu suma tranzacțiilor.
 - **Jurnalul de audit** nu poate fi modificat sau șters din aplicație. Înregistrează autentificări,
   validări de plată, ajustări, descărcări de documente, exporturi, importuri și actualizări.
-- **Arhiva de sterilizări** este doar pentru citire. Fiecare dosar păstrează rândul original
-  complet și amprenta lui.
+- **Dosarele de sterilizare** păstrează rândul original din WordPress complet, cu amprenta lui, și nu
+  pot fi modificate direct: orice scriere trece prin serviciul campaniei și intră în istoricul dosarului,
+  iar ștergerea doar marchează dosarul, cu motiv. Exporturile pentru Primărie (Excel, PDF, ZIP, CSV)
+  cer dreptul de export, se scriu în jurnal și se generează în fișiere temporare șterse după descărcare
+  (cele rămase după un export întrerupt sunt șterse automat în câteva ore).
+- **Importul** refuză o copie a bazei WordPress încărcată cu alt set de caractere, ca datele semnate
+  să nu fie citite greșit.
 - **Un consimțământ semnat** nu mai poate fi editat; o corecție înseamnă un document nou care îl
   înlocuiește, cu originalul păstrat.
 - **Prețurile** se calculează pe server; valorile trimise de browser sunt ignorate.

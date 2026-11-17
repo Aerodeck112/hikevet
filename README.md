@@ -2,16 +2,17 @@
 
 Platformă web proprie pentru clinica veterinară HiKeVet (Târgu Mureș), care înlocuiește site-ul
 WordPress: site public, administrare conținut, abonamente cu contract PDF și semnătură, conturi
-de client cu puncte și Wallet, consimțământ pe tabletă, arhivă de sterilizări, programări,
+de client cu puncte și Wallet, consimțământ pe tabletă, campania de sterilizare cu rapoartele pentru
+Primărie, programări,
 instalator cPanel și actualizări ZIP semnate.
 
 Laravel 13 · PHP 8.3+ · MySQL/MariaDB · Filament 5 pentru admin · fără WordPress la rulare.
 
-## Stare (14.11.2026)
+## Stare (17.11.2026)
 
-Codul rulează și este testat local (135 de teste, pe SQLite și pe MariaDB 10.11). **Nu este încă
-în producție și nu conține date reale**: exportul SQL și fișierele din `wp-content/uploads` nu au
-fost furnizate. Ce este implementat, ce este doar pregătit și ce așteaptă date este descris în
+Codul rulează și este testat local (199 de teste, pe SQLite și pe MariaDB 10.11). Backupul real al
+site-ului a fost importat integral **pe o copie de probă locală**; producția nu a fost atinsă, iar
+în Git nu există date reale. **Nu este încă în producție.** Ce este implementat, ce este doar pregătit și ce așteaptă date este descris în
 [`TEST_REPORT.md`](TEST_REPORT.md) și [`docs/FUNCTIONAL_PARITY_CHECKLIST.md`](docs/FUNCTIONAL_PARITY_CHECKLIST.md).
 
 ## Pornire locală
@@ -86,6 +87,7 @@ cu funcțiile reale din pluginul WordPress și se sare automat dacă `source-wor
 
 - Prețurile, reducerile și sumele se calculează numai pe server, din lista de prețuri versionată.
 - Registrul Wallet și jurnalul de audit se pot doar completa; soldurile sunt mereu suma tranzacțiilor.
-- Arhiva de sterilizări este doar pentru citire; ce lipsește în sursă rămâne marcat „Lipsă în sursă”.
+- Rândul original al fiecărui dosar de sterilizare importat rămâne neschimbat; dosarele se modifică doar
+  prin serviciul campaniei, cu istoric, și nu se șterg fizic. Ce lipsește în sursă rămâne „Lipsă în sursă”.
 - CNP, CI, semnături și contracte stau criptate sau pe disc privat și nu au adrese publice.
 - Niciun fișier cu date reale (`.sql`, exporturi) nu intră în Git.
