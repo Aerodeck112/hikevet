@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Enums\Permission;
+use App\Models\SterilizationCase;
 use App\Services\Sterilization\ArchiveExporter;
 use App\Support\Audit;
 use BackedEnum;
@@ -15,13 +16,13 @@ class SterilizationReports extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
 
     protected static ?string $navigationLabel = 'Raportări sterilizări';
 
     protected static ?string $title = 'Raportări istorice sterilizări';
 
-    protected static ?int $navigationSort = 41;
+    protected static ?int $navigationSort = 20;
 
     protected string $view = 'filament.pages.sterilization-reports';
 
@@ -39,7 +40,7 @@ class SterilizationReports extends Page
         $report = app(ArchiveExporter::class)->monthlyReport($this->month);
         Audit::log('sterilization.exported', null, 'Desfășurător CSV pentru luna '.$this->month.': '.$report['total'].' intervenții');
 
-        return app(ArchiveExporter::class)->csv(\App\Models\SterilizationCase::query()->whereKey($report['cases']->modelKeys()), 'desfasurator-'.$this->month.'.csv');
+        return app(ArchiveExporter::class)->csv(SterilizationCase::query()->whereKey($report['cases']->modelKeys()), 'desfasurator-'.$this->month.'.csv');
     }
 
     private function validMonth(): bool

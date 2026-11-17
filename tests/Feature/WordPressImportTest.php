@@ -319,7 +319,9 @@ class WordPressImportTest extends TestCase
         $this->actingAs($doctor)->get('/admin/sterilization-archive/'.$case->id)->assertOk()->assertSee('Ovariohisterectomie')->assertSee('Păstrat');
         $this->actingAs($doctor)->get('/admin/sterilization-archive/'.SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-003')->value('id'))->assertOk()->assertSee('Lipsă în sursă');
         $this->actingAs($doctor)->get('/admin/sterilization-reports?month=2026-08')->assertOk()->assertSee('Centralizator 2026-08')->assertSee('Pisica / Femela');
-        $this->actingAs($this->staff(Role::Reception))->get('/admin/sterilization-archive')->assertForbidden();
+        // Receptia lucreaza in campanie (programari, dosare), deci vede si arhiva; editorul de continut nu.
+        $this->actingAs($this->staff(Role::Reception))->get('/admin/sterilization-archive')->assertOk();
+        $this->actingAs($this->staff(Role::Editor))->get('/admin/sterilization-archive')->assertForbidden();
         $this->actingAs($this->staff(Role::Editor))->get('/admin/sterilization-reports')->assertForbidden();
         $this->assertDatabaseHas('audit_logs', ['action' => 'sterilization.viewed', 'subject_id' => $case->id]);
 

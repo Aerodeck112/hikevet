@@ -44,3 +44,40 @@
 .hv-appt--requested { background: #ffe3a6; color: #5a3d00; }
 .hv-appt--block { background: #e4e4e7; color: #3f3f46; }
 .hv-doc { background: #fff; color: #111; border-radius: 1rem; padding: 1.5rem; border: 1px solid rgb(228 228 231); }
+
+/* Campania de sterilizare */
+.hv-cp { display: grid; gap: 1rem; }
+.hv-cp-tabs { display: flex; flex-wrap: wrap; gap: .35rem; }
+.hv-cp-tabs a { padding: .45rem .85rem; border-radius: 999px; border: 1px solid rgb(228 228 231); font-size: .85rem; font-weight: 600; color: rgb(63 63 70); text-decoration: none; background: #fff; }
+.hv-cp-tabs a.is-active { background: #0b5c3b; border-color: #0b5c3b; color: #fff; }
+.hv-cp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .85rem 1rem; }
+.hv-cp-field { display: grid; gap: .3rem; }
+.hv-cp-field.is-full { grid-column: 1 / -1; }
+.hv-cp-field label, .hv-cp-label { font-size: .8rem; font-weight: 600; color: rgb(63 63 70); }
+.hv-cp-field input[type=text], .hv-cp-field input[type=email], .hv-cp-field input[type=tel], .hv-cp-field input[type=date], .hv-cp-field input[type=time],
+.hv-cp-field input[type=number], .hv-cp-field input[type=search], .hv-cp-field select, .hv-cp-field textarea {
+  width: 100%; border: 1px solid rgb(212 212 216); border-radius: .5rem; padding: .5rem .65rem; font-size: .9rem; background: #fff; }
+.hv-cp-field textarea { min-height: 5.5rem; }
+.hv-cp-field input[readonly] { background: rgb(244 244 245); color: rgb(82 82 91); }
+.hv-cp-field.is-focus { outline: 3px solid #ff5b2e; outline-offset: 4px; border-radius: .5rem; }
+.hv-cp-radio { display: flex; gap: 1rem; padding: .45rem 0; }
+.hv-cp-note { font-size: .85rem; color: rgb(82 82 91); margin: .25rem 0 .9rem; }
+.hv-cp-flash { padding: .75rem 1rem; border-radius: .6rem; font-size: .9rem; }
+.hv-cp-flash--ok { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+.hv-cp-flash--warn { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; }
+.hv-cp-flash--bad { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.hv-cp-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.hv-cp-btn { display: inline-flex; align-items: center; gap: .35rem; padding: .5rem .9rem; border-radius: .5rem; font-weight: 600; font-size: .85rem; border: 1px solid rgb(212 212 216); background: #fff; color: rgb(39 39 42); text-decoration: none; cursor: pointer; }
+.hv-cp-btn--primary { background: #0b5c3b; border-color: #0b5c3b; color: #fff; }
+.hv-cp-btn--danger { border-color: #fca5a5; color: #991b1b; }
+.hv-cp-photo { max-width: 16rem; max-height: 14rem; border-radius: .5rem; border: 1px solid rgb(228 228 231); }
+.hv-cp-check { display: flex; gap: .6rem; align-items: center; padding: .45rem .6rem; border-radius: .5rem; font-size: .85rem; text-decoration: none; color: inherit; }
+.hv-cp-check.is-ok { background: #f0fdf4; }
+.hv-cp-check.is-missing { background: #fef2f2; color: #991b1b; }
+.hv-cp-progress { height: .45rem; background: rgb(244 244 245); border-radius: 999px; overflow: hidden; }
+.hv-cp-progress span { display: block; height: 100%; background: #21b073; }
+.hv-cp-qr { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; align-items: start; }
+.hv-cp-qr img { width: 11rem; height: 11rem; }
+.hv-cp-filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: .6rem; }
+.hv-cp-code { font-size: 1.6rem; font-weight: 800; letter-spacing: .15em; font-family: ui-monospace, monospace; }
+@media (max-width: 720px) { .hv-cp-qr { grid-template-columns: 1fr; } }

@@ -30,7 +30,7 @@ class AdminPanelTest extends TestCase
             '/admin/faqs', '/admin/faqs/{Faq}/edit', '/admin/redirects', '/admin/redirects/create', '/admin/media', '/admin/media/create', '/admin/media/{Media}/edit',
             '/admin/contact-messages', '/admin/clients', '/admin/clients/create',
             '/admin', '/admin/staff', '/admin/staff/create', '/admin/audit-log', '/admin/clinic-settings', '/admin/marketing-settings', '/admin/data-migration',
-            '/admin/price-lists', '/admin/price-lists/{PriceList}', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile', '/admin/arhiva-wordpress',
+            '/admin/price-lists', '/admin/price-lists/{PriceList}', '/admin/contracts', '/admin/sterilization-archive', '/admin/sterilization-reports', '/admin/profile', '/admin/arhiva-wordpress', '/admin/campanie/dosare', '/admin/campanie/dosar',
         ]);
     }
 

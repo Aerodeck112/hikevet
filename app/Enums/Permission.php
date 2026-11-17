@@ -55,6 +55,10 @@ final class Permission
 
     public const PLATFORM_UPDATE = 'platform.update';
 
+    public const CAMPAIGN_MANAGE = 'campaign.manage';
+
+    public const CAMPAIGN_VALIDATE = 'campaign.validate';
+
     public const LEGACY_VIEW = 'legacy.view';
 
     public const LEGACY_EXPORT = 'legacy.export';
@@ -93,6 +97,8 @@ final class Permission
             self::AUDIT_VIEW => 'Jurnal de audit',
             self::IMPORT_RUN => 'Import date WordPress',
             self::PLATFORM_UPDATE => 'Actualizări platformă',
+            self::CAMPAIGN_MANAGE => 'Campania de sterilizare: programări, dosare, emailuri',
+            self::CAMPAIGN_VALIDATE => 'Campania de sterilizare: validare pentru Primărie',
             self::LEGACY_VIEW => 'Consultă arhiva bazei WordPress vechi',
             self::LEGACY_EXPORT => 'Exportă din arhiva WordPress și descarcă fișierul SQL original',
         ][$permission] ?? $permission;

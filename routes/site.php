@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Account\AuthController;
 use App\Http\Controllers\Account\DashboardController;
+use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Booking\BookingController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\SitemapController;
@@ -52,6 +54,23 @@ Route::post('/programare/anulare/{token}', [BookingController::class, 'cancel'])
 
 // Documente servite personalului din admin (autorizare pe permisiune + jurnal de acces).
 Route::middleware('auth')->prefix('admin/documents')->group(function () {
-    Route::get('/contracts/{contract}/pdf', [\App\Http\Controllers\Admin\DocumentController::class, 'contractPdf'])->name('admin.contracts.pdf');
-    Route::get('/consents/{consent}/print', [\App\Http\Controllers\Admin\DocumentController::class, 'consentPrint'])->name('admin.consents.print');
+    Route::get('/contracts/{contract}/pdf', [DocumentController::class, 'contractPdf'])->name('admin.contracts.pdf');
+    Route::get('/consents/{consent}/print', [DocumentController::class, 'consentPrint'])->name('admin.consents.print');
 });
+
+// Campania de sterilizare: actiuni din ecranele de administrare (permisiunile se verifica in controller).
+Route::middleware('auth')->prefix('admin/campanie')->name('admin.campaign.')->controller(CampaignController::class)->group(function () {
+    Route::post('/dosar', 'save')->name('save');
+    Route::post('/dosar/{case}/animal', 'addVisitPet')->name('visit-pet');
+    Route::post('/dosar/{case}/scoate-din-vizita', 'removeVisitPet')->name('visit-pet.remove');
+    Route::post('/dosar/{case}/sterge', 'delete')->name('delete');
+    Route::post('/dosar/{case}/email-final', 'resendFinal')->name('resend-final');
+    Route::post('/dosar/{case}/follow-up', 'sendFollowup')->name('followup');
+    Route::post('/dosar/{case}/cod-tableta', 'consentCode')->name('consent-code');
+    Route::get('/dosar/{case}/foto-status', 'photoStatus')->name('photo-status');
+    Route::get('/document/{document}', 'document')->name('document');
+});
+
+// Incarcarea fotografiei de pe telefon: acces doar cu tokenul aleatoriu al dosarului.
+Route::get('/campanie/foto/{token}', [CampaignController::class, 'phonePage'])->where('token', '[A-Za-z0-9]{20,64}')->name('campaign.phone');
+Route::post('/campanie/foto/{token}', [CampaignController::class, 'phoneUpload'])->where('token', '[A-Za-z0-9]{20,64}')->middleware('throttle:20,1')->name('campaign.phone.upload');

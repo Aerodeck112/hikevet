@@ -28,7 +28,10 @@ class SterilizationCaseResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+
+    // Vizualizarea veche, doar citire: inlocuita de ecranul Dosare; ramane accesibila prin adresa ei.
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static ?string $navigationLabel = 'Arhivă sterilizări';
 

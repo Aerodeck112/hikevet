@@ -693,11 +693,11 @@ class CampaignCases
     public function storePhoneUpload(SterilizationCase $case, UploadedFile $file): SterilizationCase
     {
         $row = $case->row();
-        $row['poza_pacient'] = $this->files->store($case, $file, SterilizationDocument::PHOTO, 'Telefon (QR)', null);
+        $row['poza_pacient'] = $this->files->store($case, $file, SterilizationDocument::PHOTO, 'Telefon QR', null);
         $row['photo_uploaded_at'] = CaseFields::now();
-        $row['photo_upload_source'] = 'Telefon (QR)';
+        $row['photo_upload_source'] = 'Telefon QR';
         if (trim((string) $row['numar_pacient_raport']) === '') {
-            self::freezeReportNumber($row, 'confirmat_foto');
+            self::freezeReportNumber($row, 'confirmat_foto_qr');
         }
 
         return $this->persist($case, $this->checks->autoValidation($row), null, 'file', 'interventie', 'Fotografie încărcată de pe telefon', false);

@@ -1,9 +1,7 @@
 <?php
 
-use App\Services\Import\CampaignRelinker;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -100,18 +98,6 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent()->index();
         });
 
-        // Dosarele deja importate pornesc cu starea curenta = randul original, cu legaturile traduse in ID-urile noi.
-        CampaignRelinker::run();
-        foreach (DB::table('sterilization_appointments')->whereNotNull('source_row')->get(['id', 'source_row']) as $a) {
-            $r = json_decode($a->source_row, true) ?: [];
-            DB::table('sterilization_appointments')->where('id', $a->id)->update(array_filter([
-                'title' => $r['title'] ?? null, 'client_email' => $r['client_email'] ?? null, 'client_phone' => $r['client_phone'] ?? null,
-                'source' => $r['source'] ?? null, 'notes' => $r['notes'] ?? null, 'reminder_enabled' => $r['reminder_enabled'] ?? null,
-                'reminder_days' => isset($r['reminder_days']) ? (int) $r['reminder_days'] : null,
-                'reminder_sent_at' => ($r['reminder_sent_at'] ?? '') ?: null, 'created_by_name' => $r['created_by'] ?? null,
-                'created_at' => ($r['created_at'] ?? '') ?: null, 'updated_at' => ($r['updated_at'] ?? '') ?: null,
-            ], fn ($v) => $v !== null && $v !== ''));
-        }
     }
 
     public function down(): void

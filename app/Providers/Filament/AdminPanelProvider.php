@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Auth\MultiFactor\App\AppAuthentication;
+use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -41,12 +42,13 @@ class AdminPanelProvider extends PanelProvider
                 'info' => Color::hex('#3b82c4'),
                 'gray' => Color::Zinc,
             ])
-            ->font('Jost Variable', url: asset('fonts/jost.css'), provider: \Filament\FontProviders\LocalFontProvider::class)
+            ->font('Jost Variable', url: asset('fonts/jost.css'), provider: LocalFontProvider::class)
             ->globalSearch(true)
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth('full')
             ->navigationGroups([
+                NavigationGroup::make('Campanie sterilizare'),
                 NavigationGroup::make('Clinică'),
                 NavigationGroup::make('Abonamente'),
                 NavigationGroup::make('Conținut site'),
