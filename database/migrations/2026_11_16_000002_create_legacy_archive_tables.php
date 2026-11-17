@@ -39,7 +39,7 @@ return new class extends Migration
         Schema::create('legacy_files', function (Blueprint $table) {
             $table->id();
             $table->string('kind', 30);
-            $table->string('label');
+            $table->text('label');
             $table->string('path');
             $table->unsignedBigInteger('bytes');
             $table->char('sha256', 64);

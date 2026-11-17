@@ -11,6 +11,22 @@ use Illuminate\Support\Facades\Storage;
 
 abstract class TestCase extends BaseTestCase
 {
+    /**
+     * Testele golesc baza de date la fiecare rulare (RefreshDatabase). Refuza orice baza care nu este clar de test,
+     * ca o rulare cu setarile unui server sau ale unei copii de proba sa nu poata sterge date.
+     */
+    public function createApplication()
+    {
+        $app = parent::createApplication();
+        $connection = $app['config']->get('database.default');
+        $database = (string) $app['config']->get("database.connections.{$connection}.database");
+        if ($database !== ':memory:' && ! preg_match('/(^|_)test(ing)?(_|$)/i', basename($database))) {
+            throw new \RuntimeException("Testele refuză să ruleze pe baza „{$database}” ({$connection}): nu este o bază de test.");
+        }
+
+        return $app;
+    }
+
     /** Date de baza pentru testele de business: roluri, lista de preturi reala, disc privat fals. */
     protected function seedBusiness(): void
     {

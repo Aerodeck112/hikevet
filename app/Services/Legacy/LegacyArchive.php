@@ -181,6 +181,14 @@ class LegacyArchive
             throw new RuntimeException('Copia criptată nu corespunde originalului.');
         }
 
+        // Acelasi continut poate veni din mai multe surse (de ex. contracte de test identice): etichetele se cumuleaza.
+        $existing = LegacyFile::query()->where('sha256', $sha)->where('kind', $kind)->first();
+        if ($existing && ! str_contains($existing->label, $label)) {
+            $label = mb_substr($existing->label.'; '.$label, 0, 4000);
+        } elseif ($existing) {
+            $label = $existing->label;
+        }
+
         return LegacyFile::query()->updateOrCreate(['sha256' => $sha, 'kind' => $kind],
             ['label' => $label, 'path' => $relative, 'bytes' => filesize($path), 'created_by' => $userId]);
     }

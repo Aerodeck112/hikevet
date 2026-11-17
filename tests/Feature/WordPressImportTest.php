@@ -8,12 +8,14 @@ use App\Enums\Role;
 use App\Models\Consent;
 use App\Models\Contract;
 use App\Models\ImportBatch;
+use App\Models\LegacyFile;
 use App\Models\SterilizationCase;
 use App\Models\User;
 use App\Services\Import\SterilizationImporter;
 use App\Services\Import\WordPressCoreImporter;
 use App\Services\Import\WordPressSource;
 use App\Services\Sterilization\ArchiveExporter;
+use App\Services\Subscriptions\SubscriptionActivation;
 use App\Services\Wallet\WalletLedger;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -410,5 +412,86 @@ class WordPressImportTest extends TestCase
         $this->assertSame(0, $batch->counts['contract_pdfs_found']);
         $this->assertStringContainsString('PDF-ul contractului nu a fost găsit', json_encode($batch->errors, JSON_UNESCAPED_UNICODE));
         $this->assertNull(Contract::query()->where('wp_post_id', 900)->value('pdf_path'));
+    }
+
+    /** Cazurile gasite in backupul real, reproduse cu date sintetice. */
+    public function test_contract_state_is_rebuilt_from_ledger_payments_and_damaged_payloads_are_recovered(): void
+    {
+        $wp = DB::connection('wp');
+        $pm = fn ($post, $key, $value) => $wp->table(self::P.'postmeta')->insert(['post_id' => $post, 'meta_key' => $key, 'meta_value' => $value]);
+        $payload = fn (string $pet) => json_encode(['pet_name' => $pet, 'species' => 'cat', 'tier_label' => '2-4 kg', 'owner_email' => 'client.import@example.com',
+            'price_monthly' => 225, 'price_6m' => 1215, 'price_12m' => 2160, 'legal' => ['contract' => 1]]);
+
+        // 901: platit si reinnoit, fara stare pe contract (Wallet Core scria doar pe „ultimul contract”).
+        $wp->table(self::P.'posts')->insert(['ID' => 901, 'post_type' => 'hv_abon_sub', 'post_date' => '2026-03-20 10:00:00']);
+        $pm(901, 'hv_payload', $payload('Mitzi'));
+        $pm(901, 'hv_client_user_id', 41);
+        $wp->table(self::P.'hv_wallet_tx')->insert(['id' => 50, 'user_id' => 41, 'type' => 'subscription_validated', 'balance_type' => 'subscription', 'amount_delta' => 225, 'points_delta' => 225, 'related_type' => 'subscription_validate', 'related_id' => 901, 'created_at' => '2026-03-26 14:00:02']);
+        $wp->table(self::P.'hv_wallet_tx')->insert(['id' => 51, 'user_id' => 41, 'type' => 'subscription_validated', 'balance_type' => 'subscription', 'amount_delta' => 1215, 'points_delta' => 1350, 'related_type' => 'subscription_validate', 'related_id' => 901, 'created_at' => '2026-05-25 12:00:52']);
+        // Ultima validare a clientului, cu expirarea calculata de WordPress.
+        foreach (['hv_last_validated_submission_id' => 901, 'hv_last_validated_period_months' => 6, 'hv_subscription_expires_at' => '2026-11-25 12:00:52', 'hv_subscription_active' => 1] as $k => $v) {
+            $wp->table(self::P.'usermeta')->insert(['user_id' => 41, 'meta_key' => $k, 'meta_value' => $v]);
+        }
+
+        // 902: neplatit, semnat demult. 903: payload cu HTML stricat (ghilimele neescapate) in ultimul camp.
+        $wp->table(self::P.'posts')->insert(['ID' => 902, 'post_type' => 'hv_abon_sub', 'post_date' => '2026-02-16 13:26:23']);
+        $pm(902, 'hv_payload', $payload('Bubu'));
+        $pm(902, 'hv_client_user_id', 41);
+        $wp->table(self::P.'posts')->insert(['ID' => 903, 'post_type' => 'hv_abon_sub', 'post_date' => '2026-02-17 09:00:00']);
+        $broken = substr($payload('Pufi'), 0, -1).',"signature":"data:image/png;base64,AAAA","contract_preview_html":"<div class="contract">text</div>"}';
+        $this->assertNull(json_decode($broken, true));
+        $pm(903, 'hv_payload', $broken);
+        $pm(903, 'hv_client_user_id', 41);
+
+        $this->travelTo('2026-11-17 09:00:00');
+        $dry = (new WordPressCoreImporter($this->source()))->run(true);
+        $this->assertSame(0, count(array_filter($dry->errors ?? [], fn ($e) => isset($e['wp_post_id']) && $e['wp_post_id'] >= 901)));
+        $this->assertSame(1, $dry->counts['contracts_payload_repaired']);
+
+        (new WordPressCoreImporter($this->source()))->run(false);
+        (new WordPressCoreImporter($this->source()))->run(false); // repetabil: istoricul nu se dubleaza
+
+        $renewed = Contract::query()->where('wp_post_id', 901)->sole();
+        $this->assertSame('active', $renewed->status->value);
+        $this->assertSame('2026-11-25 12:00:52', $renewed->expires_at->format('Y-m-d H:i:s'));
+        $this->assertSame(6, $renewed->period_months);
+        $this->assertSame('2026-03-26', $renewed->starts_at->format('Y-m-d'));
+        $notes = DB::table('contract_status_history')->where('contract_id', $renewed->id)->orderBy('created_at')->pluck('note')->all();
+        $this->assertSame(['WordPress: contract semnat online', 'WordPress: plată validată la clinică, 225 lei, 1 lună (tranzacția #50)',
+            'WordPress: reînnoire validată la clinică, 1215 lei, 6 luni (tranzacția #51)'], $notes);
+
+        $this->assertSame('offer_lapsed', Contract::query()->where('wp_post_id', 902)->sole()->status->value);
+
+        $repaired = Contract::query()->where('wp_post_id', 903)->sole();
+        $this->assertSame('Pufi', $repaired->pet_name);
+        $this->assertSame(225, $repaired->price_monthly);
+        $this->assertSame($broken, $repaired->payload['_source_raw']);
+        $this->assertStringContainsString('contract_preview_html', $repaired->payload['_import_note']);
+        $this->assertArrayNotHasKey('signature', $repaired->payload);
+
+        // Dupa expirare, intretinerea zilnica il trece singur pe expirat.
+        $this->travelTo('2026-11-26 08:00:00');
+        app(SubscriptionActivation::class)->runDailyMaintenance();
+        $this->assertSame('expired', $renewed->refresh()->status->value);
+    }
+
+    public function test_contract_without_valid_client_is_reported_and_its_pdf_is_kept_in_the_archive(): void
+    {
+        $wp = DB::connection('wp');
+        $wp->table(self::P.'posts')->insert(['ID' => 904, 'post_type' => 'hv_abon_sub', 'post_date' => '2026-03-06 10:00:00']);
+        foreach (['hv_payload' => json_encode(['pet_name' => 'Rex', 'owner_email' => 'abcd', 'price_monthly' => 240]),
+            'hv_pdf' => '/home/cont/public_html/wp-content/uploads/hikevet-contracte/contract_20260306_100000_zzz.pdf'] as $k => $v) {
+            $wp->table(self::P.'postmeta')->insert(['post_id' => 904, 'meta_key' => $k, 'meta_value' => $v]);
+        }
+        file_put_contents($this->uploads.'/hikevet-contracte/contract_20260306_100000_zzz.pdf', '%PDF contract fara client');
+
+        $batch = (new WordPressCoreImporter($this->source()))->run(false, null, $this->uploads);
+
+        $this->assertSame(1, $batch->counts['contracts_without_client']);
+        $this->assertNull(Contract::query()->where('wp_post_id', 904)->first());
+        $this->assertStringContainsString('email invalid', json_encode($batch->errors, JSON_UNESCAPED_UNICODE));
+        $file = LegacyFile::query()->where('kind', 'contract-fara-client')->sole();
+        $this->assertSame(hash('sha256', '%PDF contract fara client'), $file->sha256);
+        $this->assertStringContainsString('WP-904', $file->label);
     }
 }

@@ -20,7 +20,8 @@ class ImportWordPress extends Command
         {--rollback= : Anulează importul real cu ID-ul dat (doar arhiva de sterilizări)}
         {--force : Permite scrierea în mediul de producție}
         {--dump= : Fișierul SQL original, păstrat criptat în arhiva WordPress (doar cu --execute)}
-        {--skip-legacy=* : Tabele lăsate în afara arhivei brute (de ex. cache-uri mari)}';
+        {--skip-legacy=* : Tabele lăsate în afara arhivei brute (de ex. cache-uri mari)}
+        {--keep-file=* : Fișiere originale păstrate criptat în arhivă (de ex. pachetele trimise Primăriei)}';
 
     protected $description = 'Importă datele din copia bazei WordPress. Implicit rulează de probă și nu scrie nimic.';
 
@@ -83,6 +84,10 @@ class ImportWordPress extends Command
                 if ($dump = $this->option('dump')) {
                     $file = app(LegacyArchive::class)->storeFile($dump, 'wordpress-sql', 'Baza WordPress originală ('.basename($dump).')');
                     $this->components->twoColumnDetail('fișier SQL original', 'păstrat criptat, SHA-256 '.$file->sha256);
+                }
+                foreach ($this->option('keep-file') as $keep) {
+                    $file = app(LegacyArchive::class)->storeFile($keep, 'fisier-original', basename($keep));
+                    $this->components->twoColumnDetail(basename($keep), sprintf('%.1f MB, SHA-256 %s', $file->bytes / 1048576, $file->sha256));
                 }
                 Audit::log('legacy.snapshot', null, 'Arhiva WordPress copiată: '.$stats['tables'].' tabele, '.$stats['rows'].' rânduri');
             }

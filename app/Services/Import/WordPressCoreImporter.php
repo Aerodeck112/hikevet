@@ -7,6 +7,7 @@ use App\Enums\Role;
 use App\Models\ImportBatch;
 use App\Models\User;
 use App\Services\Consents\ConsentService;
+use App\Services\Legacy\LegacyArchive;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -146,24 +147,49 @@ class WordPressCoreImporter
     }
 
     /** Contractele istorice (CPT hv_abon_sub) se importa cu preturile si starea de atunci; PDF-urile originale nu se regenereaza. */
+    /**
+     * Contractele (CPT hv_abon_sub). In WordPress starea platii nu sta sigur pe contract: Wallet Core scrie
+     * hv_payment_* doar pe „ultimul contract” al clientului, iar istoricul complet al platilor este in registru
+     * (tranzactiile subscription_validated / subscription_paid_card, cu related_id = contractul). Starea se
+     * reconstruieste din aceste plati reale; starea scrisa de WordPress se pastreaza in payload, pentru comparatie.
+     */
     private function contracts(bool $dryRun, array &$counts, array &$errors, array $userMap): void
     {
-        $counts += ['contracts_in_source' => 0, 'contracts_imported' => 0, 'contracts_paid' => 0, 'contracts_without_pdf' => 0];
+        $counts += ['contracts_in_source' => 0, 'contracts_imported' => 0, 'contracts_paid' => 0, 'contracts_active' => 0, 'contracts_expired' => 0,
+            'contracts_unpaid' => 0, 'contract_payments' => 0, 'contracts_payload_repaired' => 0, 'contracts_without_pdf' => 0];
         if (! $this->source->has('posts')) {
             return;
         }
 
+        $payments = [];
+        if ($this->source->has('hv_wallet_tx')) {
+            foreach ($this->source->table('hv_wallet_tx')->whereIn('type', ['subscription_validated', 'subscription_paid_card'])->where('related_id', '>', 0)->orderBy('created_at')->orderBy('id')->get() as $tx) {
+                $payments[(int) $tx->related_id][] = $tx;
+            }
+        }
+        // Ultima validare a fiecarui client, cu perioada si expirarea calculate de WordPress.
+        $lastValidated = [];
+        foreach ($this->source->table('usermeta')->whereIn('meta_key', ['hv_last_validated_submission_id', 'hv_last_validated_period_months', 'hv_subscription_expires_at', 'hv_last_validated_subscription_at'])->get() as $m) {
+            $lastValidated[(int) $m->user_id][$m->meta_key] = $m->meta_value;
+        }
+        $bySubmission = [];
+        foreach ($lastValidated as $meta) {
+            if (! empty($meta['hv_last_validated_submission_id'])) {
+                $bySubmission[(int) $meta['hv_last_validated_submission_id']] = $meta;
+            }
+        }
+        $validDays = (int) (DB::table('price_lists')->where('is_active', true)->value('contract_valid_days') ?: 5);
+
         foreach ($this->source->table('posts')->where('post_type', 'hv_abon_sub')->orderBy('ID')->cursor() as $post) {
             $counts['contracts_in_source']++;
             $meta = $this->source->table('postmeta')->where('post_id', $post->ID)->pluck('meta_value', 'meta_key');
-            $payload = json_decode((string) ($meta['hv_payload'] ?? ''), true);
+            [$payload, $repaired] = $this->decodePayload((string) ($meta['hv_payload'] ?? ''));
             if (! is_array($payload)) {
-                $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'Contract fără hv_payload valid; nu a fost importat.'];
+                $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'Contract fără hv_payload citibil; nu a fost importat.'];
 
                 continue;
             }
-            $paid = ($meta['hv_payment_status'] ?? '') === 'paid';
-            $counts['contracts_paid'] += $paid ? 1 : 0;
+            $counts['contracts_payload_repaired'] += $repaired ? 1 : 0;
             $counts['contracts_without_pdf'] += empty($meta['hv_pdf']) ? 1 : 0;
             $pdfFile = empty($meta['hv_pdf']) ? null : $this->resolveUpload((string) $meta['hv_pdf']);
             if (! empty($meta['hv_pdf'])) {
@@ -172,21 +198,72 @@ class WordPressCoreImporter
                     $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'PDF-ul contractului nu a fost găsit în copia uploads: '.basename((string) $meta['hv_pdf'])];
                 }
             }
+
+            // Platile acestui contract: din registru; daca registrul nu are niciuna, din meta contractului.
+            $paid = $payments[(int) $post->ID] ?? [];
+            if (! $paid && ($meta['hv_payment_status'] ?? '') === 'paid' && ! empty($meta['hv_payment_paid_at'])) {
+                $paid = [(object) ['id' => null, 'type' => 'contract_meta', 'amount_delta' => (float) ($meta['hv_payment_amount'] ?? 0), 'created_at' => $meta['hv_payment_paid_at']]];
+            }
+            $counts['contract_payments'] += count($paid);
+            $prices = ['price_monthly' => (int) ($payload['price_monthly'] ?? 0), 'price_6m' => (int) ($payload['price_6m'] ?? 0), 'price_12m' => (int) ($payload['price_12m'] ?? 0)];
+            $periodFor = function (object $payment, bool $isLast) use ($meta, $prices, $bySubmission, $post): int {
+                if ($isLast && isset($bySubmission[(int) $post->ID]['hv_last_validated_period_months'])) {
+                    return (int) $bySubmission[(int) $post->ID]['hv_last_validated_period_months'];
+                }
+                $amount = (int) round((float) $payment->amount_delta);
+
+                return match (true) {
+                    $amount > 0 && $amount === $prices['price_12m'] => 12,
+                    $amount > 0 && $amount === $prices['price_6m'] => 6,
+                    $amount > 0 && $amount === $prices['price_monthly'] => 1,
+                    in_array((int) ($meta['hv_payment_period_months'] ?? 0), [1, 6, 12], true) => (int) $meta['hv_payment_period_months'],
+                    default => 1,
+                };
+            };
+
+            $status = 'awaiting_clinic';
+            $months = 1;
+            $first = $last = $expires = null;
+            $lastAmount = (float) ($meta['hv_payment_amount'] ?? 0);
+            if ($paid) {
+                $first = WordPressSource::date($paid[0]->created_at);
+                $lastPayment = end($paid);
+                $last = WordPressSource::date($lastPayment->created_at);
+                $months = $periodFor($lastPayment, true);
+                $lastAmount = (float) $lastPayment->amount_delta ?: $lastAmount;
+                $expires = WordPressSource::date($bySubmission[(int) $post->ID]['hv_subscription_expires_at'] ?? '')
+                    ?? date('Y-m-d H:i:s', strtotime('+'.$months.' months', strtotime($last)));
+                $status = strtotime($expires) > time() ? 'active' : 'expired';
+                $counts['contracts_paid']++;
+                $counts[$status === 'active' ? 'contracts_active' : 'contracts_expired']++;
+            } else {
+                $counts['contracts_unpaid']++;
+                // Neplatit: oferta ramane deschisa doar in termenul din contract, ca pentru contractele noi.
+                $status = strtotime($post->post_date.' +'.$validDays.' days') > time() ? 'awaiting_clinic' : 'offer_lapsed';
+            }
+
             $ownerId = $userMap[(int) ($meta['hv_client_user_id'] ?? 0)] ?? User::query()->where('email', mb_strtolower((string) ($payload['owner_email'] ?? '')))->value('id');
-            if ($dryRun || ! $ownerId) {
-                if (! $ownerId && ! $dryRun) {
-                    $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'Clientul contractului nu a fost găsit.'];
+            if (! $ownerId) {
+                // Fara cont si fara email valid nu se poate crea un client fara a inventa date. Contractul ramane intreg
+                // in arhiva WordPress, iar PDF-ul lui se pastreaza criptat, ca fisier de arhiva.
+                $counts['contracts_without_client'] = ($counts['contracts_without_client'] ?? 0) + 1;
+                $errors[] = ['wp_post_id' => (int) $post->ID, 'error' => 'Contract fără client: niciun cont și email invalid în formular ('
+                    .(filter_var((string) ($payload['owner_email'] ?? ''), FILTER_VALIDATE_EMAIL) ? 'email fără cont' : 'email invalid').'); păstrat în Arhiva WordPress.'];
+                if (! $dryRun && $pdfFile) {
+                    app(LegacyArchive::class)->storeFile($pdfFile, 'contract-fara-client', 'WP-'.$post->ID.' ('.substr((string) $post->post_date, 0, 10).')');
                 }
 
                 continue;
             }
+            if ($dryRun) {
+                continue;
+            }
 
-            $months = in_array((int) ($meta['hv_payment_period_months'] ?? 1), [1, 6, 12], true) ? (int) $meta['hv_payment_period_months'] : 1;
-            $paidAt = WordPressSource::date($meta['hv_payment_paid_at'] ?? '');
-            $expires = $paidAt ? date('Y-m-d H:i:s', strtotime('+'.$months.' months', strtotime($paidAt))) : null;
-            $status = ! $paid ? 'awaiting_clinic' : ($expires && strtotime($expires) > time() ? 'active' : 'expired');
             $petId = DB::table('pets')->where('user_id', $ownerId)->where('name', $payload['pet_name'] ?? '')->value('id');
             $files = $pdfFile ? $this->copyContractFiles($pdfFile) : [];
+            $stored = array_diff_key($payload, ['signature' => 1]) + ['source_pdf' => $meta['hv_pdf'] ?? null,
+                'source_payment_status' => $meta['hv_payment_status'] ?? null, 'source_payment_meta' => array_filter([
+                    'period_months' => $meta['hv_payment_period_months'] ?? null, 'amount' => $meta['hv_payment_amount'] ?? null, 'paid_at' => $meta['hv_payment_paid_at'] ?? null])];
 
             DB::table('contracts')->updateOrInsert(['wp_post_id' => (int) $post->ID], [
                 'number' => 'WP-'.$post->ID, 'user_id' => $ownerId, 'pet_id' => $petId, 'submission_token' => (string) ($meta['hv_submission_token'] ?? 'wp-'.$post->ID),
@@ -194,19 +271,68 @@ class WordPressCoreImporter
                 'pet_name' => (string) ($payload['pet_name'] ?? ''),
                 'standard_monthly' => (int) ($payload['standard_price_monthly'] ?? $payload['price_monthly'] ?? 0), 'standard_6m' => (int) ($payload['standard_price_6m'] ?? $payload['price_6m'] ?? 0),
                 'standard_12m' => (int) ($payload['standard_price_12m'] ?? $payload['price_12m'] ?? 0),
-                'price_monthly' => (int) ($payload['price_monthly'] ?? 0), 'price_6m' => (int) ($payload['price_6m'] ?? 0), 'price_12m' => (int) ($payload['price_12m'] ?? 0),
+                'price_monthly' => $prices['price_monthly'], 'price_6m' => $prices['price_6m'], 'price_12m' => $prices['price_12m'],
                 'discount_percent' => (int) ($payload['discount_percent'] ?? 0), 'discount_label' => $payload['discount_label'] ?? null, 'pet_ordinal' => (int) ($payload['pet_ordinal'] ?? 1),
                 'total_normal' => (int) ($meta['hv_total_normal'] ?? 0), 'total_subscription' => (int) ($meta['hv_total_abon'] ?? 0),
-                'period_months' => $months, 'payment_method' => 'clinic', 'payment_amount' => (float) ($meta['hv_payment_amount'] ?? 0),
-                'payload' => encrypt(json_encode(array_diff_key($payload, ['signature' => 1]) + ['source_pdf' => $meta['hv_pdf'] ?? null], JSON_UNESCAPED_UNICODE), false),
-                'legal_consents' => json_encode(['accepted' => $payload['legal'] ?? [], 'source' => 'import WordPress']),
-                'signed_at' => $post->post_date, 'paid_at' => $paidAt, 'starts_at' => $paidAt, 'expires_at' => $expires,
+                'period_months' => $months, 'payment_method' => 'clinic', 'payment_amount' => $lastAmount,
+                'payload' => encrypt(json_encode($stored, JSON_UNESCAPED_UNICODE), false),
+                'legal_consents' => json_encode(['accepted' => $payload['legal'] ?? array_intersect_key($payload, array_flip(['contract', 'annex', 'terms', 'guide', 'privacy', 'not_insurance'])), 'source' => 'import WordPress']),
+                'signed_at' => $post->post_date, 'paid_at' => $last, 'starts_at' => $first, 'expires_at' => $expires,
+                'valid_until' => date('Y-m-d H:i:s', strtotime($post->post_date.' +'.$validDays.' days')),
                 'pdf_path' => $files['pdf'] ?? null, 'pdf_sha256' => $files['pdf_sha256'] ?? null, 'signature_path' => $files['signature'] ?? null,
                 'legacy_pdf_reference' => ($meta['hv_pdf'] ?? '') ?: null,
                 'created_at' => $post->post_date, 'updated_at' => $post->post_modified ?? $post->post_date,
             ]);
+            $contractId = (int) DB::table('contracts')->where('wp_post_id', (int) $post->ID)->value('id');
+
+            // Istoricul contractului, refacut la fiecare import: semnare, fiecare plata, starea finala.
+            DB::table('contract_status_history')->where('contract_id', $contractId)->where('note', 'like', 'WordPress:%')->delete();
+            $history = [['from_status' => null, 'to_status' => 'awaiting_clinic', 'note' => 'WordPress: contract semnat online', 'created_at' => $post->post_date]];
+            foreach ($paid as $i => $payment) {
+                $history[] = ['from_status' => $i === 0 ? 'awaiting_clinic' : 'active', 'to_status' => 'active', 'created_at' => WordPressSource::date($payment->created_at) ?? $post->post_date,
+                    'note' => mb_substr('WordPress: '.($payment->type === 'subscription_paid_card' ? 'plată cu cardul' : ($i === 0 ? 'plată validată la clinică' : 'reînnoire validată la clinică'))
+                        .(((float) $payment->amount_delta) > 0 ? ', '.rtrim(rtrim(number_format((float) $payment->amount_delta, 2, '.', ''), '0'), '.').' lei' : '')
+                        .', '.(($n = $periodFor($payment, $i === count($paid) - 1)) === 1 ? '1 lună' : $n.' luni').($payment->id ? ' (tranzacția #'.$payment->id.')' : ''), 0, 255)];
+            }
+            if ($status === 'expired') {
+                $history[] = ['from_status' => 'active', 'to_status' => 'expired', 'note' => 'WordPress: abonament expirat', 'created_at' => $expires];
+            } elseif ($status === 'offer_lapsed') {
+                $history[] = ['from_status' => 'awaiting_clinic', 'to_status' => 'offer_lapsed', 'note' => 'WordPress: neplătit în termenul ofertei', 'created_at' => date('Y-m-d H:i:s', strtotime($post->post_date.' +'.$validDays.' days'))];
+            }
+            DB::table('contract_status_history')->insert(array_map(fn ($h) => $h + ['contract_id' => $contractId, 'actor_id' => null], $history));
             $counts['contracts_imported']++;
         }
+    }
+
+    /**
+     * hv_payload este JSON. WordPress scoate backslash-urile la salvarea in meta, asa ca un camp cu HTML
+     * (contract_preview_html) poate ajunge cu ghilimele neescapate. Atunci se pastreaza toate campurile
+     * dinaintea celui stricat, iar textul original complet ramane in payload ca dovada.
+     *
+     * @return array{0:?array,1:bool} payload, daca a fost reparat
+     */
+    private function decodePayload(string $raw): array
+    {
+        $payload = json_decode($raw, true);
+        if (is_array($payload)) {
+            return [$payload, false];
+        }
+        if ($raw === '' || ! str_starts_with($raw, '{')) {
+            return [null, false];
+        }
+        preg_match_all('/,"([a-z0-9_]+)":/', $raw, $m, PREG_OFFSET_CAPTURE);
+        foreach (array_reverse($m[0]) as [, $offset]) {
+            $prefix = json_decode(substr($raw, 0, $offset).'}', true);
+            if (is_array($prefix) && $prefix !== []) {
+                $broken = [];
+                preg_match_all('/,"([a-z0-9_]+)":/', substr($raw, $offset), $rest);
+
+                return [$prefix + ['_import_note' => 'Câmpuri cu text deteriorat în WordPress (ghilimele neescapate): '.implode(', ', array_unique($rest[1])).'. Originalul complet este în _source_raw.',
+                    '_source_raw' => $raw], true];
+            }
+        }
+
+        return [null, false];
     }
 
     /** Registrul hv_wallet_tx se copiaza rand cu rand, cu ID-ul si data originale; soldurile rezulta din suma lui. */
