@@ -54,6 +54,9 @@ class WpressExtract extends Command
             $binaryFixes = [];
             $in = fopen($sql, 'rb');
             $out = fopen($target.'/database.restored.sql', 'wb');
+            // Fara setul de caractere declarat, un client mysql configurat pe latin1 ar dubla codarea diacriticelor
+            // („câine” devine „cÃ¢ine”) si datele serializate din WordPress nu s-ar mai putea citi.
+            fwrite($out, "/*!40101 SET NAMES utf8mb4 */;\n");
             while (($line = fgets($in)) !== false) {
                 $line = str_replace('SERVMASK_PREFIX_', $prefix, $line);
                 // Pluginul scrie valorile binare goale ca 0x, pe care MySQL / MariaDB le refuza; devin sir gol.

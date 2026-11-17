@@ -528,4 +528,48 @@ class WordPressImportTest extends TestCase
         $this->assertNotSame('Siameza', $case->source('rasa'), 'Randul importat initial ramane neschimbat.');
         $this->assertStringContainsString('platforma nouă', json_encode($batch->errors, JSON_UNESCAPED_UNICODE));
     }
+
+    public function test_consent_visit_list_corrections_and_unreadable_payloads_are_kept(): void
+    {
+        $wp = DB::connection('wp');
+        $pm = fn (int $id, string $k, $v) => $wp->table(self::P.'postmeta')->insert(['post_id' => $id, 'meta_key' => $k, 'meta_value' => $v]);
+        $wp->table(self::P.'posts')->insert(['ID' => 951, 'post_type' => 'hv_consent', 'post_date' => '2026-08-05 08:00:00', 'post_modified' => '2026-08-05 08:00:00']);
+        $pm(951, 'hv_consent_payload', serialize(['owner_name' => 'Proprietar Sintetic', 'pet_name' => 'Mura']));
+        $pm(951, 'hv_consent_status', 'pending');
+        $pm(951, 'hv_st_case_id', '2');
+        $pm(951, 'hv_consent_visit_group_id', '2');
+        $pm(951, 'hv_consent_visit_patients', serialize([['case_id' => 2, 'pet_name' => 'Mura'], ['case_id' => 77, 'pet_name' => 'Adăugat după']]));
+        $pm(951, 'hv_consent_supersedes', '950');
+        $pm(951, 'hv_consent_correction_reason', 'Reparare automată integritate raport Primărie');
+        $pm(950, 'hv_consent_superseded_by', '951');
+        $wp->table(self::P.'posts')->insert(['ID' => 952, 'post_type' => 'hv_consent', 'post_date' => '2026-08-05 08:00:00', 'post_modified' => '2026-08-05 08:00:00']);
+        // Serializare deteriorata (lungimea nu corespunde): continutul se pastreaza exact si se raporteaza.
+        $pm(952, 'hv_consent_payload', 'a:1:{s:10:"owner_name";s:3:"câine";}');
+        $pm(952, 'hv_consent_status', 'signed');
+
+        $batch = (new WordPressCoreImporter($this->source()))->run(false);
+        (new SterilizationImporter($this->source()))->run(false, $this->uploads);
+
+        $this->assertSame(1, $batch->counts['consents_payload_unreadable']);
+        $this->assertStringContainsString('"wp_consent_id":952', json_encode($batch->errors));
+        $broken = Consent::query()->where('wp_post_id', 952)->sole();
+        $this->assertSame('a:1:{s:10:"owner_name";s:3:"câine";}', $broken->payload['_wordpress_payload_unreadable']);
+
+        $case = SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-002')->sole();
+        $old = Consent::query()->where('wp_post_id', 950)->sole();
+        $new = Consent::query()->where('wp_post_id', 951)->sole();
+        $this->assertSame([$old->id, $new->id], [$new->supersedes_id, $old->superseded_by_id]);
+        $this->assertSame('Reparare automată integritate raport Primărie', $new->correction_reason);
+        $this->assertSame([$case->id, $case->id], [$new->sterilization_case_id, $new->visit_group_id]);
+        $this->assertSame([$case->id, 0], array_column($new->visit_patients, 'case_id'), 'ID-urile dosarelor din vizita sunt traduse; cel inexistent ramane 0.');
+        $this->assertSame([2, 77], array_column($new->visit_patients, 'wp_case_id'));
+    }
+
+    public function test_import_refuses_a_wordpress_copy_loaded_with_the_wrong_character_set(): void
+    {
+        DB::connection('wp')->table(self::P.'posts')->insert(['ID' => 960, 'post_type' => 'post', 'post_title' => 'Castrare cÃ¢ine', 'post_date' => '2026-08-05 08:00:00']);
+
+        $this->artisan('hikevet:import-wordpress')->expectsOutputToContain('codate de două ori')->assertFailed();
+        $this->assertSame(['wpx7_posts' => 1], $this->source()->doubleEncoding());
+    }
 }

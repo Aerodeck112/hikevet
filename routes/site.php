@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AuthController;
 use App\Http\Controllers\Account\DashboardController;
 use App\Http\Controllers\Admin\CampaignAppointmentController;
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\CampaignReportController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Booking\BookingController;
 use App\Http\Controllers\Site\ContactController;
@@ -70,6 +71,27 @@ Route::middleware('auth')->prefix('admin/campanie')->name('admin.campaign.')->co
     Route::post('/dosar/{case}/cod-tableta', 'consentCode')->name('consent-code');
     Route::get('/dosar/{case}/foto-status', 'photoStatus')->name('photo-status');
     Route::get('/document/{document}', 'document')->name('document');
+});
+
+// Raportul pentru Primarie: exporturi si control (permisiunile se verifica in controller).
+Route::middleware('auth')->prefix('admin/campanie/raport')->name('admin.campaign.report.')->controller(CampaignReportController::class)->group(function () {
+    Route::get('/excel', 'xlsx')->name('xlsx');
+    Route::get('/pdf', 'pdf')->name('pdf');
+    Route::get('/centralizator', 'centralizator')->name('centralizator');
+    Route::get('/csv', 'csv')->name('csv');
+    Route::post('/zip', 'zip')->name('zip');
+    Route::post('/dosar/{case}/zip', 'caseZip')->name('case-zip');
+    Route::post('/dosar/{case}/foto-verificata', 'markPhoto')->name('mark-photo');
+    Route::post('/dosar/{case}/consimtamant-corectat', 'reissueConsent')->name('reissue-consent');
+    Route::post('/foto-verificate', 'bulkPhoto')->name('bulk-photo');
+    Route::post('/aliniaza-dupa-foto', 'align')->name('align');
+    Route::get('/registru.csv', 'registryCsv')->name('registry-csv');
+    Route::post('/reconciliere', 'saveReconciliation')->name('reconciliation');
+    Route::get('/reconciliere.csv', 'reconciliationCsv')->name('reconciliation-csv');
+    Route::get('/reconciliere/{month}.pdf', 'reconciliationPdf')->where('month', '2026-0[789]')->name('reconciliation-pdf');
+    Route::post('/raportate-anterior', 'savePriorReports')->name('prior');
+    Route::post('/validare-in-masa', 'bulkValidate')->name('bulk-validate');
+    Route::post('/reparare', 'repair')->name('repair');
 });
 
 Route::middleware('auth')->prefix('admin/campanie/programari')->name('admin.campaign.appointments.')->controller(CampaignAppointmentController::class)->group(function () {

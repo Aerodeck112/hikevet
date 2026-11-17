@@ -3,6 +3,7 @@
 namespace App\Services\Import;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Dupa import, legaturile din dosarele WordPress trimit inca la ID-uri WordPress (vizita, programarea initiala,
@@ -19,6 +20,27 @@ class CampaignRelinker
         $appointmentMap = DB::table('sterilization_appointments')->whereNotNull('source_id')->pluck('id', 'source_id')->all();
         $consentMap = DB::table('consents')->whereNotNull('wp_post_id')->pluck('id', 'wp_post_id')->all();
         $stats = ['cases' => 0, 'appointments' => 0, 'email_logs' => 0, 'consents' => 0];
+
+        // Consimtamintele importate: dosarul si vizita din WordPress, plus ID-urile dosarelor din lista vizitei.
+        if (Schema::hasColumn('consents', 'wp_case_id')) {
+            foreach (DB::table('consents')->whereNotNull('wp_post_id')->get(['id', 'wp_case_id', 'wp_visit_group_id', 'visit_patients']) as $c) {
+                $patients = json_decode((string) $c->visit_patients, true);
+                if (is_array($patients)) {
+                    foreach ($patients as &$p) {
+                        if (is_array($p) && isset($p['case_id']) && ! isset($p['wp_case_id'])) {
+                            $p['wp_case_id'] = (int) $p['case_id'];
+                            $p['case_id'] = (int) ($caseMap[(int) $p['case_id']] ?? 0);
+                        }
+                    }
+                    unset($p);
+                }
+                DB::table('consents')->where('id', $c->id)->update([
+                    'sterilization_case_id' => $c->wp_case_id ? ($caseMap[(int) $c->wp_case_id] ?? null) : null,
+                    'visit_group_id' => $c->wp_visit_group_id ? ($caseMap[(int) $c->wp_visit_group_id] ?? null) : null,
+                    'visit_patients' => is_array($patients) ? json_encode($patients, JSON_UNESCAPED_UNICODE) : $c->visit_patients,
+                ]);
+            }
+        }
 
         foreach (DB::table('sterilization_cases')->whereNotNull('source_row')->whereNull('live_updated_at')->orderBy('id')->get(['id', 'source_row']) as $case) {
             $data = json_decode((string) $case->source_row, true) ?: [];

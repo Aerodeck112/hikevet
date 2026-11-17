@@ -52,6 +52,17 @@ class ImportWordPress extends Command
             return self::FAILURE;
         }
 
+        if ($broken = $source->doubleEncoding()) {
+            $this->error('Baza WordPress pare încărcată cu alt set de caractere: diacriticele sunt codate de două ori (de ex. „câine” apare ca „cÃ¢ine”).');
+            foreach ($broken as $table => $rows) {
+                $this->line("  {$table}: {$rows} rânduri afectate");
+            }
+            $this->line('Reîncarcă baza din database.restored.sql cu setul utf8mb4 (fișierul generat de hikevet:wpress îl declară deja;');
+            $this->line('din linia de comandă: mysql --default-character-set=utf8mb4 ...), apoi rulează din nou. Nu s-a importat nimic.');
+
+            return self::FAILURE;
+        }
+
         $this->components->info($execute ? 'IMPORT REAL' : 'PROBĂ (dry-run): nu se scrie nimic');
         $only = $this->option('only');
         $failed = false;

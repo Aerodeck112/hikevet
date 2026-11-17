@@ -89,7 +89,7 @@ class CampaignCase extends Page
 
         $data = ['row' => $row, 'model' => $model, 'isNew' => $isNew, 'tab' => $tab, 'tabs' => CaseForm::TABS,
             'cards' => CaseForm::cards($tab, $isNew), 'canEdit' => (bool) $user->can(Permission::CAMPAIGN_MANAGE),
-            'canValidate' => (bool) $user->can(Permission::CAMPAIGN_VALIDATE), 'focusField' => $this->focus];
+            'canValidate' => (bool) $user->can(Permission::CAMPAIGN_VALIDATE), 'canExport' => (bool) $user->can(Permission::STERILIZATION_EXPORT), 'focusField' => $this->focus];
         if ($isNew) {
             return $data;
         }

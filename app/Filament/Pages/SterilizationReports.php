@@ -18,11 +18,11 @@ class SterilizationReports extends Page
 
     protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
 
-    protected static ?string $navigationLabel = 'Raportări sterilizări';
+    protected static ?string $navigationLabel = 'Raport din datele originale';
 
     protected static ?string $title = 'Raportări istorice sterilizări';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 30;
 
     protected string $view = 'filament.pages.sterilization-reports';
 

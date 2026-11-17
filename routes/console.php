@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Campaign\CityExports;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schedule;
 
@@ -10,3 +11,11 @@ Schedule::command('auth:clear-resets')->daily();
 Schedule::command('hikevet:campaign-emails')->hourly()->withoutOverlapping();
 Schedule::command('queue:work --stop-when-empty --max-time=50')->everyMinute()->withoutOverlapping();
 Schedule::call(fn () => Cache::forever('hikevet.last_cron_run', now()->toIso8601String()))->everyMinute()->name('hikevet-heartbeat');
+// Exporturile pentru Primarie trec prin storage/app/private/tmp; ce ramane dupa un export intrerupt se sterge.
+Schedule::call(function () {
+    foreach (glob(storage_path('app/private/tmp/hv-*')) ?: [] as $path) {
+        if (filemtime($path) < time() - 6 * 3600) {
+            is_dir($path) ? CityExports::removeDir($path) : @unlink($path);
+        }
+    }
+})->hourly()->name('hikevet-tmp-cleanup');

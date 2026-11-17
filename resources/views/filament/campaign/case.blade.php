@@ -210,6 +210,13 @@
                 </section>
             @endif
         @endif
+        @if (! $isNew && in_array($tab, ['rezumat', 'validare', 'corectare'], true) && $canExport)
+            <section class="hv-card">
+                <h3>Dosarul pentru Primărie</h3>
+                <p class="hv-cp-note">Arhivă cu fișa pacientului (PDF), fotografia, consimțământul semnat (PDF), actul de identitate și manifestul cu situația dosarului. Documentele lipsă apar ca fișiere LIPSA / EROARE.</p>
+                <form method="post" action="{{ route('admin.campaign.report.case-zip', $model->id) }}">@csrf<button class="hv-cp-btn hv-cp-btn--primary" type="submit">Descarcă ZIP dosar</button></form>
+            </section>
+        @endif
         @if (! $isNew && $tab === 'corectare' && $canEdit)
             <section class="hv-card" style="border-color:#fecaca;background:#fff7f7">
                 <h3 style="color:#991b1b">Ștergere dosar</h3>

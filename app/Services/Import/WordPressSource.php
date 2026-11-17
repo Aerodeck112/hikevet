@@ -52,6 +52,33 @@ class WordPressSource
         throw new RuntimeException('Nu am găsit tabele WordPress în baza sursă. Verifică setările WP_DB_* din .env.');
     }
 
+    /**
+     * Semne ca baza WordPress a fost incarcata cu alt set de caractere decat cel al fisierului SQL: diacriticele
+     * romanesti codate de doua ori (â → Ã¢, î → Ã®, ă → Äƒ, ș → È™, ț → È›). Intoarce cate un exemplu din fiecare tabela.
+     *
+     * @return array<string,int> tabela => randuri afectate
+     */
+    public function doubleEncoding(): array
+    {
+        $found = [];
+        $patterns = ['Ã¢', 'Ã®', 'Äƒ', 'È™', 'È›', 'Ã¡', 'Ã©'];
+        foreach (['posts' => 'post_title', 'postmeta' => 'meta_value', 'usermeta' => 'meta_value', 'hv_st_cases' => 'procedura_programata'] as $table => $column) {
+            if (! $this->has($table)) {
+                continue;
+            }
+            $count = $this->table($table)->where(function ($q) use ($column, $patterns) {
+                foreach ($patterns as $pattern) {
+                    $q->orWhere($column, 'like', '%'.$pattern.'%');
+                }
+            })->count();
+            if ($count > 0) {
+                $found[$this->prefix().$table] = $count;
+            }
+        }
+
+        return $found;
+    }
+
     public function has(string $table): bool
     {
         return in_array($this->prefix().$table, $this->tables(), true);

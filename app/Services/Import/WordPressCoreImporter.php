@@ -43,7 +43,7 @@ class WordPressCoreImporter
             $this->contracts($dryRun, $counts, $errors, $userMap);
             $this->wallet($dryRun, $counts, $errors, $userMap);
             $this->treatments($dryRun, $counts, $userMap);
-            $this->consents($dryRun, $counts, $userMap);
+            $this->consents($dryRun, $counts, $errors, $userMap);
             $this->notifications($dryRun, $counts, $userMap);
             $this->emailLog($dryRun, $counts, $userMap);
             $this->auditLog($dryRun, $counts, $userMap);
@@ -396,19 +396,28 @@ class WordPressCoreImporter
     }
 
     /** Consimtamintele (CPT hv_consent) cu payload, semnaturi si momentul semnarii, exact ca in sursa. */
-    private function consents(bool $dryRun, array &$counts, array $userMap): void
+    private function consents(bool $dryRun, array &$counts, array &$errors, array $userMap): void
     {
-        $counts += ['consents_in_source' => 0, 'consents_imported' => 0, 'consents_signed' => 0, 'consents_signed_without_signature' => 0];
+        $counts += ['consents_in_source' => 0, 'consents_imported' => 0, 'consents_signed' => 0, 'consents_signed_without_signature' => 0, 'consents_payload_unreadable' => 0];
         if (! $this->source->has('posts')) {
             return;
         }
         $service = app(ConsentService::class);
+        $corrections = [];
 
         foreach ($this->source->table('posts')->where('post_type', 'hv_consent')->orderBy('ID')->cursor() as $post) {
             $counts['consents_in_source']++;
             $meta = $this->source->table('postmeta')->where('post_id', $post->ID)->pluck('meta_value', 'meta_key');
-            $payload = WordPressSource::meta($meta['hv_consent_payload'] ?? '');
-            $payload = is_array($payload) ? $payload : [];
+            $raw = (string) ($meta['hv_consent_payload'] ?? '');
+            $payload = WordPressSource::meta($raw);
+            if (! is_array($payload)) {
+                // Continutul care nu poate fi citit nu se pierde: se pastreaza exact, iar lotul il raporteaza.
+                if ($raw !== '') {
+                    $counts['consents_payload_unreadable']++;
+                    $errors[] = ['wp_consent_id' => (int) $post->ID, 'error' => 'Conținutul consimțământului nu poate fi citit (date serializate deteriorate); păstrat neschimbat.'];
+                }
+                $payload = $raw !== '' ? ['_wordpress_payload_unreadable' => $raw] : [];
+            }
             $status = in_array($meta['hv_consent_status'] ?? '', ['pending', 'signed', 'cancelled'], true) ? $meta['hv_consent_status'] : 'pending';
             $ownerSignature = (string) ($meta['hv_consent_owner_signature'] ?? '');
             if ($status === 'signed') {
@@ -433,11 +442,28 @@ class WordPressCoreImporter
                 'owner_signature' => $enc($ownerSignature), 'refusal_signature' => $enc((string) ($meta['hv_consent_refusal_signature'] ?? '')),
                 'doctor_signature' => $enc((string) ($meta['hv_consent_doctor_signature'] ?? '')),
                 'doctor_signed_at' => WordPressSource::date($meta['hv_consent_doctor_signature_at'] ?? ''), 'signed_at' => WordPressSource::date($meta['hv_consent_signed_at'] ?? ''),
-                'template_version' => 'wp-import', 'sterilization_case_id' => ((int) ($meta['hv_st_case_id'] ?? 0)) ?: null,
+                'template_version' => 'wp-import',
+                // Legaturile spre dosare se traduc in ID-urile noi dupa importul dosarelor (CampaignRelinker).
+                'sterilization_case_id' => null, 'wp_case_id' => ((int) ($meta['hv_st_case_id'] ?? 0)) ?: null,
+                'wp_visit_group_id' => ((int) ($meta['hv_consent_visit_group_id'] ?? 0)) ?: null,
+                // Lista pacientilor vizitei, actualizata de plugin si dupa semnare; documentul semnat ramane cel din payload.
+                'visit_patients' => is_array($patients = WordPressSource::meta($meta['hv_consent_visit_patients'] ?? '')) ? json_encode(array_values(array_filter($patients, 'is_array')), JSON_UNESCAPED_UNICODE) : null,
+                'visit_patients_updated_at' => WordPressSource::date($meta['hv_consent_visit_patients_updated_at'] ?? ''),
+                'correction_reason' => ($meta['hv_consent_correction_reason'] ?? '') !== '' ? mb_substr((string) $meta['hv_consent_correction_reason'], 0, 250) : null,
                 'created_at' => $post->post_date, 'updated_at' => $post->post_modified ?? $post->post_date,
             ]);
             $counts['consents_imported']++;
+            if (($meta['hv_consent_supersedes'] ?? '') !== '' || ($meta['hv_consent_superseded_by'] ?? '') !== '') {
+                $corrections[(int) $post->ID] = [(int) ($meta['hv_consent_supersedes'] ?? 0), (int) ($meta['hv_consent_superseded_by'] ?? 0)];
+            }
         }
+
+        // Variantele corectate: cine inlocuieste pe cine, in ID-urile noi.
+        $map = DB::table('consents')->whereNotNull('wp_post_id')->pluck('id', 'wp_post_id')->all();
+        foreach ($corrections as $wpId => [$supersedes, $supersededBy]) {
+            DB::table('consents')->where('wp_post_id', $wpId)->update(['supersedes_id' => $map[$supersedes] ?? null, 'superseded_by_id' => $map[$supersededBy] ?? null]);
+        }
+        $counts['consents_corrections_linked'] = count($corrections);
     }
 
     /** Notificarile din contul clientului (hv_notifications). */
