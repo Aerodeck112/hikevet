@@ -20,6 +20,18 @@ class CampaignMailer
     /** ABATERE: pluginul reincerca follow-up-ul esuat la fiecare ora, la nesfarsit (80.784 de incercari esuate in backup). */
     public const MAX_AUTOMATIC_FOLLOWUP_ATTEMPTS = 3;
 
+    public const STOPPED_MESSAGE = 'Campania de sterilizare este oprită: emailurile campaniei nu se mai trimit.';
+
+    /**
+     * Campania s-a incheiat si ramane doar ca istoric: implicit oprita. Cat timp este oprita nu pleaca niciun email
+     * (automat sau manual), nu se fac programari si nu se incarca fotografii de pe telefon. Se poate reporni din
+     * Setari clinica doar de un administrator.
+     */
+    public static function active(): bool
+    {
+        return (bool) Settings::get('campaign.active', false);
+    }
+
     /** Copiile interne ale emailurilor campaniei (clinic_copy_addresses). */
     public static function copyAddresses(): array
     {
@@ -29,6 +41,9 @@ class CampaignMailer
     /** @return array{0:bool,1:string} */
     private function deliver(string $to, string $subject, string $html): array
     {
+        if (! self::active()) {
+            return [false, self::STOPPED_MESSAGE];
+        }
         try {
             Mail::html($html, function ($m) use ($to, $subject) {
                 $m->to($to)->subject($subject);
@@ -55,6 +70,9 @@ class CampaignMailer
     /** @return array{0:bool,1:string} booking_confirmation | manual | automatic */
     public function sendAppointmentEmail(SterilizationAppointment $a, string $type, ?User $actor): array
     {
+        if (! self::active()) {
+            return [false, self::STOPPED_MESSAGE];
+        }
         $to = filter_var((string) $a->client_email, FILTER_VALIDATE_EMAIL) ? (string) $a->client_email : '';
         if ($to === '') {
             return [false, 'Clientul nu are o adresă de email validă.'];
@@ -81,6 +99,9 @@ class CampaignMailer
     /** Rezumatul de externare; la retrimitere manuala dupa un email trimis devine versiunea ACTUALIZATA. */
     public function sendFinalSummary(SterilizationCase $case, bool $manual, ?User $actor): array
     {
+        if (! self::active()) {
+            return [false, self::STOPPED_MESSAGE];
+        }
         $row = $case->row();
         $corrected = $manual && ! empty($row['final_summary_email_sent_at']);
         $type = $corrected ? 'postop_instant_manual_corrected' : ($manual ? 'postop_instant_manual' : 'postop_instant_auto');
@@ -114,6 +135,9 @@ class CampaignMailer
     /** Follow-up-ul la 48 de ore dupa externare. */
     public function sendFollowup(SterilizationCase $case, bool $manual, ?User $actor): array
     {
+        if (! self::active()) {
+            return [false, self::STOPPED_MESSAGE];
+        }
         $row = $case->row();
         $patient = trim((string) $row['nume_pacient']);
         $subject = 'HiKeVet – Cum decurge recuperarea'.($patient ? ' lui '.$patient : '').'?';
@@ -137,6 +161,9 @@ class CampaignMailer
     /** run_postop_emails: follow-up automat pentru externarile ajunse la 48 de ore, cu numar limitat de reincercari. */
     public function runFollowups(?Carbon $now = null): array
     {
+        if (! self::active()) {
+            return ['sent' => 0, 'failed' => 0, 'stopped_after_retries' => 0];
+        }
         $now ??= now();
         $sent = $failed = $skipped = 0;
         $cases = SterilizationCase::query()->active()->whereNotNull('data_externare')->orderBy('data_externare')->orderBy('id')->get();

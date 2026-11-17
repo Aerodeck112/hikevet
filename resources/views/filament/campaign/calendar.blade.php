@@ -1,5 +1,6 @@
 <x-filament-panels::page>
 <div class="hv-cp hv-client">
+    @include('filament.campaign._stopped')
     @if (session('campaign_message'))<div class="hv-cp-flash hv-cp-flash--ok">{{ session('campaign_message') }}</div>@endif
     @if (session('campaign_warning'))<div class="hv-cp-flash hv-cp-flash--warn">{{ session('campaign_warning') }}</div>@endif
     @if ($errors->any())<div class="hv-cp-flash hv-cp-flash--bad">@foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach</div>@endif

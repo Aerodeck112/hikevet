@@ -22,6 +22,12 @@ class CampaignAppointmentController extends Controller
         abort_unless($request->user()?->can(Permission::CAMPAIGN_MANAGE), 403);
     }
 
+    /** Campania oprita: programarile raman ca istoric, fara modificari. */
+    private function stopped(): ?RedirectResponse
+    {
+        return CampaignMailer::active() ? null : back()->with('campaign_warning', 'Campania de sterilizare este oprită și rămâne doar ca istoric: nu se mai fac programări, nu se mai trimit emailuri și nu se mai încarcă fotografii. Dosarele și rapoartele pentru Primărie rămân disponibile.');
+    }
+
     private static function calendarUrl(?string $week, array $extra = []): string
     {
         return url('/admin/campanie/programari').'?'.http_build_query(array_filter(['week' => $week] + $extra));
@@ -30,6 +36,9 @@ class CampaignAppointmentController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $owner = (array) $request->input('appointment', []);
         $created = $this->appointments->createForPatients($owner, array_values((array) $request->input('patients', [])), $request->user());
         $sent = $created ? SterilizationEmailLog::query()->whereIn('appointment_id', array_map(fn ($a) => $a->id, $created))->where('status', 'sent')->count() : 0;
@@ -41,6 +50,9 @@ class CampaignAppointmentController extends Controller
     public function update(Request $request, SterilizationAppointment $appointment): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $a = $this->appointments->update($appointment, (array) $request->input('appointment', []), $request->user());
 
         return redirect()->to(self::calendarUrl($a->appointment_date?->format('Y-m-d'), ['appointment' => $a->id]))->with('campaign_message', 'Programarea a fost salvată, iar dosarul legat a fost actualizat.');
@@ -49,6 +61,9 @@ class CampaignAppointmentController extends Controller
     public function cancel(Request $request, SterilizationAppointment $appointment): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $this->appointments->cancel($appointment, $request->user());
 
         return redirect()->to(self::calendarUrl($appointment->appointment_date?->format('Y-m-d')))->with('campaign_message', 'Programarea '.$appointment->appointment_code.' a fost anulată.');
@@ -57,6 +72,9 @@ class CampaignAppointmentController extends Controller
     public function destroy(Request $request, SterilizationAppointment $appointment): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $week = $appointment->appointment_date?->format('Y-m-d');
         $this->appointments->delete($appointment, $request->user());
 
@@ -66,6 +84,9 @@ class CampaignAppointmentController extends Controller
     public function email(Request $request, SterilizationAppointment $appointment): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         [$sent, $error] = app(CampaignMailer::class)->sendAppointmentEmail($appointment, 'manual', $request->user());
 
         return back()->with($sent ? 'campaign_message' : 'campaign_warning', $sent ? 'Emailul cu programarea a fost retrimis proprietarului.' : 'Emailul nu a putut fi trimis: '.$error);
@@ -74,6 +95,9 @@ class CampaignAppointmentController extends Controller
     public function startConsultation(Request $request, SterilizationAppointment $appointment): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $case = app(CampaignCases::class)->startConsultation($appointment, $request->user());
 
         return redirect()->to(CampaignController::caseUrl($case->id, 'preoperator'))->with('campaign_message', 'Programarea a deschis direct consultația preoperatorie. Completează fișa, apoi recepția finalizează consimțământul și GDPR în prima secțiune.');

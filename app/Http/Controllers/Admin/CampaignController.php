@@ -25,6 +25,12 @@ class CampaignController extends Controller
         return url('/admin/campanie/dosar').'?'.http_build_query(['case' => $id, 'tab' => $tab] + $extra);
     }
 
+    /** Campania oprita: dosarele existente se pot consulta si corecta, dar nu apar dosare, coduri de tableta sau emailuri noi. */
+    private function stopped(): ?RedirectResponse
+    {
+        return CampaignMailer::active() ? null : back()->with('campaign_warning', 'Campania de sterilizare este oprită și rămâne doar ca istoric: nu se mai fac programări, nu se mai trimit emailuri și nu se mai încarcă fotografii. Dosarele și rapoartele pentru Primărie rămân disponibile.');
+    }
+
     private function authorize(Request $request, string $permission = Permission::CAMPAIGN_MANAGE): void
     {
         abort_unless($request->user()?->can($permission), 403);
@@ -35,6 +41,9 @@ class CampaignController extends Controller
         $section = (string) $request->input('section', 'receptie');
         $this->authorize($request, $section === 'validare' ? Permission::CAMPAIGN_VALIDATE : Permission::CAMPAIGN_MANAGE);
         $case = $request->integer('case_id') ? $this->cases->find($request->integer('case_id')) : null;
+        if (! $case && ($stop = $this->stopped())) {
+            return $stop;
+        }
         $request->validate([
             'documente_scanate_file' => ['nullable', 'file', 'max:20480', 'mimetypes:image/jpeg,image/png,image/webp,application/pdf'],
             'poza_pacient_file' => ['nullable', 'file', 'max:20480', 'mimetypes:image/jpeg,image/png,image/webp'],
@@ -62,6 +71,9 @@ class CampaignController extends Controller
     public function addVisitPet(Request $request, int $case): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $child = $this->cases->addVisitPet($this->cases->find($case), (array) $request->input('visit_pet', []), $request->user());
 
         return redirect()->to(self::caseUrl($child->id, 'preoperator'))->with('campaign_message', 'Animalul a fost adăugat în aceeași vizită, fără programare nouă. Datele proprietarului și documentele au fost preluate automat.');
@@ -88,6 +100,9 @@ class CampaignController extends Controller
     public function resendFinal(Request $request, int $case): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         [$sent, $error] = app(CampaignMailer::class)->sendFinalSummary($this->cases->find($case), true, $request->user());
 
         return back()->with($sent ? 'campaign_message' : 'campaign_warning', $sent
@@ -98,6 +113,9 @@ class CampaignController extends Controller
     public function sendFollowup(Request $request, int $case): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         [$sent, $error] = app(CampaignMailer::class)->sendFollowup($this->cases->find($case), true, $request->user());
 
         return back()->with($sent ? 'campaign_message' : 'campaign_warning', $sent ? 'Emailul de follow-up a fost trimis.' : 'Emailul de follow-up nu a putut fi trimis: '.$error);
@@ -106,6 +124,9 @@ class CampaignController extends Controller
     public function consentCode(Request $request, int $case): RedirectResponse
     {
         $this->authorize($request);
+        if ($stop = $this->stopped()) {
+            return $stop;
+        }
         $consent = $this->cases->checks()->consentFor($this->cases->find($case)->row());
         if (! $consent || $consent->isSigned()) {
             throw ValidationException::withMessages(['consent' => 'Dosarul nu are un consimțământ în așteptarea semnăturii.']);
@@ -132,7 +153,7 @@ class CampaignController extends Controller
     /** Pagina de pe telefon pentru fotografia pacientului (link din codul QR al dosarului). */
     public function phonePage(Request $request, string $token)
     {
-        $case = SterilizationCase::query()->active()->where('photo_upload_token', $token)->first();
+        $case = CampaignMailer::active() ? SterilizationCase::query()->active()->where('photo_upload_token', $token)->first() : null;
 
         return response()->view('campaign.phone-photo', ['case' => $case, 'token' => $token, 'uploaded' => $request->boolean('uploaded')], $case ? 200 : 404)
             ->header('Cache-Control', 'no-store, private')->header('X-Robots-Tag', 'noindex');
@@ -140,6 +161,7 @@ class CampaignController extends Controller
 
     public function phoneUpload(Request $request, string $token): RedirectResponse
     {
+        abort_unless(CampaignMailer::active(), 404);
         $case = SterilizationCase::query()->active()->where('photo_upload_token', $token)->firstOrFail();
         $request->validate(['photo' => ['required', 'file', 'max:20480', 'mimetypes:image/jpeg,image/png,image/webp']], [
             'photo.required' => 'Alege o fotografie: Deschide camera sau Alege din galerie.',

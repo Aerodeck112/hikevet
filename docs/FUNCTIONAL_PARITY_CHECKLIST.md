@@ -80,7 +80,10 @@ Starea fiecărei funcții față de sistemul WordPress, la 17.11.2026 (secțiune
 
 ## 5. Campania de sterilizare (modulul 2.7.6)
 
-Campania activă rulează acum în platforma nouă, pe datele importate din WordPress. Rândul original din
+**Campania s-a încheiat și este oprită implicit: rămâne doar ca istoric.** Nu se trimit emailuri, nu se fac
+programări sau dosare noi și nu se încarcă fotografii; dosarele și rapoartele pentru Primărie rămân
+disponibile (*Setări clinică → Campanie sterilizare* o poate reporni). Funcțiile de mai jos sunt portate și
+testate, dar cele de lucru zilnic nu mai sunt folosite. Rândul original din
 WordPress rămâne neschimbat lângă fiecare dosar (`source_row` + amprentă SHA-256); starea curentă se
 lucrează separat și orice modificare intră în istoricul dosarului.
 

@@ -9,6 +9,7 @@ use App\Models\SterilizationCase;
 use App\Models\SterilizationDocument;
 use App\Services\Campaign\CampaignAppointments;
 use App\Services\Campaign\CampaignCases;
+use App\Support\Settings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -22,6 +23,8 @@ class CampaignScreensTest extends TestCase
     {
         parent::setUp();
         $this->seedBusiness();
+        // Fluxul activ se testeaza cu campania pornita; implicit este oprita (doar istoric).
+        Settings::set('campaign.active', true);
         $this->travelTo('2026-11-20 09:00:00');
     }
 

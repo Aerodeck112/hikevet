@@ -254,6 +254,9 @@ class CampaignAppointments
      */
     public function runReminders(?Carbon $now = null): array
     {
+        if (! CampaignMailer::active()) {
+            return ['sent' => 0, 'failed' => 0];
+        }
         $now ??= now();
         $sent = $failed = 0;
         $rows = SterilizationAppointment::query()->where('reminder_enabled', 'Da')->whereNull('reminder_sent_at')->whereIn('status', ['Programat', 'Confirmat'])

@@ -150,26 +150,19 @@ politica de confidențialitate, modul de programare (Digitail sau propriu).
    `/robots.txt`, un redirect vechi, formularul de contact.
 5. Search Console: sitemap nou.
 
-### Campania de sterilizare în ziua comutării
+### Campania de sterilizare: doar istoric
 
-Campania activă (programări până în decembrie 2026) trece odată cu restul datelor; nu există o perioadă
-în care două sisteme primesc programări.
+Campania s-a încheiat. În platforma nouă ea rămâne **oprită** (implicit) și servește doar ca istoric,
+pentru eventualele întrebări ale Primăriei:
 
-1. Înainte de mentenanță: în WordPress se verifică ce consimțăminte sunt încă nesemnate. Cele care se
-   semnează în aceeași zi se semnează **înainte** de oprire; codurile de tabletă vechi nu mai funcționează după.
-2. După import, în *Campanie sterilizare → Programări*: programările viitoare apar cu orele lor;
-   reminderele automate pornesc din cron pentru ziua următoare (o singură dată pe programare).
-3. Emailurile deja trimise din WordPress nu se retrimit: importul păstrează data trimiterii și starea.
-   Ultimul rezumat de externare și follow-up-urile datorate apar în *Campanie sterilizare → Emailuri*.
-4. În *Raport Primărie*, luna curentă: numărul de intervenții și numerele de pacient sunt comparate cu
-   ce arăta WordPress înainte de oprire. Numerele de raport sunt deja fixate și nu se schimbă.
-5. Personalul primește conturile cu rolurile potrivite: recepția (dosare, programări, confirmarea
-   pozelor), medicii (în plus validare și exporturi pentru Primărie).
-6. Prima zi de lucru: un dosar nou de la programare până la externare, cu consimțământ semnat pe tabletă,
-   fotografie de pe telefon și emailul de externare primit.
+- nu se trimite niciun email al campaniei, nici automat (reamintiri, follow-up), nici manual;
+- nu se fac programări noi și nu se creează dosare noi; programările viitoare importate rămân
+  neatinse, ca istoric, și nu se mai lucrează cu ele;
+- pagina de încărcare a fotografiilor de pe telefon nu mai răspunde;
+- dosarele, documentele, consimțămintele, istoricul și rapoartele pentru Primărie (Excel, PDF, ZIP)
+  rămân disponibile; un dosar existent se mai poate corecta dacă Primăria o cere.
 
-Dacă emailurile nu pot fi configurate (SMTP) până la comutare, campania funcționează, dar confirmările,
-reminderele și rezumatele rămân netrimise și apar în *Emailuri* pentru trimitere ulterioară.
+Repornirea se poate face doar din *Sistem → Setări clinică → Campanie sterilizare* și se scrie în jurnal.
 
 ## 9. Revenire
 

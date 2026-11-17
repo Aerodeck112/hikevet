@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\BalanceType;
 use App\Enums\ConsentStatus;
+use App\Enums\ContractStatus;
 use App\Enums\Role;
 use App\Models\Consent;
 use App\Models\Contract;
+use App\Models\ContractStatusHistory;
 use App\Models\ImportBatch;
 use App\Models\LegacyFile;
 use App\Models\SterilizationAppointment;
@@ -571,5 +573,36 @@ class WordPressImportTest extends TestCase
 
         $this->artisan('hikevet:import-wordpress')->expectsOutputToContain('codate de două ori')->assertFailed();
         $this->assertSame(['wpx7_posts' => 1], $this->source()->doubleEncoding());
+    }
+
+    public function test_imported_subscriber_keeps_a_working_account_and_the_clinic_renews_the_expired_subscription(): void
+    {
+        (new WordPressCoreImporter($this->source()))->run(false);
+        $user = User::query()->where('email', 'client.import@example.com')->sole();
+        $contract = $user->contracts()->sole();
+        $importedTx = $user->walletTransactions()->count();
+
+        // Clientul intra cu parola din WordPress si isi vede contractul, punctele si Wallet-ul.
+        $this->post('/acces-cont/autentificare', ['email' => 'client.import@example.com', 'password' => 'parola-test-123'])->assertRedirect();
+        $this->get('/panou-cont')->assertOk()->assertSee('WP-900')->assertSee('2.926')->assertSee('Azor');
+        auth()->logout();
+
+        // Abonamentul expira; istoricul ramane, iar clinica il reinnoieste din fisa clientului.
+        $this->travelTo($contract->expires_at->copy()->addDays(3));
+        app(SubscriptionActivation::class)->runDailyMaintenance();
+        $this->assertSame(ContractStatus::Expired, $contract->refresh()->status);
+
+        $reception = $this->staff(Role::Reception);
+        app(SubscriptionActivation::class)->validatePayment($contract, 1, $reception);
+
+        $contract->refresh();
+        $this->assertSame(ContractStatus::Active, $contract->status);
+        $this->assertTrue($contract->expires_at->isFuture());
+        $this->assertSame(2926 + 248, app(WalletLedger::class)->points($user));
+        $this->assertSame($importedTx + 1, $user->walletTransactions()->count(), 'Tranzactiile importate raman; plata noua se adauga.');
+        $this->assertSame(100.0, app(WalletLedger::class)->amount($user, BalanceType::WalletPrincipal));
+        $this->assertSame(['expired', 'active'], ContractStatusHistory::query()->where('contract_id', $contract->id)->orderBy('id')->pluck('to_status')->take(-2)->values()->all());
+        $this->flushSession();
+        $this->actingAs($reception)->get('/admin/clients/'.$user->id)->assertOk()->assertSee('WP-900');
     }
 }

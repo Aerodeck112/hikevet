@@ -15,6 +15,7 @@
     $date = fn ($d) => $d ? \Illuminate\Support\Carbon::parse($d)->format('d.m.Y') : '—';
 @endphp
 <div class="hv-cp hv-client hv-rp">
+    @include('filament.campaign._stopped')
     @if (session('campaign_message'))<div class="hv-cp-flash hv-cp-flash--ok">{!! nl2br(e(session('campaign_message'))) !!}</div>@endif
     @if (session('campaign_error'))<div class="hv-cp-flash hv-cp-flash--bad">{{ session('campaign_error') }}</div>@endif
     @if ($rowsError)<div class="hv-cp-flash hv-cp-flash--bad">{{ $rowsError }} Până atunci, mai jos apar toate intervențiile din octombrie, fără excluderi.</div>@endif

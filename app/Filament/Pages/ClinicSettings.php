@@ -12,6 +12,7 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -47,7 +48,7 @@ class ClinicSettings extends Page implements HasForms
         'booking_mode' => 'booking.mode', 'digitail_url' => 'booking.digitail_url',
         'clinic_recipients' => 'mail.clinic_recipients', 'sterilization_recipients' => 'mail.sterilization_recipients',
         'expiry_notice_days' => 'subscriptions.expiry_notice_days', 'code_ttl_hours' => 'consent.code_ttl_hours', 'max_attempts' => 'consent.max_attempts',
-        'campaign_doctors' => 'campaign.doctori', 'campaign_assistants' => 'campaign.asistenti', 'campaign_copy' => 'campaign.copy_addresses',
+        'campaign_active' => 'campaign.active', 'campaign_doctors' => 'campaign.doctori', 'campaign_assistants' => 'campaign.asistenti', 'campaign_copy' => 'campaign.copy_addresses',
     ];
 
     public static function canAccess(): bool
@@ -59,6 +60,7 @@ class ClinicSettings extends Page implements HasForms
     {
         $state = collect(static::MAP)->map(fn ($key) => Settings::get($key))->all();
         // Campania: daca listele nu au fost inca setate, se afiseaza valorile din pluginul vechi (cele folosite oricum).
+        $state['campaign_active'] = CampaignMailer::active();
         $state['campaign_doctors'] = CaseFields::staffList('doctori');
         $state['campaign_assistants'] = CaseFields::staffList('asistenti');
         $state['campaign_copy'] = CampaignMailer::copyAddresses();
@@ -97,6 +99,8 @@ class ClinicSettings extends Page implements HasForms
                 TextInput::make('expiry_notice_days')->label('Avertizare expirare abonament (zile înainte)')->numeric()->minValue(1)->maxValue(30)->required(),
             ]),
             Section::make('Campanie sterilizare')->columns(1)->collapsed()->schema([
+                Toggle::make('campaign_active')->label('Campania este activă')
+                    ->helperText('Oprită: campania rămâne doar ca istoric. Nu se trimite niciun email al campaniei, nu se fac programări și nu se încarcă fotografii; dosarele și rapoartele pentru Primărie rămân disponibile.'),
                 TagsInput::make('campaign_doctors')->label('Medici (medic operator, doctor responsabil, validat de)')->required(),
                 TagsInput::make('campaign_assistants')->label('Asistenți'),
                 TagsInput::make('campaign_copy')->label('Copie internă a emailurilor campaniei')->nestedRecursiveRules(['email'])->required(),
@@ -116,6 +120,12 @@ class ClinicSettings extends Page implements HasForms
             $value = $state[$field] ?? null;
             if (in_array($field, ['expiry_notice_days', 'code_ttl_hours', 'max_attempts'], true)) {
                 $value = (int) $value;
+            }
+            if ($field === 'campaign_active') {
+                $value = (bool) $value;
+                if ($value === CampaignMailer::active()) {
+                    continue;
+                }
             }
             if (Settings::get($key) !== $value) {
                 Settings::set($key, $value);

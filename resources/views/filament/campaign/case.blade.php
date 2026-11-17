@@ -1,5 +1,6 @@
 <x-filament-panels::page>
 <div class="hv-cp hv-client">
+    @include('filament.campaign._stopped')
     {{-- Mesaje dupa salvare --}}
     @if (session('campaign_saved'))<div class="hv-cp-flash hv-cp-flash--ok">Modificările au fost salvate.</div>@endif
     @if (session('campaign_message'))<div class="hv-cp-flash hv-cp-flash--ok">{{ session('campaign_message') }}</div>@endif

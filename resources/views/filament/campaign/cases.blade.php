@@ -1,5 +1,6 @@
 <x-filament-panels::page>
 <div class="hv-cp hv-client">
+    @include('filament.campaign._stopped')
     @if (session('campaign_message'))<div class="hv-cp-flash hv-cp-flash--ok">{{ session('campaign_message') }}</div>@endif
     <div class="hv-cp-actions">
         @if ($canEdit)

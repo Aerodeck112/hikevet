@@ -34,6 +34,8 @@ class CampaignFlowTest extends TestCase
     {
         parent::setUp();
         $this->seedBusiness();
+        // Fluxul activ se testeaza cu campania pornita; implicit este oprita (doar istoric).
+        Settings::set('campaign.active', true);
         $this->doctor = $this->staff(Role::Doctor);
         $this->travelTo('2026-11-20 09:00:00');
     }
@@ -341,5 +343,42 @@ class CampaignFlowTest extends TestCase
         $this->artisan('hikevet:campaign-emails')->expectsOutputToContain('Reamintiri: 1 trimise')->assertSuccessful();
         $this->assertNotNull(Settings::get('campaign.last_email_run'));
         $this->actingAs($this->doctor)->get('/admin/campanie/emailuri?show=all')->assertOk();
+    }
+
+    public function test_stopped_campaign_sends_nothing_and_accepts_no_new_work_but_keeps_history_and_reports(): void
+    {
+        Event::fake([MessageSent::class]);
+        [$appointment] = $this->book([['patient_name' => 'Mitzi', 'appointment_type' => 'Sterilizare pisica', 'start_time' => '09:00']], '2026-11-21');
+        $case = $this->reception(SterilizationCase::query()->sole());
+        $token = $case->row()['photo_upload_token'];
+        $this->get('/campanie/foto/'.$token)->assertOk();
+        $sentBefore = SterilizationEmailLog::query()->where('status', 'sent')->count();
+        Settings::set('campaign.active', false);
+        $this->assertFalse(CampaignMailer::active());
+
+        // Automat: nici reamintiri, nici follow-up, nici comanda orara.
+        $this->artisan('hikevet:campaign-emails')->expectsOutputToContain('oprită')->assertSuccessful();
+        $this->assertSame(['sent' => 0, 'failed' => 0], app(CampaignAppointments::class)->runReminders());
+        $this->assertNull($appointment->fresh()->reminder_sent_at);
+
+        // Manual: niciun email, nicio programare noua, niciun dosar nou, nicio fotografie de pe telefon.
+        $admin = $this->staff(Role::SuperAdmin);
+        $this->actingAs($admin)->post('/admin/campanie/programari/'.$appointment->id.'/email')->assertSessionHas('campaign_warning');
+        $this->actingAs($admin)->post('/admin/campanie/dosar/'.$case->id.'/email-final')->assertSessionHas('campaign_warning');
+        $this->actingAs($admin)->post('/admin/campanie/programari', ['appointment' => ['owner_name' => 'X', 'client_phone' => '0740000009', 'appointment_date' => '2026-11-25'],
+            'patients' => [['patient_name' => 'Nou', 'appointment_type' => 'Sterilizare pisica', 'start_time' => '10:00']]])->assertSessionHas('campaign_warning');
+        $this->actingAs($admin)->post('/admin/campanie/programari/'.$appointment->id.'/anuleaza')->assertSessionHas('campaign_warning');
+        $this->actingAs($admin)->post('/admin/campanie/dosar', ['section' => 'receptie', 'data' => ['nume_proprietar' => 'Nou']])->assertSessionHas('campaign_warning');
+        $this->assertSame([false, CampaignMailer::STOPPED_MESSAGE], app(CampaignMailer::class)->sendFollowup($case, true, $admin));
+        $this->get('/campanie/foto/'.$token)->assertNotFound();
+        $this->post('/campanie/foto/'.$token)->assertNotFound();
+
+        Event::assertDispatchedTimes(MessageSent::class, $sentBefore);
+        $this->assertSame(1, SterilizationCase::query()->count());
+        $this->assertSame('Programat', $appointment->fresh()->status);
+
+        // Istoricul ramane consultabil, cu avertismentul vizibil.
+        $this->actingAs($admin)->get('/admin/campanie/dosar?case='.$case->id.'&tab=rezumat')->assertOk()->assertSee('Campania de sterilizare este oprită');
+        $this->actingAs($admin)->get('/admin/campanie/raport-primarie')->assertOk();
     }
 }
