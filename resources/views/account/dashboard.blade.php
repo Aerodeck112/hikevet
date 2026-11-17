@@ -59,7 +59,7 @@
                         </div>
                         <p style="margin:.75rem 0 0">
                             @if ($contract->status->value === 'awaiting_clinic')
-                                De plată la clinică: <strong>{{ number_format((float) $contract->payment_amount, 0, ',', '.') }} lei</strong> ({{ $contract->period_months === 1 ? 'lunar' : $contract->period_months.' luni' }})@if ($contract->valid_until), până la {{ $contract->valid_until->format('d.m.Y') }}@endif.
+                                {{ $cardPayments && \App\Services\Payments\StripeCheckout::canPayOnline($contract) ? 'De plată (la clinică sau online cu cardul)' : 'De plată la clinică' }}: <strong>{{ number_format((float) $contract->payment_amount, 0, ',', '.') }} lei</strong> ({{ $contract->period_months === 1 ? 'lunar' : $contract->period_months.' luni' }})@if ($contract->valid_until), până la {{ $contract->valid_until->format('d.m.Y') }}@endif.
                             @elseif ($contract->expires_at)
                                 Valabil până la <strong>{{ $contract->expires_at->format('d.m.Y') }}</strong>.
                             @endif
