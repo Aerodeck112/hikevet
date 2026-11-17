@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Account\AuthController;
 use App\Http\Controllers\Account\DashboardController;
+use App\Http\Controllers\Admin\CampaignAppointmentController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Booking\BookingController;
@@ -69,6 +70,16 @@ Route::middleware('auth')->prefix('admin/campanie')->name('admin.campaign.')->co
     Route::post('/dosar/{case}/cod-tableta', 'consentCode')->name('consent-code');
     Route::get('/dosar/{case}/foto-status', 'photoStatus')->name('photo-status');
     Route::get('/document/{document}', 'document')->name('document');
+});
+
+Route::middleware('auth')->prefix('admin/campanie/programari')->name('admin.campaign.appointments.')->controller(CampaignAppointmentController::class)->group(function () {
+    Route::post('/', 'store')->name('store');
+    Route::get('/disponibilitate', 'availability')->name('availability');
+    Route::post('/{appointment}', 'update')->name('update');
+    Route::post('/{appointment}/anuleaza', 'cancel')->name('cancel');
+    Route::post('/{appointment}/sterge', 'destroy')->name('destroy');
+    Route::post('/{appointment}/email', 'email')->name('email');
+    Route::post('/{appointment}/consultatie', 'startConsultation')->name('consultation');
 });
 
 // Incarcarea fotografiei de pe telefon: acces doar cu tokenul aleatoriu al dosarului.

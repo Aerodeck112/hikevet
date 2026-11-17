@@ -3,9 +3,12 @@
 namespace Tests\Feature;
 
 use App\Enums\Role;
+use App\Http\Controllers\Admin\CampaignController;
+use App\Models\SterilizationAppointment;
 use App\Models\SterilizationCase;
 use App\Models\SterilizationDocument;
 use App\Services\Campaign\CampaignAppointments;
+use App\Services\Campaign\CampaignCases;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -101,5 +104,37 @@ class CampaignScreensTest extends TestCase
         $this->actingAs($doctor)->post(route('admin.campaign.delete', $case), ['reason' => ''])->assertSessionHasErrors('reason');
         $this->actingAs($doctor)->post(route('admin.campaign.delete', $case), ['reason' => 'Programare dublată'])->assertRedirect('/admin/campanie/dosare');
         $this->assertNotNull($case->refresh()->deleted_at);
+    }
+
+    public function test_calendar_booking_edit_cancel_and_start_consultation_over_http(): void
+    {
+        $first = $this->bookOne();
+        $reception = $this->staff(Role::Reception);
+        $this->actingAs($reception)->get('/admin/campanie/programari?week=2026-11-24')->assertOk()->assertSee('Mitzi')->assertSee('Agenda săptămânii');
+        $this->actingAs($reception)->get('/admin/campanie/programari?new=1&date=2026-11-25&owner_case='.$first->id)->assertOk()->assertSee('Programare nouă')->assertSee('Popescu Ana');
+        $this->actingAs($reception)->getJson(route('admin.campaign.appointments.availability', ['date' => '2026-11-24']))->assertOk()->assertJsonPath('count', 1);
+
+        // Acelasi proprietar, doi pacienti noi: datele legale se preiau din dosarul lui.
+        $first = app(CampaignCases::class)->saveSection($first, 'receptie', ['adresa_ci' => 'Str. Exemplu 10', 'serie_numar_ci' => 'MS 1', 'localitate' => 'Targu Mures'], [], $reception)['case'];
+        $this->actingAs($reception)->post(route('admin.campaign.appointments.store'), [
+            'appointment' => ['owner_name' => 'Popescu Ana', 'client_phone' => '0740000001', 'client_email' => 'ana.sintetic@example.com', 'appointment_date' => '2026-11-25', 'owner_case_id' => $first->id],
+            'patients' => [['patient_name' => 'Bubu', 'appointment_type' => 'Castrare caine', 'start_time' => '10:00', 'vaccinat' => 'Nu'],
+                ['patient_name' => 'Lola', 'appointment_type' => 'Sterilizare catea', 'start_time' => '11:00', 'vaccinat' => 'Da']],
+        ])->assertRedirect()->assertSessionHas('campaign_message');
+        $bubu = SterilizationCase::query()->where('nume_pacient', 'Bubu')->sole();
+        $this->assertSame('Str. Exemplu 10', $bubu->row()['adresa_ci']);
+        $this->assertSame('Castrare câine', $bubu->procedura_programata);
+
+        $a = SterilizationAppointment::query()->where('patient_name', 'Bubu')->sole();
+        $this->actingAs($reception)->get('/admin/campanie/programari?week=2026-11-25&appointment='.$a->id)->assertOk()->assertSee($a->appointment_code);
+        $this->actingAs($reception)->post(route('admin.campaign.appointments.update', $a), ['appointment' => ['appointment_date' => '2026-11-26', 'start_time' => '12:30',
+            'appointment_type' => 'Castrare caine', 'owner_name' => 'Popescu Ana', 'client_phone' => '0740000001', 'client_email' => 'ana.sintetic@example.com', 'patient_name' => 'Bubu']])->assertRedirect();
+        $this->assertSame(['2026-11-26', '12:30'], [$bubu->refresh()->row()['data_programare'], $bubu->row()['ora_programare']]);
+
+        $this->actingAs($reception)->post(route('admin.campaign.appointments.consultation', $a))->assertRedirect(CampaignController::caseUrl($bubu->id, 'preoperator'));
+        $this->assertSame('Prezentat', $bubu->refresh()->status_caz);
+        $this->actingAs($reception)->post(route('admin.campaign.appointments.cancel', $a))->assertRedirect();
+        $this->assertSame('Anulat', $a->refresh()->status);
+        $this->actingAs($this->staff(Role::Editor))->post(route('admin.campaign.appointments.store'), [])->assertForbidden();
     }
 }
