@@ -73,6 +73,8 @@ class SterilizationImporter
             }
 
             $existing = DB::table('sterilization_cases')->pluck('row_sha256', 'source_id');
+            // Dosarele deja lucrate in platforma noua nu sunt rescrise de un import ulterior.
+            $editedLive = DB::table('sterilization_cases')->whereNotNull('live_updated_at')->pluck('id', 'source_id');
             $consentMap = DB::table('consents')->whereNotNull('wp_post_id')->pluck('id', 'wp_post_id');
 
             foreach ($this->source->table('hv_st_cases')->orderBy('id')->cursor() as $row) {
@@ -130,6 +132,12 @@ class SterilizationImporter
                 $counts['documents'] += count($documents);
                 $counts['documents_missing'] += count(array_filter($documents, fn ($d) => $d['is_missing']));
 
+                if ($state === 'changed' && isset($editedLive[$sourceId])) {
+                    $counts['cases_kept_live_edits'] = ($counts['cases_kept_live_edits'] ?? 0) + 1;
+                    $errors[] = ['source_id' => $sourceId, 'cod_caz' => $code, 'error' => 'Dosarul a fost modificat și în WordPress, și în platforma nouă; s-a păstrat varianta din platforma nouă. Verifică diferențele în Arhiva WordPress.'];
+
+                    continue;
+                }
                 if ($dryRun || $state === 'unchanged') {
                     continue;
                 }
@@ -137,6 +145,7 @@ class SterilizationImporter
                 $data = ['import_batch_id' => $batch->id, 'source_id' => $sourceId, 'visit_group_id' => ($row['visit_group_id'] ?? 0) ?: null,
                     'source_consent_id' => ($row['consent_id'] ?? 0) ?: null, 'source_shared_consent_id' => ($row['shared_consent_id'] ?? 0) ?: null,
                     'consent_id' => $consentMap[$sourceConsent] ?? null, 'source_row' => json_encode($row, JSON_UNESCAPED_UNICODE), 'row_sha256' => $hash,
+                    'data' => json_encode($row, JSON_UNESCAPED_UNICODE),
                     'missing_in_source' => $lacking ? json_encode(array_values(array_unique($lacking)), JSON_UNESCAPED_UNICODE) : null,
                     'source_created_at' => WordPressSource::date($row['timestamp_creat'] ?? ''), 'source_updated_at' => WordPressSource::date($row['timestamp_actualizat'] ?? ''),
                     'imported_at' => now()];
@@ -163,6 +172,7 @@ class SterilizationImporter
             $this->importEmailLogs($dryRun, $counts);
             if (! $dryRun) {
                 $this->importReferenceLists();
+                $counts['relinked'] = CampaignRelinker::run();
             }
         };
 
@@ -267,10 +277,11 @@ class SterilizationImporter
         }
         $caseMap = DB::table('sterilization_cases')->pluck('id', 'source_id');
 
+        $editedLive = DB::table('sterilization_appointments')->whereNotNull('updated_by_name')->pluck('id', 'source_id');
         foreach ($this->source->table('hv_st_appointments')->orderBy('id')->cursor() as $row) {
             $row = (array) $row;
             $counts['appointments']++;
-            if ($dryRun) {
+            if ($dryRun || isset($editedLive[(int) $row['id']])) {
                 continue;
             }
             DB::table('sterilization_appointments')->updateOrInsert(['source_id' => (int) $row['id']], [
@@ -278,6 +289,13 @@ class SterilizationImporter
                 'sterilization_case_id' => $caseMap[(int) ($row['case_id'] ?? 0)] ?? null, 'appointment_date' => WordPressSource::date($row['appointment_date'] ?? ''),
                 'start_time' => $row['start_time'] ?? null, 'end_time' => $row['end_time'] ?? null, 'appointment_type' => $row['appointment_type'] ?? null,
                 'status' => $row['status'] ?? null, 'owner_name' => $row['owner_name'] ?? null, 'patient_name' => $row['patient_name'] ?? null,
+                'title' => $row['title'] ?? null, 'client_email' => $row['client_email'] ?? null, 'client_phone' => $row['client_phone'] ?? null,
+                'source' => $row['source'] ?? null, 'notes' => $row['notes'] ?? null, 'reminder_enabled' => ($row['reminder_enabled'] ?? '') ?: 'Da',
+                'reminder_days' => (int) ($row['reminder_days'] ?? 1), 'reminder_sent_at' => WordPressSource::date($row['reminder_sent_at'] ?? ''),
+                'reminder_manual_sent_at' => WordPressSource::date($row['reminder_manual_sent_at'] ?? ''), 'email_last_status' => ($row['email_last_status'] ?? '') ?: null,
+                'email_last_at' => WordPressSource::date($row['email_last_at'] ?? ''), 'email_last_error' => ($row['email_last_error'] ?? '') ?: null,
+                'created_by_name' => ($row['created_by'] ?? '') ?: null, 'created_at' => WordPressSource::date($row['created_at'] ?? ''),
+                'updated_at' => WordPressSource::date($row['updated_at'] ?? ''),
                 'source_row' => json_encode($row, JSON_UNESCAPED_UNICODE), 'row_sha256' => hash('sha256', json_encode($row, JSON_UNESCAPED_UNICODE)),
             ]);
         }
@@ -298,7 +316,10 @@ class SterilizationImporter
             }
             DB::table('sterilization_email_logs')->updateOrInsert(['source_id' => (int) $row['id']], [
                 'source_case_id' => ($row['case_id'] ?? 0) ?: null, 'sterilization_case_id' => $caseMap[(int) ($row['case_id'] ?? 0)] ?? null,
-                'email_type' => $row['email_type'] ?? null, 'status' => $row['status'] ?? null, 'sent_at' => WordPressSource::date($row['created_at'] ?? ''),
+                'email_type' => $row['email_type'] ?? null, 'status' => $row['status'] ?? null,
+                'sent_at' => ($row['status'] ?? '') === 'sent' ? WordPressSource::date($row['created_at'] ?? '') : null,
+                'to_email' => $row['to_email'] ?? null, 'cc_email' => $row['cc_email'] ?? null, 'subject' => isset($row['subject']) ? mb_substr((string) $row['subject'], 0, 250) : null,
+                'error_message' => ($row['error_message'] ?? '') ?: null, 'created_at' => WordPressSource::date($row['created_at'] ?? ''),
                 'source_row' => json_encode($row, JSON_UNESCAPED_UNICODE),
             ]);
         }

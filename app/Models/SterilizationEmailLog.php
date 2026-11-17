@@ -8,10 +8,10 @@ class SterilizationEmailLog extends Model
 {
     public $timestamps = false;
 
-    protected $guarded = ["id"];
+    protected $guarded = ['id'];
 
     protected function casts(): array
     {
-        return ["source_row" => "array", "sent_at" => "datetime"];
+        return ['source_row' => 'array', 'sent_at' => 'datetime', 'created_at' => 'datetime'];
     }
 }

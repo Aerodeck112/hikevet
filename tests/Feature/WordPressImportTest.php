@@ -9,8 +9,10 @@ use App\Models\Consent;
 use App\Models\Contract;
 use App\Models\ImportBatch;
 use App\Models\LegacyFile;
+use App\Models\SterilizationAppointment;
 use App\Models\SterilizationCase;
 use App\Models\User;
+use App\Services\Campaign\CampaignCases;
 use App\Services\Import\SterilizationImporter;
 use App\Services\Import\WordPressCoreImporter;
 use App\Services\Import\WordPressSource;
@@ -493,5 +495,35 @@ class WordPressImportTest extends TestCase
         $file = LegacyFile::query()->where('kind', 'contract-fara-client')->sole();
         $this->assertSame(hash('sha256', '%PDF contract fara client'), $file->sha256);
         $this->assertStringContainsString('WP-904', $file->label);
+    }
+
+    public function test_imported_cases_become_live_with_links_translated_and_live_edits_survive_a_reimport(): void
+    {
+        (new WordPressCoreImporter($this->source()))->run(false);
+        (new SterilizationImporter($this->source()))->run(false, $this->uploads);
+
+        $case = SterilizationCase::query()->where('cod_caz', 'HV-ST-2026-002')->sole();
+        $consent = Consent::query()->where('wp_post_id', 950)->sole();
+        $appointment = SterilizationAppointment::query()->where('source_id', 1)->sole();
+        $row = $case->row();
+        // ID-urile WordPress (2, 950) devin ID-urile noi; randul original ramane neschimbat.
+        $this->assertSame($case->id, $row['visit_group_id']);
+        $this->assertSame($consent->id, $row['consent_id']);
+        $this->assertSame($consent->id, $case->consent_id);
+        $this->assertSame($case->id, $consent->refresh()->sterilization_case_id);
+        $this->assertSame($case->id, $appointment->sterilization_case_id);
+        $this->assertSame(950, (int) $case->source('consent_id'));
+        $this->assertSame('Fără observații', $row['mentiuni_intra_postoperatorii']);
+
+        // Dosarul se lucreaza in platforma noua, apoi WordPress il schimba si el: varianta noua ramane.
+        $doctor = $this->staff(Role::Doctor);
+        app(CampaignCases::class)->saveSection($case, 'corectare', ['rasa' => 'Europeana'], [], $doctor);
+        DB::connection('wp')->table(self::P.'hv_st_cases')->where('id', 2)->update(['rasa' => 'Siameza']);
+        $batch = (new SterilizationImporter($this->source()))->run(false, $this->uploads);
+
+        $this->assertSame(1, $batch->counts['cases_kept_live_edits']);
+        $this->assertSame('Europeana', $case->refresh()->row()['rasa']);
+        $this->assertNotSame('Siameza', $case->source('rasa'), 'Randul importat initial ramane neschimbat.');
+        $this->assertStringContainsString('platforma nouă', json_encode($batch->errors, JSON_UNESCAPED_UNICODE));
     }
 }
