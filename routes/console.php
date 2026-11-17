@@ -7,5 +7,6 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::command('hikevet:daily')->dailyAt('07:30')->withoutOverlapping();
 Schedule::command('hikevet:backup --label=zilnic --verify')->dailyAt('02:15')->withoutOverlapping();
 Schedule::command('auth:clear-resets')->daily();
+Schedule::command('hikevet:campaign-emails')->hourly()->withoutOverlapping();
 Schedule::command('queue:work --stop-when-empty --max-time=50')->everyMinute()->withoutOverlapping();
 Schedule::call(fn () => Cache::forever('hikevet.last_cron_run', now()->toIso8601String()))->everyMinute()->name('hikevet-heartbeat');

@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Enums\Permission;
+use App\Services\Campaign\CampaignMailer;
+use App\Services\Campaign\CaseFields;
 use App\Support\Audit;
 use App\Support\Settings;
 use BackedEnum;
@@ -45,6 +47,7 @@ class ClinicSettings extends Page implements HasForms
         'booking_mode' => 'booking.mode', 'digitail_url' => 'booking.digitail_url',
         'clinic_recipients' => 'mail.clinic_recipients', 'sterilization_recipients' => 'mail.sterilization_recipients',
         'expiry_notice_days' => 'subscriptions.expiry_notice_days', 'code_ttl_hours' => 'consent.code_ttl_hours', 'max_attempts' => 'consent.max_attempts',
+        'campaign_doctors' => 'campaign.doctori', 'campaign_assistants' => 'campaign.asistenti', 'campaign_copy' => 'campaign.copy_addresses',
     ];
 
     public static function canAccess(): bool
@@ -54,7 +57,12 @@ class ClinicSettings extends Page implements HasForms
 
     public function mount(): void
     {
-        $this->form->fill(collect(static::MAP)->map(fn ($key) => Settings::get($key))->all());
+        $state = collect(static::MAP)->map(fn ($key) => Settings::get($key))->all();
+        // Campania: daca listele nu au fost inca setate, se afiseaza valorile din pluginul vechi (cele folosite oricum).
+        $state['campaign_doctors'] = CaseFields::staffList('doctori');
+        $state['campaign_assistants'] = CaseFields::staffList('asistenti');
+        $state['campaign_copy'] = CampaignMailer::copyAddresses();
+        $this->form->fill($state);
     }
 
     public function form(Schema $schema): Schema
@@ -87,6 +95,11 @@ class ClinicSettings extends Page implements HasForms
                 TagsInput::make('clinic_recipients')->label('Emailuri clinică (contracte, programări, mesaje)')->placeholder('adresa@exemplu.ro')->nestedRecursiveRules(['email']),
                 TagsInput::make('sterilization_recipients')->label('Emailuri pentru campania de sterilizare')->placeholder('adresa@exemplu.ro')->nestedRecursiveRules(['email']),
                 TextInput::make('expiry_notice_days')->label('Avertizare expirare abonament (zile înainte)')->numeric()->minValue(1)->maxValue(30)->required(),
+            ]),
+            Section::make('Campanie sterilizare')->columns(1)->collapsed()->schema([
+                TagsInput::make('campaign_doctors')->label('Medici (medic operator, doctor responsabil, validat de)')->required(),
+                TagsInput::make('campaign_assistants')->label('Asistenți'),
+                TagsInput::make('campaign_copy')->label('Copie internă a emailurilor campaniei')->nestedRecursiveRules(['email'])->required(),
             ]),
             Section::make('Consimțământ pe tabletă')->columns(2)->collapsed()->schema([
                 TextInput::make('code_ttl_hours')->label('Valabilitatea codului (ore)')->numeric()->minValue(1)->maxValue(72)->required(),

@@ -13,6 +13,7 @@ use App\Services\Campaign\CampaignAppointments;
 use App\Services\Campaign\CampaignCases;
 use App\Services\Campaign\CampaignMailer;
 use App\Services\Campaign\CityChecks;
+use App\Support\Settings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Mail\Events\MessageSent;
@@ -331,5 +332,14 @@ class CampaignFlowTest extends TestCase
         $this->assertSame('Anulat', $a->refresh()->status);
         $this->assertSame(0, SterilizationCase::query()->active()->count());
         $this->assertSame(1, SterilizationCase::query()->count());
+    }
+
+    public function test_hourly_command_sends_due_reminders_and_followups(): void
+    {
+        $this->book([['patient_name' => 'Mitzi', 'appointment_type' => 'Sterilizare pisica', 'start_time' => '09:00', 'vaccinat' => 'Da']], '2026-11-21');
+        $this->travelTo('2026-11-20 10:00:00');
+        $this->artisan('hikevet:campaign-emails')->expectsOutputToContain('Reamintiri: 1 trimise')->assertSuccessful();
+        $this->assertNotNull(Settings::get('campaign.last_email_run'));
+        $this->actingAs($this->doctor)->get('/admin/campanie/emailuri?show=all')->assertOk();
     }
 }
