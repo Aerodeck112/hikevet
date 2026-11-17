@@ -51,10 +51,21 @@ class WpressExtract extends Command
         $sql = $target.'/database.sql';
         $prefix = $package['Database']['Prefix'] ?? null;
         if (is_file($sql) && is_string($prefix) && preg_match('/^[A-Za-z0-9_]+$/', $prefix)) {
+            $binaryFixes = [];
             $in = fopen($sql, 'rb');
             $out = fopen($target.'/database.restored.sql', 'wb');
             while (($line = fgets($in)) !== false) {
-                fwrite($out, str_replace('SERVMASK_PREFIX_', $prefix, $line));
+                $line = str_replace('SERVMASK_PREFIX_', $prefix, $line);
+                // Pluginul scrie valorile binare goale ca 0x, pe care MySQL / MariaDB le refuza; devin sir gol.
+                // Tabelele atinse se afiseaza, ca orice corectie sa poata fi verificata.
+                $fixed = preg_replace('/([(,])0x(?=[,)])/', "\\1''", $line, -1, $count);
+                if ($count > 0 && preg_match('/^INSERT INTO `([^`]+)`/', $line, $m)) {
+                    $binaryFixes[$m[1]] = ($binaryFixes[$m[1]] ?? 0) + $count;
+                }
+                fwrite($out, $fixed);
+            }
+            foreach ($binaryFixes as $table => $n) {
+                $this->warn("  {$table}: {$n} valori binare goale (0x) scrise ca șir gol");
             }
             fclose($in);
             fclose($out);

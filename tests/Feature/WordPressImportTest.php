@@ -208,6 +208,9 @@ class WordPressImportTest extends TestCase
         $this->assertNull($partial->data_interventie);
         $this->assertSame('0000-00-00', $partial->source('data_interventie'));
         $this->assertContains('numar_pacient', $partial->missing_in_source);
+        // 0000-00-00 inseamna „necompletat” in MySQL: la un dosar finalizat lipseste data, dar nu este o valoare invalida.
+        $this->assertContains('data_interventie', $partial->missing_in_source);
+        $this->assertEmpty(array_filter($partial->missing_in_source, fn ($f) => str_contains($f, 'valoare invalidă')));
         $this->assertContains('medic_operator', $partial->missing_in_source);
         $this->assertTrue($partial->documents()->sole()->is_missing);
         $this->assertSame(1, $batch->counts['documents_missing']);

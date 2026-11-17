@@ -99,7 +99,8 @@ class SterilizationImporter
                 $lacking = [];
                 foreach (self::DATES as $column) {
                     $raw = trim((string) ($row[$column] ?? ''));
-                    if ($raw !== '' && WordPressSource::date($raw) === null) {
+                    // 0000-00-00 este forma MySQL pentru „necompletat”, nu o valoare gresita; ramane gol, fara semnalare.
+                    if ($raw !== '' && ! str_starts_with($raw, '0000-00-00') && WordPressSource::date($raw) === null) {
                         $lacking[] = $column.' (valoare invalidă în sursă: '.$raw.')';
                     }
                 }
