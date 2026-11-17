@@ -48,6 +48,20 @@ WP_UPLOADS_PATH=/home/UTILIZATOR/copie-uploads
 
 Utilizatorul are nevoie doar de drept de citire (`SELECT`).
 
+### Ce a arătat proba pe backupul real (17.11.2026)
+
+- Backupul All-in-One se desface și se verifică integral (CRC pe fiecare fișier).
+- Pluginul de backup scrie valorile binare goale ca `0x`; comanda `hikevet:wpress` le corectează
+  (doar în tabele de sistem, de ex. Wordfence) și afișează tabelele atinse.
+- Starea de plată a contractelor nu este fiabilă în meta contractului: Wallet Core o scria doar pe
+  ultimul contract al clientului. Importul reconstruiește starea din plățile reale din registru.
+- Pot exista contracte fără cont și cu email invalid (teste din perioada de dezvoltare): sunt
+  raportate, iar PDF-urile lor se păstrează în Arhiva WordPress.
+- Pachetele generate pentru Primărie (`uploads/hikevet-city-package-*.zip`) se păstrează cu
+  `--keep-file`. Directoarele cu același nume sunt fișiere intermediare ale generării și nu mai sunt necesare.
+- **Testele automate nu se rulează niciodată în același terminal cu setările unei baze reale.**
+  Platforma refuză oricum, din 17.11.2026, orice bază al cărei nume nu indică o bază de test.
+
 ## 3. Proba
 
 ```bash
@@ -140,5 +154,7 @@ ia repede sau deloc.
 
 - Fluxul activ al campaniei de sterilizare (programări, dosare noi) **nu există** în platforma
   nouă. Dacă este încă în uz, comutarea completă se amână sau WordPress rămâne pornit pentru el.
+  Importul arhivei este repetabil: dosarele modificate între timp în WordPress sunt recunoscute după
+  amprentă și actualizate la un import final, după încheierea campaniei.
 - Rapoartele pentru Primărie în formatul PDF/XLSX al pluginului nu sunt reproduse; datele lor sunt
   în arhivă și se pot exporta ca CSV.
