@@ -1,6 +1,6 @@
 # Jurnal de modificări
 
-## Nepublicat – 17.11.2026
+## 0.2.0 – 19.11.2026 (pachet de instalare; încă neinstalat în producție)
 
 ### Campania de sterilizare (portată din modulul 2.7.6)
 - Dosare, file de lucru, programări, emailuri și rapoartele pentru Primărie rulează în platforma nouă.
