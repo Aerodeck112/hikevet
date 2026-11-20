@@ -3,6 +3,7 @@ import focus from '@alpinejs/focus';
 import { priceCalc, walletCalc } from './price-calc';
 import { configurator } from './configurator';
 import { signaturePad } from './signature';
+import { initBuddies } from './buddies';
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
@@ -48,6 +49,9 @@ document.addEventListener('click', (event) => {
 window.hvTrack = (name, params = {}) => { if (window.dataLayer) window.dataLayer.push({ event: name, ...params }); };
 
 Alpine.start();
+
+// Pisica si cainele de pe paginile interioare, din footer si din paginile de eroare.
+initBuddies();
 
 // Personajele, turul clinicii si episoadele: incarcate doar unde exista.
 if (document.querySelector('[data-wall], [data-tour], [data-episodes]')) {

@@ -1,5 +1,19 @@
 # Jurnal de modificări
 
+## 0.3.1 – 20.11.2026
+
+### Pisica și câinele, pe tot site-ul
+- Fiecare pagină interioară are personajul ei în antet (câinele la Servicii, Contact, Întrebări, Programare;
+  pisica la Echipă, Blog, Abonamente, Cont client), cu replici proprii la atingere și privirea după cursor.
+- Pe documente (Termeni, Contract, Anexă, Politica de confidențialitate) pisica doarme; se trezește dacă o atingi.
+- În footer, pe fiecare pagină, o pisică adormită pe margine.
+- Pagini de eroare noi, cu personaje: 404 (câinele care a căutat peste tot), 419, 429, 500 și 503
+  (afișată cât timp se instalează o actualizare).
+- Contul clientului: câinele salută pe prenume, iar locurile goale (fără animale, fără contracte) au un personaj.
+- Bannerul de cookie-uri, ecranul de autentificare al personalului, emailurile (antet nou, albastru, cu personajele)
+  și iconița site-ului (pisica cu ochelari).
+- Fără biblioteci noi: animațiile sunt CSS și se opresc pentru cine are „mișcare redusă” activată.
+
 ## 0.3.0 – 20.11.2026
 
 ### Design nou, după fațada clinicii

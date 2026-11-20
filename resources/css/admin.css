@@ -112,3 +112,10 @@
 @media (max-width: 720px) { .hv-rp-verify { grid-template-columns: 5rem 1fr; } .hv-rp-thumb { width: 5rem; height: 5rem; } }
 .hv-rp { grid-template-columns: minmax(0, 1fr); }
 .hv-rp > * { min-width: 0; }
+
+/* Pisica de pe ecranul de autentificare */
+.hv-login-buddy { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.hv-login-buddy-art { width: 72px; }
+.hv-login-buddy-art svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hv-login-buddy .cat-lids { display: none; }
+.hv-login-buddy p { margin: 0; font-weight: 600; background: #fff; border: 2px solid #1f1638; border-radius: 14px 14px 14px 4px; padding: 0.4rem 0.7rem; color: #1f1638; box-shadow: 3px 3px 0 #1f1638; }

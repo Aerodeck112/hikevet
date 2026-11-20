@@ -1,13 +1,19 @@
 @extends('layouts.site')
 
 @section('content')
-<header class="page-head">
-    <div class="wrap" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:end">
-        <div>
-            <p class="script">Bine ai revenit</p>
-            <h1 class="display h-lg">{{ $user->name }}</h1>
+@php
+    $firstName = \Illuminate\Support\Str::before(trim($user->name), ' ') ?: $user->name;
+@endphp
+<header class="page-head page-head--buddy">
+    <div class="wrap">
+        <div class="page-head-text" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:end">
+            <div>
+                <p class="script">Bine ai revenit</p>
+                <h1 class="display h-lg">{{ $user->name }}</h1>
+            </div>
+            <form method="post" action="{{ site_url('/acces-cont/iesire') }}">@csrf<button class="btn btn-ghost btn-sm" type="submit">Ieși din cont</button></form>
         </div>
-        <form method="post" action="{{ site_url('/acces-cont/iesire') }}">@csrf<button class="btn btn-ghost btn-sm" type="submit">Ieși din cont</button></form>
+        <x-buddy class="head-buddy" kind="dog" pose="peek" :say="['Ham! Ce bine că ai venit, '.$firstName.'!', 'Aici îți ții animăluții, contractele și Wallet-ul.', 'Ai grijă de bonusuri. Și de mine.']" />
     </div>
 </header>
 
@@ -44,7 +50,10 @@
                         </div>
                     </article>
                 @empty
-                    <p class="notice">Nu ai încă niciun animal în cont. Adaugă primul animăluț din configuratorul de abonamente.</p>
+                    <div class="empty-buddy">
+                        <x-buddy kind="cat" :greet="false" :say="['Locul ăsta e liber? Atunci mă așez eu.', 'Adaugă-ți animăluțul, îi țin locul cald.']" />
+                        <p class="notice">Nu ai încă niciun animal în cont. Adaugă primul animăluț din configuratorul de abonamente.</p>
+                    </div>
                 @endforelse
 
                 <h2 class="h-sm" style="margin:2.5rem 0 1rem">Contractele mele</h2>
@@ -89,7 +98,10 @@
                         @endif
                     </article>
                 @empty
-                    <p class="notice">Nu ai încă niciun contract.</p>
+                    <div class="empty-buddy">
+                        <x-buddy kind="dog" pose="peek" :greet="false" :say="['Niciun contract încă. Eu zic să alegi 12 luni.', 'Calculatorul de la Abonamente îți arată prețul exact.']" />
+                        <p class="notice">Nu ai încă niciun contract.</p>
+                    </div>
                 @endforelse
 
                 <h2 class="h-sm" style="margin:2.5rem 0 1rem">Istoric puncte și Wallet</h2>

@@ -235,3 +235,110 @@
 .acct-stats div:nth-child(3) { background: #e7ecff; }
 .acct-stats div:nth-child(4) { background: #ffe1ef; }
 .acct-stats div:nth-child(5) { background: #fff3c9; }
+
+/* ---------------------------------------------------------------
+   Personajele pe tot site-ul (x-buddy): antete, footer, cont, erori.
+   --------------------------------------------------------------- */
+.buddy { position: relative; width: var(--buddy-w, 150px); flex: none; }
+.buddy .mascot { width: 100%; }
+.buddy-hit { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 28px; color: inherit; }
+.buddy-hit:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 4px; }
+.buddy-say { position: absolute; z-index: 6; bottom: 88%; right: 62%; width: max-content; max-width: min(16rem, 62vw); margin: 0;
+  background: #fff; color: var(--ink); border: 3px solid var(--ink); border-radius: 18px 18px 4px 18px; padding: 0.55rem 0.85rem;
+  font: 600 0.98rem/1.3 var(--text); box-shadow: var(--shadow-hard);
+  opacity: 0; transform: translateY(10px) scale(0.85); transform-origin: 100% 100%; pointer-events: none; transition: opacity 0.15s, transform 0.15s; }
+.buddy.is-saying .buddy-say { opacity: 1; transform: none; transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.1s; }
+.buddy--left .buddy-say { right: auto; left: 62%; border-radius: 18px 18px 18px 4px; transform-origin: 0 100%; }
+
+/* Repere pentru rotiri (aceleasi puncte ca in animatiile de pe prima pagina) */
+.buddy .cat-tail { transform-box: view-box; transform-origin: 150px 210px; }
+.buddy .cat-shades { transform-box: view-box; transform-origin: 110px 86px; transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.buddy .cat-lids { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); }
+.buddy .cat-pupils, .buddy .dog-pupils { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1); }
+.buddy .dog-head { transform-box: view-box; transform-origin: 120px 200px; }
+.buddy .dog-ear--l { transform-box: view-box; transform-origin: 62px 100px; }
+.buddy .dog-ear--r { transform-box: view-box; transform-origin: 178px 100px; }
+.buddy .dog-tongue { transform-box: fill-box; transform-origin: 50% 0; }
+
+/* Pisica isi ridica ochelarii cand o atingi sau cand vorbeste */
+.buddy--cat .buddy-hit:hover .cat-shades, .buddy--cat .buddy-hit:focus-visible .cat-shades, .buddy--cat.is-talking .cat-shades { transform: translateY(-44px) rotate(-8deg); }
+
+/* Pisica adormita: pleoapele jos, ochelarii pe crestet, z-urile se ridica */
+.buddy--sleep .cat-lids { transform: none; }
+.buddy--sleep .cat-shades { transform: translateY(-42px) rotate(-6deg); }
+.buddy--sleep.is-talking .cat-lids, .buddy--sleep .buddy-hit:hover .cat-lids { transform: scaleY(0); }
+.buddy-z { position: absolute; top: 4%; right: 6%; display: flex; gap: 0.1rem; pointer-events: none; font: 800 1.1rem/1 var(--display); color: var(--cobalt); }
+.buddy-z i { font-style: normal; opacity: 0.85; }
+.buddy--sleep.is-talking .buddy-z { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .buddy .cat-tail { animation: buddy-tail 2.6s ease-in-out infinite alternate; }
+  .buddy--sit .cat-lids { animation: buddy-blink 4.6s infinite; }
+  .buddy .dog-tongue { animation: buddy-pant 0.34s ease-in-out infinite alternate; }
+  .buddy .dog-ear--r { animation: buddy-ear 5.2s infinite; }
+  .buddy--sleep .cat-tail { animation-duration: 5s; }
+  .buddy--sleep .mascot { animation: buddy-breathe 3.6s ease-in-out infinite; transform-origin: 50% 100%; }
+  .buddy-z i { animation: buddy-z 2.8s ease-in infinite; }
+  .buddy-z i:nth-child(2) { animation-delay: 0.9s; font-size: 0.85em; }
+  .buddy-z i:nth-child(3) { animation-delay: 1.8s; font-size: 0.7em; }
+  .buddy.is-off *, .buddy.is-off { animation-play-state: paused !important; }
+
+  .buddy--dog.is-talking .dog-head { animation: buddy-bob 0.14s ease-out 4 alternate; }
+  .buddy--dog.is-talking .dog-ear--l { animation: buddy-ear-l 0.12s ease-in-out 4 alternate; }
+  .buddy--dog.is-talking .dog-ear--r { animation: buddy-ear-r 0.12s ease-in-out 4 alternate; }
+  .buddy--cat.is-landed.is-talking:not(.buddy--sleep) .mascot { animation: buddy-hop 0.45s cubic-bezier(0.3, 1.5, 0.5, 1); transform-origin: 50% 100%; }
+
+  /* Intrarea in scena, o singura data: cainele se iteste de jos, pisica sare pe pozitie */
+  .buddy[data-ready]:not(.is-in) .mascot { opacity: 0; }
+  .buddy--peek[data-ready]:not(.is-in) .mascot { opacity: 1; transform: translateY(70%); }
+  .buddy--peek[data-ready] .buddy-hit, .buddy--peek[data-ready] > .mascot { clip-path: inset(-40% -10% 0 -10%); }
+  .buddy--peek.is-in .mascot { transition: transform 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) 0.15s; }
+  .buddy--sit.is-in:not(.is-landed) .mascot { animation: buddy-land 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) 0.1s both; transform-origin: 50% 100%; }
+}
+@keyframes buddy-tail { from { transform: rotate(-6deg); } to { transform: rotate(14deg); } }
+@keyframes buddy-blink { 0%, 92%, 100% { transform: scaleY(0); } 95% { transform: scaleY(1); } }
+@keyframes buddy-pant { to { transform: scaleY(1.14); } }
+@keyframes buddy-ear { 0%, 90%, 100% { transform: none; } 93% { transform: rotate(10deg); } 96% { transform: rotate(-2deg); } }
+@keyframes buddy-ear-l { to { transform: rotate(-11deg); } }
+@keyframes buddy-ear-r { to { transform: rotate(11deg); } }
+@keyframes buddy-bob { to { transform: translateY(-9px); } }
+@keyframes buddy-hop { 40% { transform: translateY(-14%) scale(1.02, 0.98); } 70% { transform: scale(1.04, 0.95); } }
+@keyframes buddy-land { 0% { opacity: 0; transform: translateY(-60%) rotate(-8deg); } 60% { opacity: 1; transform: translateY(0) scale(1.06, 0.92); } 100% { transform: none; } }
+@keyframes buddy-breathe { 50% { transform: scale(1.02, 0.975); } }
+@keyframes buddy-z { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translate(14px, -34px); opacity: 0; } }
+
+/* Antetul paginilor interioare: textul in stanga, personajul pe „raft” in dreapta */
+.page-head--buddy .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: clamp(1rem, 4vw, 3rem); }
+.head-buddy { --buddy-w: clamp(120px, 13vw, 176px); margin-bottom: calc(6px - clamp(2rem, 4vw, 3.5rem)); align-self: end; }
+.page-head--buddy { position: relative; }
+.page-head--buddy::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--ink); }
+.head-buddy.buddy--sit .mascot, .head-buddy.buddy--sleep .mascot { margin-bottom: -4px; }
+@media (max-width: 640px) {
+  .page-head--buddy .wrap { grid-template-columns: minmax(0, 1fr); }
+  .head-buddy { --buddy-w: 96px; justify-self: end; margin-top: 0.75rem; margin-right: 0.5rem; }
+  .head-buddy .buddy-say { font-size: 0.88rem; max-width: 13rem; }
+}
+
+/* Pisica adormita pe marginea de sus a footerului */
+.site-footer { position: relative; }
+.footer-cat { --buddy-w: clamp(104px, 10vw, 140px); position: absolute; top: 0; right: clamp(1rem, 9vw, 9rem); transform: translateY(-96%); z-index: 2; }
+
+/* Bannerul de cookie-uri, cu cainele care se iteste peste el */
+.consent { overflow: visible; }
+.consent-buddy { --buddy-w: 74px; position: absolute; top: 0; left: 1.25rem; transform: translateY(-88%); }
+.consent-buddy .buddy-say { right: auto; left: 92%; bottom: 40%; border-radius: 18px 18px 18px 4px; transform-origin: 0 100%; font-size: 0.9rem; }
+
+/* Locuri goale din cont: un personaj mic langa mesaj */
+.empty-buddy { display: flex; align-items: center; gap: 1rem; }
+.empty-buddy .buddy { --buddy-w: 76px; }
+.empty-buddy .notice { margin: 0; flex: 1; }
+
+/* Paginile de eroare */
+.oops { padding: clamp(2.5rem, 7vw, 6rem) 0 clamp(3rem, 8vw, 7rem); }
+.oops .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: center; }
+.oops-code { font: 800 clamp(5rem, 16vw, 12rem)/0.8 var(--display); color: var(--cobalt); letter-spacing: -0.05em; margin: 0 0 1.25rem; }
+.oops-code span { color: var(--magenta); }
+.oops .buddy { --buddy-w: min(100%, 340px); justify-self: center; }
+.oops .buddy-say { font-size: 1.05rem; }
+.oops-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+@media (max-width: 760px) { .oops .wrap { grid-template-columns: 1fr; } .oops .buddy { --buddy-w: 180px; grid-row: 1; margin-top: 4.5rem; } }

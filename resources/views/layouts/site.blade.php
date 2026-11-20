@@ -15,7 +15,7 @@
     <meta property="og:url" content="{{ $seo->canonical }}">
     <meta property="og:image" content="{{ $seo->image ?? asset('media/2023/05/0h7a9513.webp') }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#21b073">
+    <meta name="theme-color" content="#1e3ba8">
     @if ($clinic['verification'])<meta name="google-site-verification" content="{{ $clinic['verification'] }}">@endif
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     @foreach ($seo->jsonLd as $schema)
@@ -59,6 +59,7 @@
 </main>
 
 <footer class="site-footer">
+    <x-buddy class="footer-cat" kind="cat" pose="sleep" :greet="false" :say="['Zzz… a, bună! Ne vedem la control.', 'Mai stai puțin? E cald aici.', 'Miau. Am păzit pagina toată ziua.', 'Programează-te, eu mă întorc la somn.']" />
     <div class="wrap">
         <div class="footer-top">
             <div>
