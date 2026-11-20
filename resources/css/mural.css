@@ -1,0 +1,160 @@
+/* Componentele „mural”: bula albastra de pe fatada, personajele, decorurile pictate, turul clinicii,
+   galeria de la inaugurare si episoadele. Totul pleaca de la peretele clinicii, nu de la un sablon. */
+
+/* ---------- Decoruri pictate (buline, triunghiuri, sageti) ---------- */
+.dots { --dot: var(--ink); background-image: radial-gradient(var(--dot) 34%, transparent 36%); background-size: 22px 22px; }
+.paint { position: absolute; pointer-events: none; }
+.paint--tri { width: 0; height: 0; border-style: solid; }
+
+/* ---------- Prima pagina: peretele ---------- */
+.wall { position: relative; overflow: clip; padding: clamp(1rem, 3vw, 2.5rem) 0 clamp(3rem, 6vw, 6rem); }
+.wall-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+.wall-stage { position: relative; padding: clamp(5.5rem, 9vw, 8rem) 0 clamp(3rem, 5vw, 4rem); }
+
+.bubble { --dog: clamp(112px, 12.5vw, 176px); position: relative; color: #fff; padding: clamp(2.4rem, 5vw, 4.25rem) clamp(1.75rem, 5vw, 4.5rem) clamp(2.6rem, 5vw, 4.5rem); isolation: isolate; }
+.bubble-shape { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; overflow: visible; }
+.bubble h1 { color: #fff; font-size: clamp(3.1rem, 1.6rem + 6.6vw, 7.4rem); line-height: 0.86; margin: 0; }
+.bubble h1 span { display: block; }
+.bubble p { color: #e4e9ff; font-size: var(--step-1); line-height: 1.4; max-width: 30ch; margin: 1.4rem 0 0; }
+.bubble .btn-primary { margin-top: 1.75rem; }
+.bubble-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; padding-right: calc(var(--dog) * 0.75); }
+.bubble-actions .btn-ghost { color: #fff; }
+.bubble-actions .btn-ghost:hover { background: #fff; color: var(--cobalt); border-color: #fff; }
+
+.mascot { display: block; width: 100%; height: auto; overflow: visible; }
+.perch-cat { position: absolute; z-index: 2; width: clamp(118px, 15vw, 190px); top: clamp(-0.5rem, 1vw, 1rem); right: 12%; }
+.peek-dog { position: absolute; z-index: 3; width: var(--dog); right: 5%; bottom: calc(var(--dog) * -0.16); padding: 0; border: 0; background: none; cursor: pointer; }
+.peek-dog:focus-visible { outline-offset: -6px; }
+.woof { position: absolute; right: 78%; top: -14%; background: #fff; color: var(--ink); border: 3px solid var(--ink); border-radius: 18px 18px 4px 18px;
+  font: 800 1.25rem/1 var(--display); padding: 0.5rem 0.8rem; box-shadow: var(--shadow-hard); opacity: 0; transform: scale(0.4); transform-origin: 100% 100%; pointer-events: none; }
+.peek-dog.is-barking .woof { opacity: 1; transform: none; transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.1s; }
+
+.posters { position: relative; height: clamp(380px, 46vw, 620px); }
+.poster { position: absolute; z-index: 1; margin: 0; background: #fff; padding: 10px 10px 2.4rem; border: 3px solid var(--ink); border-radius: 6px; box-shadow: 8px 8px 0 var(--ink); }
+.poster img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.poster figcaption { position: absolute; left: 12px; right: 12px; bottom: 0.55rem; font: 600 0.92rem/1.2 var(--text); color: var(--ink); }
+.poster--main { inset: 0 6% 18% 4%; transform: rotate(-3deg); }
+.poster--main img { height: calc(100% - 0px); }
+.poster--side { width: 46%; height: 44%; right: 0; bottom: 0; transform: rotate(5deg); }
+.sticker-sun { position: absolute; z-index: 2; left: -3%; top: -2%; width: clamp(92px, 10vw, 128px); aspect-ratio: 1; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink);
+  display: grid; place-items: center; text-align: center; font: 800 0.98rem/1.05 var(--display); color: var(--ink); transform: rotate(-12deg); box-shadow: var(--shadow-hard); padding: 0.5rem; }
+
+.wall-facts { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; list-style: none; margin: clamp(1rem, 3vw, 2.5rem) 0 0; padding: 0; }
+.wall-facts li { display: grid; gap: 0.1rem; }
+.wall-facts span { font-size: var(--step--1); color: var(--body); }
+.wall-facts a { color: var(--ink); font-weight: 600; text-decoration: none; font-size: 1.1rem; }
+.wall-facts a:hover { color: var(--cobalt); text-decoration: underline; }
+
+.deco-dots { width: 150px; height: 110px; --dot: var(--ink); top: 2%; left: -2%; opacity: 0.9; z-index: -1; }
+.wall-stage { isolation: isolate; }
+.deco-tri-m { border-width: 0 48px 80px 48px; border-color: transparent transparent var(--magenta) transparent; top: 16%; right: 44%; transform: rotate(18deg); }
+.deco-tri-o { border-width: 38px 0 38px 64px; border-color: transparent transparent transparent var(--tangerine); bottom: -2%; left: 22%; transform: rotate(-8deg); }
+.deco-arrow { width: 70px; height: 70px; bottom: 30%; left: 47%; border-top: 14px solid var(--teal); border-right: 14px solid var(--teal); transform: rotate(45deg); }
+
+@media (max-width: 920px) {
+  .wall-grid { grid-template-columns: 1fr; }
+  .bubble { --dog: 104px; padding: 3.4rem 1.9rem calc(var(--dog) * 0.7 + 1.5rem) 2.2rem; }
+  .bubble h1 { font-size: clamp(2.6rem, 11vw, 3.6rem); }
+  .bubble-actions { padding-right: 0; }
+  .deco-tri-o { display: none; }
+  .deco-dots { width: 110px; height: 80px; }
+  .posters { height: clamp(300px, 70vw, 460px); margin-top: 1rem; }
+  .deco-tri-m { right: 6%; top: 4%; }
+  .deco-arrow { display: none; }
+}
+
+/* ---------- Banda pictata intre sectiuni ---------- */
+.stripe { height: clamp(42px, 5vw, 64px); background:
+  linear-gradient(135deg, var(--sun) 25%, transparent 25%) 0 0 / 64px 64px,
+  linear-gradient(225deg, var(--magenta) 25%, transparent 25%) 0 0 / 64px 64px,
+  linear-gradient(315deg, var(--cobalt) 25%, transparent 25%) 0 0 / 64px 64px,
+  linear-gradient(45deg, var(--tangerine) 25%, var(--sun) 25%) 0 0 / 64px 64px; border-block: 3px solid var(--ink); }
+
+/* ---------- Turul clinicii (derulare orizontala) ---------- */
+.tour { position: relative; background: var(--ink); color: #e8e4f5; overflow: clip; }
+.tour-pin { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 1fr); padding: clamp(6.5rem, 12vh, 8rem) 0 clamp(1.5rem, 4vh, 3rem); }
+.tour h2 { color: #fff; }
+.tour-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: end; }
+.tour-head p { margin: 0.75rem 0 0; max-width: 46ch; }
+.tour-viewport { min-width: 0; }
+.tour-count { font: 800 var(--step-3)/1 var(--display); color: var(--sun); font-variant-numeric: tabular-nums; }
+.tour-track { display: flex; gap: clamp(1rem, 2vw, 1.75rem); align-items: center; padding: clamp(1.5rem, 4vh, 3rem) max(1.25rem, calc((100vw - 1240px) / 2)); width: max-content; }
+.room { position: relative; flex: 0 0 auto; width: clamp(280px, 42vw, 620px); margin: 0; }
+.room:nth-child(odd) { transform: rotate(-1.5deg); }
+.room:nth-child(even) { transform: rotate(1.5deg) translateY(1.5rem); }
+.room-frame { aspect-ratio: 4 / 3; border: 4px solid #fff; border-radius: 10px; overflow: hidden; background: #2b2147; }
+.room-frame img { width: 100%; height: 100%; object-fit: cover; }
+.room figcaption { margin-top: 0.9rem; display: grid; gap: 0.2rem; }
+.room strong { font: 800 var(--step-1)/1.1 var(--display); color: #fff; }
+.room span { color: #bdb6d6; }
+.room-tag { position: absolute; top: -0.9rem; left: 1.25rem; z-index: 1; padding: 0.35rem 0.8rem; border: 3px solid var(--ink); border-radius: 999px; font: 700 0.9rem var(--text); color: var(--ink); }
+.room:nth-child(4n+1) .room-tag { background: var(--sun); }
+.room:nth-child(4n+2) .room-tag { background: var(--magenta); color: #fff; }
+.room:nth-child(4n+3) .room-tag { background: #9fb6ff; }
+.room:nth-child(4n) .room-tag { background: var(--tangerine); }
+/* Fara animatie (ecran mic sau miscare redusa): galerie care se trage cu degetul */
+.tour.is-static .tour-pin { min-height: 0; }
+.tour.is-static .tour-viewport { overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
+.tour.is-static .room { scroll-snap-align: center; width: min(82vw, 520px); }
+@media (max-width: 720px) { .tour-head { grid-template-columns: 1fr; } .tour-count { display: none; } }
+
+/* ---------- Galerie inaugurare ---------- */
+.opening { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(80px, 9vw, 120px); gap: clamp(0.5rem, 1.2vw, 1rem); }
+.opening figure { margin: 0; position: relative; overflow: hidden; border-radius: 14px; border: 3px solid var(--ink); background: var(--wall); }
+.opening img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.opening figure:hover img { transform: scale(1.04); }
+.opening figcaption { position: absolute; left: 0.6rem; bottom: 0.6rem; background: #fff; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 0.2rem 0.7rem; font-size: 0.88rem; font-weight: 600; }
+.opening .o1 { grid-column: 1 / span 5; grid-row: span 4; }
+.opening .o2 { grid-column: 6 / span 4; grid-row: span 2; }
+.opening .o3 { grid-column: 10 / span 3; grid-row: span 3; }
+.opening .o4 { grid-column: 6 / span 4; grid-row: span 2; }
+.opening .o5 { grid-column: 1 / span 3; grid-row: span 2; }
+.opening .o6 { grid-column: 4 / span 4; grid-row: span 2; }
+.opening .o7 { grid-column: 8 / span 5; grid-row: span 3; }
+.opening .o8 { grid-column: 1 / span 7; grid-row: span 2; }
+@media (max-width: 720px) {
+  .opening { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; }
+  .opening figure { grid-column: auto / span 1 !important; grid-row: span 1 !important; }
+  .opening .o1, .opening .o7 { grid-column: 1 / -1 !important; grid-row: span 2 !important; }
+}
+
+/* ---------- Episoade (reels) ---------- */
+.episodes { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(190px, 22vw, 250px); gap: clamp(0.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0.5rem max(1.25rem, calc((100vw - 1240px) / 2)) 1.5rem; margin-inline: calc(50% - 50vw); scrollbar-width: thin; }
+.episode { scroll-snap-align: start; position: relative; display: grid; gap: 0.6rem; }
+.episode-frame { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: var(--ink); }
+.episode-frame img, .episode-frame video { width: 100%; height: 100%; object-fit: cover; }
+.episode-play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; background: linear-gradient(180deg, transparent 55%, rgba(31, 22, 56, 0.55)); cursor: pointer; padding: 0; }
+.episode-play span { width: 3.75rem; height: 3.75rem; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink); display: grid; place-items: center; box-shadow: var(--shadow-hard); transition: transform 0.2s ease; }
+.episode-play:hover span, .episode-play:focus-visible span { transform: scale(1.08) rotate(-6deg); }
+.episode-play svg { width: 1.4rem; height: 1.4rem; margin-left: 4px; }
+.episode-no { position: absolute; top: 0.6rem; left: 0.6rem; background: var(--magenta); color: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 0.1rem 0.6rem; font: 700 0.85rem var(--text); }
+.episode-len { position: absolute; top: 0.6rem; right: 0.6rem; background: rgba(255, 255, 255, 0.92); color: var(--ink); border-radius: 999px; padding: 0.1rem 0.55rem; font: 600 0.82rem var(--text); font-variant-numeric: tabular-nums; }
+.episode h3 { font: 600 1.05rem/1.25 var(--text); color: var(--ink); }
+.episode.is-playing .episode-play, .episode.is-playing .episode-no, .episode.is-playing .episode-len { display: none; }
+
+/* ---------- Sectiuni colorate ---------- */
+.section--cobalt { background: var(--cobalt); color: #e4e9ff; }
+.section--cobalt h2, .section--cobalt h3 { color: #fff; }
+.section--cobalt a:not(.btn) { color: #fff; }
+.section--cobalt .ticks li { color: #fff; }
+.section--cobalt .ticks svg { color: var(--sun); }
+.section--green { background: var(--cobalt); color: #e4e9ff; }
+.section--green .ticks svg { color: var(--sun); }
+.section--sun { background: var(--sun); }
+.section--sun .btn-primary { background: #fff; }
+
+/* Antet: logo + navigatie pe fond alb, cu margine de cerneala */
+.nav { border: 2px solid var(--ink); background: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 0 var(--ink); }
+.nav-links a:hover, .nav-links a[aria-current='page'] { background: var(--sun); color: var(--ink); }
+
+/* Echipa: rame foto ca pe perete */
+.person-photo { border: 3px solid var(--ink); }
+.person:nth-child(3n+1) .person-photo { background: var(--sky); }
+.person:nth-child(3n+2) .person-photo { background: var(--sun); }
+.person:nth-child(3n) .person-photo { background: #ffc7df; }
+
+@media (prefers-reduced-motion: reduce) {
+  .room:nth-child(odd), .room:nth-child(even) { transform: none; }
+  .opening figure:hover img { transform: none; }
+}

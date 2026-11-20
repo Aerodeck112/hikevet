@@ -1,29 +1,43 @@
 @extends('layouts.site')
 
 @section('content')
-<section class="hero">
-    <div class="wrap hero-grid">
-        <div>
-            <p class="script">{{ $b['hero_script'] ?? '' }}</p>
-            <h1 class="display h-xl">{{ $b['hero_title'] ?? $page->title }}</h1>
-            <p class="lead">{{ $page->lead }}</p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează o vizită</a>
-                <a class="btn btn-ghost" href="{{ site_url('/abonamente/') }}">Vezi abonamentele</a>
+<section class="wall" data-wall>
+    <div class="wrap wall-grid">
+        <div class="wall-stage">
+            <span class="paint dots deco-dots" aria-hidden="true"></span>
+            <div class="perch-cat">@include('partials.mascot-cat')</div>
+            <div class="bubble">
+                @include('partials.bubble-shape')
+                <h1 class="display"><span>Clinica</span> <span>HiKeVet</span></h1>
+                <p>{{ $b['wall_lead'] ?? 'Clinică veterinară în Târgu Mureș: consultații, ecografie, chirurgie și spitalizare separată pentru câini și pisici.' }}</p>
+                <div class="bubble-actions">
+                    <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează o vizită</a>
+                    <a class="btn btn-ghost" href="{{ site_url('/abonamente/') }}">Vezi abonamentele</a>
+                </div>
+                <button class="peek-dog" type="button" aria-label="Câinele HiKeVet: apasă și latră">
+                    @include('partials.mascot-dog')
+                    <span class="woof" aria-live="polite"></span>
+                </button>
             </div>
-            <ul class="hero-facts">
-                <li><span>Telefon</span><a href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click">{{ $clinic['phone'] }}</a></li>
-                <li><span>Adresă</span><a href="{{ site_url('/hikevet-contact/') }}">{{ $clinic['address'] }}, {{ $clinic['city'] }}</a></li>
-                <li><span>Consult video</span><a href="{{ site_url('/video-vet/') }}">Video Vet</a></li>
-            </ul>
         </div>
-        <div class="capsules" aria-hidden="true">
-            <div class="capsule capsule--a"><x-img src="media/2023/05/0h7a9513.webp" sizes="(max-width: 880px) 33vw, 16vw" eager /></div>
-            <div class="capsule capsule--b"><x-img :src="$b['hero_image'] ?? ''" sizes="(max-width: 880px) 33vw, 16vw" eager style="object-position: 38% 50%" /></div>
-            <div class="capsule capsule--c"><x-img src="media/2023/07/black-schnauzer-cowboy-dog-2022-08-11-19-54-34-utc-min.webp" sizes="(max-width: 880px) 33vw, 16vw" eager /></div>
+        <div class="posters">
+            <span class="paint paint--tri deco-tri-m" aria-hidden="true"></span>
+            <span class="paint deco-arrow" aria-hidden="true"></span>
+            <figure class="poster poster--main"><x-img src="media/2026/clinica/fatada-ciobanesc.webp" alt="Intrarea în clinica HiKeVet, cu un ciobănesc german pictat pe perete" sizes="(max-width: 920px) 90vw, 44vw" eager /><figcaption>Intrarea în clinică</figcaption></figure>
+            <figure class="poster poster--side"><x-img src="media/2026/clinica/fatada-bula.webp" alt="Bula albastră cu numele clinicii, pictată pe fațadă" sizes="(max-width: 920px) 45vw, 20vw" eager style="object-position: 30% 50%" /><figcaption>Ne găsești după bulă</figcaption></figure>
+            <span class="sticker-sun" aria-hidden="true">Clinică nouă!</span>
+            <span class="paint paint--tri deco-tri-o" aria-hidden="true"></span>
         </div>
     </div>
+    <div class="wrap">
+        <ul class="wall-facts">
+            <li><span>Telefon</span><a href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click">{{ $clinic['phone'] }}</a></li>
+            <li><span>Adresă</span><a href="{{ site_url('/hikevet-contact/') }}">{{ $clinic['address'] }}, {{ $clinic['city'] }}</a></li>
+            <li><span>Consult de acasă</span><a href="{{ site_url('/video-vet/') }}">Video Vet</a></li>
+        </ul>
+    </div>
 </section>
+<div class="stripe" aria-hidden="true"></div>
 
 <section class="section section--mint" id="servicii">
     <div class="wrap">
@@ -46,6 +60,30 @@
                     </ul>
                 </div>
             @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="tour" data-tour aria-labelledby="tur-titlu">
+    <div class="tour-pin">
+        <div class="wrap tour-head">
+            <div>
+                <h2 class="display h-lg" id="tur-titlu">Intră cu noi</h2>
+                <p>Clinica nouă, cameră cu cameră. Derulează și te plimbi prin ea ca și cum ai fi acolo.</p>
+            </div>
+            <span class="tour-count" aria-hidden="true">01 / 08</span>
+        </div>
+        <div class="tour-viewport">
+            <div class="tour-track">
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/sala-asteptare.webp" alt="Sala de așteptare, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Sala de așteptare</strong><span>Pisicile de pe pereți îți țin companie până intri.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/cabinet-albastru.webp" alt="Cabinetul albastru, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Cabinetul albastru</strong><span>Consultații, vaccinări și controale.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/imagistica.webp" alt="Cabinetul pentru pisici, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Cabinetul pentru pisici</strong><span>Cu rafturi de cățărat pe perete, ca pisica să se simtă în largul ei.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/cabinet-verde.webp" alt="Cabinetul verde, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Cabinetul verde</strong><span>Încă un cabinet de consultații, ca să nu aștepți mult.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/sala-operatii.webp" alt="Sala de operații, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Sala de operații</strong><span>Anestezie inhalatorie și monitorizare pe toată durata intervenției.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/spitalizare.webp" alt="Spitalizare, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Spitalizare</strong><span>Pacienții internați stau aproape de echipă, sub supraveghere.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/spitalizare-pisici.webp" alt="Spitalizare pentru pisici, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Spitalizare pentru pisici</strong><span>Separată de câini, ca să fie liniște.</span></figcaption></figure>
+                <figure class="room"><div class="room-frame"><x-img src="media/2026/clinica/camera-caini.webp" alt="Camera câinilor, clinica HiKeVet" sizes="(max-width: 900px) 82vw, 42vw" /></div><figcaption><strong>Camera câinilor</strong><span>Pereți pictați cu câini care se joacă.</span></figcaption></figure>
+            </div>
         </div>
     </div>
 </section>
@@ -101,6 +139,56 @@
                 <div><dt>12 luni</dt><dd><span x-text="tier ? tier.m12 : '–'"></span> <small>lei</small></dd></div>
             </dl>
             <p class="calc-note">Categoria <strong x-text="tier ? tier.label : ''"></strong>. Preț standard pentru primul animal. Deparazitările se achită separat.</p>
+        </div>
+    </div>
+</section>
+
+@if ($episodes)
+<section class="section" aria-labelledby="episoade-titlu">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <h2 class="display h-lg" id="episoade-titlu">Povești din cabinet</h2>
+                <p>Pacienții noștri, de la primul vaccin la controlul de după operație. Fiecare episod e filmat la noi în clinică.</p>
+            </div>
+            @if ($clinic['instagram'])<a class="btn btn-ghost" href="{{ $clinic['instagram'] }}" rel="noopener">Mai multe pe Instagram</a>@endif
+        </div>
+        <div class="episodes" data-episodes>
+            @foreach ($episodes as $i => $ep)
+                <article class="episode">
+                    <div class="episode-frame">
+                        @if ($ep['poster'])<img src="{{ $ep['poster'] }}" alt="" loading="lazy" width="540" height="960">@endif
+                        <span class="episode-no">Ep. {{ $i + 1 }}</span>
+                        <span class="episode-len">{{ $ep['length'] }}</span>
+                        <button class="episode-play" type="button" data-src="{{ $ep['video'] }}" data-poster="{{ $ep['poster'] }}" aria-label="Pornește episodul: {{ $ep['title'] }}">
+                            <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor"/></svg></span>
+                        </button>
+                    </div>
+                    <h3>{{ $ep['title'] }}</h3>
+                </article>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+<section class="section section--sun" aria-labelledby="inaugurare-titlu">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <h2 class="display h-lg" id="inaugurare-titlu">Ziua în care am deschis ușa</h2>
+                <p>La inaugurare au venit vecini, prieteni și o mulțime de pacienți cu blană. Mulțumim că ați fost alături de noi!</p>
+            </div>
+        </div>
+        <div class="opening">
+            <figure class="o1"><x-img src="media/2026/clinica/fatada-bula.webp" alt="Fațada clinicii, cu bula albastră și pisica cu ochelari" sizes="(max-width: 720px) 100vw, 42vw" /><figcaption>Fațada, proaspăt pictată</figcaption></figure>
+            <figure class="o2"><x-img src="media/2026/clinica/inaugurare-samoyezi.webp" alt="Doi samoyezi albi la inaugurarea clinicii" sizes="(max-width: 720px) 50vw, 33vw" /></figure>
+            <figure class="o3"><x-img src="media/2026/clinica/inaugurare-teckel.webp" alt="Un pui de teckel în brațe, la inaugurare" sizes="(max-width: 720px) 50vw, 25vw" /></figure>
+            <figure class="o4"><x-img src="media/2026/clinica/inaugurare-bernez.webp" alt="Un câine negru cu pieptul alb, printre invitați" sizes="(max-width: 720px) 50vw, 33vw" /></figure>
+            <figure class="o5"><x-img src="media/2026/clinica/fatada-pisica.webp" alt="Pisica mare pictată pe peretele din curte" sizes="(max-width: 720px) 50vw, 25vw" /></figure>
+            <figure class="o6"><x-img src="media/2026/clinica/inaugurare-oaspeti.webp" alt="Invitați în sala de așteptare pictată cu pisici" sizes="(max-width: 720px) 50vw, 33vw" /></figure>
+            <figure class="o7"><x-img src="media/2026/clinica/inaugurare-samoyed-mural.webp" alt="Un samoyed și stăpânul lui în fața muralului" sizes="(max-width: 720px) 100vw, 42vw" /><figcaption>Prieteni vechi, clinică nouă</figcaption></figure>
+            <figure class="o8"><x-img src="media/2026/clinica/fatada-panorama.webp" alt="Fațada clinicii HiKeVet, pictată în culori vii" sizes="(max-width: 720px) 50vw, 58vw" /></figure>
         </div>
     </div>
 </section>
@@ -168,7 +256,6 @@
 </section>
 @endif
 
-@if (! empty($b['instagram']))
 <section class="section">
     <div class="wrap">
         <div class="section-head">
@@ -179,11 +266,10 @@
             <a class="btn btn-dark" href="{{ $b['instagram_url'] ?? '#' }}" rel="noopener">Urmărește-ne</a>
         </div>
         <div class="insta">
-            @foreach ($b['instagram'] as $i => $image)
-                <a href="{{ $b['instagram_url'] ?? '#' }}" rel="noopener" aria-label="Fotografie din cabinet {{ $i + 1 }}, pe Instagram"><x-img :src="$image" alt="" sizes="(max-width: 880px) 33vw, 16vw" /></a>
+            @foreach (['consult-caine' => 'Consult pe masa din cabinetul albastru', 'pisica-alba-raft' => 'Pisică albă pe un raft cu lăbuțe pictate', 'medic-pisica-raft' => 'Medic și o pisică curioasă pe raft', 'vaccin-pui' => 'Pui de pisică la vaccin', 'microcip' => 'Citirea microcipului', 'medic-pisica-alba' => 'Medic ținând în brațe o pisică albă'] as $photo => $alt)
+                <a href="{{ $b['instagram_url'] ?? $clinic['instagram'] ?: '#' }}" rel="noopener"><x-img :src="'media/2026/clinica/'.$photo.'.webp'" :alt="$alt" sizes="(max-width: 880px) 33vw, 16vw" /></a>
             @endforeach
         </div>
     </div>
 </section>
-@endif
 @endsection

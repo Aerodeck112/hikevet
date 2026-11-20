@@ -31,6 +31,7 @@ class PageController extends Controller
             'team' => TeamMember::query()->where('is_published', true)->orderBy('sort')->get(),
             'posts' => Post::published()->latest('published_at')->limit(3)->get(),
             'tiers' => $this->tiersForCalculator(),
+            'episodes' => \App\Support\Episodes::available(),
         ]);
     }
 

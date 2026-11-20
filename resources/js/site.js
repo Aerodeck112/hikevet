@@ -47,3 +47,8 @@ document.addEventListener('click', (event) => {
 window.hvTrack = (name, params = {}) => { if (window.dataLayer) window.dataLayer.push({ event: name, ...params }); };
 
 Alpine.start();
+
+// Personajele, turul clinicii si episoadele: incarcate doar unde exista.
+if (document.querySelector('[data-wall], [data-tour], [data-episodes]')) {
+    import('./mural').then((m) => m.initMural());
+}
