@@ -44,6 +44,10 @@ class BuddiesTest extends TestCase
             $this->assertStringContainsString('data-say=', $html, $url);
         }
         $this->get('/servicii/')->assertSee('Eu vin pentru vaccin. Tu?', false);
+        // Personajele au nume: Raza (pisica) si Hiko (cainele)
+        $this->get('/servicii/')->assertSee('<b class="buddy-name">Hiko</b>', false)->assertSee('Hiko, câinele HiKeVet: apasă și îți spune ceva', false);
+        $this->get('/echipa/')->assertSee('<b class="buddy-name">Raza</b>', false);
+        $this->get('/')->assertSee('Hiko, câinele HiKeVet: apasă și latră', false);
         $this->get('/')->assertOk()->assertSee('footer-cat', false);
     }
 

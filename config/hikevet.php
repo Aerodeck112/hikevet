@@ -2,7 +2,7 @@
 
 return [
     // Versiunea platformei, afisata in admin si verificata de sistemul de actualizari.
-    'version' => '0.3.1',
+    'version' => '0.3.2',
 
     // Copia directorului wp-content/uploads folosita la importul documentelor (optional).
     'wp_uploads_path' => env('WP_UPLOADS_PATH'),

@@ -8,7 +8,7 @@
 <tr><td style="background:#1E3BA8;padding:0 20px 0 28px;border-bottom:4px solid #1F1638;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
 <td style="color:#ffffff;font-size:22px;font-weight:bold;padding:22px 0;vertical-align:middle;">{{ \App\Support\Settings::get('clinic.name') }}</td>
-<td align="right" style="vertical-align:bottom;padding-top:10px;line-height:0;"><img src="{{ asset('media/personaje/pisica-si-caine.png') }}" width="128" height="80" alt="" style="display:block;border:0;width:128px;height:80px;"></td>
+<td align="right" style="vertical-align:bottom;padding-top:10px;line-height:0;"><img src="{{ asset('media/personaje/pisica-si-caine.png') }}" width="128" height="80" alt="Raza și Hiko" style="display:block;border:0;width:128px;height:80px;"></td>
 </tr></table>
 </td></tr>
 <tr><td style="padding:28px;font-size:15px;line-height:1.6;">

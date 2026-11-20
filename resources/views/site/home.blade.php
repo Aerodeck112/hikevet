@@ -14,7 +14,7 @@
                     <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează o vizită</a>
                     <a class="btn btn-ghost" href="{{ site_url('/abonamente/') }}">Vezi abonamentele</a>
                 </div>
-                <button class="peek-dog" type="button" aria-label="Câinele HiKeVet: apasă și latră">
+                <button class="peek-dog" type="button" aria-label="Hiko, câinele HiKeVet: apasă și latră">
                     @include('partials.mascot-dog')
                     <span class="woof" aria-live="polite"></span>
                 </button>

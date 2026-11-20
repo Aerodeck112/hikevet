@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BARKS = ['Ham!', 'Ham-ham!', 'Mă scarpini?', 'Vin la control!'];
+const BARKS = ['Ham! Eu sunt Hiko.', 'Ham-ham!', 'Mă scarpini?', 'Vin la control!', 'Raza e pisica de sus. Nu-i spune că am zis.'];
 
 function eyeFollower(svg, pupils, radius) {
     const moveX = gsap.quickTo(pupils, 'x', { duration: 0.35, ease: 'power3.out' });
@@ -38,7 +38,7 @@ function initWall(wall) {
         void dogButton.offsetWidth;
         dogButton.classList.add('is-barking');
         clearTimeout(dogButton._barkTimer);
-        dogButton._barkTimer = setTimeout(() => dogButton.classList.remove('is-barking'), 1400);
+        dogButton._barkTimer = setTimeout(() => dogButton.classList.remove('is-barking'), 1200 + woof.textContent.length * 45);
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             gsap.fromTo(dog.querySelectorAll('.dog-ear'), { rotation: 0 }, { rotation: (i) => (i ? 10 : -10), svgOrigin: '120 90', duration: 0.12, yoyo: true, repeat: 3, ease: 'power1.inOut' });
             gsap.fromTo(dog.querySelector('.dog-head'), { y: 0 }, { y: -8, duration: 0.14, yoyo: true, repeat: 3, ease: 'power2.out' });

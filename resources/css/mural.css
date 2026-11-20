@@ -26,7 +26,9 @@
 .peek-dog { position: absolute; z-index: 3; width: var(--dog); right: 5%; bottom: calc(var(--dog) * -0.16); padding: 0; border: 0; background: none; cursor: pointer; }
 .peek-dog:focus-visible { outline-offset: -6px; }
 .woof { position: absolute; right: 78%; top: -14%; background: #fff; color: var(--ink); border: 3px solid var(--ink); border-radius: 18px 18px 4px 18px;
-  font: 800 1.25rem/1 var(--display); padding: 0.5rem 0.8rem; box-shadow: var(--shadow-hard); opacity: 0; transform: scale(0.4); transform-origin: 100% 100%; pointer-events: none; }
+  font: 800 1.25rem/1.15 var(--display); padding: 0.75rem 0.8rem 0.5rem; width: max-content; max-width: 15rem; box-shadow: var(--shadow-hard); opacity: 0; transform: scale(0.4); transform-origin: 100% 100%; pointer-events: none; }
+.woof::before { content: 'Hiko'; position: absolute; top: -0.85rem; left: 0.7rem; font: 800 0.78rem/1 var(--display); color: #fff; background: var(--tangerine);
+  padding: 0.28rem 0.5rem 0.32rem; border: 2px solid var(--ink); border-radius: 8px; transform: rotate(-4deg); }
 .peek-dog.is-barking .woof { opacity: 1; transform: none; transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.1s; }
 
 .posters { position: relative; height: clamp(380px, 46vw, 620px); }
@@ -342,3 +344,12 @@
 .oops .buddy-say { font-size: 1.05rem; }
 .oops-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
 @media (max-width: 760px) { .oops .wrap { grid-template-columns: 1fr; } .oops .buddy { --buddy-w: 180px; grid-row: 1; margin-top: 4.5rem; } }
+
+/* Numele personajului, ca o eticheta lipita pe colțul balonului */
+.buddy-say { padding-top: 0.75rem; }
+.buddy-name { position: absolute; top: -0.85rem; left: 0.7rem; font: 800 0.78rem/1 var(--display); letter-spacing: 0.01em; color: #fff;
+  padding: 0.28rem 0.5rem 0.32rem; border: 2px solid var(--ink); border-radius: 8px; transform: rotate(-4deg); }
+.buddy--cat .buddy-name { background: var(--magenta); }
+.buddy--dog .buddy-name { background: var(--tangerine); }
+.buddy--left .buddy-name { left: auto; right: 0.7rem; transform: rotate(4deg); }
+.buddy-line { display: block; }

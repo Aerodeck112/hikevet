@@ -13,7 +13,7 @@ function place(buddy, bubble) {
     bubble.style.maxWidth = Math.max(140, Math.min(260, room - 14)) + 'px';
     const scale = bubble.getBoundingClientRect().width / (bubble.offsetWidth || 1) || 1;
     const range = document.createRange();
-    range.selectNodeContents(bubble);
+    range.selectNodeContents(bubble.querySelector('.buddy-line') || bubble);
     const widest = Math.max(0, ...[...range.getClientRects()].map((r) => r.width / scale));
     const chrome = bubble.offsetWidth - bubble.clientWidth + parseFloat(getComputedStyle(bubble).paddingLeft) * 2;
     if (widest) bubble.style.width = Math.ceil(widest + chrome + 1) + 'px';
@@ -21,6 +21,7 @@ function place(buddy, bubble) {
 
 function speaker(buddy) {
     const bubble = buddy.querySelector('.buddy-say');
+    const lineEl = bubble?.querySelector('.buddy-line') || bubble;
     let lines = [];
     try { lines = JSON.parse(buddy.dataset.say || '[]'); } catch { lines = []; }
     let index = 0;
@@ -29,7 +30,7 @@ function speaker(buddy) {
     return (line) => {
         if (!bubble || !lines.length) return;
         const text = line ?? lines[index++ % lines.length];
-        bubble.textContent = text;
+        lineEl.textContent = text;
         place(buddy, bubble);
         buddy.classList.remove('is-talking');
         void buddy.offsetWidth;

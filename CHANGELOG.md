@@ -1,5 +1,14 @@
 # Jurnal de modificări
 
+## 0.3.2 – 20.11.2026
+
+### Personajele au nume: Raza și Hiko
+- Pisica cu ochelari se numește Raza, ciobănescul se numește Hiko.
+- Fiecare balon de vorbă are o etichetă cu numele (magenta pentru Raza, mandarină pentru Hiko),
+  inclusiv lătratul lui Hiko de pe prima pagină.
+- Replici noi în care se prezintă („Eu sunt Hiko, ciobănescul de serviciu”, „Sunt Raza, pisica de pază”).
+- Numele apar și pentru cititoarele de ecran, pe ecranul de autentificare al personalului și în emailuri.
+
 ## 0.3.1 – 20.11.2026
 
 ### Pisica și câinele, pe tot site-ul
