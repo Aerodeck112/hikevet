@@ -1,5 +1,24 @@
 # Jurnal de modificări
 
+## 0.3.0 – 20.11.2026
+
+### Design nou, după fațada clinicii
+- Culorile și fontul de titluri sunt luate de pe muralul clinicii noi (bula albastră, galben, magenta, mandarină).
+- Prima pagină: bula „Clinica HiKeVet”, o pisică cu ochelari care urmărește cursorul și un ciobănesc care latră
+  la atingere; turul clinicii, cameră cu cameră; galeria de la inaugurare; episoadele video ale pacienților.
+- Animațiile se opresc pentru cine are „mișcare redusă” activată în sistem.
+
+### Abonamente și Wallet
+- Calculator de abonament cu animal desenat care crește odată cu greutatea, riglă de categorii și economia
+  pentru 6 și 12 luni.
+- Simulator Wallet: principal, bonus servicii, bonus produse și cum se împarte plata unui serviciu.
+- În cont: sume rapide la alimentare, bonusul afișat pe loc și zilele rămase din abonament.
+
+### Altele
+- Fotografia 0h7a9586 scoasă de peste tot, inclusiv din conținutul site-ului instalat.
+- Fără adrese hikevet.com scrise fix în cod.
+
+
 ## 0.2.0 – 19.11.2026 (pachet de instalare; încă neinstalat în producție)
 
 ### Campania de sterilizare (portată din modulul 2.7.6)
