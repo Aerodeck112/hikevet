@@ -101,17 +101,29 @@ trebuie să devină „în regulă” în câteva minute.
 ## 4. Domeniul principal
 
 Pe domeniul principal cPanel folosește `public_html` și de obicei nu permite schimbarea
-directorului. Variante, în ordinea preferinței:
+directorului. Variante:
 
-1. **Furnizorul schimbă document root** către `hikevet/public` (cerere la suport). Cea mai curată.
-2. **Legătură simbolică:** `public_html` redenumit (păstrat ca rezervă) și înlocuit cu o legătură
-   către `hikevet/public`. Cere Terminal sau SSH. *Netestat în acest proiect.*
+1. **Legătură simbolică** (testată pe Apache cu regula cPanel `SymLinksIfOwnerMatch`: instalare
+   completă, admin, `.env` și `storage` inaccesibile din browser, fișierele de validare SSL servite).
+   `public_html` se redenumește (rămâne ca rezervă) și se înlocuiește cu o legătură către `hikevet/public`.
+   Din cPanel → *Terminal*:
+
+   ```bash
+   cd ~ && mv public_html public_html_vechi && ln -s hikevet/public public_html
+   ```
+
+   Revenire: `cd ~ && rm public_html && mv public_html_vechi public_html`.
+
+   **Înainte:** în cPanel → *Domains* se verifică dacă vreun alt domeniu are directorul **în**
+   `public_html` (de exemplu `public_html/alt-domeniu.ro`). Dacă da, redenumirea l-ar opri; în acest
+   caz se folosește varianta 2.
+2. **Furnizorul schimbă document root** către `hikevet/public` (cerere la suport).
 
 Copierea conținutului din `public/` în `public_html` **nu este suportată**: actualizările scriu în
 `hikevet/public` și site-ul ar rămâne cu fișiere vechi.
 
-Comutarea domeniului principal se face abia după import, verificări și aprobare; pașii sunt în
-`docs/IMPORT_RUNBOOK.md`. Până atunci WordPress rămâne neatins în `public_html`.
+Dacă pe domeniu rulează încă site-ul WordPress folosit de clienți, comutarea se face abia după import,
+verificări și aprobare (`docs/IMPORT_RUNBOOK.md`).
 
 ## 5. Probleme frecvente
 
