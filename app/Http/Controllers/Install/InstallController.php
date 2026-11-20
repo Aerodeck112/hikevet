@@ -56,7 +56,7 @@ class InstallController extends Controller
             }
         }
         if (! filter_var($request->input('app_url'), FILTER_VALIDATE_URL)) {
-            $errors[] = 'Adresa site-ului trebuie să fie un URL complet, de exemplu https://hikevet.com.';
+            $errors[] = 'Adresa site-ului trebuie să fie un URL complet, de exemplu https://hikevet.ro.';
         }
         if (! $errors) {
             $dbError = $this->installer->testDatabase(['host' => $request->input('db_host'), 'port' => $request->input('db_port', 3306), 'database' => $request->input('db_database'),

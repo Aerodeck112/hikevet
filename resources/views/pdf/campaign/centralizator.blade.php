@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="clinic">CLINICA VETERINARA HIKEVET</div>
-<div class="sub">Targu Mures | hikevet.com</div>
+<div class="sub">Targu Mures | {{ parse_url((string) config('app.url'), PHP_URL_HOST) ?: 'hikevet.com' }}</div>
 <h1>CENTRALIZATOR INTERVENTII DE STERILIZARE</h1>
 <div class="month">HIKEVET - {{ mb_strtoupper(\Illuminate\Support\Str::ascii($monthLabel)) }}</div>
 

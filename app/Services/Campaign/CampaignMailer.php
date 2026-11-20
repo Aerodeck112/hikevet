@@ -336,7 +336,7 @@ class CampaignMailer
             .'<div style="padding:20px;margin:22px 0;border-radius:16px;background:linear-gradient(135deg,#eff6ff,#f0fdf4);border:1px solid #bfdbfe;text-align:center;">'
             .'<h3 style="margin:0 0 8px;color:#0f766e;">Știi de abonamentele HiKeVet?</h3>'
             .'<p style="margin:0 0 16px;">Cu un abonament HiKeVet ai grijă de sănătatea companionului tău pe tot parcursul anului, mai simplu și mai avantajos. Descoperă opțiunile potrivite pentru voi și beneficiile incluse.</p>'
-            .'<a href="https://hikevet.com/abonamente/" target="_blank" rel="noopener" style="display:inline-block;padding:12px 20px;border-radius:999px;background:#0f766e;color:#ffffff;text-decoration:none;font-weight:700;">Vreau abonament</a></div>'
+            .'<a href="'.e(url('/abonamente/')).'" target="_blank" rel="noopener" style="display:inline-block;padding:12px 20px;border-radius:999px;background:#0f766e;color:#ffffff;text-decoration:none;font-weight:700;">Vreau abonament</a></div>'
             .'<div style="padding:16px;margin-top:20px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;">'
             .'<strong>Programări și informații HiKeVet</strong><br>Strada Băneasa 23, Târgu Mureș<br>'
             .'Telefon: <a href="tel:+40771280345" style="color:#0f766e;">+40 771 280 345</a><br>'
