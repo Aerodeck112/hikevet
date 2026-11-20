@@ -81,7 +81,7 @@ class Seo
             'telephone' => Settings::get('clinic.phone'), 'email' => Settings::get('clinic.email'),
             'address' => ['@type' => 'PostalAddress', 'streetAddress' => Settings::get('clinic.address'),
                 'addressLocality' => Settings::get('clinic.city'), 'addressRegion' => 'Mureș', 'addressCountry' => 'RO'],
-            'image' => asset('media/2023/05/0h7a9586-scaled-e1689027689830.webp'),
+            'image' => asset('media/2023/05/0h7a9513.webp'),
         ];
 
         $hours = array_values(array_filter((array) Settings::get('clinic.hours', [])));

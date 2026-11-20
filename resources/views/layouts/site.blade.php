@@ -13,7 +13,7 @@
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">
     <meta property="og:url" content="{{ $seo->canonical }}">
-    <meta property="og:image" content="{{ $seo->image ?? asset('media/2023/05/0h7a9586-scaled-e1689027689830.webp') }}">
+    <meta property="og:image" content="{{ $seo->image ?? asset('media/2023/05/0h7a9513.webp') }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#21b073">
     @if ($clinic['verification'])<meta name="google-site-verification" content="{{ $clinic['verification'] }}">@endif

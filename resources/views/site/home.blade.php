@@ -68,13 +68,6 @@
                     </div>
                 </article>
             @endforeach
-            <article class="person">
-                <div class="person-photo"><x-img :src="$b['staff_image'] ?? ''" alt="Membră a echipei HiKeVet îmbrățișând un câine în cabinet" sizes="(max-width: 880px) 100vw, 33vw" /></div>
-                <div>
-                    <h3>Alături de pacienți, în fiecare zi</h3>
-                    <p>{{ $clinic['address'] }}, {{ $clinic['city'] }}. <a href="{{ site_url('/tur-3d/') }}">Vezi turul 3D al clinicii</a></p>
-                </div>
-            </article>
         </div>
     </div>
 </section>

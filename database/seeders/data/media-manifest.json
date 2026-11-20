@@ -73,26 +73,6 @@
         },
         "sha256_source": "6ad65bff00de2c86077814219e4aa5d49c8b49f2a0898b756be91b227d498222"
     },
-    "2023/05/0h7a9586-scaled-e1689027689830": {
-        "source": "2023/05/0H7A9586-scaled-e1689027689830.jpg",
-        "width": 1600,
-        "height": 1067,
-        "variants": {
-            "large": {
-                "path": "media/2023/05/0h7a9586-scaled-e1689027689830.webp",
-                "width": 1600,
-                "height": 1067,
-                "bytes": 70586
-            },
-            "small": {
-                "path": "media/2023/05/0h7a9586-scaled-e1689027689830-640.webp",
-                "width": 640,
-                "height": 427,
-                "bytes": 19798
-            }
-        },
-        "sha256_source": "32b75595029d3de7370f583a8c4280f5411ce418ceef7861ce738928e562eb8f"
-    },
     "2023/05/negru": {
         "source": "2023/05/negru.png",
         "width": 1578,
