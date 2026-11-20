@@ -1,0 +1,164 @@
+[
+ {
+  "slug": "max",
+  "title": "Max",
+  "seconds": 70,
+  "order": 1
+ },
+ {
+  "slug": "luna",
+  "title": "Luna",
+  "seconds": 67,
+  "order": 2
+ },
+ {
+  "slug": "luna-continuare",
+  "title": "Luna, continuare",
+  "seconds": 80,
+  "order": 3
+ },
+ {
+  "slug": "sasha-operatie",
+  "title": "Sasha, operația",
+  "seconds": 141,
+  "order": 4
+ },
+ {
+  "slug": "sasha-control",
+  "title": "Sasha la control",
+  "seconds": 45,
+  "order": 5
+ },
+ {
+  "slug": "ioli",
+  "title": "Pisica Ioli",
+  "seconds": 119,
+  "order": 6
+ },
+ {
+  "slug": "ioli-continuare",
+  "title": "Pisica Ioli, continuare",
+  "seconds": 122,
+  "order": 7
+ },
+ {
+  "slug": "pisicute-vaccin",
+  "title": "Pisicuțe la vaccin",
+  "seconds": 87,
+  "order": 8
+ },
+ {
+  "slug": "bichon-alb",
+  "title": "Bichonul alb",
+  "seconds": 81,
+  "order": 9
+ },
+ {
+  "slug": "misha",
+  "title": "Misha",
+  "seconds": 69,
+  "order": 10
+ },
+ {
+  "slug": "amos",
+  "title": "Amos, bulldog francez",
+  "seconds": 202,
+  "order": 11
+ },
+ {
+  "slug": "jerry",
+  "title": "Jerry, 6 ani, la consult",
+  "seconds": 161,
+  "order": 12
+ },
+ {
+  "slug": "pixi-cardiologie",
+  "title": "Pixi la examinarea cardiologică",
+  "seconds": 172,
+  "order": 13
+ },
+ {
+  "slug": "negruta-cardiologie",
+  "title": "Negruța la consult cardiologic",
+  "seconds": 130,
+  "order": 14
+ },
+ {
+  "slug": "picky-cardiologie",
+  "title": "Picky la consult cardiologic",
+  "seconds": 189,
+  "order": 15
+ },
+ {
+  "slug": "aschiuta",
+  "title": "Pisica Așchiuță",
+  "seconds": 216,
+  "order": 16
+ },
+ {
+  "slug": "bella-sterilizare",
+  "title": "Bella, în campania de sterilizare",
+  "seconds": 116,
+  "order": 17
+ },
+ {
+  "slug": "bulldog-francez",
+  "title": "Bulldog francez",
+  "seconds": 245,
+  "order": 18
+ },
+ {
+  "slug": "ozi",
+  "title": "Ozi, bulldog englez",
+  "seconds": 100,
+  "order": 19
+ },
+ {
+  "slug": "daisy-cardiologie",
+  "title": "Daisy la consult cardiologic",
+  "seconds": 133,
+  "order": 20
+ },
+ {
+  "slug": "mala-vaccin-microcip",
+  "title": "Mala la vaccin și microcipare",
+  "seconds": 95,
+  "order": 21
+ },
+ {
+  "slug": "pepe",
+  "title": "Cățelul Pepe",
+  "seconds": 139,
+  "order": 22
+ },
+ {
+  "slug": "fekete-palat",
+  "title": "Fekete și palatul despicat",
+  "seconds": 88,
+  "order": 23
+ },
+ {
+  "slug": "aba-cushing",
+  "title": "Aba și boala Cushing",
+  "seconds": 196,
+  "order": 24
+ },
+ {
+  "slug": "zsebi",
+  "title": "Zsebi, toy mini",
+  "seconds": 154,
+  "order": 25
+ },
+ {
+  "slug": "hugo-bebelina",
+  "title": "Hugo și Bebelina, pisici sfinx",
+  "seconds": 120,
+  "order": 26
+ },
+ {
+  "slug": "consult-telefon",
+  "title": "Consult prin telefon",
+  "seconds": 21,
+  "order": 27
+ }
+]

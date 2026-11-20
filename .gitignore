@@ -41,3 +41,6 @@ Thumbs.db
 
 # Asseturile panoului de administrare (public/js|css|fonts/filament) sunt versionate:
 # pe cPanel nu exista o comanda care sa le publice la instalare din arhiva.
+
+# Episoadele video se livreaza separat (pachet media), nu prin Git sau prin actualizari
+/public/media/episoade/*.mp4

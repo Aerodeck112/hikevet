@@ -78,7 +78,7 @@ class PublicSiteTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertSee('Clinică veterinară')->assertSee('Bine ai venit la HiKeVet')->assertSee('Dr. Radu Feșteu')->assertSee('Radiografie')
+        $response->assertSee('Clinică veterinară')->assertSee('Intră cu noi')->assertSee('Ziua în care am deschis ușa')->assertSee('Dr. Radu Feșteu')->assertSee('Radiografie')
             ->assertSee('+40 771 280 345')->assertSee('Str. Băneasa nr. 23')->assertSee('https://vet.digitail.io/clinics/clinica-veterinara-hikevet', false);
         foreach (['/', '/abonamente', '/servicii', '/radiografie', '/video-vet', '/hikevet-contact'] as $url) {
             $text = mb_strtolower(strip_tags($this->get($url)->getContent()));

@@ -13,23 +13,10 @@
     <div class="wrap split" style="align-items:start">
         <div class="prose">
             {!! $page->body !!}
-            <p><strong>Abonamentul este un plan de servicii veterinare, nu o asigurare.</strong> Plata se face fizic la clinică, lunar, pe 6 luni sau pe 12 luni. Deparazitările interne și externe nu sunt incluse și se achită separat.</p>
+            <p><strong>Abonamentul este un plan de servicii veterinare, nu o asigurare.</strong> Plătești {{ \App\Services\Payments\StripeCheckout::enabled() ? 'la clinică sau online, cu cardul,' : 'la clinică,' }} lunar, pe 6 luni sau pe 12 luni. Deparazitările interne și externe nu sunt incluse și se achită separat.</p>
             <p><a class="btn btn-primary" href="#configurator" data-track="subscription_start">Configurează abonamentul</a></p>
         </div>
-        <div x-data="priceCalc(@js($tiers))" class="calc-panel" style="border:1px solid var(--line)">
-            <h2 class="h-sm">Prețul pentru primul animal</h2>
-            <div class="choice" role="group" aria-label="Specie">
-                <button type="button" :aria-pressed="(species === 'dog').toString()" @click="setSpecies('dog')">Câine</button>
-                <button type="button" :aria-pressed="(species === 'cat').toString()" @click="setSpecies('cat')">Pisică</button>
-            </div>
-            <div class="calc-weight"><label for="sub-weight">Greutate</label><output for="sub-weight"><span x-text="weightLabel"></span> kg</output></div>
-            <input class="range" id="sub-weight" type="range" :min="bounds.min" :max="bounds.max" step="0.25" x-model.number="weight">
-            <dl class="calc-result" aria-live="polite">
-                <div><dt>Lunar</dt><dd><span x-text="tier ? tier.monthly : '–'"></span> <small>lei</small></dd></div>
-                <div><dt>6 luni</dt><dd><span x-text="tier ? tier.m6 : '–'"></span> <small>lei</small></dd></div>
-                <div><dt>12 luni</dt><dd><span x-text="tier ? tier.m12 : '–'"></span> <small>lei</small></dd></div>
-            </dl>
-        </div>
+        @include('partials.pet-calculator', ['id' => 'calc-weight-sub'])
     </div>
 </section>
 
@@ -216,6 +203,22 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="section section--cobalt" id="wallet">
+    <div class="wrap split" style="align-items:center">
+        <div>
+            <h2 class="display h-lg">Wallet-ul HiKeVet</h2>
+            <p class="measure" style="margin-top:1.25rem">Cu abonament activ poți pune bani deoparte în Wallet. Pentru fiecare leu depus primești încă un leu bonus pentru servicii și jumătate de leu bonus pentru produse.</p>
+            <ul class="ticks">
+                <li><x-hv-icon name="check" /> Alimentezi la clinică{{ \App\Services\Payments\StripeCheckout::enabled() ? ' sau online, cu cardul, din contul tău' : '' }}.</li>
+                <li><x-hv-icon name="check" /> Soldul și fiecare plată apar în contul tău de client.</li>
+                <li><x-hv-icon name="check" /> Punctele și bonusurile nu sunt bani și nu se pot retrage în numerar.</li>
+            </ul>
+            <a class="btn btn-primary" href="{{ site_url(auth()->check() ? '/panou-cont/' : '/acces-cont/') }}">{{ auth()->check() ? 'Mergi la Wallet-ul tău' : 'Intră în cont' }}</a>
+        </div>
+        @include('partials.wallet-calculator')
     </div>
 </section>
 

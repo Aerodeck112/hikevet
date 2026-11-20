@@ -111,35 +111,18 @@
 </section>
 
 <section class="section section--green" id="abonamente">
-    <div class="wrap calc" x-data="priceCalc(@js($tiers))">
+    <div class="wrap calc">
         <div>
             <h2 class="display h-lg">Abonamente pentru animăluțe</h2>
             <p class="measure" style="margin-top:1.5rem">Un plan de servicii veterinare plătit lunar, pe 6 sau pe 12 luni: consultații, ecografii, radiografii, analize, vaccin și detartraj la preț de abonament. Alegi specia și greutatea și vezi prețul pe loc.</p>
             <ul class="ticks">
                 <li><x-hv-icon name="check" /> Prețul depinde doar de specie și de greutate.</li>
                 <li><x-hv-icon name="check" /> Reducere pentru al doilea, al treilea și al patrulea animal.</li>
-                <li><x-hv-icon name="check" /> Plata se face la clinică; abonamentul nu este o asigurare.</li>
+                <li><x-hv-icon name="check" /> {{ \App\Services\Payments\StripeCheckout::enabled() ? 'Plătești la clinică sau online, cu cardul.' : 'Plata se face la clinică.' }} Abonamentul nu este o asigurare.</li>
             </ul>
             <a class="btn btn-primary" href="{{ site_url('/abonamente/') }}#configurator" data-track="subscription_start">Configurează abonamentul</a>
         </div>
-        <div class="calc-panel">
-            <h3>Cât costă pentru animalul tău?</h3>
-            <div class="choice" role="group" aria-label="Specie">
-                <button type="button" :aria-pressed="(species === 'dog').toString()" @click="setSpecies('dog')">Câine</button>
-                <button type="button" :aria-pressed="(species === 'cat').toString()" @click="setSpecies('cat')">Pisică</button>
-            </div>
-            <div class="calc-weight">
-                <label for="calc-weight">Greutate</label>
-                <output for="calc-weight"><span x-text="weightLabel"></span> kg</output>
-            </div>
-            <input class="range" id="calc-weight" type="range" :min="bounds.min" :max="bounds.max" step="0.25" x-model.number="weight">
-            <dl class="calc-result" aria-live="polite">
-                <div><dt>Lunar</dt><dd><span x-text="tier ? tier.monthly : '–'"></span> <small>lei</small></dd></div>
-                <div><dt>6 luni</dt><dd><span x-text="tier ? tier.m6 : '–'"></span> <small>lei</small></dd></div>
-                <div><dt>12 luni</dt><dd><span x-text="tier ? tier.m12 : '–'"></span> <small>lei</small></dd></div>
-            </dl>
-            <p class="calc-note">Categoria <strong x-text="tier ? tier.label : ''"></strong>. Preț standard pentru primul animal. Deparazitările se achită separat.</p>
-        </div>
+        @include('partials.pet-calculator', ['id' => 'calc-weight-home'])
     </div>
 </section>
 

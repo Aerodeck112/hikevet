@@ -1,6 +1,6 @@
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
-import { priceCalc } from './price-calc';
+import { priceCalc, walletCalc } from './price-calc';
 import { configurator } from './configurator';
 import { signaturePad } from './signature';
 
@@ -8,6 +8,7 @@ window.Alpine = Alpine;
 Alpine.plugin(focus);
 
 Alpine.data('priceCalc', priceCalc);
+Alpine.data('walletCalc', walletCalc);
 Alpine.data('configurator', configurator);
 Alpine.data('signaturePad', signaturePad);
 

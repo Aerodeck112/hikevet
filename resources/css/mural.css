@@ -119,7 +119,7 @@
 }
 
 /* ---------- Episoade (reels) ---------- */
-.episodes { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(190px, 22vw, 250px); gap: clamp(0.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory;
+.episodes { scroll-padding-inline: max(1.25rem, calc((100vw - 1240px) / 2)); display: grid; grid-auto-flow: column; grid-auto-columns: clamp(190px, 22vw, 250px); gap: clamp(0.75rem, 1.5vw, 1.25rem); overflow-x: auto; scroll-snap-type: x mandatory;
   padding: 0.5rem max(1.25rem, calc((100vw - 1240px) / 2)) 1.5rem; margin-inline: calc(50% - 50vw); scrollbar-width: thin; }
 .episode { scroll-snap-align: start; position: relative; display: grid; gap: 0.6rem; }
 .episode-frame { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: var(--ink); }
@@ -158,3 +158,80 @@
   .room:nth-child(odd), .room:nth-child(even) { transform: none; }
   .opening figure:hover img { transform: none; }
 }
+
+/* ---------- Calculator abonament ---------- */
+.petcalc { background: #fff; color: var(--body); border: 3px solid var(--ink); border-radius: 26px; padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 8px 8px 0 var(--ink); }
+.petcalc-top { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; justify-content: space-between; }
+.petcalc-species { margin: 0; flex: 1 1 14rem; }
+.petcalc-species button { border-width: 3px; }
+.petcalc-species button[aria-pressed='true'] { background: var(--cobalt); border-color: var(--ink); }
+.petcalc-kg { font: 800 clamp(2rem, 1.5rem + 2vw, 2.8rem)/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.petcalc-stage { position: relative; height: clamp(170px, 18vw, 220px); margin: 1rem 0 0.25rem; border-radius: 18px; overflow: hidden;
+  background: radial-gradient(circle at 18% 30%, #ffd75e 0 18%, transparent 19%), var(--sun); }
+.petcalc-stage::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(31, 22, 56, 0.16) 30%, transparent 32%); background-size: 18px 18px; opacity: 0.6; }
+.petcalc-pet { position: absolute; left: 50%; bottom: 14px; width: 170px; transform: translateX(-50%) scale(var(--s, 1)); transform-origin: 50% 100%; transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.petcalc-table { position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: var(--ink); }
+.petcalc-range { margin-top: 0.5rem; accent-color: var(--cobalt); }
+.petcalc-ruler { display: flex; gap: 4px; list-style: none; margin: 0.25rem 0 1rem; padding: 0; }
+.petcalc-ruler li { flex: 1; text-align: center; font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.2rem; border-radius: 8px; background: var(--wall); color: var(--body); cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+.petcalc-ruler li.is-on { background: var(--ink); color: #fff; }
+.petcalc-periods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.pc-period { display: grid; gap: 0.2rem; align-content: start; border: 2px solid var(--line); border-radius: 16px; padding: 0.85rem 0.9rem; }
+.pc-period strong { font: 800 1.55rem/1.05 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.pc-period small { font: 500 0.82rem var(--text); color: var(--body); }
+.pc-name { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.pc-note { font-size: 0.82rem; line-height: 1.3; }
+.pc-note b { color: var(--magenta); }
+.pc-period--best { border-color: var(--ink); background: #eef2ff; }
+@media (max-width: 560px) { .petcalc-periods { grid-template-columns: 1fr; } .petcalc-ruler li { font-size: 0.68rem; } }
+@media (prefers-reduced-motion: no-preference) {
+  .petcalc-pet.hop-0 { animation: hopA 0.5s cubic-bezier(0.3, 1.4, 0.5, 1); }
+  .petcalc-pet.hop-1 { animation: hopB 0.5s cubic-bezier(0.3, 1.4, 0.5, 1); }
+  @keyframes hopA { 40% { translate: 0 -26px; } }
+  @keyframes hopB { 40% { translate: 0 -26px; } }
+}
+@media (prefers-reduced-motion: reduce) { .petcalc-pet { transition: none; } }
+
+/* ---------- Simulator Wallet ---------- */
+.walletsim { background: #fff; border: 3px solid var(--ink); border-radius: 26px; padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 8px 8px 0 var(--ink); color: var(--body); }
+.walletsim-input { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; align-items: baseline; }
+.walletsim-input label, .walletsim-example label { font-weight: 600; color: var(--ink); }
+.walletsim-input output { font: 800 clamp(1.8rem, 1.4rem + 1.6vw, 2.5rem)/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.walletsim-input .range { grid-column: 1 / -1; accent-color: var(--magenta); }
+.jars { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.6rem, 2vw, 1.25rem); margin: 1.25rem 0 0.5rem; align-items: end; }
+.jar { display: grid; gap: 0.3rem; text-align: center; }
+.jar-glass { position: relative; height: clamp(140px, 16vw, 190px); border: 3px solid var(--ink); border-radius: 18px 18px 26px 26px; overflow: hidden; background: var(--wall); }
+.jar-fill { position: absolute; left: 0; right: 0; bottom: 0; height: var(--h, 10%); transition: height 0.45s cubic-bezier(0.3, 1.3, 0.5, 1);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 30%, transparent 32%); background-size: 14px 14px; }
+.jar--principal .jar-fill { background-color: var(--cobalt); }
+.jar--service .jar-fill { background-color: var(--magenta); }
+.jar--product .jar-fill { background-color: var(--sun); }
+.jar strong { font: 800 1.3rem/1.1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.jar span { font-size: 0.88rem; line-height: 1.2; }
+.walletsim-total { margin: 0.75rem 0 1.25rem; color: var(--ink); font-size: 1.05rem; }
+.walletsim-example { border-top: 2px dashed var(--line); padding-top: 1rem; }
+.walletsim-example .range { accent-color: var(--cobalt); }
+.split-bar { display: flex; height: 2.6rem; border: 3px solid var(--ink); border-radius: 999px; overflow: hidden; margin-top: 0.5rem; font-size: 0.85rem; }
+.split-bar span { display: grid; place-items: center; min-width: 0; white-space: nowrap; overflow: hidden; transition: flex-grow 0.35s ease; padding: 0 0.5rem; }
+.split-bar b { font-weight: 600; }
+.sb-bonus { background: var(--magenta); color: #fff; }
+.sb-principal { background: var(--cobalt); color: #fff; }
+.walletsim-rules { margin: 1.25rem 0 0; padding-left: 1.1rem; font-size: 0.92rem; display: grid; gap: 0.35rem; }
+@media (prefers-reduced-motion: reduce) { .jar-fill, .split-bar span { transition: none; } }
+
+/* ---------- Cont client ---------- */
+.amount-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.amount-chips button { flex: 1 1 4.5rem; min-height: 2.75rem; border: 2px solid var(--ink); border-radius: 999px; background: #fff; font: 600 0.98rem var(--text); color: var(--ink); cursor: pointer; }
+.amount-chips button[aria-pressed='true'] { background: var(--sun); box-shadow: 3px 3px 0 var(--ink); }
+.topup-preview { display: grid; gap: 0.35rem; margin: 0.25rem 0 1rem; }
+.topup-preview div { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.8rem; border-radius: 12px; color: #fff; font-weight: 600; }
+.topup-preview dd { margin: 0; font-variant-numeric: tabular-nums; }
+.tp-principal { background: var(--cobalt); }
+.tp-service { background: var(--magenta); }
+.tp-product { background: var(--sun); color: var(--ink) !important; }
+.term { display: block; height: 0.7rem; margin: 0.6rem 0 0.3rem; border: 2px solid var(--ink); border-radius: 999px; background: var(--wall); overflow: hidden; }
+.term span { display: block; height: 100%; width: var(--done); background: var(--teal); }
+.acct-stats div { border: 2px solid var(--ink); background: #fff; }
+.acct-stats div:nth-child(3) { background: #e7ecff; }
+.acct-stats div:nth-child(4) { background: #ffe1ef; }
+.acct-stats div:nth-child(5) { background: #fff3c9; }
