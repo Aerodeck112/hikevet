@@ -47,7 +47,7 @@
                         <div class="acct-avatar" aria-hidden="true"><x-hv-icon name="paw" /></div>
                         <div>
                             <h3 class="h-sm" style="font-size:1.2rem">{{ $pet->name }}</h3>
-                            <p style="margin:0">{{ $pet->speciesLabel() }}{{ $pet->breed ? ', '.$pet->breed : '' }}{{ $pet->weight_kg ? ', '.rtrim(rtrim(number_format((float) $pet->weight_kg, 2, ',', ''), '0'), ',').' kg' : '' }}</p>
+                            <p style="margin:0">{{ __($pet->speciesLabel()) }}{{ $pet->breed ? ', '.$pet->breed : '' }}{{ $pet->weight_kg ? ', '.rtrim(rtrim(number_format((float) $pet->weight_kg, 2, ',', ''), '0'), ',').' kg' : '' }}</p>
                             @if ($pet->tier_label)<p style="margin:.35rem 0 0"><span class="badge">{{ __('Categoria :tier', ['tier' => $pet->tier_label]) }}</span></p>@endif
                         </div>
                     </article>
@@ -66,7 +66,7 @@
                                 <h3 class="h-sm" style="font-size:1.15rem">{{ $contract->pet_name }} <span style="font-weight:400">· {{ $contract->number }}</span></h3>
                                 <p style="margin:.25rem 0 0">{{ __('Categoria :tier. :monthly lei/lună, 6 luni :six lei, 12 luni :twelve lei.', ['tier' => $contract->tier_label, 'monthly' => $contract->price_monthly, 'six' => $contract->price_6m, 'twelve' => $contract->price_12m]) }}</p>
                             </div>
-                            <span class="badge {{ ['active' => 'badge--ok', 'awaiting_clinic' => 'badge--warn'][$contract->status->value] ?? 'badge--off' }}">{{ $contract->status->label() }}</span>
+                            <span class="badge {{ ['active' => 'badge--ok', 'awaiting_clinic' => 'badge--warn'][$contract->status->value] ?? 'badge--off' }}">{{ __($contract->status->label()) }}</span>
                         </div>
                         <p style="margin:.75rem 0 0">
                             @if ($contract->status->value === 'awaiting_clinic')
@@ -125,7 +125,7 @@
                         <thead><tr><th scope="col">{{ __('Data') }}</th><th scope="col">{{ __('Operațiune') }}</th><th scope="col">{{ __('Sold') }}</th><th scope="col">{{ __('Valoare') }}</th></tr></thead>
                         <tbody>
                         @foreach ($transactions as $tx)
-                            <tr><td>{{ $tx->created_at->format('d.m.Y') }}</td><td>{{ $tx->note }}</td><td>{{ $tx->balance_type->label() }}</td>
+                            <tr><td>{{ $tx->created_at->format('d.m.Y') }}</td><td>{{ $tx->note }}</td><td>{{ __($tx->balance_type->label()) }}</td>
                                 <td style="white-space:nowrap">{{ $tx->balance_type->isPoints() ? __(':points puncte', ['points' => sprintf('%+d', $tx->points_delta)]) : __(':amount lei', ['amount' => sprintf('%+.2f', (float) $tx->amount_delta)]) }}</td></tr>
                         @endforeach
                         </tbody>
@@ -165,7 +165,7 @@
                             </form>
                         </div>
                         @foreach ($onlinePayments as $op)
-                            <p class="hint" style="margin:.75rem 0 0">{{ $op->created_at->format('d.m.Y') }}: {{ $op->purposeLabel() }}, {{ __(':amount lei', ['amount' => \App\Services\Wallet\WalletLedger::money((float) $op->amount)]) }}, {{ __('card') }}, {{ ['paid' => __('plătită'), 'paid_needs_review' => __('plătită, în verificare la clinică'), 'pending' => __('în curs')][$op->status] ?? $op->status }}</p>
+                            <p class="hint" style="margin:.75rem 0 0">{{ $op->created_at->format('d.m.Y') }}: {{ __($op->purposeLabel()) }}, {{ __(':amount lei', ['amount' => \App\Services\Wallet\WalletLedger::money((float) $op->amount)]) }}, {{ __('card') }}, {{ ['paid' => __('plătită'), 'paid_needs_review' => __('plătită, în verificare la clinică'), 'pending' => __('în curs')][$op->status] ?? $op->status }}</p>
                         @endforeach
                         @foreach ($topups as $topup)
                             <p class="hint" style="margin:.75rem 0 0">{{ $topup->created_at->format('d.m.Y') }}: {{ __(':amount lei', ['amount' => \App\Services\Wallet\WalletLedger::money((float) $topup->amount)]) }}, {{ ['pending' => __('în așteptare'), 'confirmed' => __('confirmată'), 'rejected' => __('respinsă')][$topup->status] ?? $topup->status }}</p>

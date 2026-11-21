@@ -20,9 +20,9 @@
     <div class="wrap bk-done-grid">
         <div class="bk-step">
             @if (session('status'))<p class="notice notice--ok" role="status">{{ session('status') }}</p>@endif
-            <p><span class="badge {{ ['confirmed' => 'badge--ok', 'requested' => 'badge--warn'][$status] ?? 'badge--off' }}">{{ $status === 'requested' ? __('Cerere în așteptare') : $appointment->status->label() }}</span></p>
+            <p><span class="badge {{ ['confirmed' => 'badge--ok', 'requested' => 'badge--warn'][$status] ?? 'badge--off' }}">{{ $status === 'requested' ? __('Cerere în așteptare') : __($appointment->status->label()) }}</span></p>
             <h2 class="display h-md" style="margin:.75rem 0 1rem">
-                {{ \Illuminate\Support\Str::ucfirst($appointment->starts_at->translatedFormat('l, j F Y')) }}<br>
+                {{ \App\Support\Locales::date($appointment->starts_at) }}<br>
                 <span style="color:var(--turq-deep)">{{ $flexible ? $period : __('ora :time', ['time' => $appointment->starts_at->format('H:i')]) }}</span>
             </h2>
             <dl class="bk-facts">

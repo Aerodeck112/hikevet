@@ -65,6 +65,21 @@ class Locales
         }
     }
 
+    /** Data scrisa ca in fiecare limba: „luni, 23 noiembrie 2026”, „Monday, 23 November 2026”, „2026. november 23., hétfő”. */
+    public static function date(?\DateTimeInterface $date, bool $weekday = true): string
+    {
+        if (! $date) {
+            return '';
+        }
+        $date = \Carbon\Carbon::instance($date)->locale(self::current());
+        $format = match (self::current()) {
+            'hu' => $weekday ? 'Y. F j., l' : 'Y. F j.',
+            default => $weekday ? 'l, j F Y' : 'j F Y',
+        };
+
+        return \Illuminate\Support\Str::ucfirst($date->translatedFormat($format));
+    }
+
     public static function intl(): string
     {
         return self::ALL[self::current()]['intl'];

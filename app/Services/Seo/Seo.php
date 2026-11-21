@@ -52,7 +52,7 @@ class Seo
     {
         $this->title = $title.' – '.Settings::get('clinic.name');
         if ($description) {
-            $this->description = mb_substr(trim(preg_replace('/\s+/', ' ', strip_tags($description))), 0, 160);
+            $this->description = mb_substr(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags(preg_replace('/<[^>]+>/', ' ', $description)), ENT_QUOTES | ENT_HTML5, 'UTF-8'))), 0, 160);
         }
         if ($image) {
             $this->image = asset($image);

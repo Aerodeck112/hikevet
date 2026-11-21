@@ -163,7 +163,7 @@ class BookingService
                 'pet_name' => $data['pet_name'] ?? null, 'pet_species' => $data['pet_species'] ?? null, 'notes' => $data['notes'] ?? null,
                 'consent_processing' => (bool) ($data['consent_processing'] ?? false), 'manage_token' => Str::random(48),
             ]);
-            Audit::log('appointment.created', $appointment, 'Cerere de programare '.$appointment->code.' pentru '.$day->format('d.m.Y').', '.self::periodLabel($data['preferred_period']));
+            Audit::log('appointment.created', $appointment, 'Cerere de programare '.$appointment->code.' pentru '.$day->format('d.m.Y').', '.\App\Support\Locales::asDefault(fn () => self::periodLabel($data['preferred_period'])));
             DB::afterCommit(fn () => $this->notify($appointment, 'created'));
 
             return $appointment;
@@ -226,6 +226,12 @@ class BookingService
     }
 
     private function notify(Appointment $appointment, string $event): void
+    {
+        // Emailurile (catre clinica si catre client) raman in romana, indiferent de limba site-ului.
+        \App\Support\Locales::asDefault(fn () => $this->sendNotification($appointment, $event));
+    }
+
+    private function sendNotification(Appointment $appointment, string $event): void
     {
         $appointment->loadMissing(['doctor', 'service']);
         $flexible = $appointment->preferred_period && $appointment->status === AppointmentStatus::Requested;

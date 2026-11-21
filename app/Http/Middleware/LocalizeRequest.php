@@ -36,6 +36,14 @@ class LocalizeRequest
         Carbon::setLocale($locale);
         $request->attributes->set('hv.locale', $locale);
 
-        return $next($request);
+        try {
+            return $next($request);
+        } finally {
+            // Radacina fortata e doar pentru cererea curenta (in teste aplicatia serveste mai multe cereri la rand).
+            URL::forceRootUrl(null);
+            URL::useAssetOrigin(null);
+            app()->setLocale(Locales::DEFAULT);
+            Carbon::setLocale(Locales::DEFAULT);
+        }
     }
 }

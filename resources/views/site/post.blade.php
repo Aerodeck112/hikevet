@@ -4,7 +4,7 @@
 @include('site._head', ['title' => $post->title])
 <article style="padding-bottom: var(--section)" data-reading>
     <div class="wrap">
-        <p style="margin-top:-1.5rem"><time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('j F Y') }}</time></p>
+        <p style="margin-top:-1.5rem"><time datetime="{{ $post->published_at?->toDateString() }}">{{ \App\Support\Locales::date($post->published_at, false) }}</time></p>
         @if ($post->image)
             <div class="split-media" style="margin:1.5rem 0 2.5rem;max-height:520px"><x-img :src="$post->image" alt="" sizes="100vw" eager /></div>
         @endif

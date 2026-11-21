@@ -62,7 +62,7 @@ class I18nTest extends TestCase
         $this->assertSame($en, $service->name);
         app()->setLocale('ro');
 
-        $this->get('/en/termeni-si-conditii-abonamente/')->assertOk()->assertSee('informative translation', false);
+        $this->get('/en/termeni-si-conditii-abonamente/')->assertOk()->assertSee('for information purposes only', false);
     }
 
     public function test_admin_and_assets_are_never_localized(): void
