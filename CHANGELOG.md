@@ -1,5 +1,12 @@
 # Jurnal de modificări
 
+## 0.5.2 – 21.11.2026
+- Adminul este grupat ca un singur motor al clinicii: **CRM** (clienți și animale, abonamente, plăți online, mesaje),
+  **ERP** (programări, calendar, zile libere, consimțăminte, liste de prețuri, arhiva campaniei de sterilizare),
+  **Site** (pagini, servicii, echipă, blog, întrebări, media, traduceri, SEO, redirecturi, asistentul AI) și
+  **Sistem** (setări, personal, audit, migrare, arhiva WordPress, actualizări). Campania de sterilizare are un
+  singur element în meniu, cu sub-meniu. Modulele ERP noi (fișe medicale, vaccinări, stocuri, facturare) vor intra la ERP.
+
 ## 0.5.1 – 21.11.2026
 - Toate cererile de programare ajung și pe contact@hikevet.com, pe lângă „Emailuri clinică” (lista se poate
   completa din Setări clinică → Programări). Emailul către clinică are acum și emailul clientului, animalul

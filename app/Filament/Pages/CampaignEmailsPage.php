@@ -20,13 +20,15 @@ class CampaignEmailsPage extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-envelope';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
-    protected static ?string $navigationLabel = 'Emailuri';
+    protected static ?string $navigationLabel = 'Emailuri campanie';
 
     protected static ?string $title = 'Emailuri campanie sterilizare';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 92;
+
+    protected static ?string $navigationParentItem = 'Campanie sterilizare (arhivă)';
 
     protected static ?string $slug = 'campanie/emailuri';
 

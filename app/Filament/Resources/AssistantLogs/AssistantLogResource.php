@@ -31,7 +31,7 @@ class AssistantLogResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-inbox-stack';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Conținut site';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Asistent AI: întrebări';
 
@@ -41,7 +41,7 @@ class AssistantLogResource extends Resource
 
     protected static ?string $slug = 'asistent-ai-intrebari';
 
-    protected static ?int $navigationSort = 62;
+    protected static ?int $navigationSort = 102;
 
     public static function permission(): string
     {

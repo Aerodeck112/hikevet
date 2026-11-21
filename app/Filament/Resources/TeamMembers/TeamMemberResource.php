@@ -30,7 +30,7 @@ class TeamMemberResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Conținut site';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Echipă și orar';
 

@@ -24,13 +24,13 @@ class MarketingSettings extends ClinicSettings
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-megaphone';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Marketing';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Google și SEO';
 
     protected static ?string $title = 'Marketing, Google și SEO';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 80;
 
     protected string $view = 'filament.pages.marketing';
 

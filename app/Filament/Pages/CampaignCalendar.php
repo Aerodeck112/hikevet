@@ -19,13 +19,15 @@ class CampaignCalendar extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
-    protected static ?string $navigationLabel = 'Programări';
+    protected static ?string $navigationLabel = 'Programări campanie';
 
     protected static ?string $title = 'Programări campanie sterilizare';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 91;
+
+    protected static ?string $navigationParentItem = 'Campanie sterilizare (arhivă)';
 
     protected static ?string $slug = 'campanie/programari';
 

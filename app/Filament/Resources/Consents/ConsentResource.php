@@ -35,7 +35,7 @@ class ConsentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-pencil-square';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Consimțăminte';
 
@@ -43,7 +43,7 @@ class ConsentResource extends Resource
 
     protected static ?string $pluralModelLabel = 'consimțăminte';
 
-    protected static ?int $navigationSort = 30;
+    protected static ?int $navigationSort = 40;
 
     public static function permission(): string
     {

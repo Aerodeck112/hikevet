@@ -32,9 +32,9 @@ class ClientResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-users';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'CRM';
 
-    protected static ?string $navigationLabel = 'Clienți și pacienți';
+    protected static ?string $navigationLabel = 'Clienți și animale';
 
     protected static ?string $modelLabel = 'client';
 

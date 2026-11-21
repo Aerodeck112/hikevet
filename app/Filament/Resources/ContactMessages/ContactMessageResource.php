@@ -22,7 +22,7 @@ class ContactMessageResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-envelope';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'CRM';
 
     protected static ?string $navigationLabel = 'Mesaje din site';
 
@@ -30,7 +30,7 @@ class ContactMessageResource extends Resource
 
     protected static ?string $pluralModelLabel = 'mesaje';
 
-    protected static ?int $navigationSort = 60;
+    protected static ?int $navigationSort = 40;
 
     public static function permission(): string
     {

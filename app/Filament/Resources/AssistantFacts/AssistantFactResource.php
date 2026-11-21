@@ -27,7 +27,7 @@ class AssistantFactResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Conținut site';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Asistent AI: ce știe';
 
@@ -37,7 +37,7 @@ class AssistantFactResource extends Resource
 
     protected static ?string $slug = 'asistent-ai-cunostinte';
 
-    protected static ?int $navigationSort = 61;
+    protected static ?int $navigationSort = 101;
 
     public static function permission(): string
     {

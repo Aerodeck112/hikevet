@@ -18,13 +18,13 @@ class CampaignCases extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-folder-open';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
-    protected static ?string $navigationLabel = 'Dosare';
+    protected static ?string $navigationLabel = 'Campanie sterilizare (arhivă)';
 
     protected static ?string $title = 'Dosare campanie sterilizare';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 90;
 
     protected static ?string $slug = 'campanie/dosare';
 

@@ -29,9 +29,9 @@ class ContractResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-check';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Abonamente';
+    protected static string|UnitEnum|null $navigationGroup = 'CRM';
 
-    protected static ?string $navigationLabel = 'Contracte';
+    protected static ?string $navigationLabel = 'Abonamente (contracte)';
 
     protected static ?string $modelLabel = 'contract';
 
@@ -39,7 +39,7 @@ class ContractResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'number';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 20;
 
     public static function permission(): string
     {

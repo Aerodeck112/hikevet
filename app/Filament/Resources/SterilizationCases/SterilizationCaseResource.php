@@ -28,7 +28,7 @@ class SterilizationCaseResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     // Vizualizarea veche, doar citire: inlocuita de ecranul Dosare; ramane accesibila prin adresa ei.
     protected static bool $shouldRegisterNavigation = false;
@@ -41,7 +41,9 @@ class SterilizationCaseResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'cod_caz';
 
-    protected static ?int $navigationSort = 40;
+    protected static ?int $navigationSort = 95;
+
+    protected static ?string $navigationParentItem = 'Campanie sterilizare (arhivă)';
 
     public static function permission(): string
     {

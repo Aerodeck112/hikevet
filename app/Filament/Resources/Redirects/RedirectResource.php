@@ -25,7 +25,7 @@ class RedirectResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-arrow-uturn-right';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Marketing';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Redirecturi 301';
 
@@ -33,7 +33,7 @@ class RedirectResource extends Resource
 
     protected static ?string $pluralModelLabel = 'redirecturi';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 90;
 
     public static function permission(): string
     {

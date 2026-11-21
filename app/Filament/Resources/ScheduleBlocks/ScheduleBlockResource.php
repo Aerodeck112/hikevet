@@ -25,7 +25,7 @@ class ScheduleBlockResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-no-symbol';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Zile libere și pauze';
 
@@ -33,7 +33,7 @@ class ScheduleBlockResource extends Resource
 
     protected static ?string $pluralModelLabel = 'intervale blocate';
 
-    protected static ?int $navigationSort = 25;
+    protected static ?int $navigationSort = 30;
 
     public static function permission(): string
     {

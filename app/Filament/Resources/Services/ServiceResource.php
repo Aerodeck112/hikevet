@@ -30,7 +30,7 @@ class ServiceResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-heart';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Conținut site';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Servicii';
 

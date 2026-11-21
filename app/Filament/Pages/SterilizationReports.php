@@ -16,13 +16,15 @@ class SterilizationReports extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Raport din datele originale';
 
     protected static ?string $title = 'Raportări istorice sterilizări';
 
-    protected static ?int $navigationSort = 30;
+    protected static ?int $navigationSort = 94;
+
+    protected static ?string $navigationParentItem = 'Campanie sterilizare (arhivă)';
 
     protected string $view = 'filament.pages.sterilization-reports';
 

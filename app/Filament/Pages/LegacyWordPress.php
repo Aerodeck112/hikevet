@@ -24,7 +24,7 @@ class LegacyWordPress extends Page
 
     protected static ?string $title = 'Arhiva site-ului WordPress vechi';
 
-    protected static ?int $navigationSort = 35;
+    protected static ?int $navigationSort = 50;
 
     protected static ?string $slug = 'arhiva-wordpress';
 

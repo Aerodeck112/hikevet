@@ -29,7 +29,7 @@ class AssistantSettings extends Page implements HasForms
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Conținut site';
+    protected static string|UnitEnum|null $navigationGroup = 'Site';
 
     protected static ?string $navigationLabel = 'Asistent AI: setări';
 
@@ -37,7 +37,7 @@ class AssistantSettings extends Page implements HasForms
 
     protected static ?string $slug = 'asistent-ai';
 
-    protected static ?int $navigationSort = 60;
+    protected static ?int $navigationSort = 100;
 
     protected string $view = 'filament.pages.settings-form';
 

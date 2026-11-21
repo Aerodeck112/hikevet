@@ -35,7 +35,7 @@ class AppointmentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Programări';
 
@@ -43,7 +43,7 @@ class AppointmentResource extends Resource
 
     protected static ?string $pluralModelLabel = 'programări';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 10;
 
     public static function permission(): string
     {

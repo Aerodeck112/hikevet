@@ -23,13 +23,15 @@ class CampaignReports extends Page
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-chart-bar';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campanie sterilizare';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Raport Primărie';
 
     protected static ?string $title = 'Raport Primărie - intervenții finalizate';
 
-    protected static ?int $navigationSort = 15;
+    protected static ?int $navigationSort = 93;
+
+    protected static ?string $navigationParentItem = 'Campanie sterilizare (arhivă)';
 
     protected string $view = 'filament.campaign.reports';
 

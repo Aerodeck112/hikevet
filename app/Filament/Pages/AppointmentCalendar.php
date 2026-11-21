@@ -19,13 +19,13 @@ class AppointmentCalendar extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Clinică';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
-    protected static ?string $navigationLabel = 'Calendar';
+    protected static ?string $navigationLabel = 'Calendar programări';
 
     protected static ?string $title = 'Calendar programări';
 
-    protected static ?int $navigationSort = 21;
+    protected static ?int $navigationSort = 20;
 
     protected string $view = 'filament.pages.appointment-calendar';
 

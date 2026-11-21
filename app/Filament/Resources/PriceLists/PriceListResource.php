@@ -24,7 +24,7 @@ class PriceListResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Abonamente';
+    protected static string|UnitEnum|null $navigationGroup = 'ERP';
 
     protected static ?string $navigationLabel = 'Liste de prețuri';
 
@@ -32,7 +32,7 @@ class PriceListResource extends Resource
 
     protected static ?string $pluralModelLabel = 'liste de prețuri';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 50;
 
     public static function permission(): string
     {

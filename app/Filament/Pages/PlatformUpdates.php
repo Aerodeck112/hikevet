@@ -31,7 +31,7 @@ class PlatformUpdates extends Page
 
     protected static ?string $title = 'Actualizări platformă';
 
-    protected static ?int $navigationSort = 40;
+    protected static ?int $navigationSort = 60;
 
     protected string $view = 'filament.pages.platform-updates';
 

@@ -48,12 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth('full')
+            // Motorul clinicii: CRM (clienti, abonamente, plati), ERP (programari, medical, stocuri, facturare),
+            // Site (continut public, SEO, asistent) si Sistem (setari, personal, actualizari).
             ->navigationGroups([
-                NavigationGroup::make('Campanie sterilizare'),
-                NavigationGroup::make('Clinică'),
-                NavigationGroup::make('Abonamente'),
-                NavigationGroup::make('Conținut site'),
-                NavigationGroup::make('Marketing'),
+                NavigationGroup::make('CRM'),
+                NavigationGroup::make('ERP'),
+                NavigationGroup::make('Site')->collapsed(),
                 NavigationGroup::make('Sistem')->collapsed(),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
