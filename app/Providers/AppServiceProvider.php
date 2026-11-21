@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        $this->app->bind(\App\Services\Assistant\AssistantClient::class, \App\Services\Assistant\ClaudeAssistantClient::class);
     }
 
     public function boot(): void
@@ -61,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('contract', fn (Request $r) => Limit::perMinute(4)->by($r->ip()));
         RateLimiter::for('consent-code', fn (Request $r) => Limit::perMinute(8)->by($r->ip()));
         RateLimiter::for('booking', fn (Request $r) => Limit::perMinute(6)->by($r->ip()));
+        RateLimiter::for('assistant', fn (Request $r) => Limit::perMinute(10)->by($r->ip()));
 
         // Datele clinicii sunt disponibile in toate sabloanele publice; se citesc o singura data pe cerere.
         View::composer(['site.*', 'account.*', 'tablet.*', 'booking.*', 'layouts.*', 'partials.*', 'errors::*'], function ($view) {

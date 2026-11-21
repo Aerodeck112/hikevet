@@ -22,3 +22,4 @@ Schedule::call(function () {
 })->hourly()->name('hikevet-tmp-cleanup');
 // Platile online ramase „in curs” (clientul a inchis pagina, notificarea Stripe nu a ajuns) se verifica la Stripe.
 Schedule::call(fn () => app(StripeCheckout::class)->reconcilePending())->everyFifteenMinutes()->name('hikevet-stripe-reconcile')->withoutOverlapping();
+Schedule::command('model:prune', ['--model' => [\App\Models\AssistantLog::class]])->dailyAt('03:10');

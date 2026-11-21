@@ -108,6 +108,7 @@
     </div>
 </footer>
 
+@if (\App\Services\Assistant\Assistant::enabled())@include('partials.assistant')@endif
 {{-- Cuvinte secrete: scrie „miau” sau „ham” pe orice pagina --}}
 <template id="secret-cat"><div class="secret-pop secret-pop--cat" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-cat')</div></template>
 <template id="secret-dog"><div class="secret-pop secret-pop--dog" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-dog')</div></template>

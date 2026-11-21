@@ -54,6 +54,7 @@ Route::post('/consimtamant-tableta/semnare', [ConsentTabletController::class, 's
 Route::post('/consimtamant-tableta/inchide', [ConsentTabletController::class, 'close']);
 
 // Programari proprii. Publice doar cand modul de programare este "internal" (vezi App\Support\Booking).
+Route::post('/asistent/intreaba', [\App\Http\Controllers\AssistantController::class, 'ask'])->middleware('throttle:assistant')->name('assistant.ask');
 Route::get('/programare', [BookingController::class, 'create'])->name('booking');
 Route::get('/programare/intervale', [BookingController::class, 'slots'])->middleware('throttle:60,1');
 Route::post('/programare', [BookingController::class, 'store'])->middleware('throttle:booking');

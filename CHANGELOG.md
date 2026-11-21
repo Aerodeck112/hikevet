@@ -1,5 +1,30 @@
 # Jurnal de modificări
 
+## 0.4.0 – 21.11.2026
+
+### Programări pe site, ca cereri
+- Butoanele „Programează-te” duc la formularul propriu (nu mai la Digitail). Digitail rămâne opțiune în Setări.
+- Formular nou, în 4 pași: pacientul, motivul, ziua și intervalul (dimineața, la prânz, după-amiaza, seara),
+  datele de contact. Medicul poate fi „oricare”; la medicii cu orar se poate alege și ora exactă.
+- Rezumat live al cererii, cu Hiko (sau Raza, pentru pisici) care comentează ce completezi.
+- Pagină de confirmare cu „ce urmează”. Emailul spune clar că programarea se fixează după confirmare.
+- Admin → Programări: cererile pe interval au butonul „Stabilește ora și confirmă” (medic, oră, durată);
+  clientul primește emailul de confirmare. Paginile de servicii pre-selectează serviciul.
+
+### Asistent AI (Hiko)
+- Chat pe toate paginile, oprit până se adaugă cheia API Anthropic (Admin → Asistent AI: setări).
+- Răspunde din conținutul site-ului (servicii, echipă, întrebări, prețuri abonamente, Wallet, programări)
+  și din informațiile adăugate de clinică; din întrebările primite se poate „învăța” răspunsul corect.
+- Fără diagnostice și doze, urgențele la telefon, limite pe vizitator, jurnal păstrat 60 de zile, fără IP.
+
+### Design
+- Antetul paginilor: panou turcoaz (culoarea site-ului vechi), mai aerisit; fundalul site-ului turcoaz deschis.
+- Logo mare, ca ecuson, în meniu; logo alb în footer și în emailuri.
+- Episoade: săgeți și tragere cu mouse-ul, player mare cu derulare și trecere la episodul următor.
+- Interacțiuni noi: saluturi după ora din zi, căciuli de Moș Crăciun în decembrie, inimioare la mângâiere,
+  recompense pentru Hiko pe prima pagină, Hiko care aleargă pe bara de citire a articolelor,
+  urme de lăbuțe pe antet, cuvinte secrete („miau”, „ham”).
+
 ## 0.3.2 – 20.11.2026
 
 ### Personajele au nume: Raza și Hiko
