@@ -4,6 +4,7 @@ import { priceCalc, walletCalc } from './price-calc';
 import { configurator } from './configurator';
 import { signaturePad } from './signature';
 import { initBuddies } from './buddies';
+import { bookingForm } from './booking';
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
@@ -12,6 +13,7 @@ Alpine.data('priceCalc', priceCalc);
 Alpine.data('walletCalc', walletCalc);
 Alpine.data('configurator', configurator);
 Alpine.data('signaturePad', signaturePad);
+Alpine.data('bookingForm', bookingForm);
 
 // Acord pentru masurare: Google Tag Manager / GA4 se incarca doar dupa accept.
 Alpine.data('consent', () => ({

@@ -7,7 +7,7 @@
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;">
 <tr><td style="background:#1E3BA8;padding:0 20px 0 28px;border-bottom:4px solid #1F1638;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="color:#ffffff;font-size:22px;font-weight:bold;padding:22px 0;vertical-align:middle;">{{ \App\Support\Settings::get('clinic.name') }}</td>
+<td style="padding:16px 0;vertical-align:middle;"><img src="{{ asset('media/brand/logo-alb-320.png') }}" width="132" height="96" alt="{{ \App\Support\Settings::get('clinic.name') }}" style="display:block;border:0;width:132px;height:auto;"></td>
 <td align="right" style="vertical-align:bottom;padding-top:10px;line-height:0;"><img src="{{ asset('media/personaje/pisica-si-caine.png') }}" width="128" height="80" alt="Raza și Hiko" style="display:block;border:0;width:128px;height:80px;"></td>
 </tr></table>
 </td></tr>

@@ -5,6 +5,7 @@
 @endphp
 <header @class(['page-head', 'page-head--buddy' => $buddy])>
     <div class="wrap">
+      <div class="page-panel">
         <div class="page-head-text">
             @if (! empty($seo->breadcrumbs))
                 <nav aria-label="Ești aici">
@@ -22,5 +23,6 @@
         @if ($buddy)
             <x-buddy class="head-buddy" :kind="$buddy['kind']" :pose="$buddy['pose']" :say="$buddy['say']" />
         @endif
+      </div>
     </div>
 </header>

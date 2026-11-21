@@ -52,6 +52,8 @@ export function initBuddies(root = document) {
         const say = speaker(buddy);
         speakers.set(buddy, say);
         buddy.querySelector('.buddy-hit')?.addEventListener('click', () => say());
+        // Replici trimise din alte componente (ex. formularul de programare)
+        buddy.addEventListener('buddy:say', (e) => say(e.detail));
     });
 
     const io = new IntersectionObserver((entries) => {

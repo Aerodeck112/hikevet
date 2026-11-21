@@ -32,7 +32,7 @@
     <div class="wrap">
         <nav class="nav" aria-label="Meniu principal" x-data="{ open: false }" @keydown.escape.window="open = false" :class="{ 'is-open': open }">
             <a class="nav-logo" href="{{ site_url('/') }}" aria-label="{{ $clinic['name'] }} – pagina principală">
-                <img src="{{ asset('media/2023/05/negru-640.webp') }}" alt="Clinica HiKeVet" width="640" height="396">
+                <img src="{{ asset('media/brand/logo-negru.webp') }}" alt="Clinica HiKeVet" width="900" height="654">
             </a>
             <button class="nav-toggle" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="meniu">
                 <span class="sr-only">Meniu</span>
@@ -63,7 +63,8 @@
     <div class="wrap">
         <div class="footer-top">
             <div>
-                <h2>{{ $clinic['name'] }}</h2>
+                <a class="footer-logo" href="{{ site_url('/') }}" aria-label="{{ $clinic['name'] }} – pagina principală"><img src="{{ asset('media/brand/logo-alb.webp') }}" alt="" width="900" height="654" loading="lazy"></a>
+                <h2 class="sr-only">{{ $clinic['name'] }}</h2>
                 <p class="measure">{{ $clinic['tagline'] }}</p>
                 <p><a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează-te</a></p>
             </div>

@@ -6,6 +6,7 @@ use App\Enums\AppointmentStatus;
 use App\Enums\Permission;
 use App\Filament\Concerns\GatedByPermission;
 use App\Models\Appointment;
+use App\Models\TeamMember;
 use App\Services\Booking\BookingService;
 use BackedEnum;
 use DomainException;
@@ -81,8 +82,10 @@ class AppointmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->defaultSort('starts_at')->modifyQueryUsing(fn (Builder $query) => $query->with(['doctor', 'service']))->columns([
-            TextColumn::make('starts_at')->label('Când')->dateTime('D, d.m.Y H:i')->sortable()->description(fn (Appointment $r) => 'până la '.$r->ends_at->format('H:i')),
-            TextColumn::make('doctor.name')->label('Medic'),
+            TextColumn::make('starts_at')->label('Când')->sortable()
+                ->formatStateUsing(fn (Appointment $r) => static::needsTime($r) ? $r->starts_at->translatedFormat('D, d.m.Y') : $r->starts_at->translatedFormat('D, d.m.Y H:i'))
+                ->description(fn (Appointment $r) => static::needsTime($r) ? 'Preferă: '.BookingService::periodLabel($r->preferred_period) : 'până la '.$r->ends_at->format('H:i')),
+            TextColumn::make('doctor.name')->label('Medic')->placeholder('Oricare'),
             TextColumn::make('client_name')->label('Client')->searchable()->description(fn (Appointment $r) => $r->client_phone),
             TextColumn::make('pet_name')->label('Animal')->description(fn (Appointment $r) => $r->service?->name),
             TextColumn::make('status')->label('Stare')->badge()->formatStateUsing(fn (AppointmentStatus $state) => $state->label())->color(fn (AppointmentStatus $state) => $state->color()),
@@ -93,8 +96,28 @@ class AppointmentResource extends Resource
             SelectFilter::make('status')->label('Stare')->options(collect(AppointmentStatus::cases())->mapWithKeys(fn ($s) => [$s->value => $s->label()])),
             SelectFilter::make('team_member_id')->label('Medic')->relationship('doctor', 'name'),
         ])->recordActions([
-            Action::make('confirm')->label('Confirmă')->icon('heroicon-o-check')->color('success')->visible(fn (Appointment $r) => $r->status === AppointmentStatus::Requested)
+            Action::make('confirm')->label('Confirmă')->icon('heroicon-o-check')->color('success')
+                ->visible(fn (Appointment $r) => $r->status === AppointmentStatus::Requested && ! static::needsTime($r))
                 ->action(fn (Appointment $record) => static::setStatus($record, AppointmentStatus::Confirmed)),
+            // Cerere pe interval: receptia stabileste medicul si ora exacta, apoi clientul primeste confirmarea.
+            Action::make('schedule')->label('Stabilește ora și confirmă')->icon('heroicon-o-clock')->color('success')
+                ->visible(fn (Appointment $r) => $r->status === AppointmentStatus::Requested && static::needsTime($r))
+                ->modalHeading(fn (Appointment $r) => 'Cererea '.$r->code.': '.$r->client_name.($r->pet_name ? ', '.$r->pet_name : ''))
+                ->modalDescription(fn (Appointment $r) => 'Preferă '.$r->starts_at->translatedFormat('l, d.m.Y').', '.BookingService::periodLabel($r->preferred_period).'. Telefon: '.$r->client_phone)
+                ->fillForm(fn (Appointment $r) => ['team_member_id' => $r->team_member_id, 'starts_at' => $r->starts_at, 'duration_minutes' => $r->service?->duration_minutes ?: 30])
+                ->schema([
+                    Select::make('team_member_id')->label('Medic')->options(fn () => TeamMember::query()->where('is_published', true)->orderBy('sort')->pluck('name', 'id'))->required(),
+                    DateTimePicker::make('starts_at')->label('Data și ora exactă')->seconds(false)->minutesStep(15)->required(),
+                    TextInput::make('duration_minutes')->label('Durată (minute)')->numeric()->minValue(15)->maxValue(240)->step(15)->required(),
+                ])
+                ->action(function (Appointment $record, array $data) {
+                    try {
+                        app(BookingService::class)->confirmRequest($record, (int) $data['team_member_id'], (string) $data['starts_at'], (int) $data['duration_minutes']);
+                        Notification::make()->title('Programarea este confirmată; clientul a primit emailul.')->success()->send();
+                    } catch (DomainException $e) {
+                        Notification::make()->title($e->getMessage())->danger()->send();
+                    }
+                }),
             Action::make('complete')->label('Finalizată')->icon('heroicon-o-flag')->color('gray')->visible(fn (Appointment $r) => $r->status === AppointmentStatus::Confirmed && $r->starts_at->isPast())
                 ->action(fn (Appointment $record) => static::setStatus($record, AppointmentStatus::Completed)),
             Action::make('noShow')->label('Neprezentat')->color('gray')->visible(fn (Appointment $r) => $r->status === AppointmentStatus::Confirmed && $r->starts_at->isPast())
@@ -104,6 +127,12 @@ class AppointmentResource extends Resource
                 ->schema([Textarea::make('reason')->label('Motiv')->rows(2)])
                 ->action(fn (Appointment $record, array $data) => static::setStatus($record, AppointmentStatus::Cancelled, (string) ($data['reason'] ?? ''))),
         ]);
+    }
+
+    /** Cerere trimisa pe interval (fara ora exacta stabilita inca). */
+    public static function needsTime(Appointment $appointment): bool
+    {
+        return $appointment->status === AppointmentStatus::Requested && ($appointment->team_member_id === null || ($appointment->preferred_period && ! $appointment->slots()->exists()));
     }
 
     public static function setStatus(Appointment $appointment, AppointmentStatus $status, string $reason = ''): void

@@ -31,7 +31,7 @@
                         @foreach ($cells[$day->toDateString()][$time] ?? [] as $a)
                             <span class="hv-appt hv-appt--{{ $a->status->value }}" title="{{ $a->client_phone }}{{ $a->notes ? ' · '.$a->notes : '' }}">
                                 {{ $a->starts_at->format('H:i') }}–{{ $a->ends_at->format('H:i') }} {{ $a->client_name }}@if ($a->pet_name) · {{ $a->pet_name }}@endif
-                                <br><span style="font-weight:400">{{ $a->doctor->name }}{{ $a->service ? ' · '.$a->service->name : '' }}</span>
+                                <br><span style="font-weight:400">{{ $a->doctor?->name ?? 'Oricare medic' }}{{ $a->service ? ' · '.$a->service->name : '' }}{{ $a->preferred_period && $a->status->value === 'requested' ? ' · cerere pe interval' : '' }}</span>
                             </span>
                         @endforeach
                         <a href="{{ $createUrl }}?at={{ urlencode($day->toDateString().' '.$time) }}@if ($doctor)&doctor={{ $doctor }}@endif" style="color:#0b5c3b;font-weight:700;text-decoration:none" aria-label="Programare nouă {{ $day->format('d.m') }} la {{ $time }}">+</a>

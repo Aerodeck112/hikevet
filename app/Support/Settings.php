@@ -24,7 +24,7 @@ class Settings
         'clinic.tiktok' => '',
         'clinic.hours' => [],
         'booking.digitail_url' => 'https://vet.digitail.io/clinics/clinica-veterinara-hikevet',
-        'booking.mode' => 'digitail',
+        'booking.mode' => 'internal',
         'mail.clinic_recipients' => ['contact@hikevet.com'],
         'mail.sterilization_recipients' => ['site@hikevet.com'],
         'subscriptions.expiry_notice_days' => 5,

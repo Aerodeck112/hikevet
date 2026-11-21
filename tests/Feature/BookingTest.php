@@ -87,19 +87,65 @@ class BookingTest extends TestCase
         $this->assertSame(AppointmentStatus::Confirmed, $booking->book($this->data('09:00'), null, byStaff: true)->status);
     }
 
-    public function test_public_page_redirects_to_digitail_until_internal_mode_is_enabled(): void
+    public function test_booking_page_is_on_the_site_by_default_and_digitail_only_when_chosen(): void
     {
+        $this->get('/programare/')->assertOk()->assertSee('Cerere de programare')->assertSee('Dr. Test Medic')->assertSee('Oricare medic disponibil');
+        $this->getJson('/programare/intervale?doctor='.$this->doctor->id.'&date='.$this->day->toDateString().'&service='.$this->service->id)->assertOk()->assertJsonFragment(['09:00']);
+
+        Settings::set('booking.mode', 'digitail');
         $this->get('/programare/')->assertRedirect('https://vet.digitail.io/clinics/clinica-veterinara-hikevet');
         $this->post('/programare', [])->assertForbidden();
+    }
 
-        Settings::set('booking.mode', 'internal');
-        $this->get('/programare/')->assertOk()->assertSee('Dr. Test Medic');
-        $this->getJson('/programare/intervale?doctor='.$this->doctor->id.'&date='.$this->day->toDateString().'&service='.$this->service->id)->assertOk()->assertJsonFragment(['09:00']);
+    public function test_request_with_preferred_period_and_any_doctor_is_confirmed_by_reception_with_an_exact_time(): void
+    {
+        $form = ['date' => $this->day->toDateString(), 'preferred_period' => 'dimineata', 'client_name' => 'Client Interval', 'client_phone' => '0700000005',
+            'client_email' => 'interval@example.com', 'pet_name' => 'Rex', 'pet_species' => 'Câine', 'notes' => 'Vaccin anual', 'consent' => '1'];
+
+        $this->post('/programare', array_merge($form, ['preferred_period' => '']))->assertSessionHasErrors('preferred_period');
+        $this->post('/programare', array_merge($form, ['preferred_period' => 'noaptea']))->assertSessionHasErrors('preferred_period');
+        $this->post('/programare', $form)->assertRedirect();
+
+        $request = Appointment::query()->sole();
+        $this->assertSame(AppointmentStatus::Requested, $request->status);
+        $this->assertNull($request->team_member_id);
+        $this->assertSame('dimineata', $request->preferred_period);
+        $this->assertSame('2026-11-18 09:00', $request->starts_at->format('Y-m-d H:i'));
+        $this->assertSame(0, AppointmentSlot::count(), 'O cerere pe interval nu ocupa orarul pana la confirmare.');
+        $this->assertContains('09:00', app(BookingService::class)->freeSlots($this->doctor, $this->day, 30));
+
+        $this->get(route('booking.show', $request->manage_token))->assertOk()->assertSee('Oricare medic disponibil')->assertSee('Dimineața (09:00–12:00)')->assertSee('Ce urmează');
+
+        // Fara ora exacta, cererea nu poate fi confirmata direct
+        try {
+            app(BookingService::class)->setStatus($request, AppointmentStatus::Confirmed);
+            $this->fail('Confirmarea fara ora exacta trebuia refuzata.');
+        } catch (DomainException $e) {
+            $this->assertStringContainsString('ora exactă', $e->getMessage());
+        }
+
+        app(BookingService::class)->confirmRequest($request, $this->doctor->id, '2026-11-18 10:30', 30);
+        $request->refresh();
+        $this->assertSame(AppointmentStatus::Confirmed, $request->status);
+        $this->assertSame($this->doctor->id, $request->team_member_id);
+        $this->assertSame('10:30', $request->starts_at->format('H:i'));
+        $this->assertSame(2, AppointmentSlot::count());
+        $this->assertNotContains('10:30', app(BookingService::class)->freeSlots($this->doctor, $this->day, 30));
+        $this->assertDatabaseHas('email_logs', ['context' => 'appointment_confirmed', 'subject' => 'Programarea ta este confirmată']);
+    }
+
+    public function test_request_rejects_past_periods_and_days_too_far_ahead(): void
+    {
+        $this->travelTo('2026-11-18 16:00:00');
+        $base = ['client_name' => 'Client Test', 'client_phone' => '0700000006', 'client_email' => 'test@example.com', 'pet_name' => 'Tom', 'pet_species' => 'Pisică', 'consent' => '1'];
+        $this->post('/programare', $base + ['date' => '2026-11-18', 'preferred_period' => 'dimineata'])->assertSessionHasErrors('preferred_period');
+        $this->post('/programare', $base + ['date' => '2027-03-01', 'preferred_period' => 'seara'])->assertSessionHasErrors('date');
+        $this->post('/programare', $base + ['date' => '2026-11-18', 'preferred_period' => 'seara'])->assertRedirect();
+        $this->assertSame(1, Appointment::count());
     }
 
     public function test_public_booking_creates_a_request_and_client_can_cancel_with_the_private_link(): void
     {
-        Settings::set('booking.mode', 'internal');
         $form = ['service_id' => $this->service->id, 'team_member_id' => $this->doctor->id, 'date' => $this->day->toDateString(), 'time' => '09:30',
             'client_name' => 'Client Public', 'client_phone' => '0700000004', 'client_email' => 'public@example.com', 'pet_name' => 'Pufi', 'pet_species' => 'Pisică', 'consent' => '1'];
 
@@ -126,5 +172,21 @@ class BookingTest extends TestCase
         }
         $this->actingAs($reception)->get('/admin/appointment-calendar?week=2026-11-16')->assertSee('Client Programare');
         $this->actingAs($this->staff(Role::Editor))->get('/admin/appointment-calendar')->assertForbidden();
+    }
+
+    public function test_reception_schedules_a_period_request_from_the_admin_list(): void
+    {
+        $request = app(BookingService::class)->request(['date' => $this->day->toDateString(), 'preferred_period' => 'pranz', 'client_name' => 'Client Admin',
+            'client_phone' => '0700000007', 'client_email' => 'admin-test@example.com', 'pet_name' => 'Lola', 'pet_species' => 'Câine']);
+        $reception = $this->staff(Role::Reception);
+        $this->actingAs($reception)->get('/admin/appointments')->assertOk()->assertSee('Preferă: La prânz (12:00–15:00)')->assertSee('Oricare');
+
+        \Livewire\Livewire::actingAs($reception)->test(\App\Filament\Resources\Appointments\Pages\ListAppointments::class)
+            ->callTableAction('schedule', $request, data: ['team_member_id' => $this->doctor->id, 'starts_at' => '2026-11-18 12:30:00', 'duration_minutes' => 30])
+            ->assertHasNoTableActionErrors();
+
+        $request->refresh();
+        $this->assertSame(AppointmentStatus::Confirmed, $request->status);
+        $this->assertSame('12:30', $request->starts_at->format('H:i'));
     }
 }

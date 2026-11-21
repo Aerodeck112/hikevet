@@ -134,16 +134,20 @@
                 <h2 class="display h-lg" id="episoade-titlu">Povești din cabinet</h2>
                 <p>Pacienții noștri, de la primul vaccin la controlul de după operație. Fiecare episod e filmat la noi în clinică.</p>
             </div>
-            @if ($clinic['instagram'])<a class="btn btn-ghost" href="{{ $clinic['instagram'] }}" rel="noopener">Mai multe pe Instagram</a>@endif
+            <div class="episodes-tools">
+                @if ($clinic['instagram'])<a class="btn btn-ghost btn-sm" href="{{ $clinic['instagram'] }}" rel="noopener">Mai multe pe Instagram</a>@endif
+                <button class="ep-arrow" type="button" data-ep-prev aria-label="Episoadele anterioare" aria-controls="episoade-lista"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="ep-arrow" type="button" data-ep-next aria-label="Episoadele următoare" aria-controls="episoade-lista"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
         </div>
-        <div class="episodes" data-episodes>
+        <div class="episodes" id="episoade-lista" data-episodes tabindex="0" aria-label="Episoade video, derulează orizontal">
             @foreach ($episodes as $i => $ep)
                 <article class="episode">
                     <div class="episode-frame">
                         @if ($ep['poster'])<img src="{{ $ep['poster'] }}" alt="" loading="lazy" width="540" height="960">@endif
                         <span class="episode-no">Ep. {{ $i + 1 }}</span>
                         <span class="episode-len">{{ $ep['length'] }}</span>
-                        <button class="episode-play" type="button" data-src="{{ $ep['video'] }}" data-poster="{{ $ep['poster'] }}" aria-label="Pornește episodul: {{ $ep['title'] }}">
+                        <button class="episode-play" type="button" data-src="{{ $ep['video'] }}" data-poster="{{ $ep['poster'] }}" data-title="{{ $ep['title'] }}" aria-label="Pornește episodul: {{ $ep['title'] }}">
                             <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="currentColor"/></svg></span>
                         </button>
                     </div>
@@ -152,6 +156,20 @@
             @endforeach
         </div>
     </div>
+    <dialog class="ep-dialog" aria-labelledby="ep-dialog-title">
+        <div class="ep-dialog-card">
+            <div class="ep-dialog-head">
+                <p class="ep-dialog-no"></p>
+                <h3 id="ep-dialog-title"></h3>
+                <button class="ep-close" type="button" data-ep-close aria-label="Închide episodul"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+            </div>
+            <video class="ep-video" controls playsinline preload="metadata"></video>
+            <div class="ep-dialog-nav">
+                <button class="btn btn-ghost btn-sm" type="button" data-ep-step="-1">Episodul anterior</button>
+                <button class="btn btn-primary btn-sm" type="button" data-ep-step="1">Episodul următor</button>
+            </div>
+        </div>
+    </dialog>
 </section>
 @endif
 

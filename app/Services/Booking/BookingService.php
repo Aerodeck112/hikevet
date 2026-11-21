@@ -29,6 +29,24 @@ class BookingService
 
     public const MAX_DAYS_AHEAD = 60;
 
+    /** Intervalele din care clientul alege cand ii convine; clinica stabileste apoi ora exacta. */
+    public const PERIODS = [
+        'dimineata' => ['Dimineața', '09:00', '12:00'],
+        'pranz' => ['La prânz', '12:00', '15:00'],
+        'dupa-amiaza' => ['După-amiaza', '15:00', '18:00'],
+        'seara' => ['Seara', '18:00', '20:00'],
+    ];
+
+    public static function periodLabel(?string $key): ?string
+    {
+        if (! $key || ! isset(self::PERIODS[$key])) {
+            return null;
+        }
+        [$label, $from, $to] = self::PERIODS[$key];
+
+        return $label.' ('.$from.'–'.$to.')';
+    }
+
     public function __construct(private readonly Notifier $notifier) {}
 
     /** @return list<string> orele de inceput libere (HH:MM) pentru medic, in ziua data */
@@ -120,8 +138,74 @@ class BookingService
         }
     }
 
+    /**
+     * Cerere de programare fara ora exacta: ziua si intervalul preferat, medicul optional.
+     * Nu ocupa nimic din orar pana nu o confirma clinica (confirmRequest).
+     */
+    public function request(array $data): Appointment
+    {
+        $period = self::PERIODS[$data['preferred_period']] ?? throw new DomainException('Alege intervalul care îți convine.');
+        $day = CarbonImmutable::parse($data['date'])->startOfDay();
+        if ($day->lt(CarbonImmutable::today()) || $day->gt(CarbonImmutable::today()->addDays(self::MAX_DAYS_AHEAD))) {
+            throw new DomainException('Alege o zi din următoarele '.self::MAX_DAYS_AHEAD.' de zile.');
+        }
+        $start = $day->setTimeFromTimeString($period[1]);
+        if ($day->isToday() && $day->setTimeFromTimeString($period[2])->lte(CarbonImmutable::now()->addMinutes(30))) {
+            throw new DomainException('Intervalul ales a trecut deja pentru azi. Alege alt interval sau altă zi.');
+        }
+
+        return DB::transaction(function () use ($data, $start, $day, $period) {
+            $appointment = Appointment::create([
+                'code' => 'HV-'.Str::upper(Str::random(8)), 'service_id' => $data['service_id'] ?? null, 'team_member_id' => $data['team_member_id'] ?? null,
+                'user_id' => $data['user_id'] ?? null, 'starts_at' => $start, 'ends_at' => $day->setTimeFromTimeString($period[2]),
+                'preferred_period' => $data['preferred_period'], 'status' => AppointmentStatus::Requested,
+                'client_name' => $data['client_name'], 'client_phone' => $data['client_phone'], 'client_email' => $data['client_email'] ?? null,
+                'pet_name' => $data['pet_name'] ?? null, 'pet_species' => $data['pet_species'] ?? null, 'notes' => $data['notes'] ?? null,
+                'consent_processing' => (bool) ($data['consent_processing'] ?? false), 'manage_token' => Str::random(48),
+            ]);
+            Audit::log('appointment.created', $appointment, 'Cerere de programare '.$appointment->code.' pentru '.$day->format('d.m.Y').', '.self::periodLabel($data['preferred_period']));
+            DB::afterCommit(fn () => $this->notify($appointment, 'created'));
+
+            return $appointment;
+        });
+    }
+
+    /** Clinica stabileste medicul si ora exacta pentru o cerere si o confirma (clientul primeste emailul de confirmare). */
+    public function confirmRequest(Appointment $appointment, int $doctorId, string $startsAt, int $durationMinutes): Appointment
+    {
+        if ($appointment->status !== AppointmentStatus::Requested) {
+            throw new DomainException('Doar cererile noi pot fi confirmate.');
+        }
+        $doctor = TeamMember::query()->findOrFail($doctorId);
+        $duration = $this->normalizeDuration($durationMinutes);
+        $start = CarbonImmutable::parse($startsAt)->seconds(0);
+        if ($start->minute % self::GRID_MINUTES !== 0) {
+            throw new DomainException('Ora trebuie să fie din 15 în 15 minute.');
+        }
+
+        try {
+            DB::transaction(function () use ($appointment, $doctor, $duration, $start) {
+                $appointment->slots()->delete();
+                $appointment->forceFill(['team_member_id' => $doctor->id, 'starts_at' => $start, 'ends_at' => $start->addMinutes($duration),
+                    'status' => AppointmentStatus::Confirmed])->save();
+                for ($t = $start; $t->lt($start->addMinutes($duration)); $t = $t->addMinutes(self::GRID_MINUTES)) {
+                    AppointmentSlot::create(['appointment_id' => $appointment->id, 'team_member_id' => $doctor->id, 'slot_at' => $t]);
+                }
+                Audit::log('appointment.status', $appointment, 'Programare '.$appointment->code.' confirmată pentru '.$start->format('d.m.Y H:i').', '.$doctor->name);
+            });
+        } catch (UniqueConstraintViolationException) {
+            throw new DomainException('Medicul are deja o programare în acest interval. Alege altă oră.');
+        }
+        $this->notify($appointment->refresh(), 'confirmed');
+
+        return $appointment;
+    }
+
     public function setStatus(Appointment $appointment, AppointmentStatus $status, string $reason = ''): void
     {
+        if ($status === AppointmentStatus::Confirmed && ($appointment->team_member_id === null || ($appointment->preferred_period && ! $appointment->slots()->exists()))) {
+            throw new DomainException('Pentru această cerere stabilește întâi medicul și ora exactă.');
+        }
         DB::transaction(function () use ($appointment, $status, $reason) {
             $appointment->status = $status;
             if ($status === AppointmentStatus::Cancelled) {
@@ -144,14 +228,16 @@ class BookingService
     private function notify(Appointment $appointment, string $event): void
     {
         $appointment->loadMissing(['doctor', 'service']);
-        $when = $appointment->starts_at->format('d.m.Y').', ora '.$appointment->starts_at->format('H:i');
-        $details = '<p><strong>Data:</strong> '.$when.'<br><strong>Medic:</strong> '.e($appointment->doctor->name)
+        $flexible = $appointment->preferred_period && $appointment->status === AppointmentStatus::Requested;
+        $when = $appointment->starts_at->format('d.m.Y').', '.($flexible ? self::periodLabel($appointment->preferred_period).' (interval preferat)' : 'ora '.$appointment->starts_at->format('H:i'));
+        $details = '<p><strong>Data:</strong> '.$when.'<br><strong>Medic:</strong> '.e($appointment->doctor?->name ?? 'oricare medic disponibil')
             .($appointment->service ? '<br><strong>Serviciu:</strong> '.e($appointment->service->name) : '')
             .($appointment->pet_name ? '<br><strong>Pacient:</strong> '.e($appointment->pet_name) : '').'</p>';
         $subject = ['created' => 'Am primit cererea ta de programare', 'confirmed' => 'Programarea ta este confirmată', 'cancelled' => 'Programarea a fost anulată'][$event] ?? 'Programare HiKeVet';
 
         if ($appointment->client_email) {
-            $this->notifier->send([$appointment->client_email], $subject, '<p>Bună, '.e($appointment->client_name).'!</p>'.$details
+            $intro = $event === 'created' ? '<p>Am primit cererea ta. Te contactăm cât mai repede pentru confirmare; programarea este stabilită doar după ce o confirmăm.</p>' : '';
+            $this->notifier->send([$appointment->client_email], $subject, '<p>Bună, '.e($appointment->client_name).'!</p>'.$intro.$details
                 .($event !== 'cancelled' ? '<p>Poți vedea sau anula programarea aici: <a href="'.route('booking.show', $appointment->manage_token).'">detalii programare</a>.</p>' : '')
                 .'<p>Telefon clinică: '.e(Settings::get('clinic.phone')).'</p>', 'appointment_'.$event, 'appointment', $appointment->id, $appointment->user_id);
         }

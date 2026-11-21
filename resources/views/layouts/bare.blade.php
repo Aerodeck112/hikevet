@@ -9,7 +9,7 @@
     @vite(['resources/css/site.css', 'resources/js/site.js'])
 </head>
 <body class="bare">
-<header class="bare-head no-print"><div class="wrap"><img src="{{ asset('media/2023/05/negru-640.webp') }}" alt="Clinica HiKeVet" width="640" height="396"></div></header>
+<header class="bare-head no-print"><div class="wrap"><img src="{{ asset('media/brand/logo-negru.webp') }}" alt="Clinica HiKeVet" width="900" height="654"></div></header>
 <main id="continut">@yield('content')</main>
 </body>
 </html>

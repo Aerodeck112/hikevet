@@ -33,8 +33,8 @@ class AdminPanelProvider extends PanelProvider
             // 2FA cu aplicatie de autentificare (TOTP) si coduri de recuperare pentru personal.
             ->multiFactorAuthentication([AppAuthentication::make()->recoverable()])
             ->brandName('HiKeVet')
-            ->brandLogo(asset('media/2023/05/negru-640.webp'))
-            ->brandLogoHeight('2.75rem')
+            ->brandLogo(asset('media/brand/logo-negru.webp'))
+            ->brandLogoHeight('3.5rem')
             ->favicon(asset('favicon.svg'))
             ->colors([
                 'primary' => Color::hex('#21b073'),

@@ -15,9 +15,11 @@
   --teal: #13958a;
   --ink: #1f1638;
   --body: #4b4560;
-  --paper: #ffffff;
-  --wall: #f3f1fa;
-  --line: #e1ddee;
+  --paper: #e9f7f0;
+  --turq: #21b073;
+  --turq-deep: #0e7a50;
+  --wall: #d7f1e5;
+  --line: #c5e7d7;
   --danger: #b3261e;
 
   /* Alias pentru clasele existente */
@@ -95,7 +97,6 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .site-header { position: sticky; top: 0; z-index: 50; padding: 0.75rem 0; }
 .nav { display: flex; align-items: center; gap: 1rem; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px);
   border: 1px solid var(--line); border-radius: var(--capsule); padding: 0.45rem 0.6rem 0.45rem 1.25rem; }
-.nav-logo img { height: 46px; width: auto; }
 .nav-links { display: flex; gap: 0.15rem; margin-left: auto; list-style: none; padding: 0; margin-block: 0; }
 .nav-links a { display: block; padding: 0.6rem 0.95rem; border-radius: var(--capsule); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 1rem; }
 .nav-links a:hover, .nav-links a[aria-current='page'] { background: var(--mint); }
@@ -374,7 +375,6 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 /* Tableta si documentul de consimtamant */
 .bare-head { padding: 1rem 0; border-bottom: 1px solid var(--line); background: #fff; }
-.bare-head img { height: 54px; width: auto; }
 .code-input { font: 800 2.4rem var(--display) !important; letter-spacing: 0.35em; text-align: center; }
 .cd { color: #111; font-size: 1rem; line-height: 1.55; }
 .cd-head { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 0.9rem; margin-bottom: 1.1rem; font-size: 0.95rem; }
@@ -404,3 +404,17 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .slot input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .slot.on { background: var(--ink); border-color: var(--ink); color: #fff; }
 .slot:focus-within { outline: 3px solid var(--magenta); outline-offset: 2px; }
+
+/* Logo-ul: ecuson alb, mare, lipit peste capsula meniului */
+.nav-logo { position: relative; z-index: 2; display: block; flex: none; background: #fff; border: 2px solid var(--ink); border-radius: 22px;
+  padding: 6px 14px; margin: -6px 0 -44px -0.75rem; box-shadow: 4px 4px 0 var(--ink); transform: rotate(-2deg); transition: transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.nav-logo:hover, .nav-logo:focus-visible { transform: rotate(1deg) scale(1.04); }
+.nav-logo img { display: block; height: 92px; width: auto; }
+@media (max-width: 1040px) {
+  .nav-logo { margin: -10px 0 -26px -0.4rem; padding: 4px 10px; border-radius: 18px; }
+  .nav-logo img { height: 66px; }
+  .nav.is-open .nav-logo { margin-bottom: 0; }
+}
+.footer-logo { display: inline-block; margin-bottom: 1.25rem; }
+.footer-logo img { display: block; height: clamp(96px, 9vw, 130px); width: auto; }
+.bare-head img { height: 64px; width: auto; }

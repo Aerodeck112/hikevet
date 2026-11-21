@@ -134,27 +134,91 @@ function initTour(tour) {
     });
 }
 
+// Episoadele: rand orizontal cu sageti si tragere cu mouse-ul; fiecare episod se deschide intr-un player mare,
+// cu bara de derulare de marime normala si trecere la episodul urmator.
 function initEpisodes(list) {
-    list.addEventListener('click', (event) => {
-        const button = event.target.closest('.episode-play');
-        if (!button) return;
-        const episode = button.closest('.episode');
-        list.querySelectorAll('.episode.is-playing video').forEach((v) => v.pause());
-        let video = episode.querySelector('video');
-        if (!video) {
-            video = document.createElement('video');
-            video.src = button.dataset.src;
-            video.poster = button.dataset.poster || '';
-            video.controls = true;
-            video.playsInline = true;
-            video.preload = 'auto';
-            video.setAttribute('aria-label', button.getAttribute('aria-label') || 'Episod');
-            episode.querySelector('.episode-frame').replaceChildren(video);
-        }
-        episode.classList.add('is-playing');
-        video.play().catch(() => {});
-        video.focus();
+    const section = list.closest('section');
+    const prev = section.querySelector('[data-ep-prev]');
+    const next = section.querySelector('[data-ep-next]');
+    const buttons = [...list.querySelectorAll('.episode-play')];
+    const dialog = section.querySelector('.ep-dialog');
+    const video = dialog?.querySelector('.ep-video');
+    let current = 0;
+
+    const step = () => {
+        const card = list.querySelector('.episode');
+        const gap = parseFloat(getComputedStyle(list).columnGap) || 16;
+        const perView = Math.max(1, Math.floor(list.clientWidth / (card.offsetWidth + gap)) - 1);
+        return perView * (card.offsetWidth + gap);
+    };
+    const smooth = () => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+    const updateArrows = () => {
+        const max = list.scrollWidth - list.clientWidth - 2;
+        if (prev) prev.disabled = list.scrollLeft <= 2;
+        if (next) next.disabled = list.scrollLeft >= max;
+    };
+    prev?.addEventListener('click', () => list.scrollBy({ left: -step(), behavior: smooth() }));
+    next?.addEventListener('click', () => list.scrollBy({ left: step(), behavior: smooth() }));
+    list.addEventListener('scroll', () => requestAnimationFrame(updateArrows), { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+
+    // Tragere cu mouse-ul (pe telefon se gliseaza nativ)
+    let drag = null;
+    let moved = false;
+    list.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        drag = { x: e.clientX, left: list.scrollLeft };
+        moved = false;
     });
+    window.addEventListener('pointermove', (e) => {
+        if (!drag) return;
+        const dx = e.clientX - drag.x;
+        if (!moved && Math.abs(dx) > 6) {
+            moved = true;
+            list.classList.add('is-dragging');
+        }
+        if (moved) list.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener('pointerup', () => {
+        if (!drag) return;
+        drag = null;
+        list.classList.remove('is-dragging');
+    });
+    list.addEventListener('click', (e) => {
+        if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; return; }
+        const button = e.target.closest('.episode-play');
+        if (button) open(buttons.indexOf(button));
+    }, true);
+    list.addEventListener('keydown', (e) => {
+        if (e.target !== list) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); list.scrollBy({ left: step(), behavior: smooth() }); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); list.scrollBy({ left: -step(), behavior: smooth() }); }
+    });
+
+    function open(index) {
+        if (!dialog || !video || index < 0) return;
+        current = (index + buttons.length) % buttons.length;
+        const b = buttons[current];
+        dialog.querySelector('#ep-dialog-title').textContent = b.dataset.title || '';
+        dialog.querySelector('.ep-dialog-no').textContent = 'Episodul ' + (current + 1) + ' din ' + buttons.length;
+        video.src = b.dataset.src;
+        video.poster = b.dataset.poster || '';
+        if (!dialog.open) dialog.showModal();
+        video.play().catch(() => {});
+        buttons[current].closest('.episode').scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: smooth() });
+    }
+    const close = () => { video.pause(); dialog.close(); };
+    dialog?.querySelector('[data-ep-close]').addEventListener('click', close);
+    dialog?.addEventListener('click', (e) => { if (e.target === dialog) close(); });
+    dialog?.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.load(); buttons[current]?.focus({ preventScroll: true }); });
+    dialog?.querySelectorAll('[data-ep-step]').forEach((b) => b.addEventListener('click', () => open(current + Number(b.dataset.epStep))));
+    dialog?.addEventListener('keydown', (e) => {
+        if (e.target.closest('video')) return;
+        if (e.key === 'ArrowRight') open(current + 1);
+        if (e.key === 'ArrowLeft') open(current - 1);
+    });
+    video?.addEventListener('ended', () => { if (current < buttons.length - 1) open(current + 1); });
 }
 
 export function initMural() {

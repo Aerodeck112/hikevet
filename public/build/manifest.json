@@ -33,7 +33,7 @@
     "isEntry": true
   },
   "resources/css/site.css": {
-    "file": "assets/site-Bqf6rV3j.css",
+    "file": "assets/site-DwA_m7Ga.css",
     "name": "site",
     "names": [
       "site.css"
@@ -50,13 +50,13 @@
     ]
   },
   "resources/js/mural.js": {
-    "file": "assets/mural-Cd9-kwJC.js",
+    "file": "assets/mural-CxZnHsKW.js",
     "name": "mural",
     "src": "resources/js/mural.js",
     "isDynamicEntry": true
   },
   "resources/js/site.js": {
-    "file": "assets/site-O9T66Et5.js",
+    "file": "assets/site-ctu_j2QE.js",
     "name": "site",
     "src": "resources/js/site.js",
     "isEntry": true,

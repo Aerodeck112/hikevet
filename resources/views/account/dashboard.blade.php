@@ -6,6 +6,7 @@
 @endphp
 <header class="page-head page-head--buddy">
     <div class="wrap">
+      <div class="page-panel">
         <div class="page-head-text" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:end">
             <div>
                 <p class="script">Bine ai revenit</p>
@@ -14,6 +15,7 @@
             <form method="post" action="{{ site_url('/acces-cont/iesire') }}">@csrf<button class="btn btn-ghost btn-sm" type="submit">Ieși din cont</button></form>
         </div>
         <x-buddy class="head-buddy" kind="dog" pose="peek" :say="['Ham! Ce bine că ai venit, '.$firstName.'!', 'Aici îți ții animăluții, contractele și Wallet-ul.', 'Ai grijă de bonusuri. Și de mine.']" />
+      </div>
     </div>
 </header>
 

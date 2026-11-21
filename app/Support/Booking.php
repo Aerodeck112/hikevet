@@ -3,15 +3,14 @@
 namespace App\Support;
 
 /**
- * Un singur sistem accepta programari la un moment dat. Cat timp modul este "digitail",
- * toate butoanele de programare duc la Digitail, ca pe site-ul actual; sistemul propriu
- * (/programare/) devine public doar dupa comutarea explicita din admin.
+ * Un singur sistem accepta programari la un moment dat. Implicit programarile se fac pe site,
+ * ca cereri pe care clinica le confirma; Digitail ramane doar ca optiune din Setari.
  */
 class Booking
 {
     public static function mode(): string
     {
-        return Settings::get('booking.mode') === 'internal' ? 'internal' : 'digitail';
+        return Settings::get('booking.mode') === 'digitail' ? 'digitail' : 'internal';
     }
 
     public static function url(): string
