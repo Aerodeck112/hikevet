@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
+    use \App\Models\Concerns\Translatable;
+
+    /** Campuri afisate in limba vizitatorului (vezi tabelul translations). */
+    protected array $translatable = ['title', 'lead', 'body', 'blocks', 'seo_title', 'seo_description'];
+
     protected $guarded = ["id"];
 
     protected function casts(): array

@@ -21,8 +21,8 @@ class ContactController extends Controller
             'phone' => ['nullable', 'string', 'max:30'],
             'message' => ['required', 'string', 'min:10', 'max:3000'],
             'consent' => ['accepted'],
-        ], ['consent.accepted' => 'Avem nevoie de acordul tău pentru a-ți putea răspunde.'], [
-            'name' => 'numele', 'email' => 'emailul', 'phone' => 'telefonul', 'message' => 'mesajul',
+        ], ['consent.accepted' => __('Avem nevoie de acordul tău pentru a-ți putea răspunde.')], [
+            'name' => __('numele'), 'email' => __('emailul'), 'phone' => __('telefonul'), 'message' => __('mesajul'),
         ]);
 
         if (! $isBot) {

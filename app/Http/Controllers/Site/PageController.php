@@ -40,7 +40,7 @@ class PageController extends Controller
     {
         if ($service = Service::published()->where('slug', $slug)->first()) {
             $seo->page($service->seo_title ?: $service->name, $service->seo_description ?: $service->excerpt, $service->image)
-                ->crumbs([['Acasă', '/'], ['Servicii', '/servicii/'], [$service->name, $service->path()]])
+                ->crumbs([[__('Acasă'), '/'], [__('Servicii'), '/servicii/'], [$service->name, $service->path()]])
                 ->schema(['@type' => 'MedicalProcedure', 'name' => $service->name, 'description' => $service->excerpt, 'url' => Seo::canonicalUrl($service->path())]);
 
             return view('site.service', ['seo' => $seo, 'service' => $service,
@@ -49,7 +49,7 @@ class PageController extends Controller
 
         if ($post = Post::published()->where('slug', $slug)->first()) {
             $seo->page($post->seo_title ?: $post->title, $post->seo_description ?: $post->excerpt, $post->image)
-                ->crumbs([['Acasă', '/'], ['Blog', '/blog/'], [$post->title, $post->path()]])
+                ->crumbs([[__('Acasă'), '/'], [__('Blog'), '/blog/'], [$post->title, $post->path()]])
                 ->schema(['@type' => 'Article', 'headline' => $post->title, 'datePublished' => $post->published_at?->toIso8601String(),
                     'dateModified' => $post->updated_at?->toIso8601String(), 'author' => ['@type' => 'Organization', 'name' => 'HiKeVet'],
                     'image' => $post->image ? asset($post->image) : null, 'mainEntityOfPage' => Seo::canonicalUrl($post->path())]);
@@ -64,7 +64,7 @@ class PageController extends Controller
         abort_unless($page && ($page->isPublished() || $preview), 404);
 
         $seo->page($page->seo_title ?: $page->title, $page->seo_description ?: ($page->lead ?: $page->body), $page->og_image ?: $page->hero_image)
-            ->crumbs([['Acasă', '/'], [$page->title, $page->path()]]);
+            ->crumbs([[__('Acasă'), '/'], [$page->title, $page->path()]]);
         $seo->noindex = $page->noindex || $preview;
 
         $data = ['seo' => $seo, 'page' => $page, 'b' => $page->blocks ?? [], 'preview' => $preview];

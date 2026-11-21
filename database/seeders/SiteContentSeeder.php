@@ -94,5 +94,8 @@ class SiteContentSeeder extends Seeder
         if (Settings::get('clinic.instagram') === '') {
             Settings::set('clinic.instagram', 'https://www.instagram.com/clinica_veterinara_hikevet/');
         }
+
+        // Traducerile in engleza si maghiara ale continutului de mai sus.
+        app(\App\Services\Translations\ContentTranslations::class)->importBundled();
     }
 }

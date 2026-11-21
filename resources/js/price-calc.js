@@ -1,5 +1,6 @@
 // Calculator orientativ pentru primul animal. Pretul final se calculeaza mereu pe server.
 // Animalul desenat creste odata cu greutatea; sumele se schimba animat (static daca miscarea e redusa).
+import { t, intl } from './i18n';
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function priceCalc(tiers) {
@@ -45,7 +46,7 @@ export function priceCalc(tiers) {
             return this.tier ? this.tier.monthly * 12 - this.tier.m12 : 0;
         },
         money(value) {
-            return Math.round(value).toLocaleString('ro-RO');
+            return Math.round(value).toLocaleString(intl());
         },
         animateTo(tier, instant = false) {
             const target = tier ? { monthly: tier.monthly, m6: tier.m6, m12: tier.m12 } : { monthly: 0, m6: 0, m12: 0 };
@@ -94,7 +95,7 @@ export function walletCalc() {
             return Math.max(4, Math.round((value / (this.amount * 2.5 || 1)) * 100));
         },
         money(value) {
-            return Math.round(value).toLocaleString('ro-RO');
+            return Math.round(value).toLocaleString(intl());
         },
     };
 }

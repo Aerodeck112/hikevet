@@ -23,12 +23,15 @@ class Knowledge
 
     public static function forget(): void
     {
-        Cache::forget(self::CACHE_KEY);
+        foreach (array_keys(\App\Support\Locales::ALL) as $locale) {
+            Cache::forget(self::CACHE_KEY.'.'.$locale);
+        }
     }
 
     public function text(): string
     {
-        return Cache::remember(self::CACHE_KEY, now()->addMinutes(30), fn () => $this->build());
+        // Pe limba: adresele din cunostinte au prefixul limbii vizitatorului (/en/..., /hu/...).
+        return Cache::remember(self::CACHE_KEY.'.'.app()->getLocale(), now()->addMinutes(30), fn () => $this->build());
     }
 
     private function build(): string

@@ -20,7 +20,7 @@
             @endif
             <h1 class="display h-lg">{{ $title }}</h1>
             @if (! empty($lead))<p class="lead" style="margin-top:1.25rem;max-width:52ch">{{ $lead }}</p>@endif
-            @if (! empty($preview))<p class="notice notice--warn" style="margin-top:1.5rem">Previzualizare: pagina este în lucru și nu este vizibilă public.</p>@endif
+            @if (! empty($preview))<p class="notice notice--warn" style="margin-top:1.5rem">{{ __('Previzualizare: pagina este în lucru și nu este vizibilă public.') }}</p>@endif
         </div>
         @if ($scene)
             <x-vet-scene :slug="$scene" />

@@ -28,8 +28,8 @@ class ConfiguratorController extends Controller
 
         if ($offer === null) {
             return response()->json(['message' => $data['species'] === 'dog'
-                ? 'Greutatea câinelui trebuie să fie între 1,25 și 60 kg.'
-                : 'Greutatea pisicii trebuie să fie între 0,5 și 70 kg.'], 422);
+                ? __('Greutatea câinelui trebuie să fie între 1,25 și 60 kg.')
+                : __('Greutatea pisicii trebuie să fie între 0,5 și 70 kg.')], 422);
         }
 
         return response()->json($offer->toArray());
@@ -42,8 +42,8 @@ class ConfiguratorController extends Controller
 
         return response()->json([
             'message' => $result['duplicate']
-                ? 'Contractul a fost deja înregistrat cu plata fizică la clinică.'
-                : 'Abonamentul a fost înregistrat. Plata se face fizic la clinică.',
+                ? __('Contractul a fost deja înregistrat cu plata fizică la clinică.')
+                : __('Abonamentul a fost înregistrat. Plata se face fizic la clinică.'),
             'number' => $contract->number,
             'duplicate' => $result['duplicate'],
             'account_created' => $result['account_created'],

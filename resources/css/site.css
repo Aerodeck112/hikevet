@@ -418,3 +418,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .footer-logo { display: inline-block; margin-bottom: 1.25rem; }
 .footer-logo img { display: block; height: clamp(96px, 9vw, 130px); width: auto; }
 .bare-head img { height: 64px; width: auto; }
+
+/* Selectorul de limba din meniu */
+.lang-switch { display: flex; gap: 0.15rem; align-items: center; margin-left: 0.5rem; padding: 0.2rem; border: 2px solid var(--line); border-radius: 999px; }
+.lang-switch a { display: grid; place-items: center; min-width: 2.2rem; height: 2rem; padding: 0 0.45rem; border-radius: 999px; font: 700 0.8rem/1 var(--text); color: var(--ink); text-decoration: none; letter-spacing: 0.04em; }
+.lang-switch a:hover { background: var(--mint); }
+.lang-switch a[aria-current='true'] { background: var(--ink); color: #fff; }
+@media (max-width: 1040px) {
+  .lang-switch { display: none; order: 3; margin: 0.5rem 0 0; }
+  .nav.is-open .lang-switch { display: flex; width: max-content; }
+}

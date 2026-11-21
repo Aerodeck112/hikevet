@@ -1,4 +1,5 @@
 // Fereastra de chat cu Hiko (asistentul AI). Conversatia sta doar in browser, pe durata vizitei.
+import { t, intl } from './i18n';
 export function assistantChat({ url, token, phone }) {
     const store = 'hv-ai';
     return {
@@ -8,7 +9,7 @@ export function assistantChat({ url, token, phone }) {
         phone,
         messages: [],
         conversation: '',
-        suggestions: ['Cât costă abonamentul pentru un câine de 20 kg?', 'Cum fac o programare?', 'Ce include abonamentul?', 'Cum funcționează Wallet-ul?'],
+        suggestions: [t('Cât costă abonamentul pentru un câine de 20 kg?'), t('Cum fac o programare?'), t('Ce include abonamentul?'), t('Cum funcționează Wallet-ul?')],
 
         init() {
             try {
@@ -44,11 +45,11 @@ export function assistantChat({ url, token, phone }) {
                 if (r.ok) {
                     this.messages.push({ role: 'assistant', content: data.answer, html: data.html });
                 } else {
-                    const msg = r.status === 429 ? 'Prea multe întrebări într-un minut. Mai încearcă puțin mai târziu.' : (data.message || 'Nu am putut răspunde acum.');
-                    this.messages.push({ role: 'assistant', content: msg, html: '<p>' + msg.replace(/[<>&]/g, '') + ' Telefon: ' + phone + '.</p>', local: true });
+                    const msg = r.status === 429 ? t('Prea multe întrebări într-un minut. Mai încearcă puțin mai târziu.') : (data.message || t('Nu am putut răspunde acum.'));
+                    this.messages.push({ role: 'assistant', content: msg, html: '<p>' + msg.replace(/[<>&]/g, '') + ' ' + t('Telefon: :phone.', { phone }) + '</p>', local: true });
                 }
             } catch {
-                this.messages.push({ role: 'assistant', content: 'Conexiunea a căzut.', html: '<p>Conexiunea a căzut. Încearcă din nou sau sună la ' + phone + '.</p>', local: true });
+                this.messages.push({ role: 'assistant', content: t('Conexiunea a căzut.'), html: '<p>' + t('Conexiunea a căzut. Încearcă din nou sau sună la :phone.', { phone }) + '</p>', local: true });
             } finally {
                 // Mesajele locale (erori) nu se trimit modelului la urmatoarea intrebare.
                 this.messages = this.messages.filter((m, i, all) => !m.local || i === all.length - 1);

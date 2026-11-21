@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ro">
+<html lang="{{ \App\Support\Locales::current() }}" data-intl="{{ \App\Support\Locales::intl() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,11 @@
     <link rel="canonical" href="{{ $seo->canonical }}">
     @if ($seo->noindex)<meta name="robots" content="noindex, nofollow">@endif
     <meta property="og:type" content="{{ $seo->type }}">
-    <meta property="og:locale" content="ro_RO">
+    <meta property="og:locale" content="{{ \App\Support\Locales::ALL[\App\Support\Locales::current()]['og'] }}">
+    @unless ($seo->noindex)
+        @foreach ($seo->alternates() as $lang => $href)<link rel="alternate" hreflang="{{ $lang }}" href="{{ $href }}">
+        @endforeach<link rel="alternate" hreflang="x-default" href="{{ $seo->alternates()['ro'] }}">
+    @endunless
     <meta property="og:site_name" content="{{ $clinic['name'] }}">
     <meta property="og:title" content="{{ $seo->title }}">
     <meta property="og:description" content="{{ $seo->description }}">
@@ -21,34 +25,40 @@
     @foreach ($seo->jsonLd as $schema)
     <script type="application/ld+json">{!! json_encode(array_filter($schema, fn ($v) => $v !== null), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
     @endforeach
+    @unless (\App\Support\Locales::isDefault())<script>window.hvI18n = {!! json_encode(\App\Support\JsStrings::dictionary(), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!};</script>@endunless
     @vite(['resources/css/site.css', 'resources/js/site.js'])
     @include('partials.tracking-head')
 </head>
 <body>
 @include('partials.tracking-body')
-<a class="skip" href="#continut">Sari la conținut</a>
+<a class="skip" href="#continut">{{ __('Sari la conținut') }}</a>
 
 <header class="site-header">
     <div class="wrap">
-        <nav class="nav" aria-label="Meniu principal" x-data="{ open: false }" @keydown.escape.window="open = false" :class="{ 'is-open': open }">
-            <a class="nav-logo" href="{{ site_url('/') }}" aria-label="{{ $clinic['name'] }} – pagina principală">
-                <img src="{{ asset('media/brand/logo-negru.webp') }}" alt="Clinica HiKeVet" width="900" height="654">
+        <nav class="nav" aria-label="{{ __('Meniu principal') }}" x-data="{ open: false }" @keydown.escape.window="open = false" :class="{ 'is-open': open }">
+            <a class="nav-logo" href="{{ site_url('/') }}" aria-label="{{ __(':name – pagina principală', ['name' => $clinic['name']]) }}">
+                <img src="{{ asset('media/brand/logo-negru.webp') }}" alt="{{ __('Clinica HiKeVet') }}" width="900" height="654">
             </a>
             <button class="nav-toggle" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="meniu">
-                <span class="sr-only">Meniu</span>
+                <span class="sr-only">{{ __('Meniu') }}</span>
                 <x-hv-icon name="menu" width="22" height="22" x-show="!open" />
                 <x-hv-icon name="close" width="22" height="22" x-show="open" x-cloak />
             </button>
             <ul class="nav-links" id="meniu">
                 @foreach ([['Servicii', 'servicii'], ['Abonamente', 'abonamente'], ['Echipa', 'echipa'], ['Blog', 'blog'], ['Întrebări', 'intrebari-frecvente'], ['Contact', 'hikevet-contact']] as [$label, $slug])
-                    <li><a href="{{ site_url('/'.$slug.'/') }}" @if (request()->is($slug)) aria-current="page" @endif>{{ $label }}</a></li>
+                    <li><a href="{{ site_url('/'.$slug.'/') }}" @if (request()->is($slug)) aria-current="page" @endif>{{ __($label) }}</a></li>
                 @endforeach
             </ul>
+            <div class="lang-switch" role="group" aria-label="{{ __('Limba site-ului') }}">
+                @foreach (\App\Support\Locales::ALL as $code => $lang)
+                    <a href="{{ \App\Support\Locales::switchUrl($code) }}" hreflang="{{ $code }}" lang="{{ $code }}" title="{{ $lang['name'] }}" @if (\App\Support\Locales::current() === $code) aria-current="true" @endif>{{ $lang['short'] }}</a>
+                @endforeach
+            </div>
             <div class="nav-cta">
                 <a class="btn btn-ghost btn-sm" href="{{ site_url(auth()->check() ? '/panou-cont/' : '/acces-cont/') }}">
-                    <x-hv-icon name="user" width="18" height="18" /> {{ auth()->check() ? 'Contul meu' : 'Cont client' }}
+                    <x-hv-icon name="user" width="18" height="18" /> {{ auth()->check() ? __('Contul meu') : __('Cont client') }}
                 </a>
-                <a class="btn btn-primary btn-sm" href="{{ $clinic['booking_url'] }}" @if (\App\Support\Booking::isExternal()) rel="noopener" @endif data-track="booking_click">Programează-te</a>
+                <a class="btn btn-primary btn-sm" href="{{ $clinic['booking_url'] }}" @if (\App\Support\Booking::isExternal()) rel="noopener" @endif data-track="booking_click">{{ __('Programează-te') }}</a>
             </div>
         </nav>
     </div>
@@ -59,55 +69,55 @@
 </main>
 
 <footer class="site-footer">
-    <x-buddy class="footer-cat" kind="cat" pose="sleep" :greet="false" :say="['Zzz… a, bună! Ne vedem la control.', 'Mai stai puțin? E cald aici.', 'Miau. Am păzit pagina toată ziua.', 'Programează-te, eu mă întorc la somn.']" />
+    <x-buddy class="footer-cat" kind="cat" pose="sleep" :greet="false" :say="[__('Zzz… a, bună! Ne vedem la control.'), __('Mai stai puțin? E cald aici.'), __('Miau. Am păzit pagina toată ziua.'), __('Programează-te, eu mă întorc la somn.')]" />
     <div class="wrap">
         <div class="footer-top">
             <div>
-                <a class="footer-logo" href="{{ site_url('/') }}" aria-label="{{ $clinic['name'] }} – pagina principală"><img src="{{ asset('media/brand/logo-alb.webp') }}" alt="" width="900" height="654" loading="lazy"></a>
+                <a class="footer-logo" href="{{ site_url('/') }}" aria-label="{{ __(':name – pagina principală', ['name' => $clinic['name']]) }}"><img src="{{ asset('media/brand/logo-alb.webp') }}" alt="" width="900" height="654" loading="lazy"></a>
                 <h2 class="sr-only">{{ $clinic['name'] }}</h2>
-                <p class="measure">{{ $clinic['tagline'] }}</p>
-                <p><a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează-te</a></p>
+                <p class="measure">{{ __($clinic['tagline']) }}</p>
+                <p><a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">{{ __('Programează-te') }}</a></p>
             </div>
             <div>
-                <h2>Locație</h2>
+                <h2>{{ __('Locație') }}</h2>
                 <ul>
-                    <li>{{ $clinic['address'] }}<br>{{ $clinic['city'] }}</li>
+                    <li>{{ $clinic['address'] }}<br>{{ __($clinic['city']) }}</li>
                     <li><a href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click">{{ $clinic['phone'] }}</a></li>
                     <li><a href="mailto:{{ $clinic['email'] }}">{{ $clinic['email'] }}</a></li>
                 </ul>
             </div>
             <div>
-                <h2>Utile</h2>
+                <h2>{{ __('Utile') }}</h2>
                 <ul>
-                    <li><a href="{{ site_url('/abonamente/') }}">Abonamente</a></li>
-                    <li><a href="{{ site_url('/servicii/') }}">Servicii</a></li>
+                    <li><a href="{{ site_url('/abonamente/') }}">{{ __('Abonamente') }}</a></li>
+                    <li><a href="{{ site_url('/servicii/') }}">{{ __('Servicii') }}</a></li>
                     <li><a href="{{ site_url('/video-vet/') }}">Video Vet</a></li>
-                    <li><a href="{{ site_url('/tur-3d/') }}">Tur 3D</a></li>
-                    <li><a href="{{ site_url('/acces-cont/') }}">Cont client</a></li>
+                    <li><a href="{{ site_url('/tur-3d/') }}">{{ __('Tur 3D') }}</a></li>
+                    <li><a href="{{ site_url('/acces-cont/') }}">{{ __('Cont client') }}</a></li>
                 </ul>
             </div>
             <div>
-                <h2>Documente</h2>
+                <h2>{{ __('Documente') }}</h2>
                 <ul>
-                    <li><a href="{{ site_url('/termeni-si-conditii-abonamente/') }}">Termeni și condiții abonamente</a></li>
-                    <li><a href="{{ site_url('/contract-abonament/') }}">Contract abonament</a></li>
-                    <li><a href="{{ site_url('/ghid-proprietar/') }}">Ghidul proprietarului</a></li>
+                    <li><a href="{{ site_url('/termeni-si-conditii-abonamente/') }}">{{ __('Termeni și condiții abonamente') }}</a></li>
+                    <li><a href="{{ site_url('/contract-abonament/') }}">{{ __('Contract abonament') }}</a></li>
+                    <li><a href="{{ site_url('/ghid-proprietar/') }}">{{ __('Ghidul proprietarului') }}</a></li>
                     @if ($clinic['instagram'])<li><a href="{{ $clinic['instagram'] }}" rel="noopener">Instagram</a></li>@endif
-                    @if ($clinic['review_url'])<li><a href="{{ $clinic['review_url'] }}" rel="noopener">Lasă o recenzie pe Google</a></li>@endif
+                    @if ($clinic['review_url'])<li><a href="{{ $clinic['review_url'] }}" rel="noopener">{{ __('Lasă o recenzie pe Google') }}</a></li>@endif
                 </ul>
             </div>
         </div>
         <div class="footer-word" aria-hidden="true">HiKeVet</div>
         <div class="footer-bottom">
-            <span>© {{ date('Y') }} {{ $clinic['name'] }}. Toate drepturile rezervate.</span>
+            <span>{{ __('© :year :name. Toate drepturile rezervate.', ['year' => date('Y'), 'name' => $clinic['name']]) }}</span>
             {{-- Semnatura dezvoltatorului --}}
-            <a class="made-by" href="https://vitim.ro/?utm_source=hikevet.ro&amp;utm_medium=referral&amp;utm_campaign=footer" rel="noopener" aria-label="Site dezvoltat de VITIM, departamentul extern de IT și AI (vitim.ro)">
+            <a class="made-by" href="https://vitim.ro/?utm_source=hikevet.ro&amp;utm_medium=referral&amp;utm_campaign=footer" rel="noopener" aria-label="{{ __('Site dezvoltat de VITIM, departamentul extern de IT și AI (vitim.ro)') }}">
                 <span class="made-by-face" aria-hidden="true"></span>
-                <span class="made-by-text">Dezvoltat cu grijă (și multe recompense pentru Hiko) de <strong>VITIM</strong></span>
-                <span class="made-by-tip" aria-hidden="true">Ham! Aici am învățat să vorbesc. Departamentul extern de IT &amp; AI al firmei tale.</span>
+                <span class="made-by-text">{!! __('Dezvoltat cu grijă (și multe recompense pentru Hiko) de <strong>VITIM</strong>') !!}</span>
+                <span class="made-by-tip" aria-hidden="true">{{ __('Ham! Aici am învățat să vorbesc. Departamentul extern de IT & AI al firmei tale.') }}</span>
             </a>
             <div class="footer-badges">
-                <a href="https://reclamatiisal.anpc.ro/" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sal1-1-5.webp') }}" alt="ANPC – Soluționarea alternativă a litigiilor (SAL)" width="500" height="124" loading="lazy"></a>
+                <a href="https://reclamatiisal.anpc.ro/" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sal1-1-5.webp') }}" alt="{{ __('ANPC – Soluționarea alternativă a litigiilor (SAL)') }}" width="500" height="124" loading="lazy"></a>
             </div>
         </div>
     </div>
@@ -118,8 +128,8 @@
 <template id="secret-cat"><div class="secret-pop secret-pop--cat" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-cat')</div></template>
 <template id="secret-dog"><div class="secret-pop secret-pop--dog" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-dog')</div></template>
 <div class="mobile-bar no-print">
-    <a class="btn btn-ghost" href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click"><x-hv-icon name="phone" width="20" height="20" /> Sună</a>
-    <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează-te</a>
+    <a class="btn btn-ghost" href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click"><x-hv-icon name="phone" width="20" height="20" /> {{ __('Sună') }}</a>
+    <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">{{ __('Programează-te') }}</a>
 </div>
 </body>
 </html>

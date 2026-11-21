@@ -1,0 +1,115 @@
+{
+ "pages": {
+  "home": {
+   "title": "Clinică veterinară în Târgu Mureș",
+   "lead": "Oferim servicii medicale de înaltă calitate și îngrijire personalizată.",
+   "seo_title": "HiKeVet – Clinică veterinară în Târgu Mureș",
+   "blocks": {
+    "hero_script": "Bine ai venit la HiKeVet",
+    "hero_title": "Clinică veterinară",
+    "hero_image": "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag",
+    "staff_line": "Un personal prietenos și profesionist, mereu gata să te ajute.",
+    "video_vet_intro": "<p>Bun venit la Video-VET, serviciul online de asistență veterinară dedicat sănătății și bunăstării animalelor tale de companie!</p><p>Cu Video-VET, ai acces la îngrijire veterinară de încredere și profesională, direct de la tine acasă. Indiferent dacă ai întrebări despre sănătatea animalului tău, ai nevoie de sfaturi de îngrijire sau te confrunți cu o problemă medicală urgentă, suntem aici pentru a te ajuta.</p>",
+    "video_vet_points": [
+     "Accesibil indiferent de locație.",
+     "Recomandări de tratament personalizate",
+     "Rapid și ușor"
+    ],
+    "counters": [
+     {
+      "value": "20",
+      "suffix": "+",
+      "label": "Experienta"
+     },
+     {
+      "value": "1000",
+      "suffix": "+",
+      "label": "Clienti Multumiti"
+     }
+    ],
+    "partners_text": "<p>Colaborăm doar cu parteneri de top din industria medical veterinară pentru a putea oferi servicii de calitate. Vezi mai jos principalii noștri parteneri: </p>",
+    "instagram_url": "https://www.instagram.com/clinica_veterinara_hikevet/",
+    "subscription_image": "2023/07/untitled-design"
+   }
+  },
+  "servicii": {
+   "title": "Servicii",
+   "lead": "În cadrul clinicii veterinare Hikevet, veți găși o varietate de servicii de înaltă calitate pentru animalele dumneavoastră de companie. Echipa de medici veterinari și personalul specializat sunt gata să ofere îngrijiri și tratamente pentru pacienții lor."
+  },
+  "echipa": {
+   "title": "Echipa",
+   "body": "<p>La Clinica Veterinară HiKeVet suntem mândri de echipa noastră diversă și calificată, dedicată bunăstări animalelor dumneavoastră iubite. Cu o experiență combinată de peste două decenii, aducem o mulțime de cunoștințe, compasiune și entuziasm fiecărui pacient blănos pe care îl întâlnim.</p><p>Împreună, suntem mai mult decât o echipă veterinară; suntem o familie de iubitori de animale . Înțelegem că animalele dvs. de companie nu sunt doar animale; sunt membri dragi ai familiei tale. De aceea tratăm fiecare pacient cu aceeași dragoste și atenție pe care le-o acordam propriilor animale de companie.</p>"
+  },
+  "abonamente": {
+   "title": "Abonamente pentru animăluțe",
+   "lead": "Alege un abonament lunar potrivit pentru tine și pentru animăluțul tău.",
+   "body": "<p>Astăzi, există o tendință în creștere de a considera animalele de companie ca membri cu drepturi depline ai familiei. Îi includem în fotografiile de familie, îi luăm în vacanță, ne asigurăm că sunt iubiți și îngrijiți, hrăniți bine, antrenați bine și li se acordă un tratament special atunci când sunt bolnavi.</p>",
+   "blocks": {
+    "rules_html": "<h3>Reguli abonamente pentru mai multe animalute</h3><p>Primul animal are pretul standard al abonamentului, conform categoriei lui.</p><strong>Al doilea animal</strong><br/>Daca se incadreaza in categoria de kg a primului animal, primeste <strong>100% reducere la abonament</strong>.<br/>Daca nu se incadreaza, primeste <strong>30% reducere</strong> si beneficiaza de abonament separat.<strong>Al treilea animal</strong><br/>Daca se incadreaza in categoria de kg a unuia dintre animalele deja adaugate, primeste <strong>100% reducere la abonament</strong>.<br/>Daca nu se incadreaza, primeste <strong>40% reducere</strong>.<strong>Al patrulea animal</strong><br/>Regula de incadrare pe kg ramane aceeasi. Daca nu se incadreaza, primeste <strong>50% reducere</strong>.<p>Wallet-ul si punctele raman active separat in contul clientului. Configuratorul calculeaza automat reducerea in functie de animalele deja salvate in cont.</p>",
+    "closing": "<p>În cazul in care aveți nelămuriri și vreți să fiți siguri că planul ales va fi cel mai potrivit pentru prietenul dumneavoastră blănos, va stam la dispoziție pentru a discuta mai multe detalii și a alege un plan personalizat pentru animăluțul dumneavoastră. </p><p>Puteți să ne contactați chiar <a href=\"/hikevet-contact/\">aici.</a></p>",
+    "image": "2023/07/img-section-03-min"
+   }
+  },
+  "hikevet-contact": {
+   "title": "Contact"
+  },
+  "intrebari-frecvente": {
+   "title": "Întrebări frecvente",
+   "body": "<p>Atunci când adopți sau cumperi un animăluț apar o mulțime de întrebări. Noi am încercat mai jos să-ți răspundem la cele mai frecvente dintre acestea.</p>"
+  },
+  "blog": {
+   "title": "Blog"
+  },
+  "video-vet": {
+   "title": "Video Vet",
+   "lead": "Asistentul tău virtual",
+   "body": "<p>Bun venit la Video-VET, serviciul online de asistență veterinară dedicat sănătății și bunăstării animalelor tale de companie!</p><p>Cu Video-VET, ai acces la îngrijire veterinară de încredere și profesională, direct de la tine acasă. Indiferent dacă ai întrebări despre sănătatea animalului tău, ai nevoie de sfaturi de îngrijire sau te confrunți cu o problemă medicală urgentă, suntem aici pentru a te ajuta.</p><ul><li> </li></ul>",
+   "blocks": {
+    "advantages": [
+     "Conectare virtuală cu un medic veterinar pentru evaluarea simptomelor și discuții despre starea animalului tău.",
+     "Nu necesită prezența fizică a dumneavoastră sau a animalutului dumneavoastra.",
+     "Confort și evitarea stresului cauzat de eventuala deplasare.",
+     "Facilitează crearea unui plan de tratament sau furnizarea de răspunsuri adecvate în privința sănătății animalutului dumneavoastră.",
+     "Acces rapid și flexibil la specialiștii clinicii Hikevet.",
+     "Potrivit pentru probleme non-urgente."
+    ],
+    "how": "<p>Consultațiile video veterinare sunt fără stres pentru tine și membrul blanos al familiei tale. Suntem conștienți de importanța timpului fiecăruia si stresul blanosului provovat de o vizita la veterinar, astfel ne-am propus să venim în ajutorul dvs. cu o soluție digitală.</p><p>Vă veți conecta virtual cu unul dintre medicii noștri, care vă va vedea animalul de companie online și împreună veti discuta despre simptomele care va ingrijoreaza, despre starea lui, si despre tot ce este necasar pentru a putea crea un plan de tratament sau a va oferi un raspuns cu privire la starea prietenului dvs de companie. Nu există dezavantaje în a programa o consultație video de telemedicină pentru animalul dvs. de companie pentru probleme care nu sunt de urgență, dar dacă animalul dvs. de companie se confruntă cu o urgență, ar trebui să fie consultat la cea mai apropiată clinică veterinară de urgență. Echipa noastră medicală este disponibilă în timpul programului normal de lucru prntru consulatii online, si in afara programului pentru consulatii in situatii de urgenta.</p><p>Asadar vă rugăm să ne contactați dacă nu sunteți sigur de ce tip de întâlnire(online/live) aveti nevoie.</p><p><strong>*În cazul în care sesizați o urgență însă, recomandăm puternic să apelați la serviciul nostru de ambulanță la numărul: 0770 643 827</strong></p>",
+    "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+    "image": "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc"
+   }
+  },
+  "tur-3d": {
+   "title": "Tur 3D",
+   "body": "<p>Bine ați venit la turul virtual 3D Hike Vet!</p> <p>Descoperiți clinica noastră veterinara și aparaturile de ultimă generație dedicate îngrijiri prietenilor dumneavoasră blănoși. <br/>De la zona primitoare de recepție la sălile de consultații și spațiile specializate, explorați fiecare aspect cu ajutorul realității virtuale, prin care vă oferim posibilitatea programării următorului consult sau a oricărei intervenții în funcție de necesitatea animalul dvs.<br/>Astfel prin acest tur virtual 3D vă invităm să luați parte la o experiență unică oferită de clinica veterinară HiKeVet și să simțiți atmosfera noastră de zi cu zi, prietenoasă și profesionistă.</p>",
+   "blocks": {
+    "embed_note": "Turul 3D (Captur3D) se configurează din admin: lipsește codul de inserare în exportul public."
+   }
+  }
+ },
+ "team": {
+  "radu-festeu": {
+   "role_title": "Medic veterinar",
+   "bio": "<p>Absolvent al facultății de Medicină Veterinară din Cluj-Napoca, Dr. Radu Feșteu aduce entuziasm tineresc și cele mai recente progrese în știința veterinară a clinicii noastre. Dorința lui de acumulare de noi cunoștințe și schimbul de experiență din cadrul programului Erasmus, din Italia, iar devotamentul pentru a oferi îngrijire de top îl fac un plus valoros pentru echipa noastră.</p><p>El dorește să fie la curent cu cele mai recente cercetări și tehnici pentru a oferi tratamente moderne, bazate pe dovezi, pentru animalele dvs. de companie.</p>"
+  },
+  "dregics-szidonia": {
+   "role_title": "Medic veterinar"
+  }
+ },
+ "service_categories": {
+  "diagnostic": {
+   "name": "Diagnostic și imagistică"
+  },
+  "medicina": {
+   "name": "Medicină și specialități"
+  },
+  "chirurgie": {
+   "name": "Chirurgie și anestezie"
+  },
+  "preventie": {
+   "name": "Prevenție și documente"
+  },
+  "acasa": {
+   "name": "La domiciliu și urgențe"
+  }
+ }
+}

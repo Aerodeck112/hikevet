@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
 {
+    use \App\Models\Concerns\Translatable;
+
+    /** Campuri afisate in limba vizitatorului (vezi tabelul translations). */
+    protected array $translatable = ['name', 'excerpt', 'body', 'seo_title', 'seo_description'];
+
     protected $guarded = ["id"];
 
     protected function casts(): array

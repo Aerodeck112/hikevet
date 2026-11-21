@@ -2,10 +2,11 @@
 // Se incarca doar pe paginile care le folosesc. Cine are miscarea redusa vede totul static.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { t, intl } from './i18n';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BARKS = ['Ham! Eu sunt Hiko.', 'Ham-ham!', 'Mă scarpini?', 'Vin la control!', 'Raza e pisica de sus. Nu-i spune că am zis.'];
+const BARKS = () => [t('Ham! Eu sunt Hiko.'), t('Ham-ham!'), t('Mă scarpini?'), t('Vin la control!'), t('Raza e pisica de sus. Nu-i spune că am zis.')];
 
 function eyeFollower(svg, pupils, radius) {
     const moveX = gsap.quickTo(pupils, 'x', { duration: 0.35, ease: 'power3.out' });
@@ -33,7 +34,8 @@ function initWall(wall) {
     let barkIndex = 0;
     const bark = () => {
         if (!dogButton) return;
-        woof.textContent = BARKS[barkIndex++ % BARKS.length];
+        const barks = BARKS();
+        woof.textContent = barks[barkIndex++ % barks.length];
         dogButton.classList.remove('is-barking');
         void dogButton.offsetWidth;
         dogButton.classList.add('is-barking');

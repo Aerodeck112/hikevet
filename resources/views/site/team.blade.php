@@ -1,11 +1,11 @@
 @extends('layouts.site')
 
 @section('content')
-@include('site._head', ['title' => 'Echipa HiKeVet'])
+@include('site._head', ['title' => __('Echipa HiKeVet')])
 <section style="padding-bottom: var(--section)">
     <div class="wrap split" style="align-items:start">
         <div class="prose">{!! $page->body !!}</div>
-        <div class="split-media split-media--capsule"><x-img :src="$page->hero_image" alt="Medic veterinar HiKeVet lângă aparatura clinicii" eager /></div>
+        <div class="split-media split-media--capsule"><x-img :src="$page->hero_image" :alt="__('Medic veterinar HiKeVet lângă aparatura clinicii')" eager /></div>
     </div>
 </section>
 @foreach ($team as $member)

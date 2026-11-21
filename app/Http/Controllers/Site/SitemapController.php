@@ -15,7 +15,11 @@ class SitemapController extends Controller
     {
         $urls = [];
         $add = function (string $path, $updated) use (&$urls) {
-            $urls[] = ['loc' => Seo::canonicalUrl($path), 'lastmod' => $updated?->toDateString()];
+            // Fiecare pagina apare in toate limbile, cu legaturi hreflang intre variante.
+            $alternates = collect(\App\Support\Locales::ALL)->mapWithKeys(fn ($l, $code) => [$l['hreflang'] => Seo::canonicalUrl($path, $code)])->all();
+            foreach (array_keys(\App\Support\Locales::ALL) as $code) {
+                $urls[] = ['loc' => Seo::canonicalUrl($path, $code), 'lastmod' => $updated?->toDateString(), 'alternates' => $alternates];
+            }
         };
 
         foreach (Page::published()->where('noindex', false)->get() as $page) {

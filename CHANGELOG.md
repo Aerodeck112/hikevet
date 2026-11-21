@@ -1,5 +1,23 @@
 # Jurnal de modificări
 
+## 0.5.0 – 21.11.2026
+
+### Site în trei limbi: română (bază), engleză, maghiară
+- Româna rămâne la adresele de până acum; engleza la /en/… și maghiara la /hu/… (aceleași pagini, alt prefix).
+- Selector RO / EN / HU în meniu; legăturile de pe pagină păstrează limba aleasă.
+- SEO: `<html lang>`, adrese canonice pe limbă, legături hreflang (și x-default spre română), sitemap cu toate
+  variantele, og:locale.
+- Interfața (meniu, formulare, cont client, programări, abonamente, Wallet, erori, replicile lui Hiko și ale Razei,
+  scenele de pe servicii, asistentul) este tradusă în `lang/en.json` și `lang/hu.json`.
+- Conținutul (23 de servicii, pagini, articole, întrebări frecvente, echipă, documente) este tradus în tabelul
+  `translations`; clinica îl poate corecta din Admin → Conținut site → Traduceri (EN, HU).
+- Documentele legale în engleză și maghiară sunt informative; pe pagină scrie că textul în română prevalează.
+- Asistentul Hiko răspunde în limba paginii (sau în limba în care scrie vizitatorul).
+- Contractele PDF și emailurile rămân în română.
+
+### Reparații
+- Mesajele de validare din formulare apăreau ca „validation.required”: acum sunt în română (și în engleză, maghiară).
+
 ## 0.4.2 – 21.11.2026
 - Fiecare pagină de serviciu are scena ei animată, în antet: medicul îi face lui Hiko sau Razei exact serviciul
   respectiv (ecograf cu imagine care se mișcă, radiografie cu bliț și schelet, anestezie cu „zzz”, ghips la ortopedie,

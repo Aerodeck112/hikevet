@@ -23,7 +23,7 @@ class BookingController extends Controller
         if (Booking::isExternal() && ! $request->user()?->can('appointments.manage')) {
             return redirect()->away(Booking::url());
         }
-        $seo->page('Cerere de programare', 'Alege serviciul, ziua și intervalul care îți convine. Clinica îți confirmă ora exactă.');
+        $seo->page(__('Cerere de programare'), __('Alege serviciul, ziua și intervalul care îți convine. Clinica îți confirmă ora exactă.'));
         $services = Service::published()->with('category:id,name')->orderBy('sort')->get(['id', 'slug', 'name', 'service_category_id', 'duration_minutes']);
         $preselect = $services->firstWhere('slug', (string) $request->query('serviciu'))?->id;
 
@@ -50,7 +50,7 @@ class BookingController extends Controller
         abort_if(Booking::isExternal() && ! $request->user()?->can('appointments.manage'), 403);
 
         if ($request->filled('website')) {
-            return redirect()->away(site_url('/programare/'))->with('error', 'Cererea nu a putut fi trimisă.');
+            return redirect()->away(site_url('/programare/'))->with('error', __('Cererea nu a putut fi trimisă.'));
         }
 
         $data = $request->validate([
@@ -64,12 +64,12 @@ class BookingController extends Controller
             'pet_species' => ['required', Rule::in(['Câine', 'Pisică', 'Altă specie'])], 'notes' => ['nullable', 'string', 'max:1000'],
             'consent' => ['accepted'],
         ], [
-            'consent.accepted' => 'Avem nevoie de acordul tău pentru a înregistra cererea.',
-            'preferred_period.required_without' => 'Alege intervalul care îți convine (sau o oră exactă).',
-            'time.required_without' => 'Alege intervalul care îți convine (sau o oră exactă).',
+            'consent.accepted' => __('Avem nevoie de acordul tău pentru a înregistra cererea.'),
+            'preferred_period.required_without' => __('Alege intervalul care îți convine (sau o oră exactă).'),
+            'time.required_without' => __('Alege intervalul care îți convine (sau o oră exactă).'),
         ], [
-            'service_id' => 'serviciul', 'team_member_id' => 'medicul', 'date' => 'ziua', 'time' => 'ora', 'preferred_period' => 'intervalul',
-            'client_name' => 'numele', 'client_phone' => 'telefonul', 'client_email' => 'emailul', 'pet_name' => 'numele animalului', 'pet_species' => 'specia',
+            'service_id' => __('serviciul'), 'team_member_id' => __('medicul'), 'date' => __('ziua'), 'time' => __('ora'), 'preferred_period' => __('intervalul'),
+            'client_name' => __('numele'), 'client_phone' => __('telefonul'), 'client_email' => __('emailul'), 'pet_name' => __('numele animalului'), 'pet_species' => __('specia'),
         ]);
 
         $base = $data + ['consent_processing' => true, 'user_id' => $request->user()?->id];
@@ -82,13 +82,13 @@ class BookingController extends Controller
             return back()->withInput()->withErrors([! empty($data['time']) ? 'time' : 'preferred_period' => $e->getMessage()]);
         }
 
-        return redirect()->route('booking.show', $appointment->manage_token)->with('status', 'Cererea de programare a fost trimisă.');
+        return redirect()->route('booking.show', $appointment->manage_token)->with('status', __('Cererea de programare a fost trimisă.'));
     }
 
     public function show(Seo $seo, string $token)
     {
         $appointment = Appointment::query()->where('manage_token', $token)->with(['doctor', 'service'])->firstOrFail();
-        $seo->page('Programarea ta');
+        $seo->page(__('Programarea ta'));
         $seo->noindex = true;
 
         return view('booking.show', ['seo' => $seo, 'appointment' => $appointment, 'token' => $token]);
@@ -101,6 +101,6 @@ class BookingController extends Controller
             $booking->setStatus($appointment, AppointmentStatus::Cancelled, 'Anulată de client');
         }
 
-        return redirect()->route('booking.show', $token)->with('status', 'Programarea a fost anulată.');
+        return redirect()->route('booking.show', $token)->with('status', __('Programarea a fost anulată.'));
     }
 }

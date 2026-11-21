@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->away(site_url('/panou-cont/'));
         }
-        $seo->page('Acces cont');
+        $seo->page(__('Acces cont'));
         $seo->noindex = true;
 
         return view('account.access', ['seo' => $seo]);
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
     public function login(Request $request, WordPressPasswordVerifier $wp)
     {
-        $data = $request->validate(['email' => ['required', 'email'], 'password' => ['required', 'string']], [], ['email' => 'emailul', 'password' => 'parola']);
+        $data = $request->validate(['email' => ['required', 'email'], 'password' => ['required', 'string']], [], ['email' => __('emailul'), 'password' => __('parola')]);
         $user = User::query()->where('email', mb_strtolower(trim($data['email'])))->first();
         $ok = false;
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
         }
 
         if (! $ok) {
-            throw ValidationException::withMessages(['email' => 'Emailul sau parola nu sunt corecte.']);
+            throw ValidationException::withMessages(['email' => __('Emailul sau parola nu sunt corecte.')]);
         }
 
         Auth::login($user, $request->boolean('remember'));
@@ -70,7 +70,7 @@ class AuthController extends Controller
             'phone' => ['nullable', 'string', 'max:30'],
             'reg_password' => ['required', 'confirmed', PasswordRule::defaults()],
             'terms' => ['accepted'],
-        ], ['terms.accepted' => 'Acceptă termenii și politica de confidențialitate.'], ['name' => 'numele', 'reg_email' => 'emailul', 'reg_password' => 'parola']);
+        ], ['terms.accepted' => __('Acceptă termenii și politica de confidențialitate.')], ['name' => __('numele'), 'reg_email' => __('emailul'), 'reg_password' => __('parola')]);
 
         $email = mb_strtolower(trim($data['reg_email']));
 
@@ -78,7 +78,7 @@ class AuthController extends Controller
         if (User::query()->where('email', $email)->exists()) {
             Password::broker()->sendResetLink(['email' => $email]);
 
-            return redirect()->away(site_url('/acces-cont/'))->with('status', 'Dacă emailul nu avea deja un cont, contul a fost creat. Verifică emailul pentru pașii următori.');
+            return redirect()->away(site_url('/acces-cont/'))->with('status', __('Dacă emailul nu avea deja un cont, contul a fost creat. Verifică emailul pentru pașii următori.'));
         }
 
         $user = new User(['name' => $data['name'], 'email' => $email, 'phone' => $data['phone'] ?? null]);
@@ -104,7 +104,7 @@ class AuthController extends Controller
 
     public function forgot(Seo $seo)
     {
-        $seo->page('Parolă uitată');
+        $seo->page(__('Parolă uitată'));
         $seo->noindex = true;
 
         return view('account.forgot', ['seo' => $seo]);
@@ -115,12 +115,12 @@ class AuthController extends Controller
         $request->validate(['email' => ['required', 'email']]);
         Password::broker()->sendResetLink(['email' => mb_strtolower(trim($request->input('email')))]);
 
-        return back()->with('status', 'Dacă există un cont cu acest email, am trimis linkul pentru setarea parolei.');
+        return back()->with('status', __('Dacă există un cont cu acest email, am trimis linkul pentru setarea parolei.'));
     }
 
     public function reset(Request $request, Seo $seo, string $token)
     {
-        $seo->page('Setează parola');
+        $seo->page(__('Setează parola'));
         $seo->noindex = true;
 
         return view('account.reset', ['seo' => $seo, 'token' => $token, 'email' => $request->query('email')]);
@@ -131,7 +131,7 @@ class AuthController extends Controller
         $request->validate([
             'token' => ['required'], 'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', PasswordRule::defaults()],
-        ], [], ['password' => 'parola']);
+        ], [], ['password' => __('parola')]);
 
         $status = Password::broker()->reset($request->only('email', 'password', 'password_confirmation', 'token'), function (User $user, string $password) {
             $user->forceFill(['password' => $password, 'remember_token' => Str::random(60), 'must_set_password' => false, 'wp_password_hash' => null,
@@ -140,9 +140,9 @@ class AuthController extends Controller
         });
 
         if ($status !== Password::PASSWORD_RESET) {
-            throw ValidationException::withMessages(['email' => 'Linkul a expirat sau nu este valid. Cere un link nou.']);
+            throw ValidationException::withMessages(['email' => __('Linkul a expirat sau nu este valid. Cere un link nou.')]);
         }
 
-        return redirect()->away(site_url('/acces-cont/'))->with('status', 'Parola a fost setată. Te poți autentifica.');
+        return redirect()->away(site_url('/acces-cont/'))->with('status', __('Parola a fost setată. Te poți autentifica.'));
     }
 }

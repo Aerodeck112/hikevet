@@ -9,6 +9,6 @@ if (! function_exists('site_url')) {
     {
         $root = app()->runningInConsole() && ! app()->runningUnitTests() ? rtrim((string) config('app.url'), '/') : request()->root();
 
-        return $root.'/'.ltrim($path, '/');
+        return $root.\App\Support\Locales::prefix().'/'.ltrim($path, '/');
     }
 }

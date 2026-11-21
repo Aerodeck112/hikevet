@@ -50,7 +50,8 @@ class ContractPdf
             ? 'data:image/png;base64,'.base64_encode(file_get_contents($signaturePngPath))
             : null;
 
-        $html = view('pdf.contract', [
+        // Contractul este in romana indiferent de limba in care a fost semnat pe site.
+        $html = \App\Support\Locales::asDefault(fn () => view('pdf.contract', [
             'contract' => $contract,
             'p' => $contract->payload,
             'lines' => $this->filledLines($contract),
@@ -59,7 +60,7 @@ class ContractPdf
             'headerSub' => 'Contract abonament medical veterinar',
             'validDays' => $contract->priceList?->contract_valid_days ?? 5,
             'legalName' => Settings::get('clinic.legal_name'),
-        ])->render();
+        ])->render());
 
         $options = new Options;
         $options->set('isRemoteEnabled', false);

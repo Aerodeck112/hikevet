@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TeamMember extends Model
 {
+    use \App\Models\Concerns\Translatable;
+
+    /** Campuri afisate in limba vizitatorului (vezi tabelul translations). */
+    protected array $translatable = ['role_title', 'specializations', 'bio'];
+
     protected $guarded = ["id"];
 
     protected function casts(): array

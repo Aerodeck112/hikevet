@@ -1,0 +1,115 @@
+{
+ "pages": {
+  "home": {
+   "title": "Állatorvosi klinika Marosvásárhelyen",
+   "lead": "Magas színvonalú orvosi ellátást és személyre szabott gondoskodást kínálunk.",
+   "seo_title": "HiKeVet – Állatorvosi klinika Marosvásárhelyen",
+   "blocks": {
+    "hero_script": "Üdvözlünk a HiKeVetnél",
+    "hero_title": "Állatorvosi klinika",
+    "hero_image": "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag",
+    "staff_line": "Barátságos, profi csapatunk mindig szívesen segít neked.",
+    "video_vet_intro": "<p>Üdvözlünk a Video-VET-nél, a házi kedvenceid egészségéért és jólétéért működő online állatorvosi szolgáltatásnál!</p><p>A Video-VET-tel megbízható, szakszerű állatorvosi ellátáshoz jutsz, egyenesen otthonról. Akár kérdésed van kedvenced egészségével kapcsolatban, akár gondozási tanácsra van szükséged, akár sürgős egészségügyi problémával szembesülsz, itt vagyunk, hogy segítsünk.</p>",
+    "video_vet_points": [
+     "Bárhonnan elérhető.",
+     "Személyre szabott kezelési javaslatok",
+     "Gyors és egyszerű"
+    ],
+    "counters": [
+     {
+      "value": "20",
+      "suffix": "+",
+      "label": "Év tapasztalat"
+     },
+     {
+      "value": "1000",
+      "suffix": "+",
+      "label": "Elégedett ügyfél"
+     }
+    ],
+    "partners_text": "<p>Kizárólag az állatorvosi ágazat vezető partnereivel dolgozunk együtt, hogy minőségi szolgáltatást nyújthassunk. Lent láthatod legfontosabb partnereinket: </p>",
+    "instagram_url": "https://www.instagram.com/clinica_veterinara_hikevet/",
+    "subscription_image": "2023/07/untitled-design"
+   }
+  },
+  "servicii": {
+   "title": "Szolgáltatások",
+   "lead": "A HiKeVet állatorvosi klinikán sokféle, magas színvonalú szolgáltatást találsz házi kedvenced számára. Állatorvosaink és szakképzett munkatársaink készen állnak arra, hogy gondoskodjanak minden páciensünkről, és ellássák őket."
+  },
+  "echipa": {
+   "title": "Csapatunk",
+   "body": "<p>A HiKeVet Állatorvosi Klinikán büszkék vagyunk sokszínű és jól képzett csapatunkra, amely szeretett kedvenceid jólétéért dolgozik. Több mint két évtizednyi közös tapasztalattal rengeteg tudást, együttérzést és lelkesedést viszünk minden szőrös páciensünk ellátásába.</p><p>Együtt többek vagyunk, mint egy állatorvosi csapat: állatbarátok családja vagyunk. Tudjuk, hogy házi kedvenceid nem csupán állatok, hanem a családod szeretett tagjai. Ezért minden pácienssel ugyanazzal a szeretettel és figyelemmel bánunk, mint a saját kedvenceinkkel.</p>"
+  },
+  "abonamente": {
+   "title": "Előfizetések házi kedvenceknek",
+   "lead": "Válaszd ki a hozzád és kedvencedhez illő havi előfizetést.",
+   "body": "<p>Ma egyre többen tekintik a házi kedvenceket a család teljes jogú tagjainak. Ott vannak a családi fotókon, elvisszük őket nyaralni, gondoskodunk róla, hogy szeretetben és törődésben legyen részük, jól táplálkozzanak, jól neveltek legyenek, és betegség esetén különleges ellátást kapjanak.</p>",
+   "blocks": {
+    "rules_html": "<h3>Előfizetési szabályok több kedvenc esetén</h3><p>Az első kedvenc a kategóriájának megfelelő normál előfizetési díjat fizeti.</p><strong>Második kedvenc</strong><br/>Ha ugyanabba a testsúly-kategóriába (kg) tartozik, mint az első kedvenc, <strong>100%-os kedvezményt kap az előfizetésre</strong>.<br/>Ha nem, <strong>30%-os kedvezményt kap</strong>, és külön előfizetéssel rendelkezik.<strong>Harmadik kedvenc</strong><br/>Ha a már hozzáadott kedvencek valamelyikének testsúly-kategóriájába tartozik, <strong>100%-os kedvezményt kap az előfizetésre</strong>.<br/>Ha nem, <strong>40%-os kedvezményt kap</strong>.<strong>Negyedik kedvenc</strong><br/>A testsúly szerinti besorolás szabálya ugyanaz marad. Ha egyik kategóriába sem tartozik, <strong>50%-os kedvezményt kap</strong>.<p>A pénztárcád és a pontjaid külön-külön aktívak maradnak a fiókodban. A konfigurátor automatikusan kiszámolja a kedvezményt a fiókodban már elmentett kedvencek alapján.</p>",
+    "closing": "<p>Ha bizonytalan vagy, és szeretnél biztos lenni abban, hogy a választott csomag a legjobb szőrös barátod számára, szívesen átbeszéljük veled a részleteket, és együtt kiválasztjuk a kedvencedhez illő, személyre szabott csomagot. </p><p>Kapcsolatba léphetsz velünk akár <a href=\"/hikevet-contact/\">itt is.</a></p>",
+    "image": "2023/07/img-section-03-min"
+   }
+  },
+  "hikevet-contact": {
+   "title": "Kapcsolat"
+  },
+  "intrebari-frecvente": {
+   "title": "Gyakori kérdések",
+   "body": "<p>Amikor örökbe fogadsz vagy megvásárolsz egy kisállatot, rengeteg kérdés merül fel. Az alábbiakban igyekeztünk megválaszolni a leggyakoribbakat.</p>"
+  },
+  "blog": {
+   "title": "Blog"
+  },
+  "video-vet": {
+   "title": "Video Vet",
+   "lead": "A virtuális asszisztensed",
+   "body": "<p>Üdvözlünk a Video-VET-nél, a házi kedvenceid egészségéért és jólétéért működő online állatorvosi szolgáltatásnál!</p><p>A Video-VET-tel megbízható, szakszerű állatorvosi ellátáshoz jutsz, egyenesen otthonról. Akár kérdésed van kedvenced egészségével kapcsolatban, akár gondozási tanácsra van szükséged, akár sürgős egészségügyi problémával szembesülsz, itt vagyunk, hogy segítsünk.</p><ul><li> </li></ul>",
+   "blocks": {
+    "advantages": [
+     "Virtuális kapcsolat egy állatorvossal a tünetek felméréséhez és kedvenced állapotának megbeszéléséhez.",
+     "Sem neked, sem kedvencednek nem kell személyesen megjelennie.",
+     "Kényelmes, és megkímél az utazással járó stressztől.",
+     "Megkönnyíti a kezelési terv elkészítését, illetve hogy megfelelő válaszokat kapj kedvenced egészségével kapcsolatban.",
+     "Gyors és rugalmas hozzáférés a HiKeVet klinika szakembereihez.",
+     "Nem sürgős problémák esetén ideális."
+    ],
+    "how": "<p>Az állatorvosi videokonzultáció stresszmentes neked és szőrös családtagodnak is. Tudjuk, mennyire értékes mindenki ideje, és mennyi stresszt okoz a szőrös barátodnak egy állatorvosi látogatás, ezért egy digitális megoldással szeretnénk a segítségedre lenni.</p><p>Virtuálisan kapcsolódsz az egyik állatorvosunkhoz, aki online megnézi a kedvencedet, és együtt átbeszélitek az aggasztó tüneteket, kedvenced állapotát, valamint mindazt, ami ahhoz szükséges, hogy kezelési tervet készíthessünk, vagy választ adhassunk kedvenced állapotával kapcsolatban. Nem sürgős problémák esetén semmilyen hátránya nincs annak, ha telemedicinás videokonzultációt foglalsz kedvencednek, ha azonban kedvenced sürgős ellátásra szorul, a legközelebbi ügyeletes állatorvosi klinikán kell megvizsgáltatni. Orvosi csapatunk normál munkaidőben online konzultációra, munkaidőn kívül pedig sürgős esetekben áll rendelkezésre.</p><p>Ha tehát nem vagy biztos benne, milyen típusú (online/személyes) vizsgálatra van szükséged, vedd fel velünk a kapcsolatot.</p><p><strong>*Ha azonban sürgős esetet észlelsz, nyomatékosan javasoljuk, hogy hívd mentőszolgálatunkat a következő számon: 0770 643 827</strong></p>",
+    "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+    "image": "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc"
+   }
+  },
+  "tur-3d": {
+   "title": "3D túra",
+   "body": "<p>Üdvözlünk a HiKeVet virtuális 3D túráján!</p> <p>Fedezd fel állatorvosi klinikánkat és a szőrös barátaid ellátását szolgáló legkorszerűbb berendezéseinket. <br/>A barátságos recepciótól a rendelőkön át a speciális helyiségekig minden részletet bejárhatsz a virtuális valóság segítségével, ahol arra is lehetőséged van, hogy kedvenced igényei szerint időpontot foglalj a következő vizsgálatra vagy bármilyen beavatkozásra.<br/>Ezzel a virtuális 3D túrával meghívunk, hogy részese legyél a HiKeVet állatorvosi klinika egyedülálló élményének, és átérezd barátságos, professzionális hétköznapi légkörünket.</p>",
+   "blocks": {
+    "embed_note": "A 3D túra (Captur3D) az adminfelületen állítható be: a beágyazási kód hiányzik a nyilvános exportból."
+   }
+  }
+ },
+ "team": {
+  "radu-festeu": {
+   "role_title": "Állatorvos",
+   "bio": "<p>A kolozsvári Állatorvosi Kar végzettjeként Dr. Radu Feșteu fiatalos lelkesedést és az állatorvos-tudomány legújabb eredményeit hozza el klinikánkra. Az új ismeretek iránti vágya, az olaszországi Erasmus-programban szerzett tapasztalatai, valamint a kiváló ellátás iránti elkötelezettsége csapatunk értékes tagjává teszik.</p><p>Igyekszik naprakész maradni a legújabb kutatások és technikák terén, hogy korszerű, bizonyítékokon alapuló kezelést nyújthasson házi kedvenceidnek.</p>"
+  },
+  "dregics-szidonia": {
+   "role_title": "Állatorvos"
+  }
+ },
+ "service_categories": {
+  "diagnostic": {
+   "name": "Diagnosztika és képalkotás"
+  },
+  "medicina": {
+   "name": "Gyógyászat és szakterületek"
+  },
+  "chirurgie": {
+   "name": "Sebészet és altatás"
+  },
+  "preventie": {
+   "name": "Megelőzés és dokumentumok"
+  },
+  "acasa": {
+   "name": "Otthoni ellátás és sürgős esetek"
+  }
+ }
+}

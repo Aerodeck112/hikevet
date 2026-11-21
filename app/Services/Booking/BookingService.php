@@ -44,7 +44,7 @@ class BookingService
         }
         [$label, $from, $to] = self::PERIODS[$key];
 
-        return $label.' ('.$from.'–'.$to.')';
+        return __($label).' ('.$from.'–'.$to.')';
     }
 
     public function __construct(private readonly Notifier $notifier) {}
@@ -101,14 +101,14 @@ class BookingService
         $start = CarbonImmutable::parse($data['starts_at']);
 
         if ($start->minute % self::GRID_MINUTES !== 0 || $start->second !== 0) {
-            throw new DomainException('Ora aleasă nu este validă.');
+            throw new DomainException(__('Ora aleasă nu este validă.'));
         }
         if (! $byStaff) {
             if ($start->gt(CarbonImmutable::now()->addDays(self::MAX_DAYS_AHEAD))) {
-                throw new DomainException('Programările se pot face cu cel mult '.self::MAX_DAYS_AHEAD.' de zile înainte.');
+                throw new DomainException(__('Programările se pot face cu cel mult :days de zile înainte.', ['days' => self::MAX_DAYS_AHEAD]));
             }
             if (! in_array($start->format('H:i'), $this->freeSlots($doctor, $start->startOfDay(), $duration), true)) {
-                throw new DomainException('Intervalul ales nu mai este disponibil. Alege altă oră.');
+                throw new DomainException(__('Intervalul ales nu mai este disponibil. Alege altă oră.'));
             }
         }
 
@@ -134,7 +134,7 @@ class BookingService
                 return $appointment;
             });
         } catch (UniqueConstraintViolationException) {
-            throw new DomainException('Intervalul tocmai a fost ocupat de altcineva. Alege altă oră.');
+            throw new DomainException(__('Intervalul tocmai a fost ocupat de altcineva. Alege altă oră.'));
         }
     }
 
@@ -144,14 +144,14 @@ class BookingService
      */
     public function request(array $data): Appointment
     {
-        $period = self::PERIODS[$data['preferred_period']] ?? throw new DomainException('Alege intervalul care îți convine.');
+        $period = self::PERIODS[$data['preferred_period']] ?? throw new DomainException(__('Alege intervalul care îți convine.'));
         $day = CarbonImmutable::parse($data['date'])->startOfDay();
         if ($day->lt(CarbonImmutable::today()) || $day->gt(CarbonImmutable::today()->addDays(self::MAX_DAYS_AHEAD))) {
-            throw new DomainException('Alege o zi din următoarele '.self::MAX_DAYS_AHEAD.' de zile.');
+            throw new DomainException(__('Alege o zi din următoarele :days de zile.', ['days' => self::MAX_DAYS_AHEAD]));
         }
         $start = $day->setTimeFromTimeString($period[1]);
         if ($day->isToday() && $day->setTimeFromTimeString($period[2])->lte(CarbonImmutable::now()->addMinutes(30))) {
-            throw new DomainException('Intervalul ales a trecut deja pentru azi. Alege alt interval sau altă zi.');
+            throw new DomainException(__('Intervalul ales a trecut deja pentru azi. Alege alt interval sau altă zi.'));
         }
 
         return DB::transaction(function () use ($data, $start, $day, $period) {

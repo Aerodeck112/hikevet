@@ -1,5 +1,6 @@
 // Configuratorul de abonamente in 6 pasi (portare a assets/hv-form.js din simulatorul 2.7.0).
 // Diferenta fata de original: oferta si preturile vin exclusiv de la server.
+import { t } from './i18n';
 const DOG_BREEDS = ['Metis', 'Bichon', 'Bulldog Francez', 'Bulldog Englez', 'Cocker Spaniel', 'Ciobănesc German', 'Golden Retriever', 'Labrador Retriever', 'Pug', 'Teckel', 'Yorkshire Terrier', 'Shih Tzu', 'Husky', 'Rottweiler', 'Beagle', 'Chihuahua'];
 const CAT_BREEDS = ['Europeană', 'Metis', 'British Shorthair', 'Scottish Fold', 'Maine Coon', 'Ragdoll', 'Siamese', 'Persană', 'Bengaleză', 'Sphynx', 'Norvegiană de pădure'];
 const STORAGE_KEY = 'hv-configurator-v1';
@@ -51,21 +52,21 @@ export function configurator(config) {
         },
         validate(n) {
             const f = this.form;
-            if (n === 1 && (!f.pet_name.trim() || !f.agree)) return 'Completează numele animăluțului și bifează acordul.';
-            if (n === 2 && (!f.species || !f.sex)) return 'Alege specia și sexul.';
+            if (n === 1 && (!f.pet_name.trim() || !f.agree)) return t('Completează numele animăluțului și bifează acordul.');
+            if (n === 2 && (!f.species || !f.sex)) return t('Alege specia și sexul.');
             if (n === 3) {
                 const ts = f.dob ? Date.parse(f.dob + 'T00:00:00') : NaN;
-                if (!f.dob || Number.isNaN(ts) || ts > Date.now() || !f.breed || (f.breed === '__other__' && !f.breed_other.trim())) return 'Selectează o dată de naștere validă și rasa (sau scrie rasa).';
+                if (!f.dob || Number.isNaN(ts) || ts > Date.now() || !f.breed || (f.breed === '__other__' && !f.breed_other.trim())) return t('Selectează o dată de naștere validă și rasa (sau scrie rasa).');
             }
             if (n === 4) {
                 const w = Number(f.weight);
                 const [min, max] = f.species === 'dog' ? [1.25, 60] : [0.5, 70];
-                if (!(w >= min && w <= max)) return f.species === 'dog' ? 'Greutatea câinelui trebuie să fie între 1,25 și 60 kg.' : 'Greutatea pisicii trebuie să fie între 0,5 și 70 kg.';
-                if (!f.sterilized || !f.chronic || !f.emergency) return 'Completează toate câmpurile medicale marcate cu *.';
-                if (f.chronic === 'da' && !f.chronic_text.trim()) return 'Scrie afecțiunea cronică.';
-                if (!f.owner_name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.owner_email.trim()) || !f.owner_phone.trim() || !f.owner_addr.trim()) return 'Completează corect numele, emailul, telefonul și adresa.';
-                if (!/^[0-9]{13}$/.test(f.owner_cnp.trim())) return 'CNP-ul trebuie să aibă exact 13 cifre.';
-                if (!f.owner_ci_serie.trim() || !f.owner_ci_nr.trim()) return 'Completează seria și numărul cărții de identitate. Microcipul este opțional.';
+                if (!(w >= min && w <= max)) return f.species === 'dog' ? t('Greutatea câinelui trebuie să fie între 1,25 și 60 kg.') : t('Greutatea pisicii trebuie să fie între 0,5 și 70 kg.');
+                if (!f.sterilized || !f.chronic || !f.emergency) return t('Completează toate câmpurile medicale marcate cu *.');
+                if (f.chronic === 'da' && !f.chronic_text.trim()) return t('Scrie afecțiunea cronică.');
+                if (!f.owner_name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.owner_email.trim()) || !f.owner_phone.trim() || !f.owner_addr.trim()) return t('Completează corect numele, emailul, telefonul și adresa.');
+                if (!/^[0-9]{13}$/.test(f.owner_cnp.trim())) return t('CNP-ul trebuie să aibă exact 13 cifre.');
+                if (!f.owner_ci_serie.trim() || !f.owner_ci_nr.trim()) return t('Completează seria și numărul cărții de identitate. Microcipul este opțional.');
             }
             return '';
         },
@@ -94,10 +95,10 @@ export function configurator(config) {
             let json = null;
             try { json = await response.json(); } catch (e) { /* raspuns invalid */ }
             if (!response.ok) {
-                if (response.status === 419) throw new Error('Sesiunea formularului a expirat. Reîncarcă pagina și încearcă din nou.');
-                if (response.status === 429) throw new Error('Prea multe încercări. Așteaptă un minut și încearcă din nou.');
+                if (response.status === 419) throw new Error(t('Sesiunea formularului a expirat. Reîncarcă pagina și încearcă din nou.'));
+                if (response.status === 429) throw new Error(t('Prea multe încercări. Așteaptă un minut și încearcă din nou.'));
                 const first = json && json.errors ? Object.values(json.errors)[0][0] : null;
-                throw new Error(first || (json && json.message) || 'A apărut o eroare. Încearcă din nou.');
+                throw new Error(first || (json && json.message) || t('A apărut o eroare. Încearcă din nou.'));
             }
             return json;
         },
@@ -112,8 +113,8 @@ export function configurator(config) {
         },
         openPreview() {
             this.error = '';
-            if (!this.offer) { this.error = 'Calculează oferta înainte de a continua.'; return this.focusError(); }
-            if (!this.allLegal || !this.signed) { this.error = 'Bifează toate confirmările și semnează în chenar.'; return this.focusError(); }
+            if (!this.offer) { this.error = t('Calculează oferta înainte de a continua.'); return this.focusError(); }
+            if (!this.allLegal || !this.signed) { this.error = t('Bifează toate confirmările și semnează în chenar.'); return this.focusError(); }
             this.previewOpen = true;
             this.$nextTick(() => this.$refs.confirm && this.$refs.confirm.focus());
         },

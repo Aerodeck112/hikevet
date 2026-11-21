@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ServiceCategory extends Model
 {
+    use \App\Models\Concerns\Translatable;
+
+    /** Campuri afisate in limba vizitatorului (vezi tabelul translations). */
+    protected array $translatable = ['name'];
+
     protected $guarded = ["id"];
 
     public function services(): HasMany

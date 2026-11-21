@@ -1,11 +1,11 @@
 @extends('layouts.site')
 
 @section('content')
-@include('site._head', ['title' => 'Blog', 'lead' => 'Sfaturi de la medicii HiKeVet pentru un animal sănătos.'])
+@include('site._head', ['title' => __('Blog'), 'lead' => __('Sfaturi de la medicii HiKeVet pentru un animal sănătos.')])
 <section style="padding-bottom: var(--section)">
     <div class="wrap">
         @if ($posts->isEmpty())
-            <p class="notice">Încă nu am publicat articole.</p>
+            <p class="notice">{{ __('Încă nu am publicat articole.') }}</p>
         @else
             <div class="posts">
                 @foreach ($posts as $post)

@@ -27,16 +27,25 @@ class Seo
 
     public function __construct()
     {
-        $this->title = Settings::get('clinic.name').' – Clinică veterinară în '.Settings::get('clinic.city');
-        $this->description = (string) Settings::get('seo.default_description');
+        $this->title = __(':name – Clinică veterinară în :city', ['name' => Settings::get('clinic.name'), 'city' => __((string) Settings::get('clinic.city'))]);
+        $this->description = __((string) Settings::get('seo.default_description'));
         $this->canonical = self::canonicalUrl(request()->path());
     }
 
-    public static function canonicalUrl(string $path): string
+    /** Adresa canonica in limba data (implicit limba curenta): romana la radacina, celelalte cu /en sau /hu. */
+    public static function canonicalUrl(string $path, ?string $locale = null): string
     {
         $path = trim($path, '/');
 
-        return rtrim(config('app.url'), '/').'/'.($path === '' ? '' : $path.'/');
+        return rtrim(config('app.url'), '/').\App\Support\Locales::prefix($locale).'/'.($path === '' ? '' : $path.'/');
+    }
+
+    /** Variantele paginii curente in toate limbile, pentru hreflang. @return array<string, string> */
+    public function alternates(): array
+    {
+        $path = request()->path();
+
+        return collect(\App\Support\Locales::ALL)->mapWithKeys(fn ($l, $code) => [$l['hreflang'] => self::canonicalUrl($path, $code)])->all();
     }
 
     public function page(string $title, ?string $description = null, ?string $image = null): static

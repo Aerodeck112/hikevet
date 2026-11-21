@@ -29,6 +29,9 @@ class VetScenes
         }
         $s = self::scenes()[$slug] + ['room' => 'clinic', 'doctor' => 'coat', 'asleep' => false, 'hand' => null, 'tool' => '', 'extras' => '', 'front' => '', 'lift' => 0];
 
+        $s['caption'] = __($s['caption']);
+        $s['label'] = __($s['label']);
+
         return ['patient' => $s['patient'], 'caption' => $s['caption'], 'label' => $s['label'], 'svg' => self::compose($slug, $s)];
     }
 

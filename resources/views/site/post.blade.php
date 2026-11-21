@@ -14,7 +14,7 @@
 @if ($more->isNotEmpty())
 <section class="section section--mint">
     <div class="wrap">
-        <div class="section-head"><h2 class="display h-md">Citește și</h2></div>
+        <div class="section-head"><h2 class="display h-md">{{ __('Citește și') }}</h2></div>
         <div class="posts">
             @foreach ($more as $item)
                 @include('partials.post-card', ['post' => $item])

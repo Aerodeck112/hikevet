@@ -16,9 +16,9 @@
             </div>
         </div>
         <aside class="aside-card">
-            <h2 class="h-sm">Nu ai găsit răspunsul?</h2>
-            <p style="margin:.75rem 0 1.25rem">Scrie-ne sau sună-ne. Pentru urgențe, sună direct.</p>
-            <p><a class="btn btn-dark" style="width:100%" href="{{ site_url('/hikevet-contact/') }}">Scrie-ne</a></p>
+            <h2 class="h-sm">{{ __('Nu ai găsit răspunsul?') }}</h2>
+            <p style="margin:.75rem 0 1.25rem">{{ __('Scrie-ne sau sună-ne. Pentru urgențe, sună direct.') }}</p>
+            <p><a class="btn btn-dark" style="width:100%" href="{{ site_url('/hikevet-contact/') }}">{{ __('Scrie-ne') }}</a></p>
             <p><a class="btn btn-ghost" style="width:100%" href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click">{{ $clinic['phone'] }}</a></p>
         </aside>
     </div>

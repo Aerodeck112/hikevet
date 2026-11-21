@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function index(Request $request, Seo $seo, WalletLedger $ledger)
     {
         $user = $request->user();
-        $seo->page('Contul meu');
+        $seo->page(__('Contul meu'));
         $seo->noindex = true;
 
         return view('account.dashboard', [
@@ -53,10 +53,10 @@ class DashboardController extends Controller
     public function requestTopup(Request $request, WalletLedger $ledger, Notifier $notifier)
     {
         $user = $request->user();
-        $data = $request->validate(['amount' => ['required', 'numeric', 'min:1', 'max:20000']], [], ['amount' => 'suma']);
+        $data = $request->validate(['amount' => ['required', 'numeric', 'min:1', 'max:20000']], [], ['amount' => __('suma')]);
 
         if (! $ledger->hasActiveSubscription($user)) {
-            return back()->with('error', 'Wallet-ul poate fi alimentat doar cu abonament activ.');
+            return back()->with('error', __('Wallet-ul poate fi alimentat doar cu abonament activ.'));
         }
 
         $amount = round((float) $data['amount'], 2);
@@ -66,7 +66,7 @@ class DashboardController extends Controller
         $notifier->client($user, 'Solicitare alimentare Wallet promoțional', $html, 'wallet_request', $topup->id);
         $notifier->send(Settings::emails('mail.clinic_recipients'), 'HikeVet - solicitare wallet la clinică', $html, 'wallet_request', 'wallet_request', $topup->id, $user->id);
 
-        return back()->with('status', 'Solicitarea a fost trimisă. Plata se face la clinică, iar soldul apare după confirmare.');
+        return back()->with('status', __('Solicitarea a fost trimisă. Plata se face la clinică, iar soldul apare după confirmare.'));
     }
 
     public function updateProfile(Request $request)
@@ -81,13 +81,13 @@ class DashboardController extends Controller
         $user->forceFill(['name' => $data['name'], 'phone' => $data['phone'] ?? null, 'address' => $data['address'] ?? null, 'city' => $data['city'] ?? null,
             'marketing_opt_in_at' => $request->boolean('marketing') ? ($user->marketing_opt_in_at ?? now()) : null])->save();
 
-        return back()->with('status', 'Datele au fost salvate.');
+        return back()->with('status', __('Datele au fost salvate.'));
     }
 
     public function resendActivation(Request $request, ClientAccounts $accounts)
     {
         $accounts->sendActivation($request->user());
 
-        return back()->with('status', 'Am retrimis emailul pentru setarea parolei.');
+        return back()->with('status', __('Am retrimis emailul pentru setarea parolei.'));
     }
 }

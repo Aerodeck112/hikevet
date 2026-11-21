@@ -1,0 +1,115 @@
+{
+ "pages": {
+  "home": {
+   "title": "Veterinary clinic in Târgu Mureș",
+   "lead": "We offer high-quality medical services and personalised care.",
+   "seo_title": "HiKeVet – Veterinary clinic in Târgu Mureș",
+   "blocks": {
+    "hero_script": "Welcome to HiKeVet",
+    "hero_title": "Veterinary clinic",
+    "hero_image": "2023/07/cute-tabby-cat-with-green-eyes-lying-on-bright-yellow-bean-bag",
+    "staff_line": "A friendly, professional team, always ready to help you.",
+    "video_vet_intro": "<p>Welcome to Video-VET, the online veterinary assistance service dedicated to the health and well-being of your pets!</p><p>With Video-VET, you get trusted, professional veterinary care right from your home. Whether you have questions about your pet's health, need care advice or are facing an urgent medical problem, we are here to help.</p>",
+    "video_vet_points": [
+     "Accessible wherever you are.",
+     "Personalised treatment recommendations",
+     "Quick and easy"
+    ],
+    "counters": [
+     {
+      "value": "20",
+      "suffix": "+",
+      "label": "Years of Experience"
+     },
+     {
+      "value": "1000",
+      "suffix": "+",
+      "label": "Happy Clients"
+     }
+    ],
+    "partners_text": "<p>We work only with top partners in the veterinary medical industry so that we can provide quality services. See our main partners below: </p>",
+    "instagram_url": "https://www.instagram.com/clinica_veterinara_hikevet/",
+    "subscription_image": "2023/07/untitled-design"
+   }
+  },
+  "servicii": {
+   "title": "Services",
+   "lead": "At HiKeVet veterinary clinic, you will find a wide range of high-quality services for your pets. Our team of veterinarians and specialised staff are ready to provide care and treatment for every patient."
+  },
+  "echipa": {
+   "title": "Our team",
+   "body": "<p>At HiKeVet Veterinary Clinic, we are proud of our diverse and qualified team, dedicated to the well-being of your beloved pets. With a combined experience of more than two decades, we bring a wealth of knowledge, compassion and enthusiasm to every furry patient we meet.</p><p>Together, we are more than a veterinary team; we are a family of animal lovers. We understand that your pets are not just animals; they are cherished members of your family. That is why we treat every patient with the same love and attention we give our own pets.</p>"
+  },
+  "abonamente": {
+   "title": "Pet care subscriptions",
+   "lead": "Choose the monthly subscription that suits you and your pet.",
+   "body": "<p>Today, there is a growing tendency to see pets as full members of the family. We include them in family photos, take them on holiday, make sure they are loved and cared for, well fed and well trained, and give them special treatment when they are ill.</p>",
+   "blocks": {
+    "rules_html": "<h3>Subscription rules for multiple pets</h3><p>The first pet pays the standard subscription price for its category.</p><strong>Second pet</strong><br/>If it falls into the same weight (kg) category as the first pet, it receives a <strong>100% discount on the subscription</strong>.<br/>If it does not, it receives a <strong>30% discount</strong> and has a separate subscription.<strong>Third pet</strong><br/>If it falls into the weight category of one of the pets already added, it receives a <strong>100% discount on the subscription</strong>.<br/>If it does not, it receives a <strong>40% discount</strong>.<strong>Fourth pet</strong><br/>The same weight category rule applies. If it does not fit any category, it receives a <strong>50% discount</strong>.<p>Your wallet and points remain active separately in your account. The configurator automatically calculates the discount based on the pets already saved in your account.</p>",
+    "closing": "<p>If you have any questions and want to be sure that the plan you choose is the best fit for your furry friend, we are happy to talk through the details with you and choose a personalised plan for your pet. </p><p>You can contact us right <a href=\"/hikevet-contact/\">here.</a></p>",
+    "image": "2023/07/img-section-03-min"
+   }
+  },
+  "hikevet-contact": {
+   "title": "Contact"
+  },
+  "intrebari-frecvente": {
+   "title": "Frequently asked questions",
+   "body": "<p>When you adopt or buy a pet, lots of questions come up. Below, we have tried to answer the most common ones.</p>"
+  },
+  "blog": {
+   "title": "Blog"
+  },
+  "video-vet": {
+   "title": "Video Vet",
+   "lead": "Your virtual assistant",
+   "body": "<p>Welcome to Video-VET, the online veterinary assistance service dedicated to the health and well-being of your pets!</p><p>With Video-VET, you get trusted, professional veterinary care right from your home. Whether you have questions about your pet's health, need care advice or are facing an urgent medical problem, we are here to help.</p><ul><li> </li></ul>",
+   "blocks": {
+    "advantages": [
+     "Connect virtually with a veterinarian to assess symptoms and discuss your pet's condition.",
+     "Neither you nor your pet needs to be there in person.",
+     "Comfort, with none of the stress that travelling can cause.",
+     "Makes it easier to create a treatment plan or get the right answers about your pet's health.",
+     "Fast, flexible access to the specialists at HiKeVet clinic.",
+     "Suitable for non-urgent issues."
+    ],
+    "how": "<p>Video veterinary consultations are stress-free for you and your furry family member. We know how valuable everyone's time is and how stressful a visit to the vet can be for your furry friend, so we set out to help you with a digital solution.</p><p>You will connect virtually with one of our vets, who will see your pet online, and together you will discuss the symptoms that worry you, your pet's condition and everything needed to create a treatment plan or give you an answer about your companion's condition. There is no downside to booking a telemedicine video consultation for your pet for non-urgent issues, but if your pet is facing an emergency, it should be seen at the nearest emergency veterinary clinic. Our medical team is available for online consultations during normal working hours, and outside working hours for emergency consultations.</p><p>So please contact us if you are not sure which type of appointment (online/in person) you need.</p><p><strong>*However, if you notice an emergency, we strongly recommend calling our ambulance service on: 0770 643 827</strong></p>",
+    "booking_url": "https://vet.digitail.io/clinics/clinica-veterinara-hikevet",
+    "image": "2023/07/photo-of-dog-and-computer-on-a-fitness-mat-2022-11-11-10-52-27-utc"
+   }
+  },
+  "tur-3d": {
+   "title": "3D Tour",
+   "body": "<p>Welcome to the HiKeVet 3D virtual tour!</p> <p>Discover our veterinary clinic and the state-of-the-art equipment dedicated to caring for your furry friends. <br/>From the welcoming reception area to the consultation rooms and specialised spaces, explore every corner through virtual reality, which also lets you book your next check-up or any procedure your pet needs.<br/>With this 3D virtual tour, we invite you to take part in a unique experience offered by HiKeVet veterinary clinic and to feel our friendly, professional everyday atmosphere.</p>",
+   "blocks": {
+    "embed_note": "The 3D tour (Captur3D) is configured from the admin panel: the embed code is missing from the public export."
+   }
+  }
+ },
+ "team": {
+  "radu-festeu": {
+   "role_title": "Veterinarian",
+   "bio": "<p>A graduate of the Faculty of Veterinary Medicine in Cluj-Napoca, Dr. Radu Feșteu brings youthful enthusiasm and the latest advances in veterinary science to our clinic. His eagerness to gain new knowledge, the experience he gained through the Erasmus exchange programme in Italy and his dedication to providing top-quality care make him a valuable asset to our team.</p><p>He is keen to keep up with the latest research and techniques in order to provide modern, evidence-based treatment for your pets.</p>"
+  },
+  "dregics-szidonia": {
+   "role_title": "Veterinarian"
+  }
+ },
+ "service_categories": {
+  "diagnostic": {
+   "name": "Diagnostics and imaging"
+  },
+  "medicina": {
+   "name": "Medicine and specialties"
+  },
+  "chirurgie": {
+   "name": "Surgery and anaesthesia"
+  },
+  "preventie": {
+   "name": "Prevention and documents"
+  },
+  "acasa": {
+   "name": "Home visits and emergencies"
+  }
+ }
+}

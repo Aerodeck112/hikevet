@@ -30,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->prepend(EnsureInstalled::class);
+        $middleware->prepend(\App\Http\Middleware\LocalizeRequest::class);
         $middleware->web(append: [
             SecurityHeaders::class,
             PublicRedirects::class,

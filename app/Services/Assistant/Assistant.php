@@ -30,7 +30,7 @@ class Assistant
         return <<<TXT
         Ești asistentul de pe site-ul clinicii veterinare {$name} din Târgu Mureș. Pe site apari ca Hiko, ciobănescul clinicii, împreună cu Raza, pisica cu ochelari; vorbește cald și pe scurt, ca un recepționer prietenos, fără să exagerezi cu glumele.
 
-        Scrie mereu în limba română, cu diacritice. Răspunde în 1–4 fraze scurte; folosește o listă doar când enumeri prețuri sau pași. Poți folosi **îngroșat** și linkuri în forma [text](adresă), doar cu adresele din secțiunea „Pagini utile” sau din paginile de servicii.
+        {$this->languageRule()} Răspunde în 1–4 fraze scurte; folosește o listă doar când enumeri prețuri sau pași. Poți folosi **îngroșat** și linkuri în forma [text](adresă), doar cu adresele din secțiunea „Pagini utile” sau din paginile de servicii.
 
         Folosește doar informațiile de mai jos despre clinică. Dacă nu găsești răspunsul acolo (de exemplu un preț pentru un serviciu care nu e în listă, disponibilitatea exactă a unui medic sau programul, dacă nu e trecut), spune că nu știi sigur și îndrumă clientul să sune la {$phone} sau să trimită o cerere de programare. Nu inventa prețuri, nume, orare sau servicii.
 
@@ -38,10 +38,20 @@ class Assistant
 
         Dacă mesajul descrie o urgență (animal lovit, care sângerează, nu respiră bine, convulsii, otrăvire sau substanță toxică înghițită, nu urinează, balonare, colaps, căldură puternică), răspunde din prima frază să sune imediat la {$phone} și să vină la clinică; nu întreba alte detalii înainte.
 
-        Abonamentul este un plan de servicii veterinare, nu o asigurare: nu folosi cuvântul „asigurare” pentru el.
+        Abonamentul este un plan de servicii veterinare, nu o asigurare: nu folosi cuvântul „asigurare” pentru el (nici „insurance” în engleză, nici „biztosítás” în maghiară).
 
         Nu cere și nu accepta date personale sensibile (CNP, date de card, parole). Pentru programare, trimite clientul la formularul de cerere de programare. Dacă cineva întreabă altceva decât lucruri legate de animale și de clinică, spune politicos că poți ajuta doar cu informații despre clinică și îngrijirea animalelor de companie.
         TXT;
+    }
+
+    /** Limba raspunsului: limba paginii de pe care intreaba vizitatorul (sau limba in care scrie). */
+    private function languageRule(): string
+    {
+        return match (app()->getLocale()) {
+            'en' => 'Vizitatorul folosește site-ul în engleză: răspunde în limba engleză (traduci tu informațiile de mai jos, care sunt în română). Dacă scrie în altă limbă, răspunde în limba în care scrie.',
+            'hu' => 'Vizitatorul folosește site-ul în maghiară: răspunde în limba maghiară, cu tegezés (traduci tu informațiile de mai jos, care sunt în română). Orașul se numește în maghiară Marosvásárhely. Dacă scrie în altă limbă, răspunde în limba în care scrie.',
+            default => 'Scrie în limba română, cu diacritice. Dacă vizitatorul scrie în engleză sau maghiară, răspunde în limba în care scrie.',
+        };
     }
 
     /**
@@ -57,17 +67,17 @@ class Assistant
         $count = (int) Cache::get($dayKey, 0);
         $limit = (int) (Settings::get('assistant.daily_limit') ?: 30);
         if ($count >= $limit) {
-            return $this->canned('limit', $question, $conversation, 'Pentru azi am răspuns la multe întrebări. Pentru alte detalii, sună-ne la '.Settings::get('clinic.phone').' sau trimite o cerere de programare.');
+            return $this->canned('limit', $question, $conversation, __('Pentru azi am răspuns la multe întrebări. Pentru alte detalii, sună-ne la :phone sau trimite o cerere de programare.', ['phone' => Settings::get('clinic.phone')]));
         }
         Cache::put($dayKey, $count + 1, now()->endOfDay());
 
         $reply = $this->client->reply($this->instructions(), $this->knowledge->text(), $messages);
 
         $fallback = match ($reply->status) {
-            'refused' => 'La asta nu te pot ajuta aici. Pentru orice întrebare despre animalul tău, sună-ne la '.Settings::get('clinic.phone').'.',
-            'busy' => 'Sunt foarte mulți vizitatori acum. Încearcă din nou peste un minut sau sună-ne la '.Settings::get('clinic.phone').'.',
+            'refused' => __('La asta nu te pot ajuta aici. Pentru orice întrebare despre animalul tău, sună-ne la :phone.', ['phone' => Settings::get('clinic.phone')]),
+            'busy' => __('Sunt foarte mulți vizitatori acum. Încearcă din nou peste un minut sau sună-ne la :phone.', ['phone' => Settings::get('clinic.phone')]),
             'answered' => null,
-            default => 'Nu am putut răspunde acum. Sună-ne la '.Settings::get('clinic.phone').', te ajutăm direct.',
+            default => __('Nu am putut răspunde acum. Sună-ne la :phone, te ajutăm direct.', ['phone' => Settings::get('clinic.phone')]),
         };
         $answer = $fallback ?? $reply->text;
 
@@ -95,7 +105,7 @@ class Assistant
             array_shift($out);
         }
         if (! $out || end($out)['role'] !== 'user') {
-            throw new RuntimeException('Scrie o întrebare.');
+            throw new RuntimeException(__('Scrie o întrebare.'));
         }
 
         return $out;

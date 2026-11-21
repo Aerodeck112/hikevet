@@ -17,7 +17,7 @@ class PaymentController extends Controller
 
     public function wallet(Request $request): RedirectResponse
     {
-        $data = $request->validate(['amount' => ['required', 'numeric', 'min:'.StripeCheckout::WALLET_MIN, 'max:'.StripeCheckout::WALLET_MAX]], [], ['amount' => 'suma']);
+        $data = $request->validate(['amount' => ['required', 'numeric', 'min:'.StripeCheckout::WALLET_MIN, 'max:'.StripeCheckout::WALLET_MAX]], [], ['amount' => __('suma')]);
         try {
             $start = $this->stripe->startWalletTopup($request->user(), (float) $data['amount']);
         } catch (DomainException $e) {
@@ -47,10 +47,10 @@ class PaymentController extends Controller
 
         return redirect()->to(site_url('/panou-cont/'))->with(...match ($payment->status) {
             'paid' => ['status', $payment->purpose === OnlinePayment::WALLET
-                ? 'Plata a fost primită. Wallet-ul a fost alimentat, inclusiv cu bonusurile.'
-                : 'Plata a fost primită. Abonamentul este activ.'],
-            'paid_needs_review' => ['status', 'Plata a fost primită. Clinica o verifică și te contactează dacă este nevoie de ceva.'],
-            default => ['status', 'Plata este în curs de confirmare. Dacă ai plătit, contul se actualizează în câteva minute.'],
+                ? __('Plata a fost primită. Wallet-ul a fost alimentat, inclusiv cu bonusurile.')
+                : __('Plata a fost primită. Abonamentul este activ.')],
+            'paid_needs_review' => ['status', __('Plata a fost primită. Clinica o verifică și te contactează dacă este nevoie de ceva.')],
+            default => ['status', __('Plata este în curs de confirmare. Dacă ai plătit, contul se actualizează în câteva minute.')],
         });
     }
 
@@ -58,6 +58,6 @@ class PaymentController extends Controller
     {
         abort_unless($payment->user_id === $request->user()->id, 403);
 
-        return redirect()->to(site_url('/panou-cont/'))->with('error', 'Plata nu a fost finalizată. Nu s-a încasat nimic.');
+        return redirect()->to(site_url('/panou-cont/'))->with('error', __('Plata nu a fost finalizată. Nu s-a încasat nimic.'));
     }
 }
