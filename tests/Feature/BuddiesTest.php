@@ -87,4 +87,12 @@ class BuddiesTest extends TestCase
 
         $this->get('/admin/login')->assertOk()->assertSee('Bună tura de azi', false);
     }
+
+    public function test_footer_credits_vitim_with_a_link_to_vitim_ro(): void
+    {
+        $this->get('/')->assertOk()
+            ->assertSee('href="https://vitim.ro/?utm_source=hikevet.ro&amp;utm_medium=referral&amp;utm_campaign=footer"', false)
+            ->assertSee('<strong>VITIM</strong>', false)
+            ->assertSee('Site dezvoltat de VITIM', false);
+    }
 }

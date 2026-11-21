@@ -100,6 +100,12 @@
         <div class="footer-word" aria-hidden="true">HiKeVet</div>
         <div class="footer-bottom">
             <span>© {{ date('Y') }} {{ $clinic['name'] }}. Toate drepturile rezervate.</span>
+            {{-- Semnatura dezvoltatorului --}}
+            <a class="made-by" href="https://vitim.ro/?utm_source=hikevet.ro&amp;utm_medium=referral&amp;utm_campaign=footer" rel="noopener" aria-label="Site dezvoltat de VITIM, departamentul extern de IT și AI (vitim.ro)">
+                <span class="made-by-face" aria-hidden="true"></span>
+                <span class="made-by-text">Dezvoltat cu grijă (și multe recompense pentru Hiko) de <strong>VITIM</strong></span>
+                <span class="made-by-tip" aria-hidden="true">Ham! Aici am învățat să vorbesc. Departamentul extern de IT &amp; AI al firmei tale.</span>
+            </a>
             <div class="footer-badges">
                 <a href="https://reclamatiisal.anpc.ro/" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sal1-1-5.webp') }}" alt="ANPC – Soluționarea alternativă a litigiilor" width="500" height="124" loading="lazy"></a>
                 <a href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sol-5.webp') }}" alt="Soluționarea online a litigiilor" width="500" height="124" loading="lazy"></a>

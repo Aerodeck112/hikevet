@@ -551,3 +551,19 @@
   .ai-launch > span:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .ai-panel { right: 0.5rem; left: 0.5rem; bottom: 0.5rem; width: auto; height: calc(100dvh - 1rem); border-radius: 22px; }
 }
+
+/* Semnatura VITIM in footer */
+.made-by { position: relative; display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.35rem 0.85rem 0.35rem 0.4rem; border: 1px solid #3a3157; border-radius: 999px;
+  color: #d4cfe6; font-size: var(--step--1); text-decoration: none !important; transition: border-color 0.2s, background-color 0.2s, color 0.2s; }
+.made-by strong { color: #fff; font: 800 1.02em/1 var(--display); letter-spacing: 0.04em; }
+.made-by-face { width: 1.7rem; height: 1.6rem; flex: none; background: no-repeat center / contain var(--hiko-face); transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.made-by:hover, .made-by:focus-visible { border-color: var(--sun); background: rgba(255, 194, 31, 0.08); color: #fff; }
+.made-by:hover strong, .made-by:focus-visible strong { color: var(--sun); }
+.made-by:hover .made-by-face, .made-by:focus-visible .made-by-face { transform: rotate(-14deg) scale(1.15); }
+.made-by-tip { position: absolute; bottom: calc(100% + 0.7rem); left: 0; width: max-content; max-width: 17rem; padding: 0.55rem 0.8rem; border: 3px solid var(--ink); border-radius: 16px 16px 16px 4px;
+  background: #fff; color: var(--ink); font: 600 0.88rem/1.3 var(--text); box-shadow: 3px 3px 0 var(--sun); opacity: 0; transform: translateY(6px) scale(0.9); transform-origin: 0 100%;
+  pointer-events: none; transition: opacity 0.15s, transform 0.2s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.made-by:hover .made-by-tip, .made-by:focus-visible .made-by-tip { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .made-by-face, .made-by-tip { transition: none; } }
+@media (max-width: 640px) { .made-by-text { font-size: 0.85rem; } }
+body:has(.ai-launch) .footer-bottom { padding-bottom: 4.5rem; }

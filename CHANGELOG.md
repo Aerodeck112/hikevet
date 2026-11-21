@@ -1,5 +1,9 @@
 # Jurnal de modificări
 
+## 0.4.1 – 21.11.2026
+- Footer: semnătura „Dezvoltat cu grijă (și multe recompense pentru Hiko) de VITIM”, cu legătură spre vitim.ro;
+  la trecerea cu mouse-ul, Hiko spune unde a învățat să vorbească.
+
 ## 0.4.0 – 21.11.2026
 
 ### Programări pe site, ca cereri
