@@ -24,7 +24,7 @@
     "src": "node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2"
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-D1pFBxM2.css",
+    "file": "assets/admin-Bqs5fyqp.css",
     "name": "admin",
     "names": [
       "admin.css"
@@ -33,7 +33,7 @@
     "isEntry": true
   },
   "resources/css/site.css": {
-    "file": "assets/site-DwA_m7Ga.css",
+    "file": "assets/site-B_e0zDJm.css",
     "name": "site",
     "names": [
       "site.css"
@@ -56,7 +56,7 @@
     "isDynamicEntry": true
   },
   "resources/js/site.js": {
-    "file": "assets/site-ctu_j2QE.js",
+    "file": "assets/site-lNMHRLz_.js",
     "name": "site",
     "src": "resources/js/site.js",
     "isEntry": true,

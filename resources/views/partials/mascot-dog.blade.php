@@ -27,6 +27,11 @@
         <path class="dog-tongue" d="M108 166 C 106 192 134 192 132 166 Z" fill="#E6177A" stroke="#1F1638" stroke-width="4" stroke-linejoin="round"/>
         <ellipse cx="120" cy="136" rx="17" ry="12" fill="#1F1638"/>
         <ellipse cx="114" cy="132" rx="5" ry="3" fill="#fff" opacity=".7"/>
+        <g class="xmas-hat" aria-hidden="true">
+            <path d="M86 56 Q114 -16 186 16 Q158 24 156 56 Z" fill="#E11D2E" stroke="#1F1638" stroke-width="5" stroke-linejoin="round"/>
+            <rect x="78" y="46" width="88" height="18" rx="9" fill="#fff" stroke="#1F1638" stroke-width="5"/>
+            <circle cx="188" cy="18" r="11" fill="#fff" stroke="#1F1638" stroke-width="5"/>
+        </g>
     </g>
     <g class="dog-paws">
         <ellipse cx="66" cy="210" rx="30" ry="17" fill="#E9A25B" stroke="#1F1638" stroke-width="5"/>

@@ -2,7 +2,7 @@
 
 @section('content')
 @include('site._head', ['title' => $post->title])
-<article style="padding-bottom: var(--section)">
+<article style="padding-bottom: var(--section)" data-reading>
     <div class="wrap">
         <p style="margin-top:-1.5rem"><time datetime="{{ $post->published_at?->toDateString() }}">{{ $post->published_at?->translatedFormat('j F Y') }}</time></p>
         @if ($post->image)

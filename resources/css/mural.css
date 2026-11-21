@@ -454,3 +454,58 @@
   .paw-burst i { animation: paw-fall 2.4s cubic-bezier(0.3, 0.6, 0.4, 1) calc(var(--i) * 70ms) forwards; }
 }
 @keyframes paw-fall { 0% { opacity: 0; transform: translateY(-20px) rotate(0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(70vh) rotate(calc(var(--i) * 47deg - 300deg)); } }
+
+/* ---------- Interactiuni: caciuli, inimioare, recompense, bara de citire, labute, cuvinte secrete ---------- */
+.xmas-hat { display: none; }
+.is-festive .xmas-hat { display: inline; }
+.is-festive .cat-shades { transform: translateY(6px); }
+
+.pet-heart { position: fixed; z-index: 90; width: 22px; height: 20px; pointer-events: none; opacity: 0;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z' fill='%23e6177a' stroke='%231f1638' stroke-width='1.6'/%3E%3C/svg%3E");
+  animation: heart-up 1.6s ease-out forwards; }
+@keyframes heart-up { 0% { opacity: 0; transform: translate(-50%, 0) scale(0.4); } 20% { opacity: 1; transform: translate(-50%, -14px) scale(1.1); } 100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), -110px) scale(0.8) rotate(12deg); } }
+@media (prefers-reduced-motion: reduce) { .pet-heart { animation: heart-still 1.2s forwards; } @keyframes heart-still { 0%, 80% { opacity: 1; } 100% { opacity: 0; } } }
+
+.treat-btn { position: absolute; z-index: 4; right: calc(5% + var(--dog) * 0.92); bottom: -1.1rem; transform: rotate(-3deg);
+  display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.9rem; border: 2px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink);
+  font: 600 0.9rem var(--text); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; transition: transform 0.15s; white-space: nowrap; }
+.treat-btn:hover:not(:disabled) { transform: rotate(0) scale(1.05); }
+.treat-btn:disabled { opacity: 0.55; cursor: default; }
+.treat-btn small { font-weight: 700; color: var(--magenta); }
+.flying-bone { position: fixed; z-index: 95; pointer-events: none; font-size: 2rem; line-height: 1; transform: translate(-50%, -50%);
+  animation: bone-fly 0.75s cubic-bezier(0.3, 0.1, 0.4, 1) forwards; }
+@keyframes bone-fly {
+  0% { transform: translate(-50%, -50%) rotate(0); }
+  50% { transform: translate(calc(-50% + var(--tx) * 0.5), calc(-50% + var(--ty) * 0.5 - 120px)) rotate(300deg); }
+  100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(620deg) scale(0.4); opacity: 0.2; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .peek-dog.is-chomping .dog-head { animation: chomp 0.13s ease-in-out 6 alternate; transform-box: view-box; transform-origin: 120px 200px; }
+  .peek-dog.is-chomping .dog-tongue { animation: none; }
+}
+@keyframes chomp { to { transform: translateY(-6px) scaleY(0.96); } }
+
+.read-track { position: fixed; z-index: 60; left: 0; right: 0; top: 0; height: 6px; background: rgba(31, 22, 56, 0.1); opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.read-track.is-on { opacity: 1; }
+.read-fill { position: absolute; inset: 0; background: var(--turq); transform-origin: 0 50%; transform: scaleX(0); }
+.read-dog { position: absolute; top: 2px; width: 1.9rem; height: 1.8rem; font-size: 0; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Cpath d='M14 26 L9 2 L28 14 Z M50 26 L55 2 L36 14 Z' fill='%23e9a25b' stroke='%231f1638' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M16 22 L13 9 L24 16 Z M48 22 L51 9 L40 16 Z' fill='%235a3b27'/%3E%3Cellipse cx='32' cy='34' rx='21' ry='20' fill='%23e9a25b' stroke='%231f1638' stroke-width='3'/%3E%3Cpath d='M22 18 C28 14 36 14 42 18 C39 23 34 25 32 30 C30 25 25 23 22 18 Z' fill='%235a3b27'/%3E%3Ccircle cx='24' cy='31' r='4' fill='%23fff' stroke='%231f1638' stroke-width='2'/%3E%3Ccircle cx='40' cy='31' r='4' fill='%23fff' stroke='%231f1638' stroke-width='2'/%3E%3Ccircle cx='24.5' cy='31.5' r='2' fill='%231f1638'/%3E%3Ccircle cx='40.5' cy='31.5' r='2' fill='%231f1638'/%3E%3Cellipse cx='32' cy='44' rx='12' ry='9' fill='%23f6d8ae' stroke='%231f1638' stroke-width='2.5'/%3E%3Cellipse cx='32' cy='39' rx='5' ry='3.5' fill='%231f1638'/%3E%3Cpath d='M29 47 C28 55 36 55 35 47 Z' fill='%23e6177a' stroke='%231f1638' stroke-width='2'/%3E%3C/svg%3E"); }
+@media (prefers-reduced-motion: no-preference) { .read-track.is-on:not(.is-done) .read-dog { animation: trot 0.3s ease-in-out infinite alternate; } }
+@keyframes trot { to { margin-top: -4px; } }
+.read-track.is-done .read-fill { background: var(--sun); }
+
+.page-panel { overflow: visible; }
+.paw-stamp { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; pointer-events: none; transform: rotate(var(--r)) scale(0.4); opacity: 0;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='%231f1638' opacity='.55'%3E%3Cellipse cx='20' cy='27' rx='10' ry='8.5'/%3E%3Cellipse cx='8' cy='15' rx='4.2' ry='5.4'/%3E%3Cellipse cx='16' cy='8' rx='4.2' ry='5.6'/%3E%3Cellipse cx='25' cy='8' rx='4.2' ry='5.6'/%3E%3Cellipse cx='32' cy='15' rx='4.2' ry='5.4'/%3E%3C/g%3E%3C/svg%3E");
+  animation: stamp 2.6s ease-out forwards; }
+@keyframes stamp { 0% { opacity: 0; transform: rotate(var(--r)) scale(1.4); } 10% { opacity: 1; transform: rotate(var(--r)) scale(1); } 75% { opacity: 1; } 100% { opacity: 0; transform: rotate(var(--r)) scale(1); } }
+
+.secret-pop { position: fixed; z-index: 80; bottom: 0; width: 150px; transform: translateY(105%); transition: transform 0.5s cubic-bezier(0.3, 1.5, 0.5, 1); pointer-events: none; }
+.secret-pop--cat { left: 1.5rem; }
+.secret-pop--dog { right: 1.5rem; }
+.secret-pop.is-up { transform: translateY(8%); }
+.secret-pop svg { display: block; width: 100%; height: auto; overflow: visible; }
+.secret-say { position: absolute; bottom: 100%; left: 0; width: max-content; max-width: 14rem; margin: 0; background: #fff; color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 18px; padding: 0.5rem 0.8rem; font: 600 0.95rem/1.25 var(--text); box-shadow: var(--shadow-hard); }
+.secret-pop .cat-lids { display: none; }
+@media (max-width: 760px) { .secret-pop { bottom: 4.5rem; width: 110px; } }
+.secret-pop--dog .secret-say { left: auto; right: 0; }

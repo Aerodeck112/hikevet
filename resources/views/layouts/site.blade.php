@@ -108,6 +108,9 @@
     </div>
 </footer>
 
+{{-- Cuvinte secrete: scrie „miau” sau „ham” pe orice pagina --}}
+<template id="secret-cat"><div class="secret-pop secret-pop--cat" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-cat')</div></template>
+<template id="secret-dog"><div class="secret-pop secret-pop--dog" aria-live="polite"><p class="secret-say"></p>@include('partials.mascot-dog')</div></template>
 <div class="mobile-bar no-print">
     <a class="btn btn-ghost" href="tel:{{ preg_replace('/[^0-9+]/', '', $clinic['phone']) }}" data-track="phone_click"><x-hv-icon name="phone" width="20" height="20" /> Sună</a>
     <a class="btn btn-primary" href="{{ $clinic['booking_url'] }}" data-track="booking_click">Programează-te</a>

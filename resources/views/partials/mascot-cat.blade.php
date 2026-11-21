@@ -37,6 +37,11 @@
         <path d="M105 118 C 104 130 116 130 115 118 Z" fill="#E6177A" stroke="#1F1638" stroke-width="3" stroke-linejoin="round"/>
         <path d="M110 112 C 110 120 100 122 95 116 M110 112 C 110 120 120 122 125 116" stroke="#1F1638" stroke-width="3.5" fill="none" stroke-linecap="round"/>
         <path d="M78 112 l -30 -4 M78 118 l -28 6 M142 112 l 30 -4 M142 118 l 28 6" stroke="#1F1638" stroke-width="2.5" stroke-linecap="round"/>
+        <g class="xmas-hat" aria-hidden="true">
+            <path d="M74 40 Q104 -34 172 2 Q146 12 146 40 Z" fill="#E11D2E" stroke="#1F1638" stroke-width="5" stroke-linejoin="round"/>
+            <rect x="66" y="32" width="88" height="18" rx="9" fill="#fff" stroke="#1F1638" stroke-width="5"/>
+            <circle cx="174" cy="4" r="11" fill="#fff" stroke="#1F1638" stroke-width="5"/>
+        </g>
         <g class="cat-shades">
             <path d="M64 76 h 92" stroke="#1F1638" stroke-width="6" stroke-linecap="round"/>
             <rect x="64" y="70" width="44" height="32" rx="13" fill="#1E3BA8" stroke="#1F1638" stroke-width="5"/>

@@ -5,6 +5,7 @@ import { configurator } from './configurator';
 import { signaturePad } from './signature';
 import { initBuddies } from './buddies';
 import { bookingForm } from './booking';
+import { initFun } from './fun';
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
@@ -54,6 +55,7 @@ Alpine.start();
 
 // Pisica si cainele de pe paginile interioare, din footer si din paginile de eroare.
 initBuddies();
+initFun();
 
 // Personajele, turul clinicii si episoadele: incarcate doar unde exista.
 if (document.querySelector('[data-wall], [data-tour], [data-episodes]')) {

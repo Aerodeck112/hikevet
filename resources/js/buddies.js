@@ -1,6 +1,8 @@
 // Personajele de pe paginile interioare (x-buddy): urmaresc cursorul cu privirea,
 // apar o singura data cand intra in ecran si spun cate ceva la click. Fara biblioteci.
 // Cine are miscarea redusa le vede statice, dar replicile merg in continuare.
+import { contextLine } from './fun';
+
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Balonul se deschide spre partea cu mai mult loc si se strange pe latimea textului.
@@ -63,7 +65,17 @@ export function initBuddies(root = document) {
             if (isIntersecting && !target.classList.contains('is-in')) {
                 target.classList.add('is-in');
                 setTimeout(() => target.classList.add('is-landed'), 900);
-                if (target.hasAttribute('data-greet')) setTimeout(() => speakers.get(target)(), reduced() ? 300 : 900);
+                if (target.hasAttribute('data-greet')) {
+                    // O data pe vizita, primul salut tine cont de ora si de zi.
+                    let ctx = null;
+                    try {
+                        if (!sessionStorage.getItem('hv-ctx')) {
+                            ctx = contextLine(target.classList.contains('buddy--dog') ? 'dog' : 'cat');
+                            if (ctx) sessionStorage.setItem('hv-ctx', '1');
+                        }
+                    } catch { ctx = null; }
+                    setTimeout(() => speakers.get(target)(ctx ?? undefined), reduced() ? 300 : 900);
+                }
             }
         });
     }, { threshold: 0.35 });
