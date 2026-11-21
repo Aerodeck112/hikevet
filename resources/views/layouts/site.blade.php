@@ -107,8 +107,7 @@
                 <span class="made-by-tip" aria-hidden="true">Ham! Aici am învățat să vorbesc. Departamentul extern de IT &amp; AI al firmei tale.</span>
             </a>
             <div class="footer-badges">
-                <a href="https://reclamatiisal.anpc.ro/" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sal1-1-5.webp') }}" alt="ANPC – Soluționarea alternativă a litigiilor" width="500" height="124" loading="lazy"></a>
-                <a href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sol-5.webp') }}" alt="Soluționarea online a litigiilor" width="500" height="124" loading="lazy"></a>
+                <a href="https://reclamatiisal.anpc.ro/" rel="noopener"><img src="{{ asset('media/2026/03/anpc-sal1-1-5.webp') }}" alt="ANPC – Soluționarea alternativă a litigiilor (SAL)" width="500" height="124" loading="lazy"></a>
             </div>
         </div>
     </div>

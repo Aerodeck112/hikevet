@@ -93,6 +93,9 @@ class BuddiesTest extends TestCase
         $this->get('/')->assertOk()
             ->assertSee('href="https://vitim.ro/?utm_source=hikevet.ro&amp;utm_medium=referral&amp;utm_campaign=footer"', false)
             ->assertSee('<strong>VITIM</strong>', false)
-            ->assertSee('Site dezvoltat de VITIM', false);
+            ->assertSee('Site dezvoltat de VITIM', false)
+            // Platforma europeana SOL s-a inchis in iulie 2025: ramane doar sigla ANPC SAL.
+            ->assertSee('reclamatiisal.anpc.ro', false)
+            ->assertDontSee('consumer-redress.ec.europa.eu', false);
     }
 }
