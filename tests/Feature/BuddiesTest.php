@@ -98,4 +98,19 @@ class BuddiesTest extends TestCase
             ->assertSee('reclamatiisal.anpc.ro', false)
             ->assertDontSee('consumer-redress.ec.europa.eu', false);
     }
+
+    public function test_every_service_page_shows_its_own_scene_with_hiko_or_raza(): void
+    {
+        $services = \App\Models\Service::published()->get();
+        $this->assertNotEmpty($services);
+        foreach ($services as $service) {
+            $this->assertTrue(\App\Support\VetScenes::has($service->slug), 'Lipsește scena pentru '.$service->slug);
+            $html = $this->get($service->path())->assertOk()->getContent();
+            $this->assertStringContainsString('vet-scene-art', $html, $service->slug);
+            $this->assertStringContainsString('vs-'.$service->slug, $html, $service->slug);
+            $this->assertStringNotContainsString('head-buddy', $html, 'Pe pagina de serviciu scena înlocuiește personajul simplu: '.$service->slug);
+        }
+        $this->get('/ecografie/')->assertSee('Medicul îi face lui Hiko o ecografie')->assertSee('Doar gelul e cam rece');
+        $this->get('/oftamologie/')->assertSee('<b class="buddy-name buddy-name--cat">Raza</b>', false);
+    }
 }

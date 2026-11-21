@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-@include('site._head', ['title' => $service->name])
+@include('site._head', ['title' => $service->name, 'scene' => $service->slug])
 <section style="padding-bottom: var(--section)">
     <div class="wrap with-aside">
         <article class="prose">

@@ -1,5 +1,11 @@
 # Jurnal de modificări
 
+## 0.4.2 – 21.11.2026
+- Fiecare pagină de serviciu are scena ei animată, în antet: medicul îi face lui Hiko sau Razei exact serviciul
+  respectiv (ecograf cu imagine care se mișcă, radiografie cu bliț și schelet, anestezie cu „zzz”, ghips la ortopedie,
+  lupă la dermatologie, oftalmoscop, ciocănel de reflexe, vaccin cu steluță, scaner de microcip, pașaport,
+  ambulanța cu girofar etc.), plus replica pacientului. Pentru procedurile de reproducere, scena e de laborator.
+
 ## 0.4.1 – 21.11.2026
 - Footer: semnătura „Dezvoltat cu grijă (și multe recompense pentru Hiko) de VITIM”, cu legătură spre vitim.ro;
   la trecerea cu mouse-ul, Hiko spune unde a învățat să vorbească.

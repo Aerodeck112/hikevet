@@ -567,3 +567,85 @@
 @media (prefers-reduced-motion: reduce) { .made-by-face, .made-by-tip { transition: none; } }
 @media (max-width: 640px) { .made-by-text { font-size: 0.85rem; } }
 body:has(.ai-launch) .footer-bottom { padding-bottom: 4.5rem; }
+
+/* ---------- Scenele de pe paginile de servicii (medicul + Hiko/Raza) ---------- */
+.page-panel--scene { grid-template-columns: minmax(0, 1fr) minmax(260px, 430px); align-items: center; padding-bottom: clamp(1.5rem, 3.5vw, 3rem); }
+.page-panel--scene .page-head-text { padding-bottom: 0; }
+.vet-scene { margin: 0; position: relative; display: grid; gap: 0.75rem; }
+.vet-scene-art { display: block; width: 100%; height: auto; filter: drop-shadow(7px 7px 0 var(--ink)); }
+.vet-scene-art .mascot { overflow: visible; }
+.vet-scene-say { position: relative; justify-self: end; max-width: 92%; margin-top: -2.2rem; margin-right: 0.75rem; padding: 0.85rem 1rem 0.65rem; background: #fff; color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 18px 18px 18px 4px; box-shadow: var(--shadow-hard); font: 600 0.98rem/1.3 var(--text); }
+.vet-scene-say .buddy-name { left: 0.8rem; }
+.buddy-name--cat { background: var(--magenta); }
+.buddy-name--dog { background: var(--tangerine); }
+/* Raza isi tine ochelarii pe crestet la consult, ca sa se vada ochii */
+.vet-scene .cat-shades { transform: translate(0, -44px) rotate(-8deg); transform-box: view-box; transform-origin: 110px 86px; }
+.vet-scene .cat-lids, .vet-scene .xmas-hat { display: none; }
+.is-festive .vet-scene .xmas-hat { display: inline; }
+.vet-scene [class^='vs-'], .vet-scene [class*=' vs-'] { transform-box: fill-box; transform-origin: 50% 50%; }
+@media (max-width: 860px) {
+  .page-panel--scene { grid-template-columns: minmax(0, 1fr); }
+  .vet-scene { margin-top: 1.25rem; max-width: 460px; justify-self: center; width: 100%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vet-scene .cat-tail { transform-box: view-box; transform-origin: 150px 210px; animation: buddy-tail 2.6s ease-in-out infinite alternate; }
+  .vet-scene .dog-tongue { transform-box: fill-box; transform-origin: 50% 0; animation: buddy-pant 0.34s ease-in-out infinite alternate; }
+  .vs-slide { animation: vs-slide 2.4s ease-in-out infinite alternate; }
+  .vs-blob { animation: vs-blob 2.4s ease-in-out infinite alternate; }
+  .vs-flash { animation: vs-flash 3.2s ease-in-out infinite; }
+  .vs-xray { animation: vs-xray 3.2s ease-in-out infinite; }
+  .vs-beat { animation: vs-beat 0.9s ease-in-out infinite; }
+  .vs-beat--late { animation-delay: 0.45s; }
+  .vs-zzz text { animation: buddy-z 2.8s ease-in infinite; transform-box: fill-box; }
+  .vs-zzz text:nth-child(2) { animation-delay: 0.9s; }
+  .vs-zzz text:nth-child(3) { animation-delay: 1.8s; }
+  .vs-ecg { stroke-dasharray: 130; animation: vs-ecg 1.8s linear infinite; }
+  .vs-drop { animation: vs-drop 1.4s ease-in infinite; }
+  .vs-glow { animation: vs-glow 2s ease-in-out infinite alternate; }
+  .vs-sparkle { animation: vs-sparkle 1.6s ease-in-out infinite; }
+  .vs-wander { animation: vs-wander 3.4s ease-in-out infinite; }
+  .vs-beam { animation: vs-glow 0.9s ease-in-out infinite alternate; }
+  .vs-tap { transform-box: view-box; transform-origin: 282px 176px; animation: vs-tap 1.4s ease-in-out infinite; }
+  .vs-pop { animation: vs-pop 1.4s ease-out infinite; }
+  .vs-brush { animation: vs-brush 0.35s ease-in-out infinite alternate; }
+  .vs-bounce { animation: vs-bounce 1.2s ease-in-out infinite; }
+  .vs-flee circle { animation: vs-flee 1.8s ease-out infinite; transform-box: fill-box; }
+  .vs-flee circle:nth-child(2) { animation-delay: 0.5s; }
+  .vs-flee circle:nth-child(3) { animation-delay: 1s; }
+  .vs-wave path { animation: vs-glow 0.7s ease-in-out infinite alternate; }
+  .vs-wave path:nth-child(2) { animation-delay: 0.35s; }
+  .vs-fly { animation: vs-fly 5s linear infinite; }
+  .vs-shake { transform-box: fill-box; transform-origin: 50% 100%; animation: vs-shake 1.6s ease-in-out infinite; }
+  .vs-float { animation: vs-float 3s ease-in-out infinite; }
+  .vs-blink { animation: vs-glow 1s steps(2) infinite; }
+  .vs-drive { animation: vs-drive 0.5s ease-in-out infinite alternate; }
+  .vs-wheel { animation: vs-spin 0.6s linear infinite; }
+  .vs-siren { animation: vs-siren 0.6s steps(2) infinite; }
+  .vs-speed { animation: vs-speed 0.6s linear infinite; }
+  .vs-road { animation: vs-road 0.6s linear infinite; }
+}
+@keyframes vs-slide { from { transform: translateX(-8px) rotate(-4deg); } to { transform: translateX(10px) rotate(4deg); } }
+@keyframes vs-blob { from { transform: translate(-6px, 2px) scale(0.9); } to { transform: translate(6px, -2px) scale(1.15); } }
+@keyframes vs-flash { 0%, 70%, 100% { opacity: 0; } 76%, 86% { opacity: 0.85; } }
+@keyframes vs-xray { 0%, 72% { opacity: 0.15; } 80%, 100% { opacity: 1; } }
+@keyframes vs-beat { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.25); } 50% { transform: scale(0.95); } }
+@keyframes vs-ecg { from { stroke-dashoffset: 130; } to { stroke-dashoffset: -130; } }
+@keyframes vs-drop { 0% { transform: translateY(-6px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(14px); opacity: 0; } }
+@keyframes vs-glow { from { opacity: 0.35; } to { opacity: 1; } }
+@keyframes vs-sparkle { 0%, 100% { transform: scale(0.4) rotate(0); opacity: 0.2; } 50% { transform: scale(1.1) rotate(45deg); opacity: 1; } }
+@keyframes vs-wander { 0%, 100% { transform: translate(0, 0); } 33% { transform: translate(18px, 14px); } 66% { transform: translate(8px, 30px); } }
+@keyframes vs-tap { 0%, 60%, 100% { transform: rotate(-18deg); } 70% { transform: rotate(8deg); } 80% { transform: rotate(-10deg); } }
+@keyframes vs-pop { 0%, 55% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes vs-brush { from { transform: translate(-3px, 1px); } to { transform: translate(4px, -1px); } }
+@keyframes vs-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px) rotate(-6deg); } }
+@keyframes vs-flee { 0% { transform: translate(0, 0); opacity: 1; } 100% { transform: translate(60px, -40px); opacity: 0; } }
+@keyframes vs-fly { from { transform: translateX(-40px); } to { transform: translateX(110px); } }
+@keyframes vs-shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
+@keyframes vs-float { 0% { transform: translateY(10px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-40px); opacity: 0; } }
+@keyframes vs-drive { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+@keyframes vs-spin { to { transform: rotate(360deg); } }
+@keyframes vs-siren { 0% { fill: #1E3BA8; } 100% { fill: #E11D2E; } }
+@keyframes vs-speed { from { transform: translateX(10px); opacity: 1; } to { transform: translateX(-20px); opacity: 0; } }
+@keyframes vs-road { from { transform: translateX(0); } to { transform: translateX(-90px); } }
