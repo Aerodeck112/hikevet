@@ -32,7 +32,16 @@ class ConfiguratorController extends Controller
                 : __('Greutatea pisicii trebuie să fie între 0,5 și 70 kg.')], 422);
         }
 
-        return response()->json($offer->toArray());
+        // Afisarea in limba vizitatorului; oferta si contractul raman pe valorile din romana.
+        $data = $offer->toArray();
+        $data['services'] = array_map(fn ($row) => ['display_name' => __($row['display_name'])] + $row, $data['services']);
+        $data['discount_label'] = match (true) {
+            $offer->petOrdinal <= 1 => __('Primul animal – preț standard'),
+            $offer->matchedExistingTier => __('Animalul nr. :n – :p% reducere, se încadrează în categoria de kg existentă', ['n' => $offer->petOrdinal, 'p' => $offer->discountPercent]),
+            default => __('Animalul nr. :n – reducere :p% (categorie de kg diferită)', ['n' => $offer->petOrdinal, 'p' => $offer->discountPercent]),
+        };
+
+        return response()->json($data);
     }
 
     public function submit(SubmitContractRequest $request, ContractService $contracts): JsonResponse

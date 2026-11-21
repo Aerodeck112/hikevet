@@ -36,15 +36,15 @@ class I18nTest extends TestCase
     public function test_seo_canonical_hreflang_and_sitemap_cover_all_languages(): void
     {
         $html = $this->get('/en/servicii/')->getContent();
-        $this->assertStringContainsString('<link rel="canonical" href="http://localhost/en/servicii/">', $html);
-        $this->assertStringContainsString('hreflang="ro" href="http://localhost/servicii/"', $html);
-        $this->assertStringContainsString('hreflang="hu" href="http://localhost/hu/servicii/"', $html);
-        $this->assertStringContainsString('hreflang="x-default" href="http://localhost/servicii/"', $html);
+        $this->assertStringContainsString('<link rel="canonical" href="http://localhost:8000/en/servicii/">', $html);
+        $this->assertStringContainsString('hreflang="ro" href="http://localhost:8000/servicii/"', $html);
+        $this->assertStringContainsString('hreflang="hu" href="http://localhost:8000/hu/servicii/"', $html);
+        $this->assertStringContainsString('hreflang="x-default" href="http://localhost:8000/servicii/"', $html);
         $this->assertStringContainsString('content="en_GB"', $html);
 
         $sitemap = $this->get('/sitemap.xml')->assertOk()->getContent();
-        $this->assertStringContainsString('<loc>http://localhost/hu/ecografie/</loc>', $sitemap);
-        $this->assertStringContainsString('hreflang="en" href="http://localhost/en/ecografie/"', $sitemap);
+        $this->assertStringContainsString('<loc>http://localhost:8000/hu/ecografie/</loc>', $sitemap);
+        $this->assertStringContainsString('hreflang="en" href="http://localhost:8000/en/ecografie/"', $sitemap);
     }
 
     public function test_content_is_translated_from_the_translations_table(): void

@@ -10,7 +10,7 @@
       <div @class(['page-panel', 'page-panel--scene' => $scene])>
         <div class="page-head-text">
             @if (! empty($seo->breadcrumbs))
-                <nav aria-label="Ești aici">
+                <nav aria-label="{{ __('Ești aici') }}">
                     <ol class="crumbs">
                         @foreach ($seo->breadcrumbs as $crumb)
                             <li>@if (! $loop->last)<a href="{{ $crumb['url'] }}">{{ $crumb['name'] }}</a>@else<span aria-current="page">{{ $crumb['name'] }}</span>@endif</li>

@@ -91,7 +91,7 @@ class PublicSiteTest extends TestCase
     public function test_seo_tags_structured_data_sitemap_and_robots(): void
     {
         $home = $this->get('/');
-        $home->assertSee('<link rel="canonical" href="http://localhost:8000/">', false)->assertSee('"@type":"VeterinaryCare"', false)->assertSee('og:title', false)->assertSee('<html lang="ro">', false);
+        $home->assertSee('<link rel="canonical" href="http://localhost:8000/">', false)->assertSee('"@type":"VeterinaryCare"', false)->assertSee('og:title', false)->assertSee('<html lang="ro"', false);
         $this->assertStringNotContainsString('openingHours', $home->getContent(), 'Programul nu apare in datele structurate pana nu este confirmat.');
         $this->assertStringNotContainsString('aggregateRating', $home->getContent());
 
@@ -101,7 +101,7 @@ class PublicSiteTest extends TestCase
         $this->get('/acces-cont')->assertSee('noindex', false);
 
         $sitemap = $this->get('/sitemap.xml')->assertOk()->assertHeader('content-type', 'application/xml; charset=UTF-8')->getContent();
-        $this->assertSame(Page::published()->where('noindex', false)->count() + Service::published()->count() + Post::published()->count(), substr_count($sitemap, '<loc>'));
+        $this->assertSame(3 * (Page::published()->where('noindex', false)->count() + Service::published()->count() + Post::published()->count()), substr_count($sitemap, '<loc>'), 'Fiecare pagina apare in romana, engleza si maghiara.');
         $this->assertStringContainsString('<loc>http://localhost:8000/radiografie/</loc>', $sitemap);
         $this->assertStringNotContainsString('politica-de-confidentialitate', $sitemap, 'Pagina in lucru nu se trimite la indexare.');
 

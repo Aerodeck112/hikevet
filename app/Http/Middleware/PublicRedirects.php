@@ -46,7 +46,7 @@ class PublicRedirects
         if (! app()->runningUnitTests() && $raw !== '/' && ! str_ends_with($raw, '/') && ! str_contains(basename($raw), '.') && substr_count(trim($raw, '/'), '/') === 0) {
             $query = $request->getQueryString();
 
-            return redirect()->away(site_url($raw.'/').($query ? '?'.$query : ''), 301);
+            return redirect()->away($request->root().\App\Support\Locales::prefix().$raw.'/'.($query ? '?'.$query : ''), 301);
         }
 
         return $next($request);

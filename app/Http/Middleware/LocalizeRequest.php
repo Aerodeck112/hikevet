@@ -18,6 +18,9 @@ class LocalizeRequest
     public function handle(Request $request, Closure $next): Response
     {
         [$locale, $rest] = Locales::split($request->getPathInfo());
+        // Fiecare cerere porneste de la radacina (in teste aplicatia serveste mai multe cereri la rand).
+        URL::forceRootUrl(null);
+        URL::useAssetOrigin(null);
 
         if ($locale !== null) {
             $query = $request->getQueryString();

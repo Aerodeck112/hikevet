@@ -33,9 +33,9 @@
         <dl class="acct-stats">
             <div><dt>{{ __('Abonament') }}</dt><dd><span class="badge {{ $hasActive ? 'badge--ok' : 'badge--off' }}">{{ $hasActive ? __('Activ') : __('Inactiv') }}</span></dd></div>
             <div><dt>{{ __('Puncte abonament') }}</dt><dd>{{ number_format($balances['subscription_points'], 0, ',', '.') }}</dd></div>
-            <div><dt>{{ __('Wallet, sold principal') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['principal']) }} <small>lei</small></dd></div>
-            <div><dt>{{ __('Bonus servicii') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['service_bonus']) }} <small>lei</small></dd></div>
-            <div><dt>{{ __('Bonus produse') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['product_bonus']) }} <small>lei</small></dd></div>
+            <div><dt>{{ __('Wallet, sold principal') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['principal']) }} <small>{{ __('lei') }}</small></dd></div>
+            <div><dt>{{ __('Bonus servicii') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['service_bonus']) }} <small>{{ __('lei') }}</small></dd></div>
+            <div><dt>{{ __('Bonus produse') }}</dt><dd>{{ \App\Services\Wallet\WalletLedger::money($balances['product_bonus']) }} <small>{{ __('lei') }}</small></dd></div>
         </dl>
         <p class="hint">{{ __('Punctele și bonusurile dau dreptul la servicii în condițiile din contract și din Termeni; nu sunt bani și nu se pot retrage în numerar.') }}</p>
 
