@@ -120,4 +120,13 @@ class I18nTest extends TestCase
         $res->assertRedirect();
         $this->assertStringContainsString('/en/programare/confirmare/', $res->headers->get('Location'));
     }
+
+    public function test_translation_files_are_shipped_by_the_update_packages(): void
+    {
+        // Actualizatorul instalat accepta doar anumite foldere; traducerile trebuie sa fie intr-unul dintre ele.
+        $relative = ltrim(str_replace(base_path(), '', lang_path('en.json')), '/');
+        $this->assertTrue(collect(\App\Services\Updates\ReleasePackage::ALLOWED_ROOTS)->contains(fn ($root) => str_starts_with($relative, $root)), $relative);
+        $this->assertFileExists(lang_path('hu.json'));
+        $this->assertFileExists(lang_path('ro/validation.php'));
+    }
 }

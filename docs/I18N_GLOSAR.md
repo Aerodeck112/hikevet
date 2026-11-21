@@ -5,7 +5,7 @@ Adminul, tableta de consimțământ, contractele PDF și emailurile interne răm
 
 ## Cum se traduce interfața
 - Textul românesc din șabloane se pune în `__('…')`, iar **cheia este chiar textul românesc exact** (româna se afișează neschimbată).
-- Traducerile sunt în `lang/en.json` și `lang/hu.json` (cheie = textul românesc, valoare = traducerea).
+- Traducerile sunt în `resources/lang/en.json` și `resources/lang/hu.json` (cheie = textul românesc, valoare = traducerea).
 - Variabile: `__('Bună, :name!', ['name' => $nume])`. Nu lipi bucăți de frază; fiecare frază completă e o cheie.
 - HTML în text doar când e necesar: `{!! __('… <strong>:x</strong> …', ['x' => e($y)]) !!}`; date de la utilizatori întotdeauna escapate.
 - Atribute: `aria-label`, `placeholder`, `alt`, `title` se traduc la fel. În Alpine/JS: `@js(__('…'))`.

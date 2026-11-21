@@ -8,7 +8,7 @@
 - SEO: `<html lang>`, adrese canonice pe limbă, legături hreflang (și x-default spre română), sitemap cu toate
   variantele, og:locale.
 - Interfața (meniu, formulare, cont client, programări, abonamente, Wallet, erori, replicile lui Hiko și ale Razei,
-  scenele de pe servicii, asistentul) este tradusă în `lang/en.json` și `lang/hu.json`.
+  scenele de pe servicii, asistentul) este tradusă în `resources/lang/en.json` și `resources/lang/hu.json`.
 - Conținutul (23 de servicii, pagini, articole, întrebări frecvente, echipă, documente) este tradus în tabelul
   `translations`; clinica îl poate corecta din Admin → Conținut site → Traduceri (EN, HU).
 - Documentele legale în engleză și maghiară sunt informative; pe pagină scrie că textul în română prevalează.

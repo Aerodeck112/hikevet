@@ -1,4 +1,4 @@
-// Textele din scripturi, in limba paginii. Dictionarul vine din lang/{en,hu}.json (App\Support\JsStrings);
+// Textele din scripturi, in limba paginii. Dictionarul vine din resources/lang/{en,hu}.json (App\Support\JsStrings);
 // in romana cheia este chiar textul afisat.
 export function t(text, vars = {}) {
     let out = (window.hvI18n && window.hvI18n[text]) || text;
