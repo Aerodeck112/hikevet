@@ -189,4 +189,28 @@ class BookingTest extends TestCase
         $this->assertSame(AppointmentStatus::Confirmed, $request->status);
         $this->assertSame('12:30', $request->starts_at->format('H:i'));
     }
+
+    public function test_every_booking_request_also_goes_to_contact_at_hikevet(): void
+    {
+        // Chiar daca lista „Emailuri clinica” a fost schimbata, cererile ajung si pe contact@hikevet.com.
+        Settings::set('mail.clinic_recipients', ['receptie@example.com']);
+        $form = ['date' => $this->day->toDateString(), 'preferred_period' => 'pranz', 'client_name' => 'Client Email', 'client_phone' => '0700000010',
+            'client_email' => 'client@example.com', 'pet_name' => 'Azor', 'pet_species' => 'Câine', 'consent' => '1'];
+        $this->post('/programare', $form)->assertRedirect();
+        $this->post('/en/programare', array_merge($form, ['client_name' => 'English Client']))->assertRedirect();
+
+        $clinicMails = \App\Models\EmailLog::query()->where('context', 'appointment_clinic')->get();
+        $this->assertCount(2, $clinicMails);
+        foreach ($clinicMails as $mail) {
+            $this->assertStringContainsString('contact@hikevet.com', $mail->to_email);
+            $this->assertStringContainsString('receptie@example.com', $mail->to_email);
+            $this->assertStringStartsWith('Cerere nouă de programare', $mail->subject, 'Emailul către clinică rămâne în română.');
+        }
+
+        // Anularea facuta de client din linkul privat anunta si clinica
+        $appointment = Appointment::query()->where('client_name', 'Client Email')->sole();
+        $this->post('/programare/anulare/'.$appointment->manage_token)->assertRedirect();
+        $this->assertDatabaseHas('email_logs', ['context' => 'appointment_clinic_cancelled']);
+        $this->assertStringContainsString('contact@hikevet.com', \App\Models\EmailLog::query()->where('context', 'appointment_clinic_cancelled')->value('to_email'));
+    }
 }

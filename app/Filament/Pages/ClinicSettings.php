@@ -48,7 +48,7 @@ class ClinicSettings extends Page implements HasForms
         'address' => 'clinic.address', 'city' => 'clinic.city', 'maps_query' => 'clinic.maps_query', 'review_url' => 'clinic.review_url',
         'instagram' => 'clinic.instagram', 'facebook' => 'clinic.facebook', 'tiktok' => 'clinic.tiktok', 'hours' => 'clinic.hours',
         'booking_mode' => 'booking.mode', 'digitail_url' => 'booking.digitail_url',
-        'clinic_recipients' => 'mail.clinic_recipients', 'sterilization_recipients' => 'mail.sterilization_recipients',
+        'clinic_recipients' => 'mail.clinic_recipients', 'booking_notify' => 'booking.notify_emails', 'sterilization_recipients' => 'mail.sterilization_recipients',
         'expiry_notice_days' => 'subscriptions.expiry_notice_days', 'code_ttl_hours' => 'consent.code_ttl_hours', 'max_attempts' => 'consent.max_attempts',
         'campaign_active' => 'campaign.active', 'campaign_doctors' => 'campaign.doctori', 'campaign_assistants' => 'campaign.asistenti', 'campaign_copy' => 'campaign.copy_addresses',
     ];
@@ -95,6 +95,8 @@ class ClinicSettings extends Page implements HasForms
                     Select::make('booking_mode')->label('Butoanele „Programează-te” duc la')->required()
                         ->options(['digitail' => 'Digitail (ca pe site-ul actual)', 'internal' => 'Sistemul propriu de programări']),
                     TextInput::make('digitail_url')->label('Adresa Digitail')->url()->required(),
+                    TagsInput::make('booking_notify')->label('Cererile de programare ajung mereu și la')->placeholder('adresa@exemplu.ro')->nestedRecursiveRules(['email'])
+                        ->helperText('Pe lângă „Emailuri clinică”. Implicit contact@hikevet.com.')->columnSpanFull(),
                 ]),
             Section::make('Notificări')->columns(2)->schema([
                 TagsInput::make('clinic_recipients')->label('Emailuri clinică (contracte, programări, mesaje)')->placeholder('adresa@exemplu.ro')->nestedRecursiveRules(['email']),

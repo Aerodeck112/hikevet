@@ -30,6 +30,8 @@ class Settings
         'booking.digitail_url' => 'https://vet.digitail.io/clinics/clinica-veterinara-hikevet',
         'booking.mode' => 'internal',
         'mail.clinic_recipients' => ['contact@hikevet.com'],
+        // Cererile de programare ajung mereu si aici, pe langa emailurile clinicii (cerinta clinicii, 21.11.2026).
+        'booking.notify_emails' => ['contact@hikevet.com'],
         'mail.sterilization_recipients' => ['site@hikevet.com'],
         'subscriptions.expiry_notice_days' => 5,
         'consent.code_ttl_hours' => 12,

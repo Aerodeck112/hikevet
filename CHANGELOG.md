@@ -1,5 +1,11 @@
 # Jurnal de modificări
 
+## 0.5.1 – 21.11.2026
+- Toate cererile de programare ajung și pe contact@hikevet.com, pe lângă „Emailuri clinică” (lista se poate
+  completa din Setări clinică → Programări). Emailul către clinică are acum și emailul clientului, animalul
+  și un link spre programările din admin.
+- Când un client își anulează cererea din linkul primit pe email, clinica primește și ea un email.
+
 ## 0.5.0 – 21.11.2026
 
 ### Site în trei limbi: română (bază), engleză, maghiară

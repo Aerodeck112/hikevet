@@ -247,11 +247,23 @@ class BookingService
                 .($event !== 'cancelled' ? '<p>Poți vedea sau anula programarea aici: <a href="'.route('booking.show', $appointment->manage_token).'">detalii programare</a>.</p>' : '')
                 .'<p>Telefon clinică: '.e(Settings::get('clinic.phone')).'</p>', 'appointment_'.$event, 'appointment', $appointment->id, $appointment->user_id);
         }
-        if ($event === 'created') {
-            $this->notifier->send(Settings::emails('mail.clinic_recipients'), 'Cerere nouă de programare: '.$appointment->client_name,
-                '<p><strong>'.e($appointment->client_name).'</strong>, '.e($appointment->client_phone).'</p>'.$details.($appointment->notes ? '<p>'.e($appointment->notes).'</p>' : ''),
-                'appointment_clinic', 'appointment', $appointment->id);
+        $clientCancelled = $event === 'cancelled' && $appointment->cancel_reason === 'Anulată de client';
+        if ($event === 'created' || $clientCancelled) {
+            $who = '<p><strong>'.e($appointment->client_name).'</strong>, '.e($appointment->client_phone)
+                .($appointment->client_email ? ', <a href="mailto:'.e($appointment->client_email).'">'.e($appointment->client_email).'</a>' : '').'</p>';
+            $pet = $appointment->pet_name ? '<p>Animal: '.e($appointment->pet_name).($appointment->pet_species ? ' ('.e($appointment->pet_species).')' : '').'</p>' : '';
+            $this->notifier->send(self::clinicRecipients(),
+                ($clientCancelled ? 'Cerere de programare anulată de client: ' : 'Cerere nouă de programare: ').$appointment->client_name,
+                $who.$details.$pet.($appointment->notes ? '<p>'.e($appointment->notes).'</p>' : '')
+                .'<p><a href="'.e(rtrim((string) config('app.url'), '/').'/admin/appointments').'">Deschide programările în admin</a></p>',
+                $clientCancelled ? 'appointment_clinic_cancelled' : 'appointment_clinic', 'appointment', $appointment->id);
         }
+    }
+
+    /** Emailurile clinicii plus adresele dedicate programarilor (implicit contact@hikevet.com), fara dubluri. */
+    public static function clinicRecipients(): array
+    {
+        return array_values(array_unique(array_map('strtolower', array_merge(Settings::emails('mail.clinic_recipients'), Settings::emails('booking.notify_emails')))));
     }
 
     private function normalizeDuration(int $minutes): int
